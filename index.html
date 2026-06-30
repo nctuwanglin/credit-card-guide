@@ -263,13 +263,13 @@ const cards = [
         {rate:"1",label:"一般消費",sub:"0.3% 帳單e化 ＋ 0.7% 帳戶自動扣繳",cap:"無上限"},
       ]},
       { name:"簡單選 預設", hi:false, tiers:[
-        {rate:"3",hi:true,label:"百大指定通路（預設）",sub:"系統依百大通路自動加碼",cap:"簡單選+任意選 共用上限1,000點/月"},
+        {rate:"3",hi:true,label:"百大指定通路（預設）",sub:"系統依百大通路自動加碼",cap:"簡單選+任意選 共用1,000點/月 · 可刷5萬"},
       ]},
       { name:"任意選 百大中自選8家", hi:true, tiers:[
-        {rate:"3.5",hi:true,label:"自選8家通路",sub:"LINE Pay、家樂福、日本、航空、新光三越、遠百、蝦皮、Trip.com 等",cap:"簡單選+任意選 共用上限1,000點/月"},
+        {rate:"3.5",hi:true,label:"自選8家通路",sub:"LINE Pay、家樂福、日本、航空、新光三越、遠百、蝦皮、Trip.com 等",cap:"簡單選+任意選 共用1,000點/月 · 可刷4萬"},
       ]},
       { name:"UP選 訂閱制 149點/月", hi:true, tiers:[
-        {rate:"4.5",hi:true,label:"百大通路最高回饋",sub:"需訂閱方案 · 月扣149點",cap:"上限5,000點/月 · 約可刷11.1萬"},
+        {rate:"4.5",hi:true,label:"百大通路最高回饋",sub:"需訂閱方案 · 月扣149點",cap:"上限5,000點/月 · 可刷142,857"},
       ]},
     ],
     note:"三方案每日可切換，依每月最後一日方案結算。"
@@ -282,13 +282,13 @@ const cards = [
     valid:"2026/07/01–12/31", tags:["無腦日常","悠遊卡加值","旅日","旅韓","旅歐美"],
     pts:"現金回饋 · 需電子帳單＋DAWHO數位帳戶自扣",
     tiers:[
-      {rate:"1",label:"一般消費（基本）",sub:"國內1% / 國外2%",cap:"無上限"},
-      {rate:"4.5",hi:true,label:"大戶等級（資產30萬以上）",sub:"國內/國外一般消費最高4.5%",cap:""},
-      {rate:"6",hi:true,label:"大戶Plus等級（資產100萬以上）",sub:"國內最高5%、國外最高6%",cap:""},
-      {rate:"3",hi:true,label:"悠遊卡自動加值（大戶）",sub:"大戶Plus 升至5%・上限500/月",cap:"大戶上限100/月"},
+      {rate:"1",label:"一般消費（基本）",sub:"國內1% / 國外2% · 無上限",cap:"無上限"},
+      {rate:"3.5",hi:true,label:"大戶等級（資產30萬以上）",sub:"國內最高3.5%／國外4.5%・基本+任務加碼2.5%",cap:"加碼上限400/月 · 可刷16,000"},
+      {rate:"5",hi:true,label:"大戶Plus等級（資產100萬以上）",sub:"國內最高5%／國外6%・基本+任務加碼4%",cap:"加碼上限1,000/月 · 可刷25,000"},
+      {rate:"3",hi:true,label:"悠遊卡自動加值（大戶）",sub:"大戶Plus 升至5%",cap:"大戶上限100/月·可刷3,333 ／ Plus 500/月·可刷10,000"},
     ],
-    note:"H2大改版：大戶門檻調升至資產30萬，大戶Plus 100萬。分期消費不回饋。需設定電子帳單＋DAWHO數位帳戶自動扣繳。",
-    alert:"2026下半年大改版：大戶門檻升至30萬，大戶Plus（100萬）國外最高6%、悠遊卡加值5%（上限500）。請至官網確認詳細回饋上限。"
+    note:"H2大改版：大戶門檻調升至資產30萬，大戶Plus 100萬。一般消費基本回饋無上限，任務加碼有月上限。分期消費不回饋。需設定電子帳單＋DAWHO數位帳戶自動扣繳。",
+    alert:"2026下半年大改版：大戶門檻升至30萬。回饋上限——大戶任務加碼400/月（可刷16,000）、大戶Plus 1,000/月（可刷25,000）；悠遊加值大戶100/月（可刷3,333）、Plus 500/月（可刷10,000）。"
   },
 
   {
@@ -364,7 +364,7 @@ const cards = [
       { name:"★ 童樂匯（家庭客群特殊權益）", hi:true, tiers:[
         {rate:"10",hi:true,label:"母嬰品牌官網／親子餐廳／體驗課程",sub:"10mois、Stokke、Nuna、大樹先生、甲蟲秘境、Yamaha音樂、朱宗慶、iSKI、汐游寶寶、tutorJr",cap:"依方案"},
         {rate:"5",hi:true,label:"親子飯店／樂園／母嬰用品通路",sub:"蘭城晶英、礁溪寒沐、煙波、雲品、和逸、東京迪士尼、大阪環球、卡多摩、安琪兒、麗兒采家、mamaway",cap:"依方案"},
-        {rate:"3",label:"指定私校學費（i繳費平台）",sub:"台北美國學校、歐洲學校、康橋國際、復興實驗等",cap:"上限1,000點"},
+        {rate:"3",label:"指定私校學費（i繳費平台）",sub:"台北美國學校、歐洲學校、康橋國際、復興實驗等",cap:"上限1,000點 · 可刷5萬"},
       ]},
       { name:"慶生月（壽星當月特殊權益）", hi:true, tiers:[
         {rate:"10",hi:true,label:"指定餐廳／樂園／KTV／指定百貨／外送",sub:"購票平台 3.5%",cap:"無上限"},
@@ -385,9 +385,9 @@ const cards = [
     pts:"現金積點 · 需星展帳戶自動扣繳",
     tiers:[
       {rate:"1",label:"國內外一般消費（基本）",sub:"需星展帳戶自動扣繳",cap:"無上限"},
-      {rate:"5",hi:true,label:"指定地區實體消費",sub:"美國／韓國／日本／歐洲／泰國／新加坡",cap:"上限500點/月"},
+      {rate:"5",hi:true,label:"指定地區實體消費",sub:"美國／韓國／日本／歐洲／泰國／新加坡",cap:"上限500點/月 · 可刷12,500"},
       {rate:"10",hi:true,label:"LINE Pay 消費",sub:"需星展帳戶自動扣繳",cap:"上限150點/月 · 可刷1,667"},
-      {rate:"10",hi:true,label:"生活玩家精選通路",sub:"蝦皮、UberEats、熊貓、Apple Store、Netflix、Disney+、YouTube Premium、KKBOX、寬宏/KKTIX/年代/拓元、Garena、PlayStation、Steam",cap:"上限500點/月 · 可刷5,555"},
+      {rate:"10",hi:true,label:"生活玩家精選通路",sub:"蝦皮、UberEats、熊貓、Apple Store、Netflix、Disney+、YouTube Premium、KKBOX、寬宏/KKTIX/年代/拓元、Garena、PlayStation、Steam",cap:"上限500點/月 · 可刷5,556"},
       {rate:"加倍",hi:false,label:"星禧數位帳戶資產連續4個月達30萬",sub:"精選通路上限加倍",cap:"提升至1,000點/月"},
     ],
     note:"2026/7/1 全面改版：新增指定地區實體5%、生活玩家精選通路上限升至500點。麥當勞、肯德基等小額特店僅享加碼回饋、無基本 1%。",
@@ -402,7 +402,7 @@ const cards = [
     pts:"現金積點 · 300點起兌換刷卡金 · 效期18個月",
     tiers:[
       {rate:"1",label:"國內外一般消費（基本）",sub:"分期不回饋",cap:"無上限"},
-      {rate:"5",hi:true,label:"指定地區實體 ＋4%",sub:"日本／韓國／泰國／新加坡／美洲／歐洲",cap:"上限600點/月"},
+      {rate:"5",hi:true,label:"指定地區實體 ＋4%",sub:"日本／韓國／泰國／新加坡／美洲／歐洲",cap:"上限600點/月 · 可刷15,000"},
       {rate:"10",hi:true,label:"eco 消費 ＋9%",sub:"Tesla充電／Gogoro電池／星展基金會社企（鮮乳坊、茶籽堂、綠藤等）",cap:"上限300點/月 · 可刷3,333"},
     ],
     note:"歐洲實體消費也有回饋（多數卡排除歐盟）。威秀購票 6 折起。"
@@ -444,7 +444,7 @@ const cards = [
     pts:"刷卡金 · 無上限",
     tiers:[
       {rate:"1",label:"一般消費",sub:"海外實體 3%",cap:"無上限"},
-      {rate:"6",hi:true,label:"機票／旅遊網／旅行社／KLOOK／KKDAY／台鐵／計程車",sub:"含 Uber、LINE Taxi",cap:"上限300/月 · 可刷5,000"},
+      {rate:"6",hi:true,label:"機票／旅遊網／旅行社／KLOOK／KKDAY／台鐵／計程車",sub:"含 Uber、LINE Taxi",cap:"上限300/月 · 可刷6,000"},
       {rate:"1.2",label:"保費",sub:"或 12 期 0 利率二擇一",cap:"無上限"},
     ],
     note:"旅遊類與海外實體的主力卡。跨場景任務（~12/31）：當月消費跨 3 個以上場景且滿 5,000 元，另贈 250 元回饋。"
@@ -459,9 +459,9 @@ const cards = [
     tiers:[
       {rate:"1",label:"國內一般消費",sub:"萊爾富實體／Apple Pay／Google Pay 加碼至 5%",cap:"無上限"},
       {rate:"2.5",hi:true,label:"日幣消費（基本）",sub:"日本網購或實體皆可",cap:"無上限"},
-      {rate:"+1.5",hi:true,label:"日本實體 Apple Pay（QUICPay）",sub:"綁卡感應單筆滿台幣100元",cap:"上限600/月"},
-      {rate:"+1",label:"日本實體 Apple Pay 升級加碼",sub:"前月帳單滿3萬元",cap:"上限200/月"},
-      {rate:"+3",hi:true,label:"日本熱門商店加碼",sub:"指定30家日系餐廳/門市",cap:"活動上限600/戶"},
+      {rate:"+1.5",hi:true,label:"日本實體 Apple Pay（QUICPay）",sub:"綁卡感應單筆滿台幣100元",cap:"上限600/月 · 可刷40,000"},
+      {rate:"+1",label:"日本實體 Apple Pay 升級加碼",sub:"前月帳單滿3萬元",cap:"上限200/月 · 可刷20,000"},
+      {rate:"+3",hi:true,label:"日本熱門商店加碼",sub:"指定30家日系餐廳/門市",cap:"活動上限600/戶 · 可刷20,000"},
       {rate:"10",hi:true,label:"全球環球影城樂園",sub:"含日本／新加坡／好萊塢／奧蘭多／北京",cap:"依活動公告"},
     ],
     note:"日本旅遊神卡。萊爾富 5% 不能綁 LINE Pay 或街口，必須實體卡或 Apple/Google Pay 感應。7月：日本唐吉訶德消費滿 2 萬日元送 6,000 日元（JCB活動，需登錄）。"
@@ -492,11 +492,11 @@ const cards = [
     tiers:[
       {rate:"1",label:"國內一般消費",sub:"LINE POINTS 或現金回饋",cap:"無上限"},
       {rate:"3",hi:true,label:"日本／韓國 一般消費",sub:"泰國 1%",cap:"無上限"},
-      {rate:"6",hi:true,label:"日韓泰實體 ＋3%（需登錄）",sub:"Q3（7–9月）單筆滿1,000元日韓泰實體加碼 3%，7/20 後開放登錄",cap:"季上限1,000/戶"},
+      {rate:"6",hi:true,label:"日韓泰實體 ＋3%（需登錄）",sub:"Q3（7–9月）單筆滿1,000元日韓泰實體加碼 3%，7/20 後開放登錄",cap:"季上限1,000/戶 · 可刷33,333"},
       {rate:"10",hi:true,label:"日本三大交通卡 Apple Pay 儲值",sub:"Suica、ICOCA、PASMO",cap:"依活動公告"},
-      {rate:"10",label:"悠遊卡自動加值",sub:"",cap:"上限30元/月"},
+      {rate:"10",label:"悠遊卡自動加值",sub:"",cap:"上限30元/月 · 可刷300"},
       {rate:"2",label:"加油／大眾運輸（含一卡通）",sub:"",cap:"無上限"},
-      {rate:"2",label:"網路投保",sub:"含基本1% + 加碼1.5%",cap:"加碼上限200/月"},
+      {rate:"2",label:"網路投保",sub:"含基本1% + 加碼1.5%",cap:"加碼上限200/月 · 可刷13,333"},
     ],
     note:"日韓泰旅遊與 iPhone 在日本感應支付的代名詞。年費1,800（電子帳單可免）。"
   },
@@ -509,7 +509,7 @@ const cards = [
     pts:"現金回饋",
     tiers:[
       {rate:"3",hi:true,label:"指定通路",sub:"街口／LINE Pay／MoMo／蝦皮／淘寶 · 單筆需100元以上",cap:"上限150/月 · 可刷7,500"},
-      {rate:"10",hi:true,label:"影音平台",sub:"Netflix／Gemini／ChatGPT／Steam",cap:"上限100/月 · 可刷1,000"},
+      {rate:"10",hi:true,label:"影音平台",sub:"Netflix／Gemini／ChatGPT／Steam",cap:"上限100/月 · 可刷1,111"},
     ],
     note:"影音平台 10% 為訂閱族高效加碼卡。"
   },
@@ -523,8 +523,8 @@ const cards = [
     tiers:[
       {rate:"1",label:"一般消費（基本）",sub:"",cap:"無上限"},
       {rate:"1.8",label:"累積滿1萬–2.9萬／月 +0.8%",sub:"",cap:""},
-      {rate:"3",hi:true,label:"累積滿3萬/月以上 +2%",sub:"",cap:"加碼上限1,000 P幣/月"},
-      {rate:"5",hi:true,label:"全家便利商店（綁Pi拍錢包）",sub:"",cap:"上限100 P幣/月"},
+      {rate:"3",hi:true,label:"累積滿3萬/月以上 +2%",sub:"",cap:"加碼上限1,000 P幣/月 · 可刷5萬"},
+      {rate:"5",hi:true,label:"全家便利商店（綁Pi拍錢包）",sub:"",cap:"上限100 P幣/月 · 可刷2,500"},
       {rate:"1.2",label:"保費",sub:"或 6/12 期 0 利率二擇一",cap:"無上限"},
     ],
     note:"另：綁帳戶自扣滿10萬贈500 P幣／滿30萬贈1,500 P幣；指定百貨藥妝餐飲網購單筆滿6,000加碼5%（上限300）。加碼與滿額贈擇優、登錄一次。"
