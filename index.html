@@ -465,6 +465,22 @@ const cards = [
   },
 
   {
+    id:"green",
+    name:"聯邦 綠卡", issuer:"聯邦銀行 · 現金回饋", rail:"#3a9e57",
+    url:"https://card.ubot.com.tw/CardDetail/cardDetail204",
+    valid:"2026 · 綠色活動期間見官網", tags:["綠色電動車"],
+    pts:"現金回饋 · 需電子帳單",
+    tiers:[
+      {rate:"1",label:"國內一般消費（基本）",sub:"國外 2% · 需電子帳單",cap:"無上限"},
+      {rate:"6",hi:true,label:"指定綠色通路（加碼5%）",sub:"電動車充電(Tesla／Gogoro／eMoving)、共享交通(GoShare／WeMo／iRent)、生機選品(聖德科斯／里仁／棉花田)、綠色公益",cap:"上限150元/月 · 可刷3,000"},
+      {rate:"2",label:"一卡通自動加值",sub:"iPASS MONEY 儲值金",cap:"無上限"},
+      {rate:"1",label:"代扣繳（水電瓦斯電信停車費）",sub:"需電子帳單",cap:"上限100元/月 · 可刷10,000"},
+    ],
+    note:"綠色消費與電動車充電主力卡。一般消費國內1%／國外2%無上限。",
+    alert:"綠色6%等加碼活動期間依官網公告，請自行確認最新期間。"
+  },
+
+  {
     id:"costco",
     name:"富邦 好市多聯名卡", issuer:"台北富邦 · 好多金", rail:"#e4002b",
     url:"https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
@@ -528,7 +544,7 @@ const cards = [
   },
 ];
 
-const scenarios = ["全部","無腦日常","網購","行動支付","影音訂閱","美食外送","旅遊機票","旅日","旅韓","旅歐美","售票電玩","好市多加油","悠遊卡加值","停車","保費"];
+const scenarios = ["全部","無腦日常","網購","行動支付","影音訂閱","美食外送","旅遊機票","旅日","旅韓","旅歐美","售票電玩","好市多加油","悠遊卡加值","綠色電動車","停車","保費"];
 let activeScenario = "全部";
 let visibleCards = new Set(cards.map(c=>c.id));
 
