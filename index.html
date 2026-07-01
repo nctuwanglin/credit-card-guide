@@ -636,6 +636,21 @@ const cards = [
     ],
     note:"星宇 COSMILE 哩程卡：國外 10元/哩、生日月海外 5元/哩（2倍，需登錄並繳全額年費）。機場貴賓室12次、接送2趟/年。年費 NT$6,000。"
   },
+
+  {
+    id:"ctbc-linepay",
+    name:"中信 LINE Pay 卡", issuer:"中國信託 · LINE POINTS", rail:"#06c755",
+    url:"https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/index.html",
+    valid:"2026/07/01–12/31", tags:["LINE Pay"],
+    rates:{"LINE Pay":1},
+    pts:"LINE POINTS · 需綁定台灣 LINE Pay 帳號 · 點數效期180天",
+    tiers:[
+      {rate:"1",label:"國內外一般消費",sub:"需綁定 LINE Pay 帳號",cap:"無上限"},
+      {rate:"2.8",hi:true,label:"國外實體商店消費",sub:"面對面含 Apple/Google/Samsung Pay，條碼支付不列入（基本1%＋加碼1.8%）",cap:"無上限"},
+      {rate:"16",hi:true,label:"指定通路 LINE POINTS（輪替活動）",sub:"脆好購／脆自遊等・需登錄、依活動輪替",cap:"依活動"},
+    ],
+    note:"LINE POINTS 累積主力卡：常態一般消費 1%、國外實體 2.8%（面對面）。指定通路活動最高 16%（脆好購/脆自遊等輪替、需登錄）為非常態，故代表率以常態 1% 計。點數效期180天，活動期間 2026/7/1–12/31。"
+  },
 ];
 
 const scenarios = ["全部","LINE Pay","Apple/Google/Samsung Pay","無腦日常","網購","影音訂閱","美食外送","旅遊機票","旅日","旅韓","旅歐美","里程","售票電玩","好市多","悠遊卡加值","綠色消費","停車","保費"];
