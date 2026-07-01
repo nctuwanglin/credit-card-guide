@@ -108,6 +108,21 @@
   .chip:hover{border-color:var(--ink);color:var(--ink)}
   .chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
 
+  /* ---------- RECOMMENDATION ---------- */
+  .reco{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px}
+  .reco-label{
+    font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;
+    color:var(--muted);letter-spacing:.1em;text-transform:uppercase;
+  }
+  .reco-pill{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:12.5px;font-weight:600;color:var(--ink);
+    background:var(--gain-soft);border:1px solid #cfe9db;
+    padding:4px 11px;border-radius:999px;
+  }
+  .reco-pill b{color:var(--gain);font-family:"JetBrains Mono",monospace;font-size:13px;margin-left:2px}
+  .reco-medal{color:var(--gain);font-weight:700}
+
   /* ---------- GRID ---------- */
   .grid{
     display:grid;gap:16px;padding:26px 0 0;
@@ -243,6 +258,7 @@
 <div class="filter">
   <div class="wrap">
     <div class="filter-inner" id="chips"></div>
+    <div class="reco" id="reco"></div>
   </div>
 </div>
 
@@ -256,7 +272,8 @@ const cards = [
     id:"unicard",
     name:"玉山 Unicard", issuer:"玉山銀行 · e point", rail:"#0a8f4f",
     url:"https://event.esunbank.com.tw/credit/unicard/index.html",
-    valid:"~2026/12/31", tags:["無腦日常","網購","行動支付","旅日","旅韓","旅歐美"],
+    valid:"~2026/12/31", tags:["無腦日常","網購","LINE Pay","旅日","旅韓","旅歐美"],
+    rates:{"無腦日常":3,"網購":3.5,"LINE Pay":3.5,"旅日":3.5,"旅韓":3.5,"旅歐美":3.5},
     pts:"e point ＝ 1元 · 效期1年 · 需電子帳單＋自扣",
     schemes:[
       { name:"基本回饋", hi:false, tiers:[
@@ -280,6 +297,7 @@ const cards = [
     name:"永豐 大戶 DAWHO", issuer:"永豐銀行 · 現金回饋", rail:"#1763c9",
     url:"https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/DAWHO.html",
     valid:"2026/07/01–12/31", tags:["無腦日常","悠遊卡加值","旅日","旅韓","旅歐美"],
+    rates:{"無腦日常":3.5,"悠遊卡加值":3,"旅日":4.5,"旅韓":4.5,"旅歐美":4.5},
     pts:"現金回饋 · 需電子帳單＋DAWHO數位帳戶自扣",
     tiers:[
       {rate:"1",label:"一般消費（基本）",sub:"國內1% / 國外2% · 無上限",cap:"無上限"},
@@ -295,7 +313,8 @@ const cards = [
     id:"sport",
     name:"永豐 Sport", issuer:"永豐銀行 · 豐點", rail:"#e8612c",
     url:"https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/sportcard.html",
-    valid:"2026/07/01–12/31", tags:["行動支付"],
+    valid:"2026/07/01–12/31", tags:["Apple/Google/Samsung Pay"],
+    rates:{"Apple/Google/Samsung Pay":5},
     pts:"豐點 ＝ 1元 · 需大咖DACARD App＋自扣 · 卡路里區間 當月1–31",
     tiers:[
       {rate:"1",label:"一般消費（基本）",sub:"0.3% 無e帳單 ＋ 0.7% e帳單加碼（7月起調整）",cap:"無上限"},
@@ -309,7 +328,8 @@ const cards = [
     id:"richart",
     name:"台新 Richart", issuer:"台新銀行 · 台新Point", rail:"#16a085",
     url:"https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/cg047/card001/",
-    valid:"2026/01/01–2027/03/31", tags:["無腦日常","網購","旅日","旅韓","旅歐美","行動支付","旅遊機票","停車"],
+    valid:"2026/01/01–2027/03/31", tags:["無腦日常","網購","旅日","旅韓","旅歐美","LINE Pay","Apple/Google/Samsung Pay","旅遊機票","停車"],
+    rates:{"無腦日常":2,"網購":3.3,"旅日":3.3,"旅韓":3.3,"旅歐美":3.3,"LINE Pay":2.3,"Apple/Google/Samsung Pay":3.8,"旅遊機票":3.3,"停車":3.3},
     pts:"台新Point ＝ 1元 · 效期2年 · LEVEL2 需台新帳戶自扣",
     schemes:[
       { name:"Pay 著刷 / LINE Pay", hi:true, tiers:[
@@ -346,7 +366,8 @@ const cards = [
     id:"cube",
     name:"國泰世華 CUBE", issuer:"國泰世華 · 小樹點", rail:"#0f8a6a",
     url:"https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube",
-    valid:"2026/01/01–12/31", tags:["無腦日常","網購","旅遊機票","旅日","旅韓","旅歐美","行動支付"],
+    valid:"2026/01/01–12/31", tags:["無腦日常","網購","旅遊機票","旅日","旅韓","旅歐美"],
+    rates:{"無腦日常":3,"網購":3,"旅遊機票":3,"旅日":3.5,"旅韓":3,"旅歐美":3},
     pts:"小樹點 ＝ 1元 · 效期3年 · 折抵上限30%/期 · 需綁國泰帳戶自扣",
     schemes:[
       { name:"玩數位（4大常駐之一）", hi:true, tiers:[
@@ -381,7 +402,8 @@ const cards = [
     id:"dbs-aov",
     name:"星展 傳說對決", issuer:"星展銀行 · 現金積點", rail:"#d2233c",
     url:"https://www.dbs.com.tw/personal-zh/cards/dbs-aov/index.html",
-    valid:"2026/07/01–12/31", tags:["行動支付","美食外送","售票電玩","影音訂閱","網購","旅日","旅韓","旅歐美"],
+    valid:"2026/07/01–12/31", tags:["美食外送","售票電玩","影音訂閱","網購","旅日","旅韓","旅歐美"],
+    rates:{"美食外送":10,"售票電玩":10,"影音訂閱":10,"網購":10,"旅日":5,"旅韓":5,"旅歐美":5},
     pts:"現金積點 · 需星展帳戶自動扣繳",
     tiers:[
       {rate:"1",label:"國內外一般消費（基本）",sub:"含基本0.2% · 需星展帳戶自動扣繳",cap:"無上限"},
@@ -397,6 +419,7 @@ const cards = [
     name:"星展 eco 永續", issuer:"星展銀行 · 現金積點", rail:"#2e8b57",
     url:"https://www.dbs.com.tw/personal-zh/cards/dbs_eco/index.html",
     valid:"2026/01/01–12/31", tags:["旅日","旅韓","旅歐美","無腦日常"],
+    rates:{"旅日":5,"旅韓":5,"旅歐美":5,"無腦日常":1},
     pts:"現金積點 · 300點起兌換刷卡金 · 效期18個月",
     tiers:[
       {rate:"1",label:"國內外一般消費（基本）",sub:"分期不回饋",cap:"無上限"},
@@ -411,6 +434,7 @@ const cards = [
     name:"聯邦 LINE Bank", issuer:"聯邦銀行 · 刷卡金", rail:"#06c755",
     url:"https://activity.ubot.com.tw/LINEBankCard/index.htm",
     valid:"2025/08/01–2026/07/31", tags:["網購","影音訂閱","旅日","旅韓","旅歐美"],
+    rates:{"網購":3.5,"影音訂閱":3.5,"旅日":2.5,"旅韓":2.5,"旅歐美":2.5},
     pts:"刷卡金 · 可折抵、不過期",
     tiers:[
       {rate:"1",label:"國內一般消費",sub:"保費 1%",cap:"無上限"},
@@ -426,6 +450,7 @@ const cards = [
     name:"聯邦 微風無限", issuer:"聯邦銀行 · 頂級卡權益", rail:"#7d3cff",
     url:"https://card.ubot.com.tw/CardDetail/cardDetail103",
     valid:"~2026/12/31", tags:["停車"],
+    rates:{},
     pts:"權益型 · 非回饋率主打",
     tiers:[
       {rate:"4H",hi:true,label:"任刷一筆 享停車 4 小時／日",sub:"微風廣場／微風信義／微風松高／微風南京",cap:"每日"},
@@ -439,6 +464,7 @@ const cards = [
     name:"聯邦 M 卡", issuer:"聯邦銀行 · 刷卡金", rail:"#1f2d5c",
     url:"https://activity.ubot.com.tw/2026Mcard/index.htm",
     valid:"~2026/12/31", tags:["旅遊機票","旅日","旅韓","旅歐美","保費"],
+    rates:{"旅遊機票":6,"旅日":3,"旅韓":3,"旅歐美":3,"保費":1.2},
     pts:"刷卡金 · 無上限",
     tiers:[
       {rate:"1",label:"一般消費",sub:"海外實體 3%",cap:"無上限"},
@@ -452,7 +478,8 @@ const cards = [
     id:"jihe",
     name:"聯邦 吉鶴", issuer:"聯邦銀行 · JCB晶緻卡", rail:"#c8262e",
     url:"https://card.ubot.com.tw/CardDetail/cardDetail202",
-    valid:"~2026/12/31", tags:["旅日","行動支付"],
+    valid:"~2026/12/31", tags:["旅日","Apple/Google/Samsung Pay"],
+    rates:{"旅日":7,"Apple/Google/Samsung Pay":5},
     pts:"刷卡金／LINE POINTS · 含 LoungeKey 機場貴賓室 2次/年",
     tiers:[
       {rate:"1",label:"國內一般消費",sub:"萊爾富實體／Apple Pay／Google Pay 加碼至 5%",cap:"無上限"},
@@ -469,6 +496,7 @@ const cards = [
     name:"聯邦 綠卡", issuer:"聯邦銀行 · 現金回饋", rail:"#3a9e57",
     url:"https://activity.ubot.com.tw/2026GreenCard/index.htm",
     valid:"2026/07/01–12/31", tags:["綠色電動車"],
+    rates:{"綠色電動車":6},
     pts:"現金回饋 · 需電子帳單",
     tiers:[
       {rate:"1",label:"國內一般消費（基本）",sub:"國外 2% · 需電子帳單",cap:"無上限"},
@@ -484,6 +512,7 @@ const cards = [
     name:"富邦 好市多聯名卡", issuer:"台北富邦 · 好多金", rail:"#e4002b",
     url:"https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
     valid:"~2027/12/31", tags:["好市多加油","旅日","旅韓","旅歐美"],
+    rates:{"好市多加油":3,"旅日":5,"旅韓":5,"旅歐美":5},
     pts:"好多金 ＝ 折抵會費／店內消費",
     tiers:[
       {rate:"1",label:"店外一般消費",sub:"",cap:"無上限"},
@@ -499,7 +528,8 @@ const cards = [
     id:"fubon-j",
     name:"富邦 J 卡", issuer:"台北富邦 · LINE POINTS/現金", rail:"#0f3675",
     url:"https://www.fubon.com/banking/JF/",
-    valid:"~2026/12/31", tags:["旅日","旅韓","行動支付","網購","悠遊卡加值"],
+    valid:"~2026/12/31", tags:["旅日","旅韓","Apple/Google/Samsung Pay","悠遊卡加值"],
+    rates:{"旅日":6,"旅韓":6,"Apple/Google/Samsung Pay":10,"悠遊卡加值":10},
     pts:"LINE POINTS（J POINTS卡）或現金回饋 · JCB",
     tiers:[
       {rate:"1",label:"國內一般消費",sub:"LINE POINTS 或現金回饋",cap:"無上限"},
@@ -517,7 +547,8 @@ const cards = [
     id:"ubear",
     name:"玉山 ubear", issuer:"玉山銀行 · 現金回饋", rail:"#00a3a3",
     url:"https://event.esunbank.com.tw/credit/ubear/index.html",
-    valid:"2026/03/01–08/31", tags:["行動支付","網購","影音訂閱"],
+    valid:"2026/03/01–08/31", tags:["LINE Pay","網購","影音訂閱"],
+    rates:{"LINE Pay":3,"網購":3,"影音訂閱":10},
     pts:"現金回饋",
     tiers:[
       {rate:"3",hi:true,label:"指定通路",sub:"街口／LINE Pay／MoMo／蝦皮／淘寶 · 單筆需100元以上",cap:"上限150/月 · 可刷7,500"},
@@ -530,7 +561,8 @@ const cards = [
     id:"pi",
     name:"玉山 Pi 拍錢包", issuer:"玉山銀行 · P幣", rail:"#5b35d6",
     url:"https://event.esunbank.com.tw/credit/pi-card/index.html",
-    valid:"年度權益 · 活動~2026/08/31", tags:["行動支付","保費","網購"],
+    valid:"年度權益 · 活動~2026/08/31", tags:["保費","網購"],
+    rates:{"保費":1.2,"網購":3},
     pts:"P幣 ＝ 1元 · 效期180天 · 需帳單e化",
     tiers:[
       {rate:"1",label:"一般消費（基本）",sub:"",cap:"無上限"},
@@ -543,8 +575,8 @@ const cards = [
   },
 ];
 
-const scenarios = ["全部","無腦日常","網購","行動支付","影音訂閱","美食外送","旅遊機票","旅日","旅韓","旅歐美","售票電玩","好市多加油","悠遊卡加值","綠色電動車","停車","保費"];
-let activeScenario = "全部";
+const scenarios = ["LINE Pay","Apple/Google/Samsung Pay","無腦日常","網購","影音訂閱","美食外送","旅遊機票","旅日","旅韓","旅歐美","售票電玩","好市多加油","悠遊卡加值","綠色電動車","停車","保費"];
+let activeScenario = "LINE Pay";
 let visibleCards = new Set(cards.map(c=>c.id));
 
 const selGrid = document.getElementById('selGrid');
@@ -594,7 +626,7 @@ function renderGrid(){
   let shown = 0;
   cards.forEach(c=>{
     if(!visibleCards.has(c.id)) return;
-    if(activeScenario!=="全部" && !c.tags.includes(activeScenario)) return;
+    if(!c.tags.includes(activeScenario)) return;
     shown++;
     const el = document.createElement('article');
     el.className = "card";
@@ -645,18 +677,33 @@ function renderGrid(){
 
 scenarios.forEach(s=>{
   const ch = document.createElement('div');
-  ch.className = "chip"+(s==="全部"?" active":"");
+  ch.className = "chip"+(s===activeScenario?" active":"");
   ch.textContent = s;
   ch.onclick = ()=>{
     activeScenario = s;
     document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
     ch.classList.add('active');
+    renderReco();
     renderGrid();
   };
   chipBox.appendChild(ch);
 });
 
+function renderReco(){
+  const box = document.getElementById('reco');
+  const ranked = cards
+    .filter(c=>c.tags.includes(activeScenario) && c.rates && typeof c.rates[activeScenario]==='number')
+    .sort((a,b)=>b.rates[activeScenario]-a.rates[activeScenario])
+    .slice(0,2);
+  if(!ranked.length){ box.style.display='none'; box.innerHTML=''; return; }
+  box.style.display='flex';
+  const medals=['①','②'];
+  box.innerHTML = `<span class="reco-label">${activeScenario} 推薦</span>` +
+    ranked.map((c,i)=>`<span class="reco-pill"><span class="reco-medal">${medals[i]}</span>${c.name}<b>${c.rates[activeScenario]}%</b></span>`).join('');
+}
+
 renderSelector();
+renderReco();
 renderGrid();
 </script>
 </body>
