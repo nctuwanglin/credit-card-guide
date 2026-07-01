@@ -578,8 +578,8 @@ const cards = [
     id:"hsbc-travel",
     name:"匯豐 旅人無限卡", issuer:"匯豐銀行 · 旅遊積分", rail:"#db0011",
     url:"https://www.hsbc.com.tw/credit-cards/products/travel/visa-infinite/",
-    valid:"年度權益 · 年費NT$8,000", tags:["旅日","旅韓","旅歐美"],
-    rates:{"旅日":3,"旅韓":3,"旅歐美":3},
+    valid:"年度權益 · 年費NT$8,000", tags:["里程","旅日","旅韓","旅歐美"],
+    rates:{"里程":10,"旅日":3,"旅韓":3,"旅歐美":3},
     pts:"旅遊積分 · 1:1 兌15+航空哩程（含華航）· 5,000積分=1,500元刷卡金",
     tiers:[
       {rate:"1.67",label:"國內一般消費",sub:"NT$18/積分・現金約1.67%或1:1里程",cap:"無上限"},
@@ -588,9 +588,25 @@ const cards = [
     ],
     note:"哩程主力卡：旅遊積分 1:1 兌換 15+ 航空里程（華航自2026/4起1:1）。現金回饋以最優 5,000積分=1,500元 計，國內約1.67%、國外約3%。含機場貴賓室8次、接送4次/年。年費 NT$8,000。首刷禮 8,000積分（核卡30天內滿1萬）。"
   },
+
+  {
+    id:"ctbc-ci",
+    name:"中信 華航鼎尊無限卡", issuer:"中國信託 · 華航哩程", rail:"#b89a5e",
+    url:"https://www.ctbcbank.com/content/dam/minisite/long/creditcard/CTBCCI/index.html",
+    valid:"年度權益 · 年費NT$22,000", tags:["里程","旅日","旅韓","旅歐美"],
+    rates:{"里程":9,"旅日":3.3,"旅韓":3.3,"旅歐美":3.3},
+    pts:"華航哩程 · 直接累華夏哩程免兌換 · 送華夏金卡會籍2年",
+    tiers:[
+      {rate:"18元/哩",label:"國內外一般消費（基本）",sub:"NT$18 = 1 華航哩",cap:"無上限"},
+      {rate:"9元/哩",hi:true,label:"國外實體／華航官網機票／eMall／旅遊訂房（x2）",sub:"NT$18 = 2 哩",cap:"無上限"},
+      {rate:"6元/哩",hi:true,label:"生日當月 海外實體（x3）",sub:"NT$18 = 3 哩",cap:"依活動"},
+      {rate:"權益",hi:true,label:"華航貴賓室不限次 · 指定機場接送 · 華夏金卡會籍2年",sub:"商務艙86折起",cap:"每年"},
+    ],
+    note:"純哩程卡：直接累華航華夏哩程（免兌換）。國外實體/機票/訂房 x2（9元/哩），生日月海外 x3（6元/哩）。送華夏金卡會籍2年、華航貴賓室不限次、機場接送。年費 NT$22,000，首刷禮核卡30天滿8,888送2萬哩。"
+  },
 ];
 
-const scenarios = ["全部","LINE Pay","Apple/Google/Samsung Pay","無腦日常","網購","影音訂閱","美食外送","旅遊機票","旅日","旅韓","旅歐美","售票電玩","好市多","悠遊卡加值","綠色消費","停車","保費"];
+const scenarios = ["全部","LINE Pay","Apple/Google/Samsung Pay","無腦日常","網購","影音訂閱","美食外送","旅遊機票","旅日","旅韓","旅歐美","里程","售票電玩","好市多","悠遊卡加值","綠色消費","停車","保費"];
 let activeScenario = "全部";
 let visibleCards = new Set(cards.map(c=>c.id));
 
@@ -641,8 +657,9 @@ function renderGrid(){
   let shown = 0;
   let list = cards.filter(c=>visibleCards.has(c.id) && (activeScenario==="全部" || c.tags.includes(activeScenario)));
   if(activeScenario!=="全部"){
-    const rateOf = c => (c.rates && typeof c.rates[activeScenario]==='number') ? c.rates[activeScenario] : -1;
-    list.sort((a,b)=>rateOf(b)-rateOf(a));
+    const isMile = activeScenario==="里程";
+    const rateOf = c => (c.rates && typeof c.rates[activeScenario]==='number') ? c.rates[activeScenario] : (isMile?Infinity:-1);
+    list.sort((a,b)=> isMile ? rateOf(a)-rateOf(b) : rateOf(b)-rateOf(a));
   }
   list.forEach(c=>{
     shown++;
@@ -710,13 +727,15 @@ scenarios.forEach(s=>{
 function renderReco(){
   const box = document.getElementById('reco');
   if(activeScenario==="全部"){ box.style.display='none'; box.innerHTML=''; return; }
+  const isMile = activeScenario==="里程";
   const ranked = cards
     .filter(c=>c.tags.includes(activeScenario) && c.rates && typeof c.rates[activeScenario]==='number')
-    .sort((a,b)=>b.rates[activeScenario]-a.rates[activeScenario]);
+    .sort((a,b)=> isMile ? a.rates[activeScenario]-b.rates[activeScenario] : b.rates[activeScenario]-a.rates[activeScenario]);
   if(!ranked.length){ box.style.display='none'; box.innerHTML=''; return; }
   box.style.display='flex';
-  box.innerHTML = `<span class="reco-label">${activeScenario} 回饋排序</span>` +
-    ranked.map((c,i)=>`<span class="reco-pill"><span class="reco-medal">${i+1}</span>${c.name}<b>${c.rates[activeScenario]}%</b></span>`).join('');
+  const fmt = v => isMile ? `NT$${v}/哩` : `${v}%`;
+  box.innerHTML = `<span class="reco-label">${isMile?"里程 · 元/哩（低者優）":activeScenario+" 回饋排序"}</span>` +
+    ranked.map((c,i)=>`<span class="reco-pill"><span class="reco-medal">${i+1}</span>${c.name}<b>${fmt(c.rates[activeScenario])}</b></span>`).join('');
 }
 
 renderSelector();
