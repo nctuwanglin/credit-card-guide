@@ -578,23 +578,23 @@ const cards = [
     id:"hsbc-travel",
     name:"匯豐 旅人無限卡", issuer:"匯豐銀行 · 旅遊積分", rail:"#db0011",
     url:"https://www.hsbc.com.tw/credit-cards/products/travel/visa-infinite/",
-    valid:"年度權益 · 年費NT$8,000", tags:["里程","旅日","旅韓","旅歐美"],
-    rates:{"里程":10,"旅日":3,"旅韓":3,"旅歐美":3},
+    valid:"年度權益 · 年費NT$8,000", tags:["里程"],
+    rates:{"里程":10},
     pts:"旅遊積分 · 1:1 兌15+航空哩程（含華航）· 5,000積分=1,500元刷卡金",
     tiers:[
-      {rate:"1.67",label:"國內一般消費",sub:"NT$18/積分・現金約1.67%或1:1里程",cap:"無上限"},
-      {rate:"3",hi:true,label:"國外一般消費",sub:"NT$10/積分・現金約3%或1:1里程",cap:"無上限"},
+      {rate:"18元/哩",label:"國內一般消費",sub:"NT$18 = 1 旅遊積分（1:1 兌哩）",cap:"無上限"},
+      {rate:"10元/哩",hi:true,label:"國外一般消費",sub:"NT$10 = 1 旅遊積分（1:1 兌哩）",cap:"無上限"},
       {rate:"權益",hi:true,label:"機場貴賓室8次/年 · 機場接送4次/年",sub:"Visa Infinite 旅遊權益",cap:"每年"},
     ],
-    note:"哩程主力卡：旅遊積分 1:1 兌換 15+ 航空里程（華航自2026/4起1:1）。現金回饋以最優 5,000積分=1,500元 計，國內約1.67%、國外約3%。含機場貴賓室8次、接送4次/年。年費 NT$8,000。首刷禮 8,000積分（核卡30天內滿1萬）。"
+    note:"哩程主力卡：旅遊積分 1:1 兌換 15+ 航空里程（華航自2026/4起1:1）。國外 10元/哩、國內 18元/哩。含機場貴賓室8次、接送4次/年。年費 NT$8,000。首刷禮 8,000積分（核卡30天內滿1萬）。"
   },
 
   {
     id:"ctbc-ci",
     name:"中信 華航鼎尊無限卡", issuer:"中國信託 · 華航哩程", rail:"#b89a5e",
     url:"https://www.ctbcbank.com/content/dam/minisite/long/creditcard/CTBCCI/index.html",
-    valid:"年度權益 · 年費NT$22,000", tags:["里程","旅日","旅韓","旅歐美"],
-    rates:{"里程":9,"旅日":3.3,"旅韓":3.3,"旅歐美":3.3},
+    valid:"年度權益 · 年費NT$22,000", tags:["里程"],
+    rates:{"里程":9},
     pts:"華航哩程 · 直接累華夏哩程免兌換 · 送華夏金卡會籍2年",
     tiers:[
       {rate:"18元/哩",label:"國內外一般消費（基本）",sub:"NT$18 = 1 華航哩",cap:"無上限"},
@@ -609,8 +609,8 @@ const cards = [
     id:"cathay-eva",
     name:"國泰 長榮極致無限卡", issuer:"國泰世華 · 長榮哩程", rail:"#0a6b3b",
     url:"https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/eva",
-    valid:"年度權益 · 年費NT$20,000", tags:["里程","旅日","旅韓","旅歐美"],
-    rates:{"里程":10,"旅日":3,"旅韓":3,"旅歐美":3},
+    valid:"年度權益 · 年費NT$20,000", tags:["里程"],
+    rates:{"里程":10},
     pts:"長榮無限萬哩遊哩程 · 需年收200萬 · 長榮貴賓室",
     tiers:[
       {rate:"20元/哩",label:"國內一般消費",sub:"NT$20 = 1 哩",cap:"無上限"},
@@ -624,9 +624,9 @@ const cards = [
   {
     id:"esun-starlux",
     name:"玉山 星宇世界卡", issuer:"玉山銀行 · 星宇哩程", rail:"#1a1a2e",
-    url:"https://event.esunbank.com.tw/credit/starlux_card/index.html",
-    valid:"年度權益 · 年費NT$3,000", tags:["里程","旅日","旅韓","旅歐美"],
-    rates:{"里程":10,"旅日":3,"旅韓":3,"旅歐美":3},
+    url:"https://www.esunbank.com/zh-tw/personal/credit-card/intro/co-branded-card/starlux-card",
+    valid:"年度權益 · 年費NT$6,000", tags:["里程"],
+    rates:{"里程":10},
     pts:"星宇 COSMILE 哩程 · 生日月海外2倍",
     tiers:[
       {rate:"20元/哩",label:"國內一般消費",sub:"NT$20 = 1 哩",cap:"無上限"},
@@ -634,7 +634,7 @@ const cards = [
       {rate:"5元/哩",hi:true,label:"生日當月 海外實體（2倍，需登錄）",sub:"NT$5 = 1 哩",cap:"無上限"},
       {rate:"權益",hi:true,label:"機場貴賓室12次/年 · 機場接送2趟/年",sub:"星宇聯名權益",cap:"每年"},
     ],
-    note:"星宇 COSMILE 哩程卡：國外 10元/哩、生日月海外 5元/哩（2倍，需登錄並繳全額年費）。機場貴賓室12次、接送2趟/年。年費 NT$3,000（2025/5 曾調整，請以官網最新為準）。"
+    note:"星宇 COSMILE 哩程卡：國外 10元/哩、生日月海外 5元/哩（2倍，需登錄並繳全額年費）。機場貴賓室12次、接送2趟/年。年費 NT$6,000。"
   },
 ];
 
