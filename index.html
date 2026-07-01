@@ -624,9 +624,12 @@ function renderTier(t){
 function renderGrid(){
   grid.innerHTML = "";
   let shown = 0;
-  cards.forEach(c=>{
-    if(!visibleCards.has(c.id)) return;
-    if(activeScenario!=="全部" && !c.tags.includes(activeScenario)) return;
+  let list = cards.filter(c=>visibleCards.has(c.id) && (activeScenario==="全部" || c.tags.includes(activeScenario)));
+  if(activeScenario!=="全部"){
+    const rateOf = c => (c.rates && typeof c.rates[activeScenario]==='number') ? c.rates[activeScenario] : -1;
+    list.sort((a,b)=>rateOf(b)-rateOf(a));
+  }
+  list.forEach(c=>{
     shown++;
     const el = document.createElement('article');
     el.className = "card";
