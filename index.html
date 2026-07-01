@@ -328,8 +328,8 @@ const cards = [
     id:"richart",
     name:"台新 Richart", issuer:"台新銀行 · 台新Point", rail:"#16a085",
     url:"https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/cg047/card001/",
-    valid:"2026/01/01–2027/03/31", tags:["無腦日常","網購","旅日","旅韓","旅歐美","LINE Pay","Apple/Google/Samsung Pay","旅遊機票","停車"],
-    rates:{"無腦日常":2,"網購":3.3,"旅日":3.3,"旅韓":3.3,"旅歐美":3.3,"LINE Pay":2.3,"Apple/Google/Samsung Pay":3.8,"旅遊機票":3.3,"停車":3.3},
+    valid:"2026/01/01–2027/03/31", tags:["無腦日常","網購","影音訂閱","旅日","旅韓","旅歐美","LINE Pay","Apple/Google/Samsung Pay","旅遊機票","停車"],
+    rates:{"無腦日常":2,"網購":3.3,"影音訂閱":3.3,"旅日":3.3,"旅韓":3.3,"旅歐美":3.3,"LINE Pay":2.3,"Apple/Google/Samsung Pay":3.8,"旅遊機票":3.3,"停車":3.3},
     pts:"台新Point ＝ 1元 · 效期2年 · LEVEL2 需台新帳戶自扣",
     schemes:[
       { name:"Pay 著刷 / LINE Pay", hi:true, tiers:[
@@ -366,8 +366,8 @@ const cards = [
     id:"cube",
     name:"國泰世華 CUBE", issuer:"國泰世華 · 小樹點", rail:"#0f8a6a",
     url:"https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube",
-    valid:"2026/01/01–12/31", tags:["無腦日常","網購","旅遊機票","旅日","旅韓","旅歐美"],
-    rates:{"無腦日常":3,"網購":3,"旅遊機票":3,"旅日":3.5,"旅韓":3,"旅歐美":3},
+    valid:"2026/01/01–12/31", tags:["無腦日常","網購","影音訂閱","旅遊機票","旅日","旅韓","旅歐美"],
+    rates:{"無腦日常":3,"網購":3,"影音訂閱":3,"旅遊機票":3,"旅日":3.5,"旅韓":3,"旅歐美":3},
     pts:"小樹點 ＝ 1元 · 效期3年 · 折抵上限30%/期 · 需綁國泰帳戶自扣",
     schemes:[
       { name:"玩數位（4大常駐之一）", hi:true, tiers:[
@@ -495,8 +495,8 @@ const cards = [
     id:"green",
     name:"聯邦 綠卡", issuer:"聯邦銀行 · 現金回饋", rail:"#3a9e57",
     url:"https://activity.ubot.com.tw/2026GreenCard/index.htm",
-    valid:"2026/07/01–12/31", tags:["綠色電動車"],
-    rates:{"綠色電動車":6},
+    valid:"2026/07/01–12/31", tags:["綠色消費"],
+    rates:{"綠色消費":6},
     pts:"現金回饋 · 需電子帳單",
     tiers:[
       {rate:"1",label:"國內一般消費（基本）",sub:"國外 2% · 需電子帳單",cap:"無上限"},
@@ -511,8 +511,8 @@ const cards = [
     id:"costco",
     name:"富邦 好市多聯名卡", issuer:"台北富邦 · 好多金", rail:"#e4002b",
     url:"https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
-    valid:"~2027/12/31", tags:["好市多加油","旅日","旅韓","旅歐美"],
-    rates:{"好市多加油":3,"旅日":5,"旅韓":5,"旅歐美":5},
+    valid:"~2027/12/31", tags:["好市多","旅日","旅韓","旅歐美"],
+    rates:{"好市多":3,"旅日":5,"旅韓":5,"旅歐美":5},
     pts:"好多金 ＝ 折抵會費／店內消費",
     tiers:[
       {rate:"1",label:"店外一般消費",sub:"",cap:"無上限"},
@@ -575,8 +575,8 @@ const cards = [
   },
 ];
 
-const scenarios = ["LINE Pay","Apple/Google/Samsung Pay","無腦日常","網購","影音訂閱","美食外送","旅遊機票","旅日","旅韓","旅歐美","售票電玩","好市多加油","悠遊卡加值","綠色電動車","停車","保費"];
-let activeScenario = "LINE Pay";
+const scenarios = ["全部","LINE Pay","Apple/Google/Samsung Pay","無腦日常","網購","影音訂閱","美食外送","旅遊機票","旅日","旅韓","旅歐美","售票電玩","好市多","悠遊卡加值","綠色消費","停車","保費"];
+let activeScenario = "全部";
 let visibleCards = new Set(cards.map(c=>c.id));
 
 const selGrid = document.getElementById('selGrid');
@@ -626,7 +626,7 @@ function renderGrid(){
   let shown = 0;
   cards.forEach(c=>{
     if(!visibleCards.has(c.id)) return;
-    if(!c.tags.includes(activeScenario)) return;
+    if(activeScenario!=="全部" && !c.tags.includes(activeScenario)) return;
     shown++;
     const el = document.createElement('article');
     el.className = "card";
@@ -691,15 +691,14 @@ scenarios.forEach(s=>{
 
 function renderReco(){
   const box = document.getElementById('reco');
+  if(activeScenario==="全部"){ box.style.display='none'; box.innerHTML=''; return; }
   const ranked = cards
     .filter(c=>c.tags.includes(activeScenario) && c.rates && typeof c.rates[activeScenario]==='number')
-    .sort((a,b)=>b.rates[activeScenario]-a.rates[activeScenario])
-    .slice(0,2);
+    .sort((a,b)=>b.rates[activeScenario]-a.rates[activeScenario]);
   if(!ranked.length){ box.style.display='none'; box.innerHTML=''; return; }
   box.style.display='flex';
-  const medals=['①','②'];
-  box.innerHTML = `<span class="reco-label">${activeScenario} 推薦</span>` +
-    ranked.map((c,i)=>`<span class="reco-pill"><span class="reco-medal">${medals[i]}</span>${c.name}<b>${c.rates[activeScenario]}%</b></span>`).join('');
+  box.innerHTML = `<span class="reco-label">${activeScenario} 回饋排序</span>` +
+    ranked.map((c,i)=>`<span class="reco-pill"><span class="reco-medal">${i+1}</span>${c.name}<b>${c.rates[activeScenario]}%</b></span>`).join('');
 }
 
 renderSelector();
