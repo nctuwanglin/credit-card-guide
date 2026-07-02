@@ -229,6 +229,16 @@
   .official:hover .arrow{transform:translateX(2px)}
 
   .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:60px 0;font-size:14px}
+
+  /* ---------- VISITOR COUNTER ---------- */
+  .visits{
+    display:flex;justify-content:center;gap:18px;
+    margin-top:34px;padding-top:18px;
+    border-top:1px solid var(--line);
+    font-family:"JetBrains Mono",monospace;font-size:11.5px;
+    color:var(--faint);
+  }
+  .visits b{color:var(--muted);font-weight:700}
 </style>
 </head>
 <body>
@@ -264,6 +274,7 @@
 
 <main class="wrap">
   <div class="grid" id="grid"></div>
+  <div class="visits" id="visits">瀏覽統計載入中…</div>
 </main>
 
 <script>
@@ -788,6 +799,19 @@ function renderReco(){
 renderSelector();
 renderReco();
 renderGrid();
+
+(function(){
+  const NS = "wanglin-credit-card-guide-2026";
+  const base = `https://api.counterapi.dev/v1/${NS}`;
+  const today = new Date().toISOString().slice(0,10).replace(/-/g,"");
+  const el = document.getElementById('visits');
+  Promise.all([
+    fetch(`${base}/total/up`).then(r=>r.json()),
+    fetch(`${base}/day-${today}/up`).then(r=>r.json()),
+  ]).then(([total,day])=>{
+    el.innerHTML = `<span>今日瀏覽 <b>${day.count.toLocaleString()}</b></span><span>累計瀏覽 <b>${total.count.toLocaleString()}</b></span>`;
+  }).catch(()=>{ el.textContent = ""; });
+})();
 </script>
 </body>
 </html>
