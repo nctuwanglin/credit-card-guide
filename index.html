@@ -711,7 +711,7 @@ function renderSelector(){
   tabCards().forEach(c=>{
     const pill = document.createElement('div');
     pill.className = "sel-pill"+(visibleCards.has(c.id)?" on":"");
-    pill.innerHTML = `<span class="dot"></span>${c.name.replace(/^[^\s]+\s/,'')}`;
+    pill.innerHTML = `<span class="dot"></span>${c.name}`;
     pill.onclick = ()=>{
       if(visibleCards.has(c.id)) visibleCards.delete(c.id);
       else visibleCards.add(c.id);
