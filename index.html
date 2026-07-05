@@ -51,6 +51,20 @@
     padding-bottom:8px;
   }
 
+  /* ---------- TYPE TABS ---------- */
+  .tabs{
+    display:flex;gap:8px;margin-top:18px;
+  }
+  .tab{
+    cursor:pointer;user-select:none;
+    font-size:14px;font-weight:700;
+    padding:10px 22px;border-radius:10px;
+    border:1px solid var(--line);background:var(--surface);
+    color:var(--muted);transition:.15s;
+  }
+  .tab:hover{border-color:var(--ink);color:var(--ink)}
+  .tab.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+
   /* ---------- CARD MULTI-SELECTOR ---------- */
   .selector{
     background:var(--surface);
@@ -253,6 +267,10 @@
 </header>
 
 <div class="wrap">
+  <div class="tabs">
+    <div class="tab active" id="tabCash" onclick="switchTab('cash')">💰 現金回饋</div>
+    <div class="tab" id="tabMile" onclick="switchTab('mile')">✈️ 哩程回饋</div>
+  </div>
   <div class="selector">
     <div class="sel-head">
       <div class="sel-title">選擇要顯示的卡片</div>
@@ -664,9 +682,25 @@ const cards = [
   },
 ];
 
-const scenarios = ["全部","LINE Pay","Apple/Google/Samsung Pay","無腦日常","網購","影音訂閱","美食外送","旅遊機票","旅日","旅韓","旅歐美","里程","售票電玩","好市多","悠遊卡加值","綠色消費","停車","保費"];
+const scenarios = ["全部","LINE Pay","Apple/Google/Samsung Pay","無腦日常","網購","影音訂閱","美食外送","旅遊機票","旅日","旅韓","旅歐美","售票電玩","好市多","悠遊卡加值","綠色消費","停車","保費"];
 let activeScenario = "全部";
+let activeTab = "cash";
+const isMileCard = c => c.tags.includes("里程");
+const tabCards = () => cards.filter(c => isMileCard(c) === (activeTab==="mile"));
 let visibleCards = new Set(cards.map(c=>c.id));
+
+function switchTab(tab){
+  if(tab===activeTab) return;
+  activeTab = tab;
+  activeScenario = "全部";
+  document.getElementById('tabCash').classList.toggle('active', tab==='cash');
+  document.getElementById('tabMile').classList.toggle('active', tab==='mile');
+  document.querySelector('.filter').style.display = tab==='mile' ? 'none' : '';
+  document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('active', x.textContent==='全部'));
+  renderSelector();
+  renderReco();
+  renderGrid();
+}
 
 const selGrid = document.getElementById('selGrid');
 const chipBox = document.getElementById('chips');
@@ -674,7 +708,7 @@ const grid = document.getElementById('grid');
 
 function renderSelector(){
   selGrid.innerHTML = "";
-  cards.forEach(c=>{
+  tabCards().forEach(c=>{
     const pill = document.createElement('div');
     pill.className = "sel-pill"+(visibleCards.has(c.id)?" on":"");
     pill.innerHTML = `<span class="dot"></span>${c.name.replace(/^[^\s]+\s/,'')}`;
@@ -689,7 +723,10 @@ function renderSelector(){
 }
 
 function selectAll(state){
-  visibleCards = new Set(state ? cards.map(c=>c.id) : []);
+  tabCards().forEach(c=>{
+    if(state) visibleCards.add(c.id);
+    else visibleCards.delete(c.id);
+  });
   renderSelector();
   renderGrid();
 }
@@ -713,11 +750,10 @@ function renderTier(t){
 function renderGrid(){
   grid.innerHTML = "";
   let shown = 0;
-  let list = cards.filter(c=>visibleCards.has(c.id) && (activeScenario==="全部" || c.tags.includes(activeScenario)));
+  let list = tabCards().filter(c=>visibleCards.has(c.id) && (activeScenario==="全部" || c.tags.includes(activeScenario)));
   if(activeScenario!=="全部"){
-    const isMile = activeScenario==="里程";
-    const rateOf = c => (c.rates && typeof c.rates[activeScenario]==='number') ? c.rates[activeScenario] : (isMile?Infinity:-1);
-    list.sort((a,b)=> isMile ? rateOf(a)-rateOf(b) : rateOf(b)-rateOf(a));
+    const rateOf = c => (c.rates && typeof c.rates[activeScenario]==='number') ? c.rates[activeScenario] : -1;
+    list.sort((a,b)=> rateOf(b)-rateOf(a));
   }
   list.forEach(c=>{
     shown++;
@@ -785,15 +821,13 @@ scenarios.forEach(s=>{
 function renderReco(){
   const box = document.getElementById('reco');
   if(activeScenario==="全部"){ box.style.display='none'; box.innerHTML=''; return; }
-  const isMile = activeScenario==="里程";
-  const ranked = cards
+  const ranked = tabCards()
     .filter(c=>c.tags.includes(activeScenario) && c.rates && typeof c.rates[activeScenario]==='number')
-    .sort((a,b)=> isMile ? a.rates[activeScenario]-b.rates[activeScenario] : b.rates[activeScenario]-a.rates[activeScenario]);
+    .sort((a,b)=> b.rates[activeScenario]-a.rates[activeScenario]);
   if(!ranked.length){ box.style.display='none'; box.innerHTML=''; return; }
   box.style.display='flex';
-  const fmt = v => isMile ? `NT$${v}/哩` : `${v}%`;
-  box.innerHTML = `<span class="reco-label">${isMile?"里程 · 元/哩（低者優）":activeScenario+" 回饋排序"}</span>` +
-    ranked.map((c,i)=>`<span class="reco-pill"><span class="reco-medal">${i+1}</span>${c.name}<b>${fmt(c.rates[activeScenario])}</b></span>`).join('');
+  box.innerHTML = `<span class="reco-label">${activeScenario} 回饋排序</span>` +
+    ranked.map((c,i)=>`<span class="reco-pill"><span class="reco-medal">${i+1}</span>${c.name}<b>${c.rates[activeScenario]}%</b></span>`).join('');
 }
 
 renderSelector();
