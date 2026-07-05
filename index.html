@@ -607,23 +607,23 @@ const cards = [
     id:"hsbc-travel",
     name:"匯豐 旅人無限卡", issuer:"匯豐銀行 · 旅遊積分", rail:"#db0011",
     url:"https://www.hsbc.com.tw/credit-cards/products/travel/visa-infinite/",
-    valid:"年度權益 · 年費NT$8,000", tags:["里程"],
-    rates:{"里程":10},
+    valid:"年度權益 · 年費NT$8,000", tags:["哩程"],
+    rates:{"哩程":10},
     pts:"旅遊積分 · 1:1 兌15+航空哩程（含華航）· 5,000積分=1,500元刷卡金",
     tiers:[
       {rate:"18元/哩",label:"國內一般消費",sub:"NT$18 = 1 旅遊積分（1:1 兌哩）",cap:"無上限"},
       {rate:"10元/哩",hi:true,label:"國外一般消費",sub:"NT$10 = 1 旅遊積分（1:1 兌哩）",cap:"無上限"},
       {rate:"權益",hi:true,label:"機場貴賓室8次/年 · 機場接送4次/年",sub:"Visa Infinite 旅遊權益",cap:"每年"},
     ],
-    note:"哩程主力卡：旅遊積分 1:1 兌換 15+ 航空里程（華航自2026/4起1:1）。國外 10元/哩、國內 18元/哩。含機場貴賓室8次、接送4次/年。年費 NT$8,000。首刷禮 8,000積分（核卡30天內滿1萬）。"
+    note:"哩程主力卡：旅遊積分 1:1 兌換 15+ 航空哩程（華航自2026/4起1:1）。國外 10元/哩、國內 18元/哩。含機場貴賓室8次、接送4次/年。年費 NT$8,000。首刷禮 8,000積分（核卡30天內滿1萬）。"
   },
 
   {
     id:"ctbc-ci",
     name:"中信 華航鼎尊無限卡", issuer:"中國信託 · 華航哩程", rail:"#b89a5e",
     url:"https://www.ctbcbank.com/content/dam/minisite/long/creditcard/CTBCCI/index.html",
-    valid:"年度權益 · 年費NT$22,000", tags:["里程"],
-    rates:{"里程":9},
+    valid:"年度權益 · 年費NT$22,000", tags:["哩程"],
+    rates:{"哩程":9},
     pts:"華航哩程 · 直接累華夏哩程免兌換 · 送華夏金卡會籍2年",
     tiers:[
       {rate:"18元/哩",label:"國內外一般消費（基本）",sub:"NT$18 = 1 華航哩",cap:"無上限"},
@@ -638,8 +638,8 @@ const cards = [
     id:"cathay-eva",
     name:"國泰 長榮極致無限卡", issuer:"國泰世華 · 長榮哩程", rail:"#0a6b3b",
     url:"https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/eva",
-    valid:"年度權益 · 年費NT$20,000", tags:["里程"],
-    rates:{"里程":10},
+    valid:"年度權益 · 年費NT$20,000", tags:["哩程"],
+    rates:{"哩程":10},
     pts:"長榮無限萬哩遊哩程 · 需年收200萬 · 長榮貴賓室",
     tiers:[
       {rate:"20元/哩",label:"國內一般消費",sub:"NT$20 = 1 哩",cap:"無上限"},
@@ -654,8 +654,8 @@ const cards = [
     id:"esun-starlux",
     name:"玉山 星宇世界卡", issuer:"玉山銀行 · 星宇哩程", rail:"#1a1a2e",
     url:"https://www.esunbank.com/zh-tw/personal/credit-card/intro/co-branded-card/starlux-card",
-    valid:"年度權益 · 年費NT$6,000", tags:["里程"],
-    rates:{"里程":10},
+    valid:"年度權益 · 年費NT$6,000", tags:["哩程"],
+    rates:{"哩程":10},
     pts:"星宇 COSMILE 哩程 · 生日月海外2倍",
     tiers:[
       {rate:"20元/哩",label:"國內一般消費",sub:"NT$20 = 1 哩",cap:"無上限"},
@@ -685,7 +685,7 @@ const cards = [
 const scenarios = ["全部","LINE Pay","Apple/Google/Samsung Pay","無腦日常","網購","影音訂閱","美食外送","旅遊機票","旅日","旅韓","旅歐美","售票電玩","好市多","悠遊卡加值","綠色消費","停車","保費"];
 let activeScenario = "全部";
 let activeTab = "cash";
-const isMileCard = c => c.tags.includes("里程");
+const isMileCard = c => c.tags.includes("哩程");
 const tabCards = () => cards.filter(c => isMileCard(c) === (activeTab==="mile"));
 let visibleCards = new Set(cards.map(c=>c.id));
 
