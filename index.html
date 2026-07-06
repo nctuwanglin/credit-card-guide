@@ -604,6 +604,23 @@ const cards = [
   },
 
   {
+    id:"kumamon",
+    name:"玉山 熊本熊卡", issuer:"玉山銀行 · 現金回饋", rail:"#e2231a",
+    url:"https://event.esunbank.com.tw/credit/kumamon-card/index.html",
+    valid:"2026/01/01–12/31", tags:["旅日"],
+    rates:{"旅日":8.5},
+    pts:"現金回饋 · 每期直接折抵帳單 · 需電子帳單＋玉山帳戶自扣",
+    tiers:[
+      {rate:"0.5",label:"國內一般消費（基本）",sub:"需綁定帳單e化＋玉山帳戶自動扣繳卡費",cap:"無上限"},
+      {rate:"2.5",hi:true,label:"日本一般消費（基本）",sub:"日本實體／網路消費皆適用",cap:"無上限"},
+      {rate:"8.5",hi:true,label:"日本指定商店加碼（+6%）",sub:"熊好用（交通卡儲值）／熊好遊（訂房購票）／熊好買（藥妝家電）／熊好吃／熊好玩（樂園），需登錄",cap:"加碼上限500/期 · 可刷8,333"},
+      {rate:"5",hi:true,label:"日本 PayPay 消費",sub:"基本3.5% + 免國外交易服務費加碼1.5%，需綁玉山Wallet電子支付",cap:"3.5%部分上限100/季 · 可刷2,857"},
+    ],
+    note:"日本旅遊主打新卡：日本一般消費2.5%、指定商店（交通卡儲值／訂房購票／藥妝家電／美食／樂園）加碼至8.5%（需登錄，上限500元/期）。首年免年費，次年電子帳單或自扣或任一消費即可續免年費。",
+    alert:"日本指定商店加碼6%與PayPay加碼皆需事先登錄才享回饋，且分屬不同上限（500元/期、100元/季），請留意加總後仍受個別上限限制。"
+  },
+
+  {
     id:"hsbc-travel",
     name:"匯豐 旅人無限卡", issuer:"匯豐銀行 · 旅遊積分", rail:"#db0011",
     url:"https://www.hsbc.com.tw/credit-cards/products/travel/visa-infinite/",
