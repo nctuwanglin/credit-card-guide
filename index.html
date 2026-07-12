@@ -197,10 +197,11 @@
   .tag.eu{background:#dfeaf7;color:#1e5fa3}
 
   .head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+  .name-block{min-width:0;flex:1 1 auto}
   .name-block .name{font-weight:900;font-size:19px;letter-spacing:.01em;line-height:1.25}
   .name-block .issuer{font-size:12px;color:var(--faint);margin-top:2px}
   .valid{
-    flex:0 0 auto;text-align:right;
+    flex:0 0 auto;max-width:44%;text-align:right;
     font-family:"JetBrains Mono",monospace;font-size:10.5px;
     color:var(--muted);line-height:1.4;
   }
@@ -589,7 +590,7 @@ const cards = [
     id:"costco",
     name:"富邦 好市多聯名卡", issuer:"台北富邦 · 好多金", rail:"#e4002b",
     url:"https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
-    valid:"~2027/12/31 · 精選旅遊通路活動2026/01/01–12/31", tags:["好市多","旅日","旅韓","旅歐美"],
+    valid:"~2027/12/31", tags:["好市多","旅日","旅韓","旅歐美"],
     rates:{"好市多":3,"旅日":5,"旅韓":5,"旅歐美":5},
     pts:"好多金 ＝ 折抵會費／店內消費",
     tiers:[
@@ -643,7 +644,7 @@ const cards = [
     id:"pi",
     name:"玉山 Pi 拍錢包", issuer:"玉山銀行 · P幣", rail:"#5b35d6",
     url:"https://event.esunbank.com.tw/credit/pi-card/index.html",
-    valid:"活動期間 2026/03/01–2026/08/31（即將到期，請留意續約公告）", tags:["保費","網購"],
+    valid:"2026/03/01–08/31", tags:["保費","網購"],
     rates:{"保費":1.2,"網購":5},
     pts:"P幣 ＝ 1元 · 效期180天 · 需帳單e化（未辦e化基本僅0.3%）",
     tiers:[
