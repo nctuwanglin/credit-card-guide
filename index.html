@@ -136,6 +136,17 @@
   }
   .reco-pill b{color:var(--gain);font-family:"JetBrains Mono",monospace;font-size:13px;margin-left:2px}
   .reco-medal{color:var(--gain);font-weight:700}
+  .reco-meta{font-size:10px;font-weight:600;color:#9a6a05;background:#f7eed7;border-radius:4px;padding:0 5px;margin-left:2px}
+  .reco-more{cursor:pointer;background:#f6f7fa;border:1px dashed var(--line);color:var(--muted);user-select:none}
+  .reco-more:hover{border-color:var(--ink);color:var(--ink)}
+
+  /* ---------- DATA AS OF ---------- */
+  .asof{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.18em;color:var(--faint);margin-top:10px;text-transform:uppercase}
+  .asof b{color:var(--gain);font-weight:700}
+
+  /* ---------- EXPIRY BADGE ---------- */
+  .expire{display:inline-block;margin-top:4px;font-size:10px;font-weight:700;letter-spacing:.03em;border-radius:5px;padding:1px 7px;color:#fff;background:#d64533;font-family:"Noto Sans TC",sans-serif}
+  .expire.ended{background:#9aa1b1}
 
   /* ---------- GRID ---------- */
   .grid{
@@ -263,6 +274,7 @@
       <div class="yr">20<span class="dot">2</span>6</div>
       <h1>信用卡回饋指南</h1>
     </div>
+    <div class="asof">DATA AS OF <b>2026/07/10</b> · 回饋內容以官方公告為準</div>
   </div>
 </header>
 
@@ -721,6 +733,19 @@ const cards = [
   },
 ];
 
+// 活動截止日（YYYY-MM-DD）：30天內到期的卡自動掛「即將到期」紅標；哩程卡為年度權益不列
+const VALID_END={unicard:'2026-12-31',dawho:'2026-12-31',sport:'2026-12-31',richart:'2027-03-31',cube:'2026-12-31','dbs-aov':'2026-12-31','dbs-eco':'2026-12-31',linebank:'2026-07-31',breeze:'2026-12-31',mcard:'2026-12-31',jihe:'2026-12-31',green:'2026-12-31',costco:'2027-12-31','fubon-j':'2026-12-31',ubear:'2026-08-31',pi:'2026-08-31',kumamon:'2026-12-31','ctbc-linepay':'2026-12-31'};
+// 代表回饋率的條件標籤：限時活動／需登錄／需訂閱／需資格等，顯示在「回饋排序」pill 上，避免限時天花板與常態回饋混排誤導
+const RATE_META={
+  unicard:{'網購':'需訂閱UP選','LINE Pay':'需訂閱UP選','旅日':'需訂閱UP選','旅韓':'需訂閱UP選','旅歐美':'需訂閱UP選'},
+  dawho:{'無腦日常':'需大戶資格','悠遊卡加值':'需大戶資格','旅日':'需大戶資格','旅韓':'需大戶資格','旅歐美':'需大戶資格'},
+  sport:{'Apple/Google/Samsung Pay':'需運動達標'},
+  'dbs-eco':{'Apple/Google/Samsung Pay':'限時至8/31·需登錄','LINE Pay':'限時至8/31·需登錄'},
+  costco:{'旅日':'需登錄','旅韓':'需登錄','旅歐美':'需登錄'},
+  'fubon-j':{'旅日':'限時Q3·需登錄','旅韓':'限時Q3·需登錄','悠遊卡加值':'需登錄'},
+  kumamon:{'旅日':'需登錄'},
+  jihe:{'旅日':'疊加值'},
+};
 const scenarios = ["全部","LINE Pay","Apple/Google/Samsung Pay","無腦日常","網購","影音訂閱","美食外送","旅遊機票","旅日","旅韓","旅歐美","售票電玩","好市多","百貨","悠遊卡加值","綠色消費","停車","保費"];
 let activeScenario = "全部";
 let activeTab = "cash";
@@ -732,6 +757,7 @@ function switchTab(tab){
   if(tab===activeTab) return;
   activeTab = tab;
   activeScenario = "全部";
+  recoExpanded = false;
   document.getElementById('tabCash').classList.toggle('active', tab==='cash');
   document.getElementById('tabMile').classList.toggle('active', tab==='mile');
   document.querySelector('.filter').style.display = tab==='mile' ? 'none' : '';
@@ -772,6 +798,15 @@ function selectAll(state){
 
 function rateSuffix(r){
   return /^\+?[0-9.]+$/.test(r) ? '%' : '';
+}
+
+// 到期角標：30天內到期→紅標「即將到期」；已過期→灰標「已到期」
+function expBadge(c){
+  const end=VALID_END[c.id];if(!end)return'';
+  const days=Math.ceil((new Date(end+'T23:59:59')-Date.now())/86400000);
+  if(days<0)return`<span class="expire ended">已到期 請確認新方案</span>`;
+  if(days<=30)return`<span class="expire">⏳ 即將到期 ${end.slice(5).replace('-','/')}止</span>`;
+  return'';
 }
 
 function renderTier(t){
@@ -827,7 +862,7 @@ function renderGrid(){
             <div class="name">${c.name}</div>
             <div class="issuer">${c.issuer}</div>
           </div>
-          <div class="valid"><span>適用期間</span>${c.valid}</div>
+          <div class="valid"><span>適用期間</span>${c.valid}${expBadge(c)?'<br>'+expBadge(c):''}</div>
         </div>
         <span class="pts">點數 · <b>${c.pts}</b></span>
         ${body}
@@ -849,6 +884,7 @@ scenarios.forEach(s=>{
   ch.textContent = s;
   ch.onclick = ()=>{
     activeScenario = s;
+    recoExpanded = false;
     document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
     ch.classList.add('active');
     renderReco();
@@ -857,6 +893,8 @@ scenarios.forEach(s=>{
   chipBox.appendChild(ch);
 });
 
+let recoExpanded=false;
+function toggleReco(){recoExpanded=!recoExpanded;renderReco();}
 function renderReco(){
   const box = document.getElementById('reco');
   if(activeScenario==="全部"){ box.style.display='none'; box.innerHTML=''; return; }
@@ -865,8 +903,14 @@ function renderReco(){
     .sort((a,b)=> b.rates[activeScenario]-a.rates[activeScenario]);
   if(!ranked.length){ box.style.display='none'; box.innerHTML=''; return; }
   box.style.display='flex';
+  const pill=(c,i)=>{
+    const meta=RATE_META[c.id]&&RATE_META[c.id][activeScenario];
+    return`<span class="reco-pill"><span class="reco-medal">${i+1}</span>${c.name}<b>${c.rates[activeScenario]}%</b>${meta?`<span class="reco-meta">${meta}</span>`:''}</span>`;
+  };
+  const show = recoExpanded ? ranked : ranked.slice(0,3);
   box.innerHTML = `<span class="reco-label">${activeScenario} 回饋排序</span>` +
-    ranked.map((c,i)=>`<span class="reco-pill"><span class="reco-medal">${i+1}</span>${c.name}<b>${c.rates[activeScenario]}%</b></span>`).join('');
+    show.map(pill).join('') +
+    (ranked.length>3?`<span class="reco-pill reco-more" onclick="toggleReco()">${recoExpanded?'收合 ▴':`+${ranked.length-3} 更多 ▾`}</span>`:'');
 }
 
 renderSelector();
