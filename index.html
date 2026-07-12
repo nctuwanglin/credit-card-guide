@@ -148,6 +148,26 @@
   .expire{display:inline-block;margin-top:4px;font-size:10px;font-weight:700;letter-spacing:.03em;border-radius:5px;padding:1px 7px;color:#fff;background:#d64533;font-family:"Noto Sans TC",sans-serif}
   .expire.ended{background:#9aa1b1}
 
+  /* ---------- RECO CAP HINT ---------- */
+  .reco-cap{font-size:10px;color:var(--faint);margin-left:3px;font-family:"JetBrains Mono",monospace}
+
+  /* ---------- SELECTOR COLLAPSE (mobile) ---------- */
+  .sel-toggle{display:none;cursor:pointer;font-size:11.5px;font-weight:600;color:var(--muted);background:transparent;border:1px solid var(--line);padding:4px 10px;border-radius:6px}
+  @media(max-width:680px){
+    .sel-toggle{display:inline-block}
+    .selector.collapsed .sel-grid{display:none}
+    .selector.collapsed .sel-actions .sel-btn{display:none}
+  }
+
+  /* ---------- CHIP SCROLL FADE ---------- */
+  .chip-scroll{position:relative}
+  .chip-scroll::after{content:"";position:absolute;top:0;right:0;width:44px;height:100%;background:linear-gradient(90deg,rgba(231,233,238,0),rgba(231,233,238,.95));pointer-events:none}
+
+  /* ---------- MILE STRIP ---------- */
+  .hide{display:none!important}
+  .milestrip{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:12px 16px;margin-top:12px;font-size:13px;display:flex;gap:8px 10px;flex-wrap:wrap;align-items:center;box-shadow:var(--shadow)}
+  .milestrip .ms-label{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.15em;color:var(--muted);width:100%;text-transform:uppercase}
+
   /* ---------- GRID ---------- */
   .grid{
     display:grid;gap:16px;padding:26px 0 0;
@@ -289,6 +309,7 @@
       <div class="sel-actions">
         <button class="sel-btn" onclick="selectAll(true)">全選</button>
         <button class="sel-btn" onclick="selectAll(false)">全部取消</button>
+        <button class="sel-toggle" id="selToggle" onclick="toggleSelector()"></button>
       </div>
     </div>
     <div class="sel-grid" id="selGrid"></div>
@@ -297,10 +318,11 @@
 
 <div class="filter">
   <div class="wrap">
-    <div class="filter-inner" id="chips"></div>
+    <div class="chip-scroll"><div class="filter-inner" id="chips"></div></div>
     <div class="reco" id="reco"></div>
   </div>
 </div>
+<div class="wrap"><div class="milestrip hide" id="mileStrip"></div></div>
 
 <main class="wrap">
   <div class="grid" id="grid"></div>
@@ -347,7 +369,7 @@ const cards = [
       {rate:"3",hi:true,label:"悠遊卡自動加值（大戶）",sub:"大戶Plus 升至5%",cap:"大戶上限100/月·可刷3,333 ／ Plus 500/月·可刷10,000"},
     ],
     note:"H2大改版：大戶門檻調升至資產30萬，大戶Plus 100萬。一般消費基本回饋無上限，任務加碼有月上限。分期消費不回饋。需設定電子帳單＋DAWHO數位帳戶自動扣繳。",
-    alert:"2026下半年大改版：大戶門檻升至30萬。回饋上限——大戶任務加碼400/月（可刷16,000）、大戶Plus 1,000/月（可刷25,000）；悠遊加值大戶100/月（可刷3,333）、Plus 500/月（可刷10,000）。"
+    alert:"2026下半年大改版：大戶門檻升至資產30萬（Plus 100萬），各層加碼均設月上限（見上表）。"
   },
 
   {
@@ -359,8 +381,8 @@ const cards = [
     pts:"豐點 ＝ 1元 · 需大咖DACARD App＋自扣 · 卡路里區間 當月1–31",
     tiers:[
       {rate:"1",label:"一般消費（基本）",sub:"0.3% 無e帳單 ＋ 0.7% e帳單加碼（7月起調整）",cap:"無上限"},
-      {rate:"+1",label:"運動獎勵加碼",sub:"當月達 10,000 kcal 或 Apple Watch 圓滿畫圈10次，需設定帳戶自扣",cap:"上限50/月 · 可刷5,000"},
-      {rate:"5",hi:true,label:"達運動條件 ＋ 指定支付",sub:"Apple Pay／Google Pay／Samsung Pay／Garmin Pay 加碼3%",cap:"上限300/月 · 可刷10,000"},
+      {rate:"2",label:"達運動條件",sub:"基本1%＋運動加碼1%：當月達 10,000 kcal 或 Apple Watch 圓滿畫圈10次，需設定帳戶自扣",cap:"加碼上限50/月 · 可刷5,000"},
+      {rate:"5",hi:true,label:"達運動條件 ＋ 指定支付",sub:"基本1%＋運動1%＋指定支付3%：Apple Pay／Google Pay／Samsung Pay／Garmin Pay",cap:"支付加碼上限300/月 · 可刷10,000"},
     ],
     note:"7月起基本回饋拆為 0.3%（一般）＋ 0.7%（e帳單），總計仍 1%。指定支付 3% 加碼須先達成當月運動條件才生效。已分期之交易不再享回饋。"
   },
@@ -375,22 +397,22 @@ const cards = [
     schemes:[
       { name:"Pay 著刷 / LINE Pay", hi:true, tiers:[
         {rate:"3.8",hi:true,label:"綁台新Pay 11萬家通路",sub:"新光三越、四大超商、IKEA、路易莎、台灣大車隊",cap:"信用額度+30萬為上限"},
-        {rate:"2.3",label:"LINE Pay（常駐權益）",sub:"2026新增",cap:""},
+        {rate:"2.3",label:"LINE Pay（常駐權益）",sub:"2026新增",cap:"無上限"},
       ]},
       { name:"天天刷", hi:false, tiers:[
-        {rate:"3.3",hi:true,label:"超商／超市／量販／加油／停車",sub:"USPACE、Autopass(車麻吉)新增",cap:""},
+        {rate:"3.3",hi:true,label:"超商／超市／量販／加油／停車",sub:"USPACE、Autopass(車麻吉)新增",cap:"信用額度+30萬為上限"},
       ]},
       { name:"大筆刷", hi:false, tiers:[
-        {rate:"3.3",hi:true,label:"百貨／時尚品牌",sub:"Uniqlo、ZARA、GU、NET、lativ、GAP",cap:""},
+        {rate:"3.3",hi:true,label:"百貨／時尚品牌",sub:"Uniqlo、ZARA、GU、NET、lativ、GAP",cap:"信用額度+30萬為上限"},
       ]},
       { name:"好饗刷", hi:false, tiers:[
-        {rate:"3.3",hi:true,label:"餐飲／KTV／娛樂",sub:"錢櫃、好樂迪、ONCOR、sing!go、享溫馨，新增王品瘋Pay、FunNow",cap:""},
+        {rate:"3.3",hi:true,label:"餐飲／KTV／娛樂",sub:"錢櫃、好樂迪、ONCOR、sing!go、享溫馨，新增王品瘋Pay、FunNow",cap:"信用額度+30萬為上限"},
       ]},
       { name:"數趣刷", hi:false, tiers:[
-        {rate:"3.3",hi:true,label:"網購／影音／AI／遊戲訂閱",sub:"蝦皮、momo、PChome、Netflix、Disney+、Steam、ChatGPT、Claude，新增iHerb、Olive Young、Canva、Notion",cap:""},
+        {rate:"3.3",hi:true,label:"網購／影音／AI／遊戲訂閱",sub:"蝦皮、momo、PChome、Netflix、Disney+、Steam、ChatGPT、Claude，新增iHerb、Olive Young、Canva、Notion",cap:"信用額度+30萬為上限"},
       ]},
       { name:"玩旅刷", hi:true, tiers:[
-        {rate:"3.3",hi:true,label:"海外消費／航空（15家）／訂房／旅行社（13家）／日韓交通卡",sub:"華航、長榮、星宇、Klook、Agoda、SUICA、ICOCA、PASMO、WOWPASS儲值，航空與旅行社家數擴大",cap:""},
+        {rate:"3.3",hi:true,label:"海外消費／航空（15家）／訂房／旅行社（13家）／日韓交通卡",sub:"華航、長榮、星宇、Klook、Agoda、SUICA、ICOCA、PASMO、WOWPASS儲值，航空與旅行社家數擴大",cap:"信用額度+30萬為上限"},
       ]},
       { name:"假日刷", hi:false, tiers:[
         {rate:"2",label:"週六日 不限通路",sub:"已移除街口、Yahoo購物、停車租車、樂園",cap:"無上限"},
@@ -442,7 +464,7 @@ const cards = [
       ]},
     ],
     note:"玩數位／樂饗購／趣旅行依權益等級分3級：Level1（僅持有正卡）2%、Level2（設定本行帳戶自扣或用CUBE App繳本行卡費）3%、Level3（財富管理VIP資產300萬）3.3%，本頁rates採Level2主流可達的3%。指定消費累計金額以「消費日信用額度＋NT$50萬」為上限，超出部分僅0.3%（一般用戶幾乎不會觸及）。童樂匯需家長＋未成年子女皆有國泰世華帳戶（家長為法定代理人）才解鎖，2026年分上/下半年各自公告一版（本頁為H2版）。限時「日本賞」另有旅日加碼最高 3.5~5%。",
-    alert:"全支付方案（2026/4/22–12/31）已回歸：切換至「全支付」方案＋用全支付App綁定CUBE卡，全聯／大全聯／全支付通路2%無上限。LINE Pay改為需先領券＋當月滿8次消費才享2%，加碼部分上限100元/月（可刷約5,882）。童樂匯：母嬰品牌、親子餐廳、Yamaha／朱宗慶等才藝體驗 10%；蘭城晶英、東京迪士尼、大阪環球 5%；私校學費調降為 1%（i繳費平台）。"
+    alert:"LINE Pay 需先於CUBE App領券＋當月滿8次消費才享2%（加碼上限100元/月）；全支付2%方案已回歸，需切換方案＋全支付App綁卡。"
   },
 
   {
@@ -458,7 +480,7 @@ const cards = [
       {rate:"10",hi:true,label:"生活玩家精選通路（加碼9%）",sub:"App Store、Google Play、Garena、GASH、MyCard、Nintendo、PlayStation、Steam、Netflix、Disney+、Spotify、Twitch、TikTok、YouTube Premium、Uber Eats、foodpanda、蝦皮、淘寶、麥當勞、肯德基、摩斯漢堡等",cap:"上限500點/月 · 可刷5,556"},
     ],
     note:"2026/7/1～12/31 活動期。LINE Pay 加碼已取消（非本期活動項目）。麥當勞、肯德基等小額特店僅享加碼回饋、無基本1%。",
-    alert:"7/1 起改版：① LINE Pay 10% 已取消 ② 國外基本回饋降至 1%（原2.5%）③ 新增指定地區實體最高 5%（需自扣，上限500點）④ 精選通路加碼上限 500點/月、新增淘寶。"
+    alert:"7/1 改版：LINE Pay 10% 已取消、國外基本回饋 2.5%→1%；新增層級與上限見上表。"
   },
 
   {
@@ -472,8 +494,8 @@ const cards = [
       {rate:"1",label:"國內外一般消費（基本）",sub:"分期不回饋",cap:"無上限"},
       {rate:"5",hi:true,label:"指定地區實體 ＋4%",sub:"日本／韓國／泰國／新加坡／美洲／歐洲",cap:"上限600點/期 · 可刷15,000"},
       {rate:"10",hi:true,label:"eco 消費 ＋9%",sub:"Tesla充電／Gogoro電池／星展基金會社企（鮮乳坊、茶籽堂、禾乃川、馳綠等）",cap:"上限500點/期 · 可刷5,556"},
-      {rate:"15",hi:true,label:"指定行動支付加碼（需登錄）",sub:"Apple Pay／Samsung Pay／LINE Pay／街口支付／Pi拍錢包／skm pay／誠品Pay／全家錢包／中油Pay／ezPay／橘子支付／101pay／OPEN錢包 · 2026/5/1–8/31",cap:"上限1,500元/月 · 累計上限6,000元"},
-      {rate:"9",label:"新戶 LINE Pay 加碼（限新戶）",sub:"LINE POINTS加碼 · 需累積消費滿3,000元 · 2026/7/1–9/30",cap:"上限300點/期"},
+      {rate:"15",hi:true,label:"指定行動支付加碼（需登錄）",sub:"Apple Pay／Samsung Pay／LINE Pay／街口支付／Pi拍錢包／skm pay／誠品Pay／全家錢包／中油Pay／ezPay／橘子支付／101pay／OPEN錢包 · 2026/5/1–8/31",cap:"上限1,500元/月 · 可刷10,000/月 · 活動累計上限6,000元"},
+      {rate:"9",label:"新戶 LINE Pay 加碼（限新戶）",sub:"LINE POINTS加碼 · 需累積消費滿3,000元 · 2026/7/1–9/30",cap:"上限300點/期 · 可刷3,333"},
     ],
     note:"歐洲實體消費也有回饋（多數卡排除歐盟）。威秀購票 6 折起。海外旅遊複合最高可疊加至23%（基本1%+指定地區4%+機票訂房3%+行動支付15%），國內複合最高21%（基本1%+交通5%+行動支付15%），需分別登錄各活動。"
   },
@@ -540,9 +562,9 @@ const cards = [
     tiers:[
       {rate:"1",label:"國內一般消費",sub:"萊爾富實體／Apple Pay／Google Pay 現折5%（無上限）",cap:"無上限"},
       {rate:"2.5",hi:true,label:"日幣消費（基本）",sub:"日本網購或實體皆可",cap:"無上限"},
-      {rate:"+1.5",hi:true,label:"日本實體 Apple Pay／Google Pay 感應（需登錄）",sub:"綁卡感應單筆滿台幣100元 · 下半年起 Google Pay 也適用",cap:"上限600/月 · 可刷40,000"},
-      {rate:"+1",label:"日本實體 Apple/Google Pay 升級加碼",sub:"前月帳單滿3萬元",cap:"上限200/月 · 可刷20,000"},
-      {rate:"+3",hi:true,label:"日本熱門商店加碼",sub:"便利商店／遊樂園（含環球影城）／百貨／量販，指定店家",cap:"活動上限600/戶 · 可刷20,000"},
+      {rate:"4",hi:true,label:"日本實體 Apple/Google Pay 感應（需登錄）",sub:"基本2.5%＋感應加碼1.5%：綁卡感應單筆滿台幣100元 · 下半年起 Google Pay 也適用",cap:"加碼上限600/月 · 可刷40,000"},
+      {rate:"5",label:"前月帳單滿3萬 升級加碼",sub:"上列4%再＋1%（合計5%）",cap:"升級加碼上限200/月 · 可刷20,000"},
+      {rate:"8",hi:true,label:"日本熱門商店（疊加天花板）",sub:"上列5%再＋3%：便利商店／遊樂園（含環球影城）／百貨／量販指定店家",cap:"熱門加碼上限600/戶 · 可刷20,000"},
     ],
     note:"日本旅遊神卡。下半年（7–12月）延續上半年權益，並新增 Google Pay 支援日本感應加碼，Android 用戶也可拿到4%（2.5%+1.5%）。另有國內日系名店（UNIQLO、GU、大創等）+4%加碼（上限500/月），請自行確認官網細節。"
   },
@@ -579,7 +601,7 @@ const cards = [
       {rate:"3",hi:true,label:"精選航空／旅行社／訂房／免稅店（需登錄）",sub:"中華、長榮、星宇等航空／易遊網、雄獅等旅行社／昇恆昌、采盟免稅店，基本1% + 加碼2%",cap:"加碼合計上限600/戶/月 · 可刷15,000（與上列海外實體共用額度）"},
     ],
     note:"需為 Costco 會員。精選旅遊通路活動每月1日開放登錄（5萬名額），採雙月請款回饋。",
-    alert:"精選旅遊通路加碼（2026/1/1–12/31，需每月登錄）：海外實體最高5%、航空/旅行社/訂房/免稅店最高3%，兩者共用每戶每月600元加碼上限。"
+    alert:"精選旅遊加碼需每月1日登錄（5萬名額），兩層共用600元/月加碼上限。"
   },
 
   {
@@ -746,12 +768,60 @@ const RATE_META={
   kumamon:{'旅日':'需登錄'},
   jihe:{'旅日':'疊加值'},
 };
+// 代表回饋率天花板層的「可刷金額」（NT$/期，取該卡該情境最高%那一層的上限換算）；未列＝無固定上限
+// 用途：①同%並列時排序 tie-break（可刷高者優先）②回饋排序 pill 顯示小字提示
+const RATE_CAP={
+  unicard:{'網購':142857,'LINE Pay':142857,'旅日':142857,'旅韓':142857,'旅歐美':142857},
+  dawho:{'無腦日常':16000,'悠遊卡加值':3333,'旅日':16000,'旅韓':16000,'旅歐美':16000},
+  sport:{'Apple/Google/Samsung Pay':10000},
+  'dbs-aov':{'網購':5556,'影音訂閱':5556,'美食外送':5556,'售票電玩':5556,'旅日':12500,'旅韓':12500,'旅歐美':12500},
+  'dbs-eco':{'Apple/Google/Samsung Pay':10000,'LINE Pay':10000,'旅日':15000,'旅韓':15000,'旅歐美':15000},
+  linebank:{'網購':10000,'影音訂閱':10000},
+  breeze:{'百貨':500000},
+  mcard:{'旅遊機票':6000},
+  jihe:{'旅日':20000},
+  green:{'綠色消費':6000},
+  costco:{'旅日':15000,'旅韓':15000,'旅歐美':15000},
+  'fubon-j':{'旅日':33333,'旅韓':33333,'悠遊卡加值':500},
+  ubear:{'LINE Pay':7500,'網購':7500,'影音訂閱':1111},
+  pi:{'網購':6000},
+  kumamon:{'旅日':8333},
+};
+const capOf=(c,s)=>{const v=RATE_CAP[c.id]&&RATE_CAP[c.id][s];return v==null?9e15:v;};
+// 年費（已查證的才列；哩程卡年費在 valid 顯示）
+const FEE={
+  kumamon:'首年免，次年電子帳單／自扣／任一消費即免',
+  'fubon-j':'1,800，申請電子帳單即免',
+};
 const scenarios = ["全部","LINE Pay","Apple/Google/Samsung Pay","無腦日常","網購","影音訂閱","美食外送","旅遊機票","旅日","旅韓","旅歐美","售票電玩","好市多","百貨","悠遊卡加值","綠色消費","停車","保費"];
 let activeScenario = "全部";
 let activeTab = "cash";
 const isMileCard = c => c.tags.includes("哩程");
 const tabCards = () => cards.filter(c => isMileCard(c) === (activeTab==="mile"));
+// 「全部」視圖依發卡行分組（以資料中首次出現順序為組序，組內維持原順序）
+const bankOf = c => c.name.split(' ')[0];
+const BANK_IDX = {};
+cards.forEach(c=>{const b=bankOf(c);if(!(b in BANK_IDX))BANK_IDX[b]=Object.keys(BANK_IDX).length;});
 let visibleCards = new Set(cards.map(c=>c.id));
+// 選卡狀態記憶（localStorage）
+const LS_KEY='ccg-visible';
+try{
+  const saved=JSON.parse(localStorage.getItem(LS_KEY)||'null');
+  if(Array.isArray(saved)&&saved.length){
+    const ids=new Set(cards.map(c=>c.id));
+    const v=saved.filter(id=>ids.has(id));
+    if(v.length)visibleCards=new Set(v);
+  }
+}catch(e){}
+function saveVisible(){try{localStorage.setItem(LS_KEY,JSON.stringify([...visibleCards]))}catch(e){}}
+// 選卡器手機版收合（桌機不受影響）
+let selCollapsed = matchMedia('(max-width:680px)').matches;
+function toggleSelector(){selCollapsed=!selCollapsed;updateSelectorUI();}
+function updateSelectorUI(){
+  document.querySelector('.selector').classList.toggle('collapsed',selCollapsed);
+  const n=tabCards().filter(c=>visibleCards.has(c.id)).length,t=tabCards().length;
+  document.getElementById('selToggle').textContent=selCollapsed?`展開（顯示 ${n}/${t} 張）▾`:'收合 ▴';
+}
 
 function switchTab(tab){
   if(tab===activeTab) return;
@@ -765,6 +835,7 @@ function switchTab(tab){
   renderSelector();
   renderReco();
   renderGrid();
+  renderMileStrip();
 }
 
 const selGrid = document.getElementById('selGrid');
@@ -780,11 +851,14 @@ function renderSelector(){
     pill.onclick = ()=>{
       if(visibleCards.has(c.id)) visibleCards.delete(c.id);
       else visibleCards.add(c.id);
+      saveVisible();
       renderSelector();
+      renderReco();
       renderGrid();
     };
     selGrid.appendChild(pill);
   });
+  updateSelectorUI();
 }
 
 function selectAll(state){
@@ -792,7 +866,9 @@ function selectAll(state){
     if(state) visibleCards.add(c.id);
     else visibleCards.delete(c.id);
   });
+  saveVisible();
   renderSelector();
+  renderReco();
   renderGrid();
 }
 
@@ -827,7 +903,9 @@ function renderGrid(){
   let list = tabCards().filter(c=>visibleCards.has(c.id) && (activeScenario==="全部" || c.tags.includes(activeScenario)));
   if(activeScenario!=="全部"){
     const rateOf = c => (c.rates && typeof c.rates[activeScenario]==='number') ? c.rates[activeScenario] : -1;
-    list.sort((a,b)=> rateOf(b)-rateOf(a));
+    list.sort((a,b)=> rateOf(b)-rateOf(a) || capOf(b,activeScenario)-capOf(a,activeScenario));
+  }else{
+    list.sort((a,b)=> BANK_IDX[bankOf(a)]-BANK_IDX[bankOf(b)]);
   }
   list.forEach(c=>{
     shown++;
@@ -865,6 +943,7 @@ function renderGrid(){
           <div class="valid"><span>適用期間</span>${c.valid}${expBadge(c)?'<br>'+expBadge(c):''}</div>
         </div>
         <span class="pts">點數 · <b>${c.pts}</b></span>
+        ${FEE[c.id]?`<span class="pts">年費 · <b>${FEE[c.id]}</b></span>`:''}
         ${body}
         ${c.alert?`<div class="alert"><span class="ic">⚠</span><span><b>留意：</b>${c.alert}</span></div>`:''}
         ${c.note?`<div class="note">${c.note}</div>`:''}
@@ -887,25 +966,38 @@ scenarios.forEach(s=>{
     recoExpanded = false;
     document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
     ch.classList.add('active');
+    ch.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});
     renderReco();
     renderGrid();
   };
   chipBox.appendChild(ch);
 });
 
+// 哩程 tab 專用比較列：常態最優累哩（元/哩，低者優）＋年費，取代情境篩選
+function renderMileStrip(){
+  const box=document.getElementById('mileStrip');
+  if(activeTab!=='mile'){box.classList.add('hide');box.innerHTML='';return;}
+  const rows=cards.filter(isMileCard)
+    .map(c=>({n:c.name,v:c.rates['哩程'],fee:(c.valid.match(/年費NT\$[\d,]+/)||[''])[0]}))
+    .sort((a,b)=>a.v-b.v);
+  box.classList.remove('hide');
+  box.innerHTML=`<span class="ms-label">常態最優累哩比較 · 元/哩越低越好</span>`+
+    rows.map((r,i)=>`<span class="reco-pill"><span class="reco-medal">${i+1}</span>${r.n}<b>NT$${r.v}/哩</b>${r.fee?`<span class="reco-cap">${r.fee}</span>`:''}</span>`).join('');
+}
 let recoExpanded=false;
 function toggleReco(){recoExpanded=!recoExpanded;renderReco();}
 function renderReco(){
   const box = document.getElementById('reco');
   if(activeScenario==="全部"){ box.style.display='none'; box.innerHTML=''; return; }
   const ranked = tabCards()
-    .filter(c=>c.tags.includes(activeScenario) && c.rates && typeof c.rates[activeScenario]==='number')
-    .sort((a,b)=> b.rates[activeScenario]-a.rates[activeScenario]);
+    .filter(c=>visibleCards.has(c.id) && c.tags.includes(activeScenario) && c.rates && typeof c.rates[activeScenario]==='number')
+    .sort((a,b)=> b.rates[activeScenario]-a.rates[activeScenario] || capOf(b,activeScenario)-capOf(a,activeScenario));
   if(!ranked.length){ box.style.display='none'; box.innerHTML=''; return; }
   box.style.display='flex';
   const pill=(c,i)=>{
     const meta=RATE_META[c.id]&&RATE_META[c.id][activeScenario];
-    return`<span class="reco-pill"><span class="reco-medal">${i+1}</span>${c.name}<b>${c.rates[activeScenario]}%</b>${meta?`<span class="reco-meta">${meta}</span>`:''}</span>`;
+    const cap=RATE_CAP[c.id]&&RATE_CAP[c.id][activeScenario];
+    return`<span class="reco-pill"><span class="reco-medal">${i+1}</span>${c.name}<b>${c.rates[activeScenario]}%</b>${cap?`<span class="reco-cap">可刷${cap.toLocaleString()}</span>`:''}${meta?`<span class="reco-meta">${meta}</span>`:''}</span>`;
   };
   const show = recoExpanded ? ranked : ranked.slice(0,3);
   box.innerHTML = `<span class="reco-label">${activeScenario} 回饋排序</span>` +
@@ -916,6 +1008,7 @@ function renderReco(){
 renderSelector();
 renderReco();
 renderGrid();
+renderMileStrip();
 
 (function(){
   const NS = "wanglin-credit-card-guide-2026";
