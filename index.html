@@ -285,9 +285,26 @@
     color:var(--faint);
   }
   .visits b{color:var(--muted);font-weight:700}
+  button{font-family:inherit}
+  :focus-visible{outline:3px solid #1763c9;outline-offset:3px}
+  .skip-link{position:absolute;left:16px;top:-80px;background:white;padding:12px;z-index:100}
+  .skip-link:focus{top:8px}
+  .card{scroll-margin-top:90px}
+  .tier.relevant{background:var(--gain-soft);border-radius:8px;padding:8px 4px;border-left:3px solid var(--gain)}
+  .tier.inactive{opacity:.72}
+  .tier-meta{font-size:10.5px;color:var(--muted);margin-top:4px}
+  .tier-meta a{color:var(--gain)}
+  a.reco-pill{text-decoration:none;flex-wrap:wrap;max-width:100%}
+  .offer-controls{display:flex;gap:16px;flex-wrap:wrap;padding-top:12px;font-size:12px;color:var(--muted)}
+  .offer-controls label{display:flex;align-items:center;gap:6px;min-height:32px;cursor:pointer}
+  .offer-controls input{width:17px;height:17px;accent-color:var(--gain)}
+  .result-status{font-size:12px;color:var(--muted);margin-top:14px}
+  @media(max-width:680px){.sel-pill,.chip,.sel-btn,.sel-toggle{min-height:44px}.reco-pill{border-radius:12px}.head{flex-wrap:wrap}.valid{overflow-wrap:anywhere}.card-body{padding:16px 14px}.rate{flex-basis:68px;font-size:18px}.pts{max-width:100%;flex-wrap:wrap}}
+  @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
 <body>
+<a class="skip-link" href="#mainContent">跳至信用卡內容</a>
 
 <header class="hero">
   <div class="wrap">
@@ -295,14 +312,14 @@
       <div class="yr">20<span class="dot">2</span>6</div>
       <h1>信用卡回饋指南</h1>
     </div>
-    <div class="asof">DATA AS OF <b>2026/08/08</b> · 回饋內容以官方公告為準</div>
+    <div class="asof">最近查核 <b>2026/09/08</b> · 查證範圍見各優惠層；待確認欄位不代表已核實</div>
   </div>
 </header>
 
 <div class="wrap">
-  <div class="tabs">
-    <div class="tab active" id="tabCash" onclick="switchTab('cash')">💰 現金回饋</div>
-    <div class="tab" id="tabMile" onclick="switchTab('mile')">✈️ 哩程回饋</div>
+  <div class="tabs" role="group" aria-label="回饋類型">
+    <button type="button" class="tab active" id="tabCash" aria-pressed="true" onclick="switchTab('cash')">💰 現金回饋</button>
+    <button type="button" class="tab" id="tabMile" aria-pressed="false" onclick="switchTab('mile')">✈️ 哩程回饋</button>
   </div>
   <div class="selector">
     <div class="sel-head">
@@ -310,7 +327,7 @@
       <div class="sel-actions">
         <button class="sel-btn" onclick="selectAll(true)">全選</button>
         <button class="sel-btn" onclick="selectAll(false)">全部取消</button>
-        <button class="sel-toggle" id="selToggle" onclick="toggleSelector()"></button>
+        <button class="sel-toggle" id="selToggle" aria-controls="selGrid" onclick="toggleSelector()"></button>
       </div>
     </div>
     <div class="sel-grid" id="selGrid"></div>
@@ -319,13 +336,20 @@
 
 <div class="filter">
   <div class="wrap">
-    <div class="chip-scroll"><div class="filter-inner" id="chips"></div></div>
-    <div class="reco" id="reco"></div>
+    <div class="chip-scroll"><div class="filter-inner" id="chips" role="group" aria-label="消費情境"></div></div>
   </div>
+</div>
+<div class="wrap" id="cashTools">
+  <div class="offer-controls" aria-label="優惠顯示設定">
+    <label><input type="checkbox" checked onchange="showLimited=this.checked;refreshOffers()">包含限時優惠</label>
+    <label><input type="checkbox" checked onchange="excludeNew=this.checked;refreshOffers()">排除新戶／新卡專屬</label>
+  </div>
+  <div class="reco" id="reco"></div>
 </div>
 <div class="wrap"><div class="milestrip hide" id="mileStrip"></div></div>
 
-<main class="wrap">
+<main class="wrap" id="mainContent" tabindex="-1">
+  <div class="result-status" id="resultStatus" role="status" aria-live="polite" aria-atomic="true"></div>
   <div class="grid" id="grid"></div>
   <div class="visits" id="visits">瀏覽統計載入中…</div>
 </main>
@@ -333,474 +357,2991 @@
 <script>
 const cards = [
   {
-    id:"unicard",
-    name:"玉山 Unicard", issuer:"玉山銀行 · e point", rail:"#0a8f4f",
-    url:"https://event.esunbank.com.tw/credit/unicard/index.html",
-    valid:"~2026/12/31", tags:["網購","LINE Pay","旅日","旅韓","旅歐美"],
-    rates:{"網購":4.5,"LINE Pay":4.5,"旅日":4.5,"旅韓":4.5,"旅歐美":4.5},
-    pts:"e point ＝ 1元 · 效期1年 · 需電子帳單＋自扣",
-    schemes:[
-      { name:"基本回饋", hi:false, tiers:[
-        {rate:"1",label:"一般消費",sub:"0.3% 帳單e化 ＋ 0.7% 帳戶自動扣繳",cap:"無上限"},
-      ]},
-      { name:"簡單選 預設", hi:false, tiers:[
-        {rate:"3",hi:true,label:"百大指定通路（預設）",sub:"系統依百大通路自動加碼",cap:"簡單選+任意選 共用1,000點/月 · 可刷5萬"},
-      ]},
-      { name:"任意選 百大中自選8家", hi:true, tiers:[
-        {rate:"3.5",hi:true,label:"自選8家通路",sub:"LINE Pay、家樂福、日本、航空、新光三越、遠百、蝦皮、Trip.com 等",cap:"簡單選+任意選 共用1,000點/月 · 可刷4萬"},
-      ]},
-      { name:"UP選 訂閱制 149點/月", hi:true, tiers:[
-        {rate:"4.5",hi:true,label:"百大通路最高回饋",sub:"需訂閱方案 · 月扣149點",cap:"上限5,000點/月 · 可刷142,857"},
-      ]},
+    "id": "unicard",
+    "name": "玉山 Unicard",
+    "issuer": "玉山銀行 · e point",
+    "rail": "#0a8f4f",
+    "url": "https://event.esunbank.com.tw/credit/unicard/index.html",
+    "valid": "2026/07/01–12/31",
+    "tags": [
+      "網購",
+      "LINE Pay",
+      "旅日",
+      "旅韓",
+      "旅歐美",
+      "全支付",
+      "美食外送",
+      "百貨",
+      "旅遊機票"
     ],
-    note:"三方案每日可切換，依每月最後一日方案結算。"
+    "pts": "e point ＝ 1元 · 效期1年 · 需電子帳單＋自扣",
+    "schemes": [
+      {
+        "name": "基本回饋",
+        "hi": false,
+        "tiers": [
+          {
+            "rate": "1",
+            "label": "一般消費",
+            "sub": "0.3% 帳單e化 ＋ 0.7% 帳戶自動扣繳",
+            "cap": "無上限",
+            "scenarios": [],
+            "end": "2026-12-31",
+            "kind": "regular",
+            "audience": "all",
+            "start": "2026-07-01",
+            "capPeriod": null,
+            "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/unicard",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件"
+          }
+        ]
+      },
+      {
+        "name": "簡單選 預設",
+        "hi": false,
+        "tiers": [
+          {
+            "rate": "3",
+            "hi": true,
+            "label": "百大指定通路（預設）",
+            "sub": "系統依百大通路自動加碼",
+            "cap": "簡單選+任意選 共用1,000點/月 · 可刷5萬",
+            "scenarios": [
+              "網購",
+              "LINE Pay",
+              "旅日",
+              "旅韓",
+              "旅歐美",
+              "全支付",
+              "美食外送",
+              "百貨",
+              "旅遊機票"
+            ],
+            "end": "2026-12-31",
+            "kind": "regular",
+            "audience": "all",
+            "start": "2026-07-01",
+            "capPeriod": "month",
+            "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/unicard",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件",
+            "capSpend": 50000,
+            "capSource": "https://www.esunbank.com/zh-tw/article?id=credit-card/epoint/epoint"
+          }
+        ]
+      },
+      {
+        "name": "任意選 百大中自選8家",
+        "hi": true,
+        "tiers": [
+          {
+            "rate": "3.5",
+            "hi": true,
+            "label": "自選8家通路",
+            "sub": "LINE Pay、家樂福、日本、航空、新光三越、遠百、蝦皮、Trip.com 等",
+            "cap": "簡單選+任意選 共用1,000點/月 · 可刷4萬",
+            "scenarios": [
+              "網購",
+              "LINE Pay",
+              "旅日",
+              "旅韓",
+              "旅歐美",
+              "全支付",
+              "美食外送",
+              "百貨",
+              "旅遊機票"
+            ],
+            "end": "2026-12-31",
+            "kind": "regular",
+            "audience": "all",
+            "start": "2026-07-01",
+            "capPeriod": "month",
+            "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/unicard",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件",
+            "capSpend": 40000,
+            "capSource": "https://www.esunbank.com/zh-tw/article?id=credit-card/epoint/epoint"
+          }
+        ]
+      },
+      {
+        "name": "UP選 訂閱制 149點/月",
+        "hi": true,
+        "tiers": [
+          {
+            "rate": "4.5",
+            "hi": true,
+            "label": "百大通路最高回饋",
+            "sub": "上月刷滿3萬元且平均資產30萬元可免訂閱費；否則149點／月。",
+            "cap": "上限5,000點/月 · 可刷142,857",
+            "scenarios": [
+              "網購",
+              "LINE Pay",
+              "旅日",
+              "旅韓",
+              "旅歐美",
+              "全支付",
+              "美食外送",
+              "百貨",
+              "旅遊機票"
+            ],
+            "end": "2026-12-31",
+            "kind": "regular",
+            "audience": "all",
+            "capSpend": 142857,
+            "condition": "需UP選資格或付149點／月",
+            "start": "2026-07-01",
+            "capPeriod": "month",
+            "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/unicard",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件",
+            "capSource": "https://www.esunbank.com/zh-tw/article?id=credit-card/epoint/epoint"
+          }
+        ]
+      }
+    ],
+    "note": "簡單選／任意選每月最多切換30次，按月底最終方案結算。升級UP選當月不可改回，預設次月續訂。上限依官方e point說明表；基本回饋不含歐盟實體與其他非一般消費。",
+    "end": "2026-12-31",
+    "fee": "正卡3,000元；首年免，每年消費／玉山自扣／帳單e化可免，附卡免",
+    "feeSource": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/unicard",
+    "feeCheckedAt": "2026-09-08"
   },
-
   {
-    id:"dawho",
-    name:"永豐 大戶 DAWHO", issuer:"永豐銀行 · 現金回饋", rail:"#1763c9",
-    url:"https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/DAWHO.html",
-    valid:"2026/07/01–12/31", tags:["無腦日常","悠遊卡加值","旅日","旅韓","旅歐美"],
-    rates:{"無腦日常":3.5,"悠遊卡加值":3,"旅日":4.5,"旅韓":4.5,"旅歐美":4.5},
-    pts:"現金回饋 · 需電子帳單＋DAWHO數位帳戶自扣",
-    tiers:[
-      {rate:"1",label:"一般消費（基本）",sub:"國內1% / 國外2% · 無上限",cap:"無上限"},
-      {rate:"3.5",hi:true,label:"大戶等級（資產30萬以上）",sub:"國內最高3.5%／國外4.5%・基本+任務加碼2.5%",cap:"加碼上限400/月 · 可刷16,000"},
-      {rate:"5",hi:true,label:"大戶Plus等級（資產100萬以上）",sub:"國內最高5%／國外6%・基本+任務加碼4%",cap:"加碼上限1,000/月 · 可刷25,000"},
-      {rate:"3",hi:true,label:"悠遊卡自動加值（大戶）",sub:"大戶Plus 升至5%",cap:"大戶上限100/月·可刷3,333 ／ Plus 500/月·可刷10,000"},
+    "id": "dawho",
+    "name": "永豐 大戶 DAWHO",
+    "issuer": "永豐銀行 · 現金回饋",
+    "rail": "#1763c9",
+    "url": "https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/DAWHO.html",
+    "valid": "2026/07/01–12/31",
+    "tags": [
+      "無腦日常",
+      "悠遊卡加值",
+      "旅日",
+      "旅韓",
+      "旅歐美"
     ],
-    note:"H2大改版：大戶門檻調升至資產30萬，大戶Plus 100萬。一般消費基本回饋無上限，任務加碼有月上限。分期消費不回饋。需設定電子帳單＋DAWHO數位帳戶自動扣繳。",
-    alert:"2026下半年大改版：大戶門檻升至資產30萬（Plus 100萬），各層加碼均設月上限（見上表）。"
+    "pts": "現金回饋 · 需電子帳單＋DAWHO數位帳戶自扣",
+    "tiers": [
+      {
+        "rate": "1",
+        "label": "一般消費（基本）",
+        "sub": "國內1% / 國外2% · 無上限",
+        "cap": "無上限",
+        "scenarios": [
+          "無腦日常",
+          "旅日",
+          "旅韓",
+          "旅歐美"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "scenarioRates": {
+          "旅日": 2,
+          "旅韓": 2,
+          "旅歐美": 2
+        },
+        "start": "2026-07-01",
+        "source": "https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/DAWHO.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "capPeriod": "statement"
+      },
+      {
+        "rate": "3.5",
+        "hi": true,
+        "label": "大戶資格：國內3.5%／國外4.5%",
+        "sub": "國內最高3.5%／國外4.5%・基本+任務加碼2.5%",
+        "cap": "加碼上限400／每期帳單 · 可刷16,000",
+        "scenarios": [
+          "無腦日常",
+          "旅日",
+          "旅韓",
+          "旅歐美"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "capSpend": 16000,
+        "condition": "需大戶資格＋指定任務",
+        "scenarioRates": {
+          "旅日": 4.5,
+          "旅韓": 4.5,
+          "旅歐美": 4.5
+        },
+        "start": "2026-07-01",
+        "source": "https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/DAWHO.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "capPeriod": "statement"
+      },
+      {
+        "rate": "5",
+        "hi": true,
+        "label": "大戶Plus資格：國內5%／國外6%",
+        "sub": "國內最高5%／國外6%・基本+任務加碼4%",
+        "cap": "加碼上限1,000／每期帳單 · 可刷25,000",
+        "scenarios": [
+          "無腦日常",
+          "旅日",
+          "旅韓",
+          "旅歐美"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "scenarioRates": {
+          "旅日": 6,
+          "旅韓": 6,
+          "旅歐美": 6
+        },
+        "start": "2026-07-01",
+        "source": "https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/DAWHO.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "capPeriod": "statement",
+        "capSpend": 25000,
+        "condition": "需Plus資格＋指定任務"
+      },
+      {
+        "rate": "3",
+        "hi": true,
+        "label": "悠遊卡自動加值（大戶）",
+        "sub": "需大戶資格、自扣與電子帳單等指定條件",
+        "cap": "上限100／每期帳單 · 可刷約3,333",
+        "scenarios": [
+          "悠遊卡加值"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "capSpend": 3333,
+        "condition": "需大戶資格",
+        "start": "2026-07-01",
+        "source": "https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/DAWHO.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "capPeriod": "statement"
+      },
+      {
+        "rate": "5",
+        "hi": true,
+        "label": "悠遊卡自動加值（大戶Plus）",
+        "sub": "需Plus資格、自扣與電子帳單等指定條件",
+        "cap": "上限500／每期帳單 · 可刷10,000",
+        "scenarios": [
+          "悠遊卡加值"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "capSpend": 10000,
+        "condition": "需Plus資格＋指定任務",
+        "start": "2026-07-01",
+        "source": "https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/DAWHO.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "capPeriod": "statement"
+      }
+    ],
+    "note": "大戶資格包含平均財富30萬元或其他指定途徑，次月升級；Plus除平均財富100萬元，另需指定換匯或臺股交易。加碼須DAWHO自扣成功、電子／行動帳單並取消紙本。",
+    "alert": "資格不是只看存款：請核對DAWHO分級FAQ；加碼以帳單週期重置，不是日曆月。",
+    "end": "2026-12-31",
+    "fee": "正卡3,000元（不發附卡）；首年免，電子／行動帳單免；否則前12月15萬元或12筆免次年",
+    "feeSource": "https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/DAWHO.html",
+    "feeCheckedAt": "2026-09-08"
   },
-
   {
-    id:"sport",
-    name:"永豐 Sport", issuer:"永豐銀行 · 豐點", rail:"#e8612c",
-    url:"https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/sportcard.html",
-    valid:"2026/07/01–12/31", tags:["Apple/Google/Samsung Pay"],
-    rates:{"Apple/Google/Samsung Pay":5},
-    pts:"豐點 ＝ 1元 · 需大咖DACARD App＋自扣 · 卡路里區間 當月1–31",
-    tiers:[
-      {rate:"1",label:"一般消費（基本）",sub:"0.3% 無e帳單 ＋ 0.7% e帳單加碼（7月起調整）",cap:"無上限"},
-      {rate:"2",label:"達運動條件",sub:"基本1%＋運動加碼1%：當月達 10,000 kcal 或 Apple Watch 圓滿畫圈10次，需設定帳戶自扣",cap:"加碼上限50/月 · 可刷5,000"},
-      {rate:"5",hi:true,label:"達運動條件 ＋ 指定支付",sub:"基本1%＋運動1%＋指定支付3%：Apple Pay／Google Pay／Samsung Pay／Garmin Pay",cap:"支付加碼上限300/月 · 可刷10,000"},
+    "id": "sport",
+    "name": "永豐 Sport",
+    "issuer": "永豐銀行 · 豐點",
+    "rail": "#e8612c",
+    "url": "https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/sportcard.html",
+    "valid": "2026/07/01–12/31",
+    "tags": [
+      "Apple/Google/Samsung Pay"
     ],
-    note:"7月起基本回饋拆為 0.3%（一般）＋ 0.7%（e帳單），總計仍 1%。指定支付 3% 加碼須先達成當月運動條件才生效，並需下載大咖DACARD App串接運動數據、且設定永豐或京城銀行帳戶自動扣繳卡費。已分期之交易不再享回饋。"
+    "pts": "豐點 ＝ 1元 · 需大咖DACARD App＋自扣 · 卡路里區間 當月1–31",
+    "tiers": [
+      {
+        "rate": "1",
+        "label": "一般消費（基本）",
+        "sub": "0.3% 無e帳單 ＋ 0.7% e帳單加碼（7月起調整）",
+        "cap": "無上限",
+        "scenarios": [],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-07-01",
+        "source": "https://bank.sinopac.com/sinopacBT/webevents/2008_SportCard2/index.html?Branch=sportbank",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "capPeriod": "month"
+      },
+      {
+        "rate": "2",
+        "label": "達運動條件",
+        "sub": "基本1%＋運動加碼1%：當月達 10,000 kcal 或 Apple Watch 圓滿畫圈10次，需設定帳戶自扣",
+        "cap": "加碼上限50/月 · 可刷5,000",
+        "scenarios": [],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-07-01",
+        "source": "https://bank.sinopac.com/sinopacBT/webevents/2008_SportCard2/index.html?Branch=sportbank",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "capPeriod": "month",
+        "capSpend": 5000
+      },
+      {
+        "rate": "5",
+        "hi": true,
+        "label": "達運動條件 ＋ 指定支付",
+        "sub": "基本1%＋運動1%＋指定支付3%：Apple Pay／Google Pay／Samsung Pay／Garmin Pay",
+        "cap": "運動加碼50點＋支付加碼300點／日曆月；完整5%可刷約5,000",
+        "scenarios": [
+          "Apple/Google/Samsung Pay"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "capSpend": 5000,
+        "condition": "需運動達標",
+        "start": "2026-07-01",
+        "source": "https://bank.sinopac.com/sinopacBT/webevents/2008_SportCard2/index.html?Branch=sportbank",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "capPeriod": "month"
+      }
+    ],
+    "note": "兩個加碼額度都未使用時：前5,000元5%，其後至10,000元部分享4%，超出剩基本1%；其他消費會先占用運動額度。卡路里須大於0並符合1萬大卡或畫圈10次，最晚次月5日上傳，回饋前完成指定帳戶自扣。",
+    "end": "2026-12-31",
+    "fee": "正卡3,000元；首年免、電子帳單取消紙本免。年消費門檻依卡等；附卡6張內免",
+    "feeSource": "https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/sportcard.html",
+    "feeCheckedAt": "2026-09-08"
   },
-
   {
-    id:"richart",
-    name:"台新 Richart", issuer:"台新銀行 · 台新Point", rail:"#16a085",
-    url:"https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/cg047/card001/",
-    valid:"2026/01/01–2027/03/31", tags:["網購","影音訂閱","旅日","旅韓","旅歐美","LINE Pay","Apple/Google/Samsung Pay","旅遊機票","停車"],
-    rates:{"網購":3.3,"影音訂閱":3.3,"旅日":3.3,"旅韓":3.3,"旅歐美":3.3,"LINE Pay":2.3,"Apple/Google/Samsung Pay":3.8,"旅遊機票":3.3,"停車":3.3},
-    pts:"台新Point ＝ 1元 · 效期2年 · LEVEL2 需台新帳戶自扣",
-    schemes:[
-      { name:"Pay 著刷 / LINE Pay", hi:true, tiers:[
-        {rate:"3.8",hi:true,label:"綁台新Pay 11萬家通路",sub:"新光三越、四大超商、IKEA、路易莎、台灣大車隊",cap:"信用額度+30萬為上限"},
-        {rate:"2.3",label:"LINE Pay（常駐權益）",sub:"2026新增",cap:"無上限"},
-      ]},
-      { name:"天天刷", hi:false, tiers:[
-        {rate:"3.3",hi:true,label:"超商／超市／量販／加油／停車",sub:"USPACE、Autopass(車麻吉)新增",cap:"信用額度+30萬為上限"},
-      ]},
-      { name:"大筆刷", hi:false, tiers:[
-        {rate:"3.3",hi:true,label:"百貨／時尚品牌",sub:"Uniqlo、ZARA、GU、NET、lativ、GAP",cap:"信用額度+30萬為上限"},
-      ]},
-      { name:"好饗刷", hi:false, tiers:[
-        {rate:"3.3",hi:true,label:"餐飲／KTV／娛樂",sub:"錢櫃、好樂迪、ONCOR、sing!go、享溫馨，新增王品瘋Pay、FunNow",cap:"信用額度+30萬為上限"},
-      ]},
-      { name:"數趣刷", hi:false, tiers:[
-        {rate:"3.3",hi:true,label:"網購／影音／AI／遊戲訂閱",sub:"蝦皮、momo、PChome、Netflix、Disney+、Steam、ChatGPT、Claude，新增iHerb、Olive Young、Canva、Notion",cap:"信用額度+30萬為上限"},
-      ]},
-      { name:"玩旅刷", hi:true, tiers:[
-        {rate:"3.3",hi:true,label:"海外消費／航空（15家）／訂房／旅行社（13家）／日韓交通卡",sub:"華航、長榮、星宇、Klook、Agoda、SUICA、ICOCA、PASMO、WOWPASS儲值，航空與旅行社家數擴大",cap:"信用額度+30萬為上限"},
-      ]},
-      { name:"假日刷", hi:false, tiers:[
-        {rate:"2",label:"週六日 不限通路",sub:"已移除街口、Yahoo購物、停車租車、樂園",cap:"無上限"},
-      ]},
-      { name:"Chill刷（限時方案，切換開放至9/30）", hi:true, tiers:[
-        {rate:"10",hi:true,label:"瘋聚會／日常續命",sub:"火鍋燒肉（海底撈、屋馬）、手搖飲（50嵐、%Arabica）等指定店家；限獨立店或台灣線上官網，透過百貨／外送／網購平台消費不列入",cap:"信用額度+30萬為上限，超出部分僅0.3%"},
-        {rate:"5",label:"約會犒賞／應援追星／熬夜追更",sub:"含 Netflix、Disney+ 等指定平台",cap:"信用額度+30萬為上限"},
-      ]},
-      { name:"保費（免切換）", hi:false, tiers:[
-        {rate:"1.3",label:"保費消費",sub:"不限通路",cap:"無上限"},
-      ]},
+    "id": "richart",
+    "name": "台新 Richart",
+    "issuer": "台新銀行 · 台新Point",
+    "rail": "#16a085",
+    "url": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+    "valid": "2026/07/01–2027/03/31；Chill切換至9/30",
+    "tags": [
+      "網購",
+      "影音訂閱",
+      "旅日",
+      "旅韓",
+      "旅歐美",
+      "LINE Pay",
+      "旅遊機票",
+      "停車",
+      "百貨",
+      "美食外送",
+      "售票電玩",
+      "無腦日常",
+      "保費",
+      "台新Pay"
     ],
-    note:"8大方案（含新增Chill刷）+ 假日刷 + 保費，每日於 Richart Life App 切換一次，以當天最後切換為準。未設自動扣繳最高僅 1.3%。新戶核卡60天內免設定即享 LEVEL2。",
-    alert:"點數折抵帳單自 2026/1 起改為逐筆即時折抵，每筆上限 30%（原可100%折抵）。"
+    "pts": "台新Point ＝ 1元 · 效期2年 · LEVEL2 需台新帳戶自扣",
+    "schemes": [
+      {
+        "name": "Pay 著刷 / LINE Pay",
+        "hi": true,
+        "tiers": [
+          {
+            "rate": "3.8",
+            "hi": true,
+            "label": "台新Pay／台新Pay+指定通路",
+            "sub": "非任意手機感應支付；TWQR須使用官方指定介面。",
+            "cap": "每期帳單永久信用額度＋30万元消費額上限",
+            "scenarios": [
+              "台新Pay"
+            ],
+            "end": "2027-03-31",
+            "kind": "regular",
+            "audience": "all",
+            "start": "2026-07-01",
+            "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件",
+            "capPeriod": "statement"
+          },
+          {
+            "rate": "2.3",
+            "label": "LINE Pay／全盈+PAY（Pay著刷）",
+            "sub": "全盈+PAY自7/8適用，須切換對應方案。",
+            "cap": "每期帳單永久信用額度＋30万元消費額上限",
+            "scenarios": [
+              "LINE Pay"
+            ],
+            "end": "2027-03-31",
+            "kind": "regular",
+            "audience": "all",
+            "start": "2026-07-01",
+            "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件",
+            "capPeriod": "statement"
+          }
+        ]
+      },
+      {
+        "name": "天天刷",
+        "hi": false,
+        "tiers": [
+          {
+            "rate": "3.3",
+            "hi": true,
+            "label": "超商／超市／量販／加油／停車",
+            "sub": "USPACE、Autopass(車麻吉)新增",
+            "cap": "每期帳單永久信用額度＋30万元消費額上限",
+            "scenarios": [
+              "停車"
+            ],
+            "end": "2027-03-31",
+            "kind": "regular",
+            "audience": "all",
+            "start": "2026-07-01",
+            "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件",
+            "capPeriod": "statement"
+          }
+        ]
+      },
+      {
+        "name": "大筆刷",
+        "hi": false,
+        "tiers": [
+          {
+            "rate": "3.3",
+            "hi": true,
+            "label": "百貨／時尚品牌",
+            "sub": "指定百貨家居、UNIQLO、GU、ZARA、NET、lululemon；依請款名稱與官方清單。",
+            "cap": "每期帳單永久信用額度＋30万元消費額上限",
+            "scenarios": [
+              "百貨"
+            ],
+            "end": "2027-03-31",
+            "kind": "regular",
+            "audience": "all",
+            "start": "2026-07-01",
+            "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件",
+            "capPeriod": "statement"
+          }
+        ]
+      },
+      {
+        "name": "好饗刷",
+        "hi": false,
+        "tiers": [
+          {
+            "rate": "3.3",
+            "hi": true,
+            "label": "餐飲／KTV／娛樂",
+            "sub": "錢櫃、好樂迪、ONCOR、sing!go、享溫馨，新增王品瘋Pay、FunNow",
+            "cap": "每期帳單永久信用額度＋30万元消費額上限",
+            "scenarios": [
+              "美食外送"
+            ],
+            "end": "2027-03-31",
+            "kind": "regular",
+            "audience": "all",
+            "start": "2026-07-01",
+            "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件",
+            "capPeriod": "statement"
+          }
+        ]
+      },
+      {
+        "name": "數趣刷",
+        "hi": false,
+        "tiers": [
+          {
+            "rate": "3.3",
+            "hi": true,
+            "label": "網購／影音／AI／遊戲訂閱",
+            "sub": "蝦皮、momo、PChome、Netflix、Disney+、Steam、ChatGPT、Claude，新增iHerb、Olive Young、Canva、Notion",
+            "cap": "每期帳單永久信用額度＋30万元消費額上限",
+            "scenarios": [
+              "網購",
+              "影音訂閱",
+              "售票電玩"
+            ],
+            "end": "2027-03-31",
+            "kind": "regular",
+            "audience": "all",
+            "start": "2026-07-01",
+            "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件",
+            "capPeriod": "statement"
+          }
+        ]
+      },
+      {
+        "name": "玩旅刷",
+        "hi": true,
+        "tiers": [
+          {
+            "rate": "3.3",
+            "hi": true,
+            "label": "海外消費／航空（15家）／訂房／旅行社（13家）／日韓交通卡",
+            "sub": "華航、長榮、星宇、Klook、Agoda、SUICA、ICOCA、PASMO、WOWPASS儲值，航空與旅行社家數擴大",
+            "cap": "每期帳單永久信用額度＋30万元消費額上限",
+            "scenarios": [
+              "旅遊機票",
+              "旅日",
+              "旅韓",
+              "旅歐美"
+            ],
+            "end": "2027-03-31",
+            "kind": "regular",
+            "audience": "all",
+            "start": "2026-07-01",
+            "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件",
+            "capPeriod": "statement"
+          }
+        ]
+      },
+      {
+        "name": "假日刷",
+        "hi": false,
+        "tiers": [
+          {
+            "rate": "2",
+            "label": "週六日及官方定義國定例假日",
+            "sub": "不含天災假，仍排除非一般消費項目。",
+            "cap": "每期帳單永久信用額度＋30万元消費額上限",
+            "scenarios": [
+              "無腦日常"
+            ],
+            "end": "2027-03-31",
+            "kind": "regular",
+            "audience": "all",
+            "start": "2026-07-01",
+            "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件",
+            "capPeriod": "statement"
+          }
+        ]
+      },
+      {
+        "end": "2026-09-30",
+        "name": "Chill刷（限時方案，切換開放至9/30）",
+        "hi": true,
+        "tiers": [
+          {
+            "rate": "10",
+            "hi": true,
+            "label": "瘋聚會／日常續命",
+            "sub": "7/8 11:00起可切換；指定獨立店／官網可用LINE Pay，店中櫃及未列平台排除。",
+            "cap": "每期帳單永久信用額度＋30万元消費額上限",
+            "scenarios": [],
+            "end": "2026-09-30",
+            "kind": "limited",
+            "audience": "all",
+            "start": "2026-07-08",
+            "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件",
+            "capPeriod": "statement"
+          },
+          {
+            "rate": "5",
+            "label": "約會犒賞／應援追星／熬夜追更",
+            "sub": "指定追星追更、營養補給、體態養成與運動品牌；依清單。",
+            "cap": "每期帳單永久信用額度＋30万元消費額上限",
+            "scenarios": [
+              "影音訂閱"
+            ],
+            "end": "2026-09-30",
+            "kind": "limited",
+            "audience": "all",
+            "start": "2026-07-08",
+            "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件",
+            "capPeriod": "statement"
+          },
+          {
+            "rate": "3.3",
+            "label": "Chill刷：數位外掛",
+            "sub": "指定Apple直營、蝦皮、淘寶、酷澎、Uber Eats；與10%／5%適用通路不同。",
+            "cap": "每期帳單永久信用額度＋30萬元消費額上限",
+            "capPeriod": "statement",
+            "start": "2026-07-08",
+            "end": "2026-09-30",
+            "kind": "limited",
+            "audience": "all",
+            "scenarios": [
+              "網購",
+              "美食外送"
+            ],
+            "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件"
+          }
+        ]
+      },
+      {
+        "name": "保費（免切換）",
+        "hi": false,
+        "tiers": [
+          {
+            "rate": "1.3",
+            "label": "保費消費",
+            "sub": "一次付清、不受LEVEL限制；排除國外、躉繳、投資型、彈性繳及0利率分期。",
+            "cap": "保費專屬上限待確認",
+            "scenarios": [
+              "保費"
+            ],
+            "end": "2027-03-31",
+            "kind": "regular",
+            "audience": "all",
+            "start": "2026-07-01",
+            "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／比率／排除條件；上限待確認",
+            "capPeriod": null
+          }
+        ]
+      }
+    ],
+    "note": "7大刷＋Chill刷，保費免切換。每日一次按當日23:59方案認定；LEVEL2需台新帳戶自扣並符合生效時間。Chill的9/30是開放切換截止，不推定10月延續。",
+    "alert": "所有切換方案含LINE Pay與假日刷，均受每期帳單消費額限制。點數折抵30%及改制日期尚待核實。",
+    "end": "2027-03-31",
+    "fee": "依卡等：商務鈦金／商務御璽4,500；御璽／鈦金／晶緻3,000；白金1,500；世界商務6,000元。首年免，次年電子／行動帳單免（2026規則）",
+    "feeSource": "https://mkp.taishinbank.com.tw/TsCms/marketing/expose/WM_20260708095300794/index.html",
+    "feeCheckedAt": "2026-09-08"
   },
-
   {
-    id:"cube",
-    name:"國泰世華 CUBE", issuer:"國泰世華 · 小樹點", rail:"#0f8a6a",
-    url:"https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube",
-    valid:"2026/01/01–12/31", tags:["網購","影音訂閱","旅遊機票","旅日","旅韓","旅歐美"],
-    rates:{"網購":3,"影音訂閱":3,"旅遊機票":3,"旅日":3.5,"旅韓":3,"旅歐美":3},
-    pts:"小樹點 ＝ 1元 · 效期3年 · 折抵上限30%/期 · 需綁國泰帳戶自扣",
-    schemes:[
-      { name:"玩數位（4大常駐之一）", hi:true, tiers:[
-        {rate:"3",hi:true,label:"網購／影音／遊戲",sub:"momo、蝦皮、PChome、Netflix、Disney+、Spotify、PlayStation",cap:"無上限"},
-      ]},
-      { name:"樂饗購（4大常駐之一）", hi:true, tiers:[
-        {rate:"3",hi:true,label:"百貨／餐飲／外送／藥妝",sub:"新光三越、SOGO、微風、Uber Eats、foodpanda、康是美",cap:"無上限"},
-      ]},
-      { name:"趣旅行（4大常駐之一）", hi:true, tiers:[
-        {rate:"3",hi:true,label:"海外實體／航空／訂房／旅行社",sub:"含 Klook、Agoda、Booking、雄獅、長榮、華航",cap:"無上限"},
-      ]},
-      { name:"集精選（4大常駐之一）", hi:false, tiers:[
-        {rate:"2",label:"全聯／超商／中油／家樂福／高鐵",sub:"2026新增：U-POWER、EVOASIS、EVALUE、車麻吉、uTagGo 充電停車",cap:"無上限"},
-      ]},
-      { name:"全支付（第5個可切換方案，2026/4/22–12/31）", hi:true, tiers:[
-        {rate:"2",hi:true,label:"全聯／大全聯／全支付國內合作通路",sub:"需先在CUBE App切換至「全支付」方案，結帳用全支付App綁定CUBE卡付款；排除繳稅費、跨境支付、儲值、菸酒、嬰兒奶粉、禮券等",cap:"無上限（與4大常駐共用每日一次切換額度）"},
-      ]},
-      { name:"★ 童樂匯（家庭客群特殊權益，H2：2026/7/1–12/31）", hi:true, tiers:[
-        {rate:"10",hi:true,label:"母嬰品牌官網／親子餐廳／體驗課程",sub:"10mois、Stokke、Nuna、大樹先生、甲蟲秘境、Yamaha音樂、朱宗慶、iSKI、汐游寶寶、tutorJr",cap:"依方案，請自行確認官網"},
-        {rate:"5",hi:true,label:"親子飯店／樂園／母嬰用品通路",sub:"蘭城晶英、礁溪寒沐、煙波、雲品、和逸、東京迪士尼、大阪環球、卡多摩、安琪兒、麗兒采家、mamaway",cap:"依方案，請自行確認官網"},
-        {rate:"1",label:"指定私校學費（i繳費平台，2026新增通路）",sub:"台北美國學校、歐洲學校、康橋國際、復興實驗等",cap:"請自行確認官網上限"},
-      ]},
-      { name:"慶生月（壽星當月特殊權益，本期 2026/7/1–9/30）", hi:true, tiers:[
-        {rate:"10",hi:true,label:"指定餐廳／樂園／KTV／指定百貨／外送",sub:"購票平台 3.5%，需生日前月20日前已持有CUBE正卡，集滿3章另加碼200點",cap:"無上限"},
-      ]},
-      { name:"LINE Pay 領券加碼（2026/5/1–10/31）", hi:false, tiers:[
-        {rate:"2",label:"LINE Pay 綁定CUBE信用卡消費",sub:"需先於CUBE App領券，且當月滿8次LINE Pay消費才適用；未達標僅一般消費0.3%",cap:"加碼1.7%部分上限100元/月 · 可刷約5,882"},
-      ]},
+    "id": "cube",
+    "name": "國泰世華 CUBE",
+    "issuer": "國泰世華 · 小樹點",
+    "rail": "#0f8a6a",
+    "url": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+    "valid": "2026/01/01–12/31",
+    "tags": [
+      "網購",
+      "影音訂閱",
+      "旅遊機票",
+      "旅日",
+      "旅韓",
+      "旅歐美",
+      "售票電玩",
+      "百貨",
+      "美食外送",
+      "停車",
+      "全支付",
+      "LINE Pay",
+      "無腦日常"
     ],
-    note:"玩數位／樂饗購／趣旅行依權益等級分3級：Level1（僅持有正卡）2%、Level2（設定本行帳戶自扣或用CUBE App繳本行卡費）3%、Level3（財富管理VIP資產300萬）3.3%，本頁rates採Level2主流可達的3%。指定消費累計金額以「消費日信用額度＋NT$50萬」為上限，超出部分僅0.3%（一般用戶幾乎不會觸及）。童樂匯需家長＋未成年子女皆有國泰世華帳戶（家長為法定代理人）才解鎖，2026年分上/下半年各自公告一版（本頁為H2版）。限時「日本賞」另有旅日加碼最高 3.5~5%。樂饗購另有「CUBE美食家」優惠券活動（2026/6/1–12/31）：每週四外出用餐單筆滿2,000元可獲5%小樹點優惠券；單月餐廳消費滿20,000元可獲指定餐廳10%優惠券。",
-    alert:"LINE Pay 需先於CUBE App領券＋當月滿8次消費才享2%（加碼上限100元/月）；全支付2%方案已回歸，需切換方案＋全支付App綁卡。"
+    "pts": "小樹點 · LEVEL2可用本人國泰帳戶App繳費或自扣、次月升級；點數效期／折抵限制待核實",
+    "schemes": [
+      {
+        "name": "玩數位（4大常駐之一）",
+        "hi": true,
+        "tiers": [
+          {
+            "rate": "3",
+            "hi": true,
+            "label": "網購／影音／遊戲",
+            "sub": "指定網購、影音及AI：ChatGPT、Claude、Cursor等；遊戲平台須逐項確認。",
+            "cap": "每月消費額：消費日信用額度＋50萬元（非無上限）",
+            "scenarios": [
+              "網購",
+              "影音訂閱",
+              "售票電玩"
+            ],
+            "end": "2026-12-31",
+            "kind": "regular",
+            "audience": "all",
+            "start": "2026-01-01",
+            "capPeriod": null,
+            "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件"
+          }
+        ]
+      },
+      {
+        "name": "樂饗購（4大常駐之一）",
+        "hi": true,
+        "tiers": [
+          {
+            "rate": "3",
+            "hi": true,
+            "label": "百貨／餐飲／外送／藥妝",
+            "sub": "新光三越、SOGO、微風、Uber Eats、foodpanda、康是美",
+            "cap": "每月消費額：消費日信用額度＋50萬元（非無上限）",
+            "scenarios": [
+              "百貨",
+              "美食外送"
+            ],
+            "end": "2026-12-31",
+            "kind": "regular",
+            "audience": "all",
+            "start": "2026-01-01",
+            "capPeriod": null,
+            "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件"
+          }
+        ]
+      },
+      {
+        "name": "趣旅行（4大常駐之一）",
+        "hi": true,
+        "tiers": [
+          {
+            "rate": "3",
+            "hi": true,
+            "label": "海外實體／航空／訂房／旅行社",
+            "sub": "指定海外實體、航空、住宿、旅行社及Apple錢包Suica／PASMO／ICOCA。",
+            "cap": "每月消費額：消費日信用額度＋50萬元（非無上限）",
+            "scenarios": [
+              "旅遊機票",
+              "旅日",
+              "旅韓",
+              "旅歐美"
+            ],
+            "end": "2026-12-31",
+            "kind": "regular",
+            "audience": "all",
+            "start": "2026-01-01",
+            "capPeriod": null,
+            "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件"
+          }
+        ]
+      },
+      {
+        "name": "集精選（4大常駐之一）",
+        "hi": false,
+        "tiers": [
+          {
+            "rate": "2",
+            "label": "全聯／超商／中油／家樂福／高鐵",
+            "sub": "2026新增：U-POWER、EVOASIS、EVALUE、車麻吉、uTagGo 充電停車",
+            "cap": "每月消費額：消費日信用額度＋50萬元（非無上限）",
+            "scenarios": [
+              "停車"
+            ],
+            "end": "2026-12-31",
+            "kind": "regular",
+            "audience": "all",
+            "start": "2026-01-01",
+            "capPeriod": null,
+            "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件"
+          }
+        ]
+      },
+      {
+        "name": "全支付（第5個可切換方案，2026/4/22–12/31）",
+        "hi": true,
+        "tiers": [
+          {
+            "rate": "2",
+            "hi": true,
+            "label": "全聯／大全聯／全支付國內合作通路",
+            "sub": "需先在CUBE App切換至「全支付」方案，結帳用全支付App綁定CUBE卡付款；排除繳稅費、跨境支付、儲值、菸酒、嬰兒奶粉、禮券等",
+            "cap": "每月消費額：消費日信用額度＋50萬元（非無上限）",
+            "scenarios": [
+              "全支付"
+            ],
+            "end": "2026-12-31",
+            "kind": "regular",
+            "audience": "all",
+            "start": "2026-04-22",
+            "capPeriod": null,
+            "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件"
+          }
+        ]
+      },
+      {
+        "name": "★ 童樂匯（家庭客群特殊權益，H2：2026/7/1–12/31）",
+        "hi": true,
+        "tiers": [
+          {
+            "rate": "10",
+            "hi": true,
+            "label": "指定五感課程／嬰幼童品牌臺灣官網",
+            "sub": "親子餐廳屬5%層，非10%；朱宗慶教學9/11起終止，教室排除依原文。",
+            "cap": "每月消費額：消費日信用額度＋50萬元（非無上限）",
+            "scenarios": [],
+            "end": "2026-12-31",
+            "kind": "regular",
+            "audience": "all",
+            "start": "2026-07-01",
+            "capPeriod": null,
+            "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件"
+          },
+          {
+            "rate": "5",
+            "hi": true,
+            "label": "親子餐廳／飯店／育樂／母嬰用品",
+            "sub": "指定飯店限官網住宿；甲蟲秘境已於7/26終止，不適用。",
+            "cap": "每月消費額：消費日信用額度＋50萬元（非無上限）",
+            "scenarios": [],
+            "end": "2026-12-31",
+            "kind": "regular",
+            "audience": "all",
+            "start": "2026-07-01",
+            "capPeriod": null,
+            "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件"
+          },
+          {
+            "rate": "1",
+            "label": "指定私校i繳費／國內保費",
+            "sub": "指定學校及保費排除條款依原文。",
+            "cap": "每月消費額：消費日信用額度＋50萬元（非無上限）",
+            "scenarios": [],
+            "end": "2026-12-31",
+            "kind": "regular",
+            "audience": "all",
+            "start": "2026-07-01",
+            "capPeriod": null,
+            "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件"
+          }
+        ]
+      },
+      {
+        "end": "2026-09-30",
+        "name": "慶生月（壽星當月特殊權益，本期 2026/7/1–9/30）",
+        "hi": true,
+        "tiers": [
+          {
+            "rate": "10",
+            "hi": true,
+            "label": "壽星指定餐廳／日本樂園／遊戲／KTV",
+            "sub": "僅生日月可切換；不是指定百貨／外送全都10%。",
+            "cap": "每月消費額：消費日信用額度＋50萬元（非無上限）",
+            "scenarios": [],
+            "end": "2026-09-30",
+            "kind": "limited",
+            "audience": "all",
+            "start": "2026-07-01",
+            "capPeriod": null,
+            "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件"
+          },
+          {
+            "rate": "3.5",
+            "label": "慶生月：新光三越／Uber Eats／Klook／FunNow",
+            "sub": "限生日月指定通路；不同於10%層。",
+            "cap": "每月消費日信用額度＋50萬元消費额上限",
+            "start": "2026-07-01",
+            "end": "2026-09-30",
+            "kind": "limited",
+            "audience": "all",
+            "scenarios": [
+              "百貨",
+              "美食外送",
+              "旅遊機票"
+            ],
+            "condition": "生日當月＋切換慶生月",
+            "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件"
+          }
+        ]
+      },
+      {
+        "name": "LINE Pay 領券加碼（2026/5/1–10/31）",
+        "hi": false,
+        "tiers": [
+          {
+            "rate": "2",
+            "label": "LINE Pay 綁定CUBE信用卡消費",
+            "sub": "先在CUBE App領券，次月15日前入帳；官方全文未列8次消費門檻。",
+            "cap": "加碼1.7%上限50點／月 · 可刷約2,941（月份切點待確認）",
+            "scenarios": [
+              "LINE Pay"
+            ],
+            "end": "2026-10-31",
+            "kind": "limited",
+            "audience": "all",
+            "start": "2026-05-01",
+            "capPeriod": null,
+            "source": "https://www.cathay-cube.com.tw/cathaybk/personal/event/overview/credit-card/bonus/202604/LINEPay-202604",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件",
+            "capSpend": 2941,
+            "condition": "需事先領券"
+          }
+        ]
+      },
+      {
+        "name": "固定回饋（切入後有鎖定）",
+        "tiers": [
+          {
+            "rate": "1.2",
+            "label": "一般消費（不含保費）",
+            "sub": "由其他方案切入後至年底不能切出；預設此方案者仍有一次切出權利。",
+            "cap": "此層獨立上限待確認",
+            "start": "2026-08-03",
+            "end": "2026-12-31",
+            "kind": "regular",
+            "audience": "all",
+            "scenarios": [
+              "無腦日常"
+            ],
+            "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／比率／鎖定条件；上限待確認"
+          },
+          {
+            "rate": "2.5",
+            "label": "固定回饋：海外實體",
+            "sub": "同樣有方案鎖定，非每日自由切換。",
+            "cap": "每月消費日信用額度＋50萬元消費額上限",
+            "start": "2026-08-03",
+            "end": "2026-12-31",
+            "kind": "regular",
+            "audience": "all",
+            "scenarios": [
+              "旅日",
+              "旅韓",
+              "旅歐美"
+            ],
+            "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件"
+          }
+        ]
+      },
+      {
+        "name": "台塑家",
+        "tiers": [
+          {
+            "rate": "2",
+            "label": "台塑家指定加油／品牌／超商",
+            "sub": "需切換方案，指定通路及排除項目見官方清單。",
+            "cap": "每月消費日信用額度＋50萬元消費額上限",
+            "start": "2026-06-01",
+            "end": "2026-12-31",
+            "kind": "regular",
+            "audience": "all",
+            "scenarios": [],
+            "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+            "checkedAt": "2026-09-08",
+            "verifiedFields": "日期／回饋率／上限週期／條件"
+          }
+        ]
+      }
+    ],
+    "note": "LEVEL2為3%，日本賞加碼尚待驗證，不混入常態。童樂匯需家長為法定代理人／監護人，雙方有效存戶，子女2008/6/1以後出生；每月20日前符合次月生效。固定回饋切入有鎖定，其他方案通常共用每日一次切換。",
+    "alert": "LINE Pay改正為領券後加碼1.7%、月上限50點，移除無依據的8次門檻。全支付2%持續存在，但有共通消費額限制。",
+    "end": "2026-12-31",
+    "fee": "正卡1,800元／附卡免；首年免，電子帳單或正卡年12筆或正附年18万元任一免",
+    "feeSource": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube",
+    "feeCheckedAt": "2026-09-08"
   },
-
   {
-    id:"dbs-aov",
-    name:"星展 傳說對決", issuer:"星展銀行 · 現金積點", rail:"#d2233c",
-    url:"https://www.dbs.com.tw/personal-zh/cards/dbs-aov/index.html",
-    valid:"2026/07/01–12/31", tags:["美食外送","售票電玩","影音訂閱","網購","旅日","旅韓","旅歐美"],
-    rates:{"美食外送":10,"售票電玩":10,"影音訂閱":10,"網購":10,"旅日":5,"旅韓":5,"旅歐美":5},
-    pts:"現金積點 · 效期18個月 · 需星展帳戶自動扣繳",
-    tiers:[
-      {rate:"1",label:"國內外一般消費（基本）",sub:"基本0.2%；設定星展帳戶自動扣繳升級後國內1%，國外另加碼0.8%（共1%）",cap:"無上限"},
-      {rate:"5",hi:true,label:"指定地區實體消費（加碼4%，歐洲5%）",sub:"日本／韓國／泰國／新加坡／美洲／歐洲・實體卡或Apple/Samsung Pay・正附卡合併計算",cap:"上限500點/月 · 可刷12,500"},
-      {rate:"10",hi:true,label:"生活玩家精選通路（加碼9%）",sub:"遊戲：Garena、GASH、MyCard、巴哈姆特、Nintendo、PlayStation、Steam、App Store、Google Play／售票：寬宏、年代、拓元、KKTIX／影音：YouTube Premium、Netflix、Disney+、Spotify、Twitch、TikTok、愛奇藝、CatchPlay、KKBOX、KKTV、LiTV／外送餐飲：Uber Eats、foodpanda、麥當勞、肯德基、摩斯、拿坡里、Pizza Hut／網購玩具：蝦皮、淘寶、Animate、野獸國、POPMART、Logitech、NOVA、三創",cap:"上限500點/月 · 可刷5,556"},
+    "id": "dbs-aov",
+    "name": "星展 傳說對決",
+    "issuer": "星展銀行 · 現金積點",
+    "rail": "#d2233c",
+    "url": "https://www.dbs.com.tw/personal-zh/cards/dbs-aov/index.html",
+    "valid": "2026/07/01–12/31",
+    "tags": [
+      "美食外送",
+      "售票電玩",
+      "影音訂閱",
+      "網購",
+      "旅日",
+      "旅韓",
+      "旅歐美",
+      "LINE Pay"
     ],
-    note:"2026/7/1～12/31 活動期。LINE Pay 加碼已取消（非本期活動項目）。麥當勞、肯德基等小額特店僅享加碼回饋、無基本1%。",
-    alert:"7/1 改版：LINE Pay 10% 已取消、國外基本回饋 2.5%→1%；新增層級與上限見上表。"
+    "pts": "現金積點 · 效期18個月 · 需星展帳戶自動扣繳",
+    "tiers": [
+      {
+        "rate": "1",
+        "label": "國內外一般消費（基本）",
+        "sub": "國內基本0.2%，指定星展帳戶自扣升至1%；國外合格一般消費合計1%。",
+        "cap": "無上限",
+        "scenarios": [],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "source": "https://www.dbs.com.tw/personal-zh/cards/dbs-aov/index.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "start": "2026-07-01",
+        "capPeriod": "month"
+      },
+      {
+        "rate": "5",
+        "hi": true,
+        "label": "指定地區實體消費（加碼4%，歐洲5%）",
+        "sub": "指定地區外幣實體交易，須收海外手續費及自扣；歐洲基礎排除後加碼5%，不是6%。",
+        "cap": "加碼上限500點／日曆月；非歐洲4%可刷12,500，歐洲5%可刷10,000",
+        "scenarios": [
+          "旅日",
+          "旅韓",
+          "旅歐美"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "source": "https://www.dbs.com.tw/personal-zh/cards/dbs-aov/index.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "start": "2026-07-01",
+        "capPeriod": "month"
+      },
+      {
+        "rate": "10",
+        "hi": true,
+        "label": "生活玩家精選通路（加碼9%）",
+        "sub": "遊戲：Garena、GASH、MyCard、巴哈姆特、Nintendo、PlayStation、Steam、App Store、Google Play／售票：寬宏、年代、拓元、KKTIX／影音：YouTube Premium、Netflix、Disney+、Spotify、Twitch、TikTok、愛奇藝、CatchPlay、KKBOX、KKTV、LiTV／外送餐飲：Uber Eats、foodpanda、麥當勞、肯德基、摩斯、拿坡里、Pizza Hut／網購玩具：蝦皮、淘寶、Animate、野獸國、POPMART、Logitech、NOVA、三創",
+        "cap": "上限500點/月 · 可刷5,556",
+        "scenarios": [
+          "美食外送",
+          "售票電玩",
+          "影音訂閱",
+          "網購"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "capSpend": 5556,
+        "source": "https://www.dbs.com.tw/personal-zh/cards/dbs-aov/index.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "start": "2026-07-01",
+        "capPeriod": "month"
+      },
+      {
+        "rate": "10",
+        "label": "星耀領航：新取得星耀資格之LINE Pay",
+        "sub": "活動內首次取得星耀資格（資產30萬元），登錄且每月转帳或換匯一筆；需維持資格。不推算與其他回饋疊加。",
+        "cap": "最高500元／月（月份精確切點待確認）",
+        "capPeriod": null,
+        "start": "2026-07-16",
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "scenarios": [
+          "LINE Pay"
+        ],
+        "condition": "首次星耀理財資格＋登錄＋每月任務",
+        "source": "https://www.dbs.com.tw/personal-zh/EA/starway/index.html?cid=tw:zh:cbg:cen:dis:own:acq:ban:casa:dpst:aovstarway:na:na",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      }
+    ],
+    "note": "生活玩家精選通路不含一般LINE Pay，但另有星耀資格活動。小額支付特店僅享9%加碼，不能一律當10%。",
+    "alert": "指定地區與生活玩家加碼分別計月上限，歐洲加碼算法不同。",
+    "end": "2026-12-31",
+    "fee": "正卡3,000元／附卡免；首年免，年度12筆或3萬元或全年電子帳單免次年（年度起算待確認）",
+    "feeSource": "https://www.dbs.com.tw/personal-zh/cards/dbs-aov/index.html",
+    "feeCheckedAt": "2026-09-08"
   },
-
   {
-    id:"dbs-eco",
-    name:"星展 eco 永續", issuer:"星展銀行 · 現金積點", rail:"#2e8b57",
-    url:"https://www.dbs.com.tw/personal-zh/cards/dbs_eco/index.html",
-    valid:"2026/01/01–12/31", tags:["Apple/Google/Samsung Pay","LINE Pay","旅日","旅韓","旅歐美"],
-    rates:{"Apple/Google/Samsung Pay":16,"LINE Pay":16,"旅日":5,"旅韓":5,"旅歐美":5},
-    pts:"現金積點 · 300點起兌換刷卡金 · 效期18個月",
-    tiers:[
-      {rate:"1",label:"國內外一般消費（基本）",sub:"分期不回饋",cap:"無上限"},
-      {rate:"5",hi:true,label:"指定地區實體 ＋4%",sub:"日本／韓國／泰國／新加坡／美洲／歐洲",cap:"上限600點/期 · 可刷15,000"},
-      {rate:"10",hi:true,label:"eco 消費 ＋9%",sub:"Tesla充電／Gogoro電池／星展基金會社企（鮮乳坊、茶籽堂、禾乃川、馳綠等）",cap:"上限500點/期 · 可刷5,556"},
-      {rate:"16",hi:true,label:"「刷出星級生活」行動支付加碼（需每月登錄）",sub:"Apple Pay／Samsung Pay／LINE Pay／街口支付等 · 國內旅遊指定行動支付為最高15% · 活動至 2026/8/31",cap:"上限1,500元/月 · 活動累計上限6,000元"},
-      {rate:"10",label:"新戶 LINE Pay 加碼（限新戶）",sub:"基本1%＋加碼9%：需以LINE Pay累積消費滿3,000元 · 2026/7/1–9/30",cap:"上限300點/期 · 可刷3,333"},
+    "id": "dbs-eco",
+    "name": "星展 eco 永續",
+    "issuer": "星展銀行 · 現金積點",
+    "rail": "#2e8b57",
+    "url": "https://www.dbs.com.tw/personal-zh/cards/dbs_eco/index.html",
+    "valid": "2026/01/01–12/31",
+    "tags": [
+      "Apple/Google/Samsung Pay",
+      "LINE Pay",
+      "旅日",
+      "旅韓",
+      "旅歐美",
+      "綠色消費"
     ],
-    note:"歐洲實體消費也有回饋（多數卡排除歐盟）。威秀購票 6 折起。行動支付加碼為限時活動且需每月登錄，8/31 到期後是否延續請自行確認官網。",
-    alert:"⏳ 行動支付最高16%為限時活動（2026/5/1–8/31，需每月登錄，月上限1,500元、活動累計上限6,000元），月底到期；新戶 LINE Pay 10% 至 9/30。"
+    "pts": "現金積點 · 300點起兌換刷卡金 · 效期18個月",
+    "tiers": [
+      {
+        "rate": "1",
+        "label": "國內外一般消費（基本）",
+        "sub": "分期不回饋",
+        "cap": "無上限",
+        "scenarios": [],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "source": "https://www.dbs.com.tw/personal-zh/cards/dbs_eco/index.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "start": "2026-01-01"
+      },
+      {
+        "rate": "5",
+        "hi": true,
+        "label": "指定地區實體 ＋4%",
+        "sub": "指定國家外幣實體、收海外手續費，實體卡或Apple／Samsung Pay；交通卡儲值排除。",
+        "cap": "上限600點/期 · 可刷15,000",
+        "scenarios": [
+          "旅日",
+          "旅韓",
+          "旅歐美"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "capSpend": 15000,
+        "source": "https://www.dbs.com.tw/personal-zh/cards/dbs_eco/index.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "start": "2026-01-01",
+        "capPeriod": "statement"
+      },
+      {
+        "rate": "10",
+        "hi": true,
+        "label": "eco 消費 ＋9%",
+        "sub": "Tesla充電／Gogoro電池／星展基金會社企（鮮乳坊、茶籽堂、禾乃川、馳綠等）",
+        "cap": "上限500點/期 · 可刷5,556",
+        "scenarios": [
+          "綠色消費"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "source": "https://www.dbs.com.tw/personal-zh/cards/dbs_eco/index.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "start": "2026-07-01",
+        "capPeriod": "statement"
+      },
+      {
+        "end": "2026-08-31",
+        "rate": "16",
+        "hi": true,
+        "label": "「刷出星級生活」行動支付加碼（需每月登錄）",
+        "sub": "當月一般消費10萬元且登錄前2,000名才有15%加碼；指定支付不含Google Pay。",
+        "cap": "上限1,500元/月 · 活動累計上限6,000元",
+        "scenarios": [
+          "Apple/Google/Samsung Pay",
+          "LINE Pay"
+        ],
+        "kind": "limited",
+        "audience": "all",
+        "capSpend": 10000,
+        "condition": "限時至8/31·需每月登錄",
+        "source": "https://www.dbs.com.tw/personal-zh/cards/offers/2026q2atl/index.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "start": "2026-05-01",
+        "capPeriod": "month"
+      },
+      {
+        "end": "2026-09-30",
+        "rate": "10",
+        "label": "新戶 LINE Pay 加碼（限新戶）",
+        "sub": "1%現金積點＋9%LINE POINTS；9月底前LINE Pay累積3,000元，10/15前入帳；申辦／核卡期限另見原文。",
+        "cap": "9% LINE POINTS加碼：整段活動共300點／歸戶",
+        "scenarios": [
+          "LINE Pay"
+        ],
+        "kind": "limited",
+        "audience": "new",
+        "source": "https://www.dbs.com.tw/personal-zh/cards/dbs_eco/index.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "start": "2026-07-01",
+        "capPeriod": "campaign",
+        "capSpend": 3333
+      },
+      {
+        "rate": "10",
+        "label": "星耀領航：新取得星耀資格之LINE Pay",
+        "sub": "活動內首次取得星耀資格（資產30萬元），登錄且每月转帳或換匯一筆；需維持資格。不推算與其他回饋疊加。",
+        "cap": "最高500元／月（月份精確切點待確認）",
+        "capPeriod": null,
+        "start": "2026-07-16",
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "scenarios": [
+          "LINE Pay"
+        ],
+        "condition": "首次星耀理財資格＋登錄＋每月任務",
+        "source": "https://www.dbs.com.tw/personal-zh/EA/starway/index.html?cid=tw:zh:cbg:cen:dis:own:acq:ban:casa:dpst:aovstarway:na:na",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      }
+    ],
+    "note": "海外及eco加碼為帳單期；已到期16%不進推薦。新戶LINE Pay的300點是活動總額，不能每期重領。",
+    "alert": "16%舊活動已於2026/08/31截止；未推定延續。星耀理財優惠另有資格，非人人適用。",
+    "end": "2026-12-31",
+    "fee": "正卡3,000元／附卡免；首年免，年度12筆或3萬元或全年電子帳單免次年（年度起算待確認）",
+    "feeSource": "https://www.dbs.com.tw/personal-zh/cards/dbs_eco/index.html",
+    "feeCheckedAt": "2026-09-08"
   },
-
   {
-    id:"linebank",
-    name:"聯邦 LINE Bank", issuer:"聯邦銀行 · 刷卡金", rail:"#06c755",
-    url:"https://activity.ubot.com.tw/LINEBankCard/index.htm",
-    valid:"2026/08/01–2027/07/31", tags:["網購","影音訂閱","售票電玩","旅日","旅韓","旅歐美"],
-    rates:{"網購":3.5,"影音訂閱":3.5,"售票電玩":3.5,"旅日":2.5,"旅韓":2.5,"旅歐美":2.5},
-    pts:"刷卡金 · 可折抵、不過期",
-    tiers:[
-      {rate:"1",label:"國內一般消費",sub:"保費 1%",cap:"無上限"},
-      {rate:"2.5",label:"國外一般消費",sub:"",cap:"無上限"},
-      {rate:"3.5",hi:true,label:"指定通路 ＋3%",sub:"MOMO、PChome、淘寶、蝦皮、酷澎、Netflix、Disney+、CatchPlay、Spotify、LINE TV、KKTV、KKBOX、Steam、PlayStation、Nintendo、Blizzard、Garena、MyCard、拓元tixCraft、KKTIX",cap:"加碼上限300/月 · 可刷10,000"},
+    "id": "linebank",
+    "name": "聯邦 LINE Bank",
+    "issuer": "聯邦銀行 · 刷卡金",
+    "rail": "#06c755",
+    "url": "https://activity.ubot.com.tw/LINEBankCard/index.htm",
+    "valid": "2026/08/01–2027/07/31",
+    "tags": [
+      "網購",
+      "影音訂閱",
+      "售票電玩",
+      "旅日",
+      "旅韓",
+      "旅歐美",
+      "無腦日常",
+      "保費",
+      "美食外送"
     ],
-    note:"新年度權益已續約至 2027/07/31，加碼通路擴增：新增 CatchPlay、KKTV、MyCard 及拓元／KKTIX 售票平台。需先於 LINE Bank App 申辦。新戶另有扣款禮：核卡後180天內以 LINE Bank 主帳戶自動扣繳成功，享5%回饋，歸戶限領3次、每次上限200元（合計600元）。另有聯邦銀行全卡通用活動（需另行登錄、名額有限），詳細規則請自行確認官網。"
+    "pts": "刷卡金 · 停卡餘額歸零",
+    "tiers": [
+      {
+        "rate": "1",
+        "label": "國內一般消費",
+        "sub": "保費 1%",
+        "cap": "無上限",
+        "scenarios": [
+          "無腦日常",
+          "保費"
+        ],
+        "end": "2027-07-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-08-01",
+        "capPeriod": "postingMonth",
+        "source": "https://activity.ubot.com.tw/LINEBankCard/index.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "2.5",
+        "label": "國外一般消費",
+        "sub": "外幣請款認定，部分歐洲實體交易排除，不能泛指所有歐美消費。",
+        "cap": "無上限",
+        "scenarios": [
+          "旅日",
+          "旅韓",
+          "旅歐美"
+        ],
+        "end": "2027-07-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-08-01",
+        "capPeriod": "postingMonth",
+        "source": "https://activity.ubot.com.tw/LINEBankCard/index.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "4",
+        "hi": true,
+        "label": "指定通路：國內4%／國外5.5%",
+        "sub": "MOMO、PChome、淘寶、蝦皮、酷澎、Netflix、Disney+、CatchPlay、Spotify、LINE TV、KKTV、KKBOX、Steam、PlayStation、Nintendo、Blizzard、Garena、MyCard、拓元tixCraft、KKTIX",
+        "cap": "加碼3%上限300元／歸戶／日曆入帳月 · 可刷10,000",
+        "scenarios": [
+          "網購",
+          "影音訂閱",
+          "售票電玩"
+        ],
+        "end": "2027-07-31",
+        "kind": "regular",
+        "audience": "all",
+        "capSpend": 10000,
+        "start": "2026-08-01",
+        "capPeriod": "postingMonth",
+        "source": "https://activity.ubot.com.tw/LINEBankCard/index.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "3",
+        "label": "Uber Eats／foodpanda外送活動",
+        "sub": "每月10日15:00登錄，限6,000名；排除Uber One，不另推算疊加基本。",
+        "cap": "200元／戶／消費日曆月",
+        "capPeriod": "month",
+        "start": "2026-07-01",
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "scenarios": [
+          "美食外送"
+        ],
+        "source": "https://activity.ubot.com.tw/aws_act/2026/202607delivery/index.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      }
+    ],
+    "note": "指定通路國內1%＋3%、國外2.5%＋3%，依通路／國別判定。扣款禮5%是首次申辦180天內前三次自扣各200元，非永久消費加碼。",
+    "end": "2027-07-31",
+    "fee": "正附各1,000元；首年免，有效電子帳單期間免，或年消費6萬元免次年",
+    "feeSource": "https://activity.ubot.com.tw/LINEBankCard/index.htm",
+    "feeCheckedAt": "2026-09-08"
   },
-
   {
-    id:"breeze",
-    name:"聯邦 微風無限", issuer:"聯邦銀行 · 頂級卡權益", rail:"#7d3cff",
-    url:"https://activity.ubot.com.tw/aws_act/2026/2026breeze-shopping/index.htm",
-    valid:"2026/01/01–12/31", tags:["百貨","停車"],
-    rates:{"百貨":2},
-    pts:"購物金＋權益型 · 微風廣場／南京／松高／信義／南山五大館別",
-    tiers:[
-      {rate:"2",hi:true,label:"微風百貨購物金",sub:"單筆消費滿10,000元享2%；累積消費達50萬後，單筆滿10,000元享3%",cap:"每月最高回饋10,000元"},
-      {rate:"4H",hi:true,label:"微風百貨停車（無限卡）",sub:"平假日不限消費金額，天天免費停車4小時，5大館別，每卡每日限用1次；御璽/鈦金/晶緻卡4小時需平日滿1,000元、假日滿1,500元，白金卡需平日滿2,000元、假日滿2,500元",cap:"每日最多4小時，不限金額"},
-      {rate:"2H",label:"市區停車（另一項，非微風百貨）",sub:"前月消費滿5,000元 · 台灣聯通／詮營／ViVi PARK／嘟嘟房／車麻吉等，每日限用1次，請自行確認官網是否延續",cap:"每月5次 · 每次2小時"},
-      {rate:"9折",label:"館內精選專櫃／美食／超市折扣",sub:"百間精選專櫃、美食餐廳、微風超市，9折起",cap:""},
-      {rate:"$200",label:"週四電子酬賓券",sub:"憑積點禮遇會員身份，指定館別餐飲／超市／伴手禮單筆滿2,000元贈NT$200電子酬賓券",cap:"限量150份/每卡每週1份"},
-      {rate:"☕",label:"Trine&Zen 崔妮傑恩 免費美式咖啡",sub:"微風廣場／微風南京／微風中央研究院各館 · 無限卡每日限兌換1次",cap:""},
-      {rate:"65折",label:"國賓影城購票",sub:"天天65折，套餐優惠另計，每人每日限購2張",cap:""},
-      {rate:"權益",label:"全球機場貴賓室",sub:"Priority Pass／U.First 會員卡，2026/1/1起提供U.First全球貴賓室服務",cap:""},
+    "id": "breeze",
+    "name": "聯邦 微風無限",
+    "issuer": "聯邦銀行 · 頂級卡權益",
+    "rail": "#7d3cff",
+    "url": "https://activity.ubot.com.tw/aws_act/2026/2026breeze-shopping/index.htm",
+    "valid": "2026/01/01–12/31",
+    "tags": [
+      "百貨",
+      "停車"
     ],
-    note:"信義區微風商圈神卡：百貨購物金2%（單筆滿萬）、累積滿50萬後升3%，月上限10,000元。停車分兩種——微風百貨5大館別無限卡天天免費4小時、平假日皆不限消費金額（官方表格中無限卡該格為跨2/3/4小時的合併儲存格；御璽/鈦金/晶緻卡4小時需平日滿1,000、假日滿1,500元），另有獨立的市區停車每月5次2小時（前月需消費滿5,000元，請自行確認是否延續）。刷卡支付80%以上團費或全額交通費，另享最高5,000萬旅行平安險。新戶核卡60天內消費滿6萬贈禮（限量70份，2026/7/1–12/31申辦）。"
+    "pts": "購物金＋權益型 · 微風廣場／南京／松高／信義／南山五大館別",
+    "tiers": [
+      {
+        "rate": "2",
+        "hi": true,
+        "label": "舊滿額刷卡金2%／3%（2026續行待確認）",
+        "sub": "首頁殘留彈窗僅標至2024/12/31，不因網址為2026即推定續約。",
+        "cap": "每月最高回饋10,000元",
+        "scenarios": [
+          "百貨"
+        ],
+        "end": "2024-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "capSpend": 500000,
+        "start": "2015-03-16",
+        "source": "https://activity.ubot.com.tw/aws_act/2026/2026breeze-shopping/index.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "舊活動期限；2026續行未確認",
+        "suspendRanking": true
+      },
+      {
+        "rate": "4H",
+        "hi": true,
+        "label": "微風百貨停車：無限卡免費4小時",
+        "sub": "平假日不限消費金額；廣場、南京、松高、信義、南山。入場須在開店前30分起至閉店前30分，詳各館公告。",
+        "cap": "每卡每日每車1次，最多4小時；以出場時間為準",
+        "scenarios": [
+          "停車"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-01-01",
+        "source": "https://activity.ubot.com.tw/aws_act/2026/2026breeze-shopping/index.htm#Modalb",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "capPeriod": "day"
+      },
+      {
+        "rate": "2H",
+        "label": "市區停車2小時（2026續行待確認）",
+        "sub": "前月消費滿5,000元 · 台灣聯通／詮營／ViVi PARK／嘟嘟房／車麻吉等，每日限用1次，請自行確認官網是否延續",
+        "cap": "每月5次 · 每次2小時",
+        "scenarios": [
+          "停車"
+        ],
+        "end": "2022-01-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2021-02-01",
+        "source": "https://card.ubot.com.tw/eCard/activity/2021PARKING/index.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "舊細則每月5次；2026期限未確認",
+        "suspendRanking": true,
+        "capPeriod": "month"
+      },
+      {
+        "rate": "9折",
+        "label": "館內精選專櫃／美食／超市折扣",
+        "sub": "百間精選專櫃、美食餐廳、微風超市，9折起",
+        "cap": "",
+        "scenarios": [],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-01-01",
+        "source": "https://activity.ubot.com.tw/aws_act/2026/2026breeze-shopping/index.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "$200",
+        "label": "週四電子酬賓券",
+        "sub": "憑積點禮遇會員身份，指定館別餐飲／超市／伴手禮單筆滿2,000元贈NT$200電子酬賓券",
+        "cap": "限量150份/每卡每週1份",
+        "scenarios": [],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-01-01",
+        "source": "https://activity.ubot.com.tw/aws_act/2026/2026breeze-shopping/index.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "☕",
+        "label": "Trine&Zen 崔妮傑恩 免費美式咖啡",
+        "sub": "微風廣場／中央研究院；每日每卡跨館合計一次。",
+        "cap": "每卡每日1次",
+        "scenarios": [],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-01-01",
+        "source": "https://activity.ubot.com.tw/aws_act/2026/2026breeze-shopping/index.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "capPeriod": "day"
+      },
+      {
+        "rate": "65折",
+        "label": "微風影城購票65折",
+        "sub": "限實體卡現場購當日場次，非全國國賓通用。",
+        "cap": "每卡每日2張",
+        "scenarios": [],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-01-01",
+        "source": "https://activity.ubot.com.tw/aws_act/2026/2026breeze-shopping/index.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "capPeriod": "day"
+      },
+      {
+        "rate": "權益",
+        "label": "U.First全球機場貴賓室",
+        "sub": "使用前3月刷機票／團費2萬，或使用前1月往前一年一般消費15萬，擇一。Priority Pass現行及共額規則待確認。",
+        "cap": "會員卡有效期內4次（非已確認曆年）",
+        "scenarios": [],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-01-01",
+        "source": "https://www.youfirst.com.tw/lounge/ubot/index.aspx",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "capPeriod": "membership"
+      }
+    ],
+    "note": "百貨免費停車與市區停車是兩項獨立權益。舊購物金與市區停車保留供核對，但不視為2026已續約；未取得新公告不代表銀行已取消。",
+    "end": "2026-12-31",
+    "fee": "正附各5,000元；首年免，前一年一般消費30萬元免、15萬至未滿30萬收2,500元，否則5,000元",
+    "alert": "百貨4小時已核實；舊滿額刷卡金及市區停車的2026續行仍待確認，不列回饋排行。",
+    "feeSource": "https://card.ubot.com.tw/eCard/fee/24B/index.html",
+    "feeCheckedAt": "2026-09-08"
   },
-
   {
-    id:"mcard",
-    name:"聯邦 M 卡", issuer:"聯邦銀行 · 刷卡金", rail:"#1f2d5c",
-    url:"https://activity.ubot.com.tw/2026Mcard/index.htm",
-    valid:"~2026/12/31", tags:["旅遊機票","旅日","旅韓","旅歐美","保費"],
-    rates:{"旅遊機票":6,"旅日":3,"旅韓":3,"旅歐美":3,"保費":1.2},
-    pts:"刷卡金 · 無上限 · 須申辦電子化帳單才享最高回饋",
-    tiers:[
-      {rate:"1",label:"國內一般消費",sub:"需申辦電子化帳單，未申辦僅0.5%",cap:"無上限"},
-      {rate:"3",label:"海外實體一般消費",sub:"需申辦電子化帳單，未申辦僅1.5%",cap:"無上限"},
-      {rate:"6",hi:true,label:"機票／訂房網／旅行社／KLOOK／KKDAY／台鐵／客運／計程車／租車",sub:"訂房網含Booking.com、Agoda、Hotels.com、Expedia、Trip.com、AsiaYo、ezTravel、Airbnb；客運含國光/統聯/和欣/葛瑪蘭；計程車含Uber、LINE GO；旅行社含東南/山富/五福/雄獅/鳳凰/可樂旅遊 · 需申辦電子化帳單，未申辦國內0.5%／國外1.5%",cap:"上限300元/月 · 可刷6,000"},
-      {rate:"1.2",label:"國內保費",sub:"需申辦電子化帳單，未申辦僅0.5%",cap:"活動期間保險類上限10,000元 · 可刷約833,333"},
+    "id": "mcard",
+    "name": "聯邦 M 卡",
+    "issuer": "聯邦銀行 · 刷卡金",
+    "rail": "#1f2d5c",
+    "url": "https://activity.ubot.com.tw/2026Mcard/index.htm",
+    "valid": "~2026/12/31",
+    "tags": [
+      "旅遊機票",
+      "旅日",
+      "旅韓",
+      "旅歐美",
+      "保費",
+      "無腦日常"
     ],
-    note:"旅遊類與海外實體的主力卡，回饋高低差異極大取決於是否申辦電子化帳單，務必確認已開通。五大場景跨域任務（2026/4/10–12/31）：當月消費跨3個以上場景且滿5,000元，另贈250元刷卡金，每月限量1,000份。新戶保費滿15,000元另贈500元刷卡金。自動加值5元/次，月上限100元（需電子化帳單）。"
+    "pts": "刷卡金 · 無上限 · 須申辦電子化帳單才享最高回饋",
+    "tiers": [
+      {
+        "rate": "1",
+        "label": "國內一般消費",
+        "sub": "需申辦電子化帳單，未申辦僅0.5%",
+        "cap": "無上限",
+        "scenarios": [
+          "無腦日常"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-01-01",
+        "capPeriod": "postingMonth",
+        "source": "https://activity.ubot.com.tw/2026Mcard/index.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "3",
+        "label": "海外一般消費（含非實體）",
+        "sub": "需申辦電子化帳單，未申辦僅1.5%",
+        "cap": "無上限",
+        "scenarios": [
+          "旅日",
+          "旅韓",
+          "旅歐美"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-02-01",
+        "capPeriod": "postingMonth",
+        "source": "https://activity.ubot.com.tw/2026Mcard/index.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "6",
+        "hi": true,
+        "label": "機票／訂房網／旅行社／KLOOK／KKDAY／台鐵／客運／計程車／租車",
+        "sub": "訂房網含Booking.com、Agoda、Hotels.com、Expedia、Trip.com、AsiaYo、ezTravel、Airbnb；客運含國光/統聯/和欣/葛瑪蘭；計程車含Uber、LINE GO；旅行社含東南/山富/五福/雄獅/鳳凰/可樂旅遊 · 需申辦電子化帳單，未申辦國內0.5%／國外1.5%",
+        "cap": "6%總回饋上限300元／日曆入帳月 · 可刷5,000，超額1%",
+        "scenarios": [
+          "旅遊機票"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "capSpend": 5000,
+        "start": "2026-01-01",
+        "capPeriod": "postingMonth",
+        "source": "https://activity.ubot.com.tw/2026Mcard/index.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "1.2",
+        "label": "國內保費",
+        "sub": "須電子帳單、未辦0.5%；不與保費分期同享，活動額度用完不再回饋。",
+        "cap": "活動期間保險類上限10,000元 · 可刷約833,333",
+        "scenarios": [
+          "保費"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-01-01",
+        "capPeriod": "campaign",
+        "source": "https://activity.ubot.com.tw/2026Mcard/index.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "capSpend": 833333
+      },
+      {
+        "rate": "+3",
+        "label": "指定國家實體超額消費加碼",
+        "sub": "日美韓加泰墨實體每月超過15,000元的部分；每月登錄限1,350名，不是全部消費直接再加3%。",
+        "cap": "1,000元／戶／月",
+        "start": "2026-07-01",
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "scenarios": [],
+        "capPeriod": null,
+        "source": "https://activity.ubot.com.tw/aws_act/2026/20260607overseas/index.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      }
+    ],
+    "note": "交通旅遊6%的300元是整體回饋上限，不是僅5%加碼。跨場景250元活動至12/31，每戶每月一次、整段最多兩份；每月1,000份，需三場景及滿5,000元。",
+    "end": "2026-12-31",
+    "fee": "正附各1,000元；首年免，年6萬元或6次免次年，或有效電子帳單免",
+    "feeSource": "https://activity.ubot.com.tw/2026Mcard/index.htm",
+    "feeCheckedAt": "2026-09-08"
   },
-
   {
-    id:"jihe",
-    name:"聯邦 吉鶴", issuer:"聯邦銀行 · JCB晶緻卡", rail:"#c8262e",
-    url:"https://activity.ubot.com.tw/2026JiHoCard/index.htm",
-    valid:"2026/07/01–12/31（下半年）", tags:["旅日"],
-    rates:{"旅日":8},
-    pts:"刷卡金／LINE POINTS · 含 LoungeKey 機場貴賓室 2次/年",
-    tiers:[
-      {rate:"1",label:"國內一般消費",sub:"萊爾富實體／Apple Pay／Google Pay 現折5%（無上限）",cap:"無上限"},
-      {rate:"5",label:"國內日系名店加碼（+4%）",sub:"UNIQLO、GU、大創等指定日系品牌",cap:"加碼上限500/月 · 可刷12,500"},
-      {rate:"2.5",hi:true,label:"日幣消費（基本）",sub:"日本網購或實體皆可",cap:"無上限"},
-      {rate:"4",hi:true,label:"日本實體 Apple/Google Pay 感應（需登錄）",sub:"基本2.5%＋感應加碼1.5%：綁卡感應單筆滿台幣100元 · 下半年起 Google Pay 也適用",cap:"加碼上限600/月 · 可刷40,000"},
-      {rate:"5",label:"前月帳單滿3萬 升級加碼",sub:"上列4%再＋1%（合計5%）",cap:"升級加碼上限200/月 · 可刷20,000"},
-      {rate:"8",hi:true,label:"日本熱門商店（疊加天花板）",sub:"上列5%再＋3%：便利商店／遊樂園（含環球影城）／百貨／量販指定店家",cap:"熱門加碼上限600/戶 · 可刷20,000"},
-      {rate:"1.5",label:"日本三大交通卡儲值",sub:"SUICA／ICOCA／PASMO・每月限量登錄10,000名",cap:"依活動公告"},
+    "id": "jihe",
+    "name": "聯邦 吉鶴",
+    "issuer": "聯邦銀行 · JCB晶緻卡",
+    "rail": "#c8262e",
+    "url": "https://activity.ubot.com.tw/2026JiHoCard/index.htm",
+    "valid": "2026/07/01–12/31（下半年）",
+    "tags": [
+      "旅日"
     ],
-    note:"日本旅遊神卡。下半年（7–12月）延續上半年權益，並新增 Google Pay 支援日本感應加碼，Android 用戶也可拿到4%（2.5%+1.5%）。新戶另有日本實體消費加碼3%（活動期間歸戶上限600元）。"
+    "pts": "刷卡金 · LoungeKey次數／門檻／期限待查證",
+    "tiers": [
+      {
+        "rate": "1",
+        "label": "國內一般消費",
+        "sub": "萊爾富實體／Apple Pay／Google Pay 現折5%（無上限）",
+        "cap": "無上限",
+        "scenarios": [],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-07-01",
+        "capPeriod": "postingMonth",
+        "source": "https://activity.ubot.com.tw/2026JiHoCard/domestic.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "5",
+        "label": "國內日系名店加碼（+4%）",
+        "sub": "指定門市一般消費；排除大創線上／大量訂購及部分店中店。",
+        "cap": "加碼上限500/月 · 可刷12,500",
+        "scenarios": [],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-07-01",
+        "capPeriod": "postingMonth",
+        "source": "https://activity.ubot.com.tw/2026JiHoCard/domestic.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "capSpend": 12500
+      },
+      {
+        "rate": "2.5",
+        "hi": true,
+        "label": "日幣消費（基本）",
+        "sub": "日本網購或實體皆可",
+        "cap": "無上限",
+        "scenarios": [
+          "旅日"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-07-01",
+        "capPeriod": "postingMonth",
+        "source": "https://activity.ubot.com.tw/2026JiHoCard/japan.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "4",
+        "hi": true,
+        "label": "日本實體 Apple/Google Pay 感應（需登錄）",
+        "sub": "日本Apple／Google Pay面對面、單筆臺幣100元；下半年登錄一次，不追溯未登錄月份；排除交通／網路／QUICPay。",
+        "cap": "加碼上限600/月 · 可刷40,000",
+        "scenarios": [
+          "旅日"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-07-01",
+        "capPeriod": "postingMonth",
+        "source": "https://activity.ubot.com.tw/2026JiHoCard/japan.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "capSpend": 40000
+      },
+      {
+        "rate": "5",
+        "label": "前月帳單滿3萬 升級加碼",
+        "sub": "前月聯邦信用卡帳單應繳總額滿3萬元，再加1%；非當月刷滿3萬元。",
+        "cap": "升級加碼上限200/月 · 可刷20,000",
+        "scenarios": [
+          "旅日"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-07-01",
+        "capPeriod": "postingMonth",
+        "source": "https://activity.ubot.com.tw/2026JiHoCard/japan.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "capSpend": 20000
+      },
+      {
+        "rate": "8",
+        "hi": true,
+        "label": "日本熱門商店（疊加天花板）",
+        "sub": "上列5%再＋3%：便利商店／遊樂園（含環球影城）／百貨／量販指定店家",
+        "cap": "熱門店+3%上限600元／歸戶／整段7～12月活動 · 可刷20,000",
+        "scenarios": [
+          "旅日"
+        ],
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "capSpend": 20000,
+        "condition": "疊加值",
+        "start": "2026-07-01",
+        "capPeriod": "campaign",
+        "source": "https://activity.ubot.com.tw/2026JiHoCard/japan.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "1.5",
+        "label": "日本三大交通卡儲值",
+        "sub": "日幣儲值三大交通卡；每月15日10:00登錄，次月10日前請款，不加日幣基本2.5%。",
+        "cap": "金額上限未載明／待確認；每月限量1萬名",
+        "scenarios": [
+          "旅日"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-07-01",
+        "capPeriod": null,
+        "source": "https://activity.ubot.com.tw/2026JiHoCard/japan.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／比率／登錄條件；金額上限待確認"
+      },
+      {
+        "rate": "+3",
+        "label": "指定國家實體超額消費加碼",
+        "sub": "日美韓加泰墨實體每月超過15,000元的部分；每月登錄限1,350名，不是全部消費直接再加3%。",
+        "cap": "1,000元／戶／月",
+        "start": "2026-07-01",
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "scenarios": [],
+        "capPeriod": null,
+        "source": "https://activity.ubot.com.tw/aws_act/2026/20260607overseas/index.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      }
+    ],
+    "note": "Google Pay自2026/04/01即適用，非下半年才新增。8%須各疊加條件全滿，熱門店加碼600元是半年活動總額，不是每月重置。",
+    "end": "2026-12-31",
+    "fee": "正附各1,000元；首年免，年消費1萬元或10次免次年，或有效電子帳單免",
+    "feeSource": "https://activity.ubot.com.tw/2026JiHoCard/japan.htm",
+    "feeCheckedAt": "2026-09-08"
   },
-
   {
-    id:"green",
-    name:"聯邦 綠卡", issuer:"聯邦銀行 · 現金回饋", rail:"#3a9e57",
-    url:"https://activity.ubot.com.tw/2026GreenCard/index.htm",
-    valid:"2026/07/01–12/31", tags:["綠色消費"],
-    rates:{"綠色消費":6},
-    pts:"現金回饋 · 需電子帳單",
-    tiers:[
-      {rate:"1",label:"國內一般消費（基本）",sub:"國外 2% · 需電子帳單",cap:"無上限"},
-      {rate:"6",hi:true,label:"指定綠色消費（加碼5%）",sub:"電動汽機車／共享交通／蔬食餐廳／生機選品／綠色捐贈",cap:"上限300元/月 · 可刷6,000"},
-      {rate:"1",label:"生活代扣繳（電信／水電瓦斯／路邊停車）",sub:"需電子帳單",cap:"上限100元/月 · 可刷10,000"},
-      {rate:"5點",label:"一卡通綠色大眾運輸（每趟）",sub:"新戶首趟50點・後續每趟5點・需先註冊並開通 iPASS MONEY 帳戶",cap:"上限100點/月"},
+    "id": "green",
+    "name": "聯邦 綠卡",
+    "issuer": "聯邦銀行 · 現金回饋",
+    "rail": "#3a9e57",
+    "url": "https://activity.ubot.com.tw/2026GreenCard/index.htm",
+    "valid": "2026/07/01–12/31",
+    "tags": [
+      "綠色消費"
     ],
-    note:"綠色消費與電動車充電主力卡。一般消費國內1%／國外2%無上限（需電子帳單）。綠色6%（含基本1%）上限300元/月、代扣繳1%上限100元/月，皆需申辦電子化帳單。"
+    "pts": "現金回饋 · 需電子帳單",
+    "tiers": [
+      {
+        "rate": "1",
+        "label": "國內一般消費（基本）",
+        "sub": "國外 2% · 需電子帳單",
+        "cap": "無上限",
+        "scenarios": [],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-07-01",
+        "capPeriod": "postingMonth",
+        "source": "https://activity.ubot.com.tw/2026GreenCard/index.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "6",
+        "hi": true,
+        "label": "指定綠色消費（加碼5%）",
+        "sub": "指定充電／電池資費、共享交通、蔬食等；不是購買電動車皆6%。",
+        "cap": "6%含基本1%：月上限300元；分開發放的封頂細節待確認",
+        "scenarios": [
+          "綠色消費"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-07-01",
+        "capPeriod": "postingMonth",
+        "source": "https://activity.ubot.com.tw/2026GreenCard/index.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／6%／月上限300；拆分封頂算法待確認"
+      },
+      {
+        "rate": "1",
+        "label": "生活代扣繳（電信／水電瓦斯／路邊停車）",
+        "sub": "須設定指定事業自動代扣、電子帳單；非自行繳費平台都適用。",
+        "cap": "上限100元/月 · 可刷10,000",
+        "scenarios": [],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-07-01",
+        "capPeriod": "postingMonth",
+        "source": "https://activity.ubot.com.tw/2026GreenCard/index.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "capSpend": 10000
+      },
+      {
+        "rate": "5點",
+        "label": "一卡通綠色大眾運輸（每趟）",
+        "sub": "新戶首趟50點・後續每趟5點・需先註冊並開通 iPASS MONEY 帳戶",
+        "cap": "每卡每月100點，依交通資料回傳月份；另有總活動量",
+        "scenarios": [],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-07-01",
+        "capPeriod": "reportingMonth",
+        "source": "https://activity.ubot.com.tw/2026GreenCard/index.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "1",
+        "label": "iPASS MONEY餘額繳聯邦卡費",
+        "sub": "須綁聯邦卡且月底前同意綠點；各聯邦卡共用每人額度，不直接加成消費回饋。",
+        "cap": "200點／人／繳費日曆月；活動總量1,500萬點",
+        "start": "2026-06-17",
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "scenarios": [],
+        "capPeriod": "paymentMonth",
+        "source": "https://activity.ubot.com.tw/aws_act/2026/2026ipassmoneybill/index.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      }
+    ],
+    "note": "綠色6%的300元不可直接當5%加碼額度而保證可刷6,000元，已撤下此試算。代扣回饋按入帳月；大眾運輸按資料回傳月。",
+    "end": "2026-12-31",
+    "fee": "正附各1,000元；首年免，前一年6萬元或6次免次年，或有效電子帳單免",
+    "feeSource": "https://card.ubot.com.tw/eCard/fee/64A/index.html",
+    "feeCheckedAt": "2026-09-08"
   },
-
   {
-    id:"costco",
-    name:"富邦 好市多聯名卡", issuer:"台北富邦 · 好多金", rail:"#e4002b",
-    url:"https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
-    valid:"~2027/12/31", tags:["好市多","旅日","旅韓","旅歐美"],
-    rates:{"好市多":3,"旅日":5,"旅韓":5,"旅歐美":5},
-    pts:"好多金 ＝ 折抵會費／店內消費",
-    tiers:[
-      {rate:"1",label:"店外一般消費",sub:"",cap:"無上限"},
-      {rate:"2",label:"Costco 賣場",sub:"",cap:"無上限"},
-      {rate:"3",hi:true,label:"Costco 線上購物",sub:"",cap:"無上限"},
-      {rate:"3",hi:true,label:"Costco 自助加油",sub:"基本2% + 加碼1%",cap:"加碼上限200/月 · 可刷20,000"},
-      {rate:"5",hi:true,label:"精選海外實體商店（需登錄）",sub:"基本1% + 加碼4%，正附卡合併計算",cap:"加碼合計上限600/戶/月 · 可刷15,000"},
-      {rate:"3",hi:true,label:"精選航空／旅行社／訂房／免稅店（需登錄）",sub:"中華、長榮、星宇等航空／易遊網、雄獅等旅行社／昇恆昌、采盟免稅店，基本1% + 加碼2%",cap:"加碼合計上限600/戶/月 · 可刷15,000（與上列海外實體共用額度）"},
+    "id": "costco",
+    "name": "富邦 好市多聯名卡",
+    "issuer": "台北富邦 · 好多金",
+    "rail": "#e4002b",
+    "url": "https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
+    "valid": "~2027/12/31",
+    "tags": [
+      "好市多",
+      "旅日",
+      "旅韓",
+      "旅歐美",
+      "旅遊機票",
+      "美食外送"
     ],
-    note:"需為 Costco 會員。精選旅遊通路活動每月1日開放登錄（5萬名額），採雙月請款回饋。",
-    alert:"精選旅遊加碼需每月1日登錄（5萬名額），兩層共用600元/月加碼上限。"
+    "pts": "好多金 ＝ 折抵會費／店內消費",
+    "tiers": [
+      {
+        "rate": "1",
+        "label": "店外一般消費",
+        "sub": "",
+        "cap": "無上限",
+        "scenarios": [],
+        "end": "2027-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": null,
+        "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "2",
+        "label": "Costco 賣場",
+        "sub": "",
+        "cap": "無上限",
+        "scenarios": [
+          "好市多"
+        ],
+        "end": "2027-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2023-08-08",
+        "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "3",
+        "hi": true,
+        "label": "Costco 線上購物",
+        "sub": "",
+        "cap": "無上限",
+        "scenarios": [
+          "好市多"
+        ],
+        "end": "2027-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2023-08-08",
+        "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "3",
+        "hi": true,
+        "label": "Costco 自助加油",
+        "sub": "基本2% + 加碼1%",
+        "cap": "加碼1%上限200元／每期帳單 · 可刷20,000",
+        "scenarios": [
+          "好市多"
+        ],
+        "end": "2027-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2023-08-08",
+        "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "capSpend": 20000,
+        "capPeriod": "statement"
+      },
+      {
+        "end": "2026-12-31",
+        "rate": "5",
+        "hi": true,
+        "label": "精選海外實體商店（需登錄）",
+        "sub": "基本1% + 加碼4%，正附卡合併計算",
+        "cap": "加碼合計上限600/戶/月 · 可刷15,000",
+        "scenarios": [
+          "旅日",
+          "旅韓",
+          "旅歐美"
+        ],
+        "kind": "limited",
+        "audience": "all",
+        "capSpend": 15000,
+        "capPeriod": "month",
+        "condition": "需登錄",
+        "start": "2026-01-01",
+        "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "end": "2026-12-31",
+        "rate": "3",
+        "hi": true,
+        "label": "精選航空／旅行社／訂房／免稅店（需登錄）",
+        "sub": "中華、長榮、星宇等航空／易遊網、雄獅等旅行社／昇恆昌、采盟免稅店，基本1% + 加碼2%",
+        "cap": "與海外實體共用600元／消費日曆月；只刷本層可刷30,000",
+        "scenarios": [
+          "旅遊機票"
+        ],
+        "kind": "limited",
+        "audience": "all",
+        "start": "2026-01-01",
+        "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "capPeriod": "month",
+        "capSpend": 30000
+      },
+      {
+        "rate": "2",
+        "label": "Uber Eats好市多專區",
+        "sub": "須辨識為指定Costco特店，非所有Uber Eats；次月15日前請款。",
+        "cap": "無上限",
+        "start": "2026-07-01",
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "scenarios": [
+          "好市多",
+          "美食外送"
+        ],
+        "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      }
+    ],
+    "note": "旅遊兩層共用600元消費月額度，雙月請款／發放不代表雙月重置。年費依等級，不含好市多會員費；好多金有年度到期機制。",
+    "alert": "精選旅遊加碼需每月1日登錄（5萬名額），兩層共用600元/月加碼上限。",
+    "end": "2027-12-31",
+    "fee": "鈦金1,800／鈦商3,000／世界5,000元，附卡免、首年免。次年鈦金／鈦商6萬或12次、世界36萬；會員／電子帳單替代豁免不含世界卡",
+    "feeSource": "https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
+    "feeCheckedAt": "2026-09-08"
   },
-
   {
-    id:"fubon-j",
-    name:"富邦 J 卡", issuer:"台北富邦 · LINE POINTS/現金", rail:"#0f3675",
-    url:"https://www.fubon.com/banking/JF/",
-    valid:"~2026/12/31", tags:["旅日","旅韓","悠遊卡加值"],
-    rates:{"旅日":6,"旅韓":6,"悠遊卡加值":10},
-    pts:"LINE POINTS（J POINTS卡）或現金回饋 · JCB · 需電子帳單或本行自扣才享完整回饋",
-    tiers:[
-      {rate:"1",label:"國內一般消費",sub:"需設定本行帳戶自扣或申請電子帳單（並取消紙本）；未達條件僅 0.5%",cap:"無上限"},
-      {rate:"3",hi:true,label:"日本／韓國 一般消費",sub:"同樣需自扣或電子帳單，未達條件僅 0.5%；泰國 1%",cap:"無上限"},
-      {rate:"6",hi:true,label:"日韓泰實體 ＋3%（需登錄）",sub:"Q3（7–9月）單筆滿1,000元日韓泰實體加碼 3%，每月20日16:00起開放登錄（7/20、8/20、9/20），每季登錄一次即可、每季限量60,000名",cap:"季上限1,000/戶 · 可刷33,333"},
-      {rate:"10",hi:true,label:"日本三大交通卡 Apple Pay 儲值",sub:"Suica、ICOCA、PASMO・單筆滿2,000元，基本3%＋加碼7%・每季限量30,000名",cap:"加碼上限200/戶 · 可刷2,857"},
-      {rate:"10",label:"悠遊卡自動加值",sub:"JCB晶緻等級以上・需登錄（每年限3次）",cap:"上限50元/月 · 可加值500"},
-      {rate:"2",label:"加油／大眾運輸（含一卡通）",sub:"",cap:"無上限"},
-      {rate:"2",label:"網路投保",sub:"含基本1% + 加碼1.5%",cap:"加碼上限200/月 · 可刷13,333"},
+    "id": "fubon-j",
+    "name": "富邦 J 卡",
+    "issuer": "台北富邦 · LINE POINTS/現金",
+    "rail": "#0f3675",
+    "url": "https://www.fubon.com/banking/personal/credit_card/all_card/omiyage/omiyage.htm",
+    "valid": "~2026/12/31",
+    "tags": [
+      "旅日",
+      "旅韓",
+      "悠遊卡加值",
+      "保費"
     ],
-    note:"日韓泰旅遊與 iPhone 在日本感應支付的代名詞。⚠️ 2026 新增門檻：日韓 3%（及國內 1%）須設定富邦帳戶自動扣繳卡費，或申請電子帳單並取消紙本，且於結帳日前生效，否則基本回饋只有 0.5%。日韓泰加碼活動已公布至 9/30，卡片權益延續至 2026/12/31。年費1,800（電子帳單可免）。"
+    "pts": "LINE POINTS（J POINTS卡）或現金回饋 · JCB · 需電子帳單或本行自扣才享完整回饋",
+    "tiers": [
+      {
+        "rate": "1",
+        "label": "國內一般消費",
+        "sub": "需設定本行帳戶自扣或申請電子帳單（並取消紙本）；未達條件僅 0.5%",
+        "cap": "無上限",
+        "scenarios": [],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "source": "https://www.fubon.com/banking/personal/credit_card/all_card/omiyage/omiyage.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "start": "2026-04-01"
+      },
+      {
+        "rate": "3",
+        "hi": true,
+        "label": "日本／韓國／泰國一般消費",
+        "sub": "須本行自扣或取消紙本電子帳單；J Cash按結帳日、J Points按回饋計算日生效；未達0.5%。",
+        "cap": "無上限",
+        "scenarios": [
+          "旅日",
+          "旅韓"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "source": "https://www.fubon.com/banking/personal/credit_card/all_card/omiyage/omiyage.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "start": "2026-04-01"
+      },
+      {
+        "end": "2026-09-30",
+        "rate": "6",
+        "hi": true,
+        "label": "日韓泰實體 ＋3%（需登錄）",
+        "sub": "Q3（7–9月）單筆滿1,000元日韓泰實體加碼 3%，每月20日16:00起開放登錄（7/20、8/20、9/20），每季登錄一次即可、每季限量60,000名",
+        "cap": "季上限1,000/戶 · 可刷33,333",
+        "scenarios": [
+          "旅日",
+          "旅韓"
+        ],
+        "kind": "limited",
+        "audience": "all",
+        "capSpend": 33333,
+        "capPeriod": "quarter",
+        "condition": "限時Q3·需登錄",
+        "source": "https://www.fubon.com/banking/personal/credit_card/all_card/omiyage/omiyage.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "start": "2026-07-01"
+      },
+      {
+        "rate": "10",
+        "hi": true,
+        "label": "日本三大交通卡 Apple Pay 儲值",
+        "sub": "Suica、ICOCA、PASMO・單筆滿2,000元，基本3%＋加碼7%・每季限量30,000名",
+        "cap": "加碼200元／戶；兩季是否共用上限待確認",
+        "scenarios": [
+          "旅日"
+        ],
+        "end": "2026-09-30",
+        "kind": "limited",
+        "audience": "all",
+        "source": "https://www.fubon.com/banking/personal/credit_card/all_card/omiyage/omiyage.htm",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／比率／登錄；額度跨季定義待確認",
+        "start": "2026-04-01",
+        "capPeriod": null
+      },
+      {
+        "rate": "10",
+        "label": "悠遊卡自動加值",
+        "sub": "JCB晶緻等級以上・需登錄（每年限3次）",
+        "cap": "每卡每月50元 · 可加值500；全年最多登錄3次",
+        "scenarios": [
+          "悠遊卡加值"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "capSpend": 500,
+        "capPeriod": "month",
+        "condition": "需登錄",
+        "source": "https://www.specialoffers.jcb/zh-tw/services/transport/autoload2026/",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "start": "2026-01-01"
+      },
+      {
+        "rate": "2",
+        "label": "一卡通票證大眾運輸2%",
+        "sub": "2026全年，每卡消費月累積100元、正附分算，不含高鐵；舊加油2%另待確認。",
+        "cap": "無上限",
+        "scenarios": [],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "source": "https://cardpromote.taipeifubon.com.tw/promotion/Detail?sn=C000146",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "start": "2026-01-01"
+      },
+      {
+        "rate": "2",
+        "label": "網路投保",
+        "sub": "0.5%＋1.5%；指定國內網路投保一次付清，須登錄，排除分期／行動支付／國外保險。",
+        "cap": "加碼上限200元；單筆／活動歸戶定義待確認",
+        "scenarios": [
+          "保費"
+        ],
+        "end": "2026-09-30",
+        "kind": "limited",
+        "audience": "all",
+        "source": "https://www.fubon.com/banking/event/credit_card/costcoweb/travel/evt5-23.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "start": "2026-07-01",
+        "capPeriod": null
+      },
+      {
+        "rate": "300元券",
+        "label": "亞洲精選實體滿6,000元",
+        "sub": "中港澳新馬越實體每消費月合計6,000元；每月19日16:00登錄限1萬名。不是不限額現金6%。",
+        "cap": "每戶每消費日曆月一張300元即享券",
+        "capPeriod": "month",
+        "start": "2026-04-01",
+        "end": "2026-09-30",
+        "kind": "limited",
+        "audience": "all",
+        "scenarios": [],
+        "source": "https://cardpromote.taipeifubon.com.tw/promotion/Detail?sn=C000306",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      }
+    ],
+    "note": "日韓泰基本均最高3%；交通卡10%本期至9/30。網路投保是0.5%＋1.5%，上限週期尚未確認，不寫成月上限。泛加油2%的當期依據待查證。",
+    "end": "2026-12-31",
+    "fee": "正卡1,800元，附卡免、首年免；年6萬元或12次免次年。至2026年底另可電子帳單／銀行LINE好友／本行自扣任一免",
+    "feeSource": "https://www.fubon.com/banking/personal/credit_card/all_card/omiyage/omiyage.htm",
+    "feeCheckedAt": "2026-09-08"
   },
-
   {
-    id:"ubear",
-    name:"玉山 ubear", issuer:"玉山銀行 · 現金回饋", rail:"#00a3a3",
-    url:"https://event.esunbank.com.tw/credit/ubear/index.html",
-    valid:"2026/03/01–08/31", tags:["LINE Pay","網購","影音訂閱"],
-    rates:{"LINE Pay":3,"網購":3,"影音訂閱":10},
-    pts:"現金回饋",
-    tiers:[
-      {rate:"1",label:"國內一般消費（基本）",sub:"僅綁電子帳單或自動扣繳其一為0.5%，兩者皆辦才1%",cap:"無上限"},
-      {rate:"3",hi:true,label:"網路消費／行動支付加碼",sub:"LINE Pay、街口、momo、蝦皮、Uber Eats等網購與行動支付 · 需電子帳單，基本1%+加碼2%",cap:"加碼上限150/期 · 可刷7,500"},
-      {rate:"10",hi:true,label:"數位訂閱平台",sub:"Netflix／Gemini／ChatGPT／Steam／Nintendo／PlayStation",cap:"上限100/期 · 可刷1,111"},
+    "id": "ubear",
+    "name": "玉山 U Bear",
+    "issuer": "玉山銀行 · 現金回饋",
+    "rail": "#00a3a3",
+    "url": "https://event.esunbank.com.tw/credit/ubear/index.html",
+    "valid": "2026/09/01–2027/02/28",
+    "tags": [
+      "LINE Pay",
+      "網購",
+      "影音訂閱",
+      "全支付",
+      "美食外送",
+      "旅遊機票"
     ],
-    note:"2026改版後方案（3/1–8/31）：舊有「街口／LINE Pay／MoMo／蝦皮／淘寶3%指定通路」已整併為「網路消費／行動支付」加碼2%（基本1%＋加碼2%＝3%，上限150/期），數位訂閱10%維持不變。新戶另有網購加碼7%（月上限200元、歸戶上限600元）等專屬優惠，本表僅列既有持卡人可用方案。另有數項行動支付活動期間較長、8/31後仍有效：悠遊卡自動加值最高6.6%（需當月自動加值3次以上，上限100元/月，至9/30）、中油Pay最高6%（上限100點/月，至9/30）、icash Pay於7-ELEVEN 6% OPENPOINT（上限200點/月，每月15日10:00起限量6,000名登錄，至12/31）、全支付首筆滿388元送88點全點（至2027/1/3）。",
-    alert:"⏳ 主方案（基本回饋、網購加碼、數位訂閱10%）活動效期僅到 2026/08/31，官方尚未公告續約或新版方案，請於月底前自行確認官網。"
+    "pts": "現金回饋",
+    "tiers": [
+      {
+        "rate": "1",
+        "label": "國內一般消費（基本）",
+        "sub": "僅綁電子帳單或自動扣繳其一為0.5%，兩者皆辦才1%",
+        "cap": "無上限",
+        "scenarios": [],
+        "end": "2027-02-28",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-09-01",
+        "capPeriod": "statement",
+        "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/u-bear",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "3",
+        "hi": true,
+        "label": "網路消費／行動支付加碼",
+        "sub": "基本最高1%＋網購2%；需帳單e化及玉山自扣。實體手機感應、保費、超商與部分全支付通路排除。",
+        "cap": "加碼上限150/期 · 可刷7,500",
+        "scenarios": [
+          "LINE Pay",
+          "網購",
+          "全支付",
+          "美食外送",
+          "旅遊機票"
+        ],
+        "end": "2027-02-28",
+        "kind": "regular",
+        "audience": "all",
+        "capSpend": 7500,
+        "start": "2026-09-01",
+        "capPeriod": "statement",
+        "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/u-bear",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "10",
+        "hi": true,
+        "label": "數位訂閱平台",
+        "sub": "指定平台直接付款；不疊基本或網購回饋，達100元上限後無回饋。",
+        "cap": "總回饋上限100元／每期帳單 · 可刷1,000",
+        "scenarios": [
+          "影音訂閱"
+        ],
+        "end": "2027-02-28",
+        "kind": "regular",
+        "audience": "all",
+        "capSpend": 1000,
+        "start": "2026-09-01",
+        "capPeriod": "statement",
+        "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/u-bear",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "+10",
+        "label": "新卡友指定三大通路加碼",
+        "sub": "9/1～11/30首次申辦且核卡，核卡後60天內指定影音遊戲、售票、網購。核卡期間不是消費截止日；不與常態推薦混算。",
+        "cap": "每歸戶上限1,200元／整段活動",
+        "kind": "limited",
+        "audience": "new",
+        "start": "2026-09-01",
+        "end": null,
+        "scenarios": [],
+        "capPeriod": "campaign",
+        "source": "https://event.esunbank.com.tw/credit/ubear/index.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "申辦期間／核卡後60日／上限"
+      }
+    ],
+    "note": "網購加碼上限與訂閱總回饋上限分開計算，均為帳單週期。新申辦加碼另有資格與期限，不併入常態推薦。",
+    "alert": "已核對9月新一期方案，續至2027/02/28。原訂閱可刷1,111元誤算，應為1,000元。",
+    "end": "2027-02-28",
+    "fee": "正卡3,000元；首年免，帳單e化／玉山自扣／任一消費可免，附卡免",
+    "feeSource": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/u-bear",
+    "feeCheckedAt": "2026-09-08"
   },
-
   {
-    id:"pi",
-    name:"玉山 Pi 拍錢包", issuer:"玉山銀行 · P幣", rail:"#5b35d6",
-    url:"https://event.esunbank.com.tw/credit/pi-card/index.html",
-    valid:"2026/03/01–08/31", tags:["保費","網購"],
-    rates:{"保費":1.2,"網購":5},
-    pts:"P幣 ＝ 1元 · 效期180天 · 需帳單e化（未辦e化基本僅0.3%）",
-    tiers:[
-      {rate:"1",label:"一般消費（基本，需帳單e化）",sub:"未辦帳單e化僅0.3%",cap:"無上限"},
-      {rate:"1.8",label:"月消費滿1萬–2.9萬 +0.8%（需登錄）",sub:"每月擇優回饋1次",cap:""},
-      {rate:"3",hi:true,label:"月消費滿3萬以上 +2%（需登錄）",sub:"每月擇優回饋1次",cap:"加碼上限1,000 P幣/月 · 可刷5萬"},
-      {rate:"5",hi:true,label:"全家便利商店（綁Pi拍錢包App支付）",sub:"",cap:"上限100 P幣/月 · 可刷2,000"},
-      {rate:"1.2",label:"保費",sub:"或單筆滿6,000享6期0利率／滿15,000享12期0利率，需登錄，二擇一",cap:"無上限"},
+    "id": "pi",
+    "name": "玉山 Pi 拍錢包",
+    "issuer": "玉山銀行 · P幣",
+    "rail": "#5b35d6",
+    "url": "https://event.esunbank.com.tw/credit/pi-card/index.html",
+    "valid": "2026/09/01–2027/02/28",
+    "tags": [
+      "保費",
+      "網購",
+      "無腦日常",
+      "Pi 拍錢包"
     ],
-    note:"另：綁玉山帳戶自動扣繳卡費，登錄後月消費滿10萬贈500 P幣／滿30萬贈1,500 P幣。首年免年費，次年帳單e化或自扣或任一消費即可續免年費。",
-    alert:"⏳ 活動期間僅到 2026/08/31，官網尚未公告續約或新方案，請於月底前自行確認玉山銀行官網最新公告，以免回饋方案變動或中止。"
+    "pts": "P幣 ＝ 1元 · 效期180天 · 需帳單e化（未辦e化基本僅0.3%）",
+    "tiers": [
+      {
+        "rate": "1",
+        "label": "一般消費（基本，需帳單e化）",
+        "sub": "未辦帳單e化僅0.3%",
+        "cap": "無上限",
+        "scenarios": [],
+        "end": "2027-02-28",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-09-01",
+        "capPeriod": "month",
+        "source": "https://event.esunbank.com.tw/credit/pi-card/index.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "1.8",
+        "label": "月消費10,000～29,999元，加碼0.8%",
+        "sub": "日曆月累計一般消費；不含保費。",
+        "cap": "每月擇優一次 · 需登錄",
+        "scenarios": [
+          "無腦日常",
+          "網購"
+        ],
+        "end": "2027-02-28",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-09-01",
+        "capPeriod": "month",
+        "source": "https://event.esunbank.com.tw/credit/pi-card/index.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "3",
+        "hi": true,
+        "label": "月消費滿3萬以上 +2%（需登錄）",
+        "sub": "每月擇優回饋1次",
+        "cap": "加碼上限3,000 P幣／日曆月 · 可刷150,000",
+        "scenarios": [
+          "無腦日常",
+          "網購"
+        ],
+        "end": "2027-02-28",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-09-01",
+        "capPeriod": "month",
+        "source": "https://event.esunbank.com.tw/credit/pi-card/index.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "capSpend": 150000
+      },
+      {
+        "rate": "5",
+        "hi": true,
+        "label": "Pi 拍錢包合作通路一般消費",
+        "sub": "單筆滿499元，須登錄、帳單e化及玉山自扣；排除超商等非一般消費。",
+        "cap": "每歸戶每月上限300 P幣；可刷金額待確認",
+        "scenarios": [
+          "Pi 拍錢包"
+        ],
+        "end": "2027-02-28",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-09-01",
+        "capPeriod": "month",
+        "source": "https://event.esunbank.com.tw/credit/pi-card/index.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "1.2",
+        "label": "保費",
+        "sub": "國內臺幣首續期保費（不含躉繳）；分期不再回饋。6／12期0利率另案至2026/12/31，需登錄。",
+        "cap": "無上限",
+        "scenarios": [
+          "保費"
+        ],
+        "end": "2027-02-28",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-09-01",
+        "capPeriod": null,
+        "source": "https://event.esunbank.com.tw/credit/pi-card/index.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      }
+    ],
+    "note": "一般消費加碼依日曆月累計、每月擇優一次，舊一期已登錄者不用重登。Pi拍錢包加碼單筆需滿499元。保費不計入一般消費加碼。",
+    "alert": "已續約至2027/02/28；3%層加碼上限提高為3,000 P幣／月。舊全家5%不能直接套用新一期合作通路方案。",
+    "end": "2027-02-28",
+    "fee": "首年免，次年帳單e化／自扣／任一消費即免"
   },
-
   {
-    id:"kumamon",
-    name:"玉山 熊本熊卡", issuer:"玉山銀行 · 現金回饋", rail:"#e2231a",
-    url:"https://event.esunbank.com.tw/credit/kumamon-card/index.html",
-    valid:"2026/01/01–12/31", tags:["旅日"],
-    rates:{"旅日":8.5},
-    pts:"現金回饋 · 每期直接折抵帳單 · 需電子帳單＋玉山帳戶自扣",
-    tiers:[
-      {rate:"0.5",label:"國內一般消費（基本）",sub:"需綁定帳單e化＋玉山帳戶自動扣繳卡費",cap:"無上限"},
-      {rate:"2.5",hi:true,label:"日本一般消費（基本）",sub:"日本實體／網路消費皆適用",cap:"無上限"},
-      {rate:"8.5",hi:true,label:"日本指定商店加碼（+6%）",sub:"熊好用（交通卡儲值）／熊好遊（訂房購票）／熊好買（藥妝家電）／熊好吃／熊好玩（樂園），需登錄",cap:"加碼上限500/期 · 可刷8,333"},
-      {rate:"5",hi:true,label:"日本 PayPay 消費",sub:"基本3.5% + 免國外交易服務費加碼1.5%，需綁玉山Wallet電子支付",cap:"3.5%部分上限100/季 · 可刷2,857"},
+    "id": "kumamon",
+    "name": "玉山 熊本熊卡",
+    "issuer": "玉山銀行 · 現金回饋",
+    "rail": "#e2231a",
+    "url": "https://event.esunbank.com.tw/credit/kumamon-card/index.html",
+    "valid": "2026/01/01–12/31",
+    "tags": [
+      "旅日"
     ],
-    note:"日本旅遊主打新卡：日本一般消費2.5%、指定商店（交通卡儲值／訂房購票／藥妝家電／美食／樂園）加碼至8.5%（需登錄，上限500元/期）。首年免年費，次年電子帳單或自扣或任一消費即可續免年費。",
-    alert:"日本指定商店加碼6%與PayPay加碼皆需事先登錄才享回饋，且分屬不同上限（500元/期、100元/季），請留意加總後仍受個別上限限制。"
+    "pts": "現金回饋 · 每期直接折抵帳單 · 需電子帳單＋玉山帳戶自扣",
+    "tiers": [
+      {
+        "rate": "0.5",
+        "label": "國內一般消費（基本）",
+        "sub": "需綁定帳單e化＋玉山帳戶自動扣繳卡費",
+        "cap": "無上限",
+        "scenarios": [],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all"
+      },
+      {
+        "rate": "2.5",
+        "hi": true,
+        "label": "日本一般消費（基本）",
+        "sub": "日本實體／網路消費皆適用",
+        "cap": "無上限",
+        "scenarios": [
+          "旅日"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-07-01",
+        "source": "https://event.esunbank.com.tw/credit/kumamon-card/japan-discount.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "capPeriod": "statement"
+      },
+      {
+        "rate": "8.5",
+        "hi": true,
+        "label": "日本指定商店加碼（+6%）",
+        "sub": "熊好用（交通卡儲值）／熊好遊（訂房購票）／熊好買（藥妝家電）／熊好吃／熊好玩（樂園），需登錄",
+        "cap": "加碼上限500/期 · 可刷8,333",
+        "scenarios": [
+          "旅日"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "capSpend": 8333,
+        "capPeriod": "statement",
+        "condition": "需登錄",
+        "start": "2026-07-01",
+        "source": "https://event.esunbank.com.tw/credit/kumamon-card/japan-discount.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "3.5",
+        "hi": true,
+        "label": "日本 PayPay 現金回饋（另免海外手續費）",
+        "sub": "另免收1.5%國外交易服務費，不是現金5%；與日本2.5%／8.5%不疊加，臺幣結帳。",
+        "cap": "回饋上限100元／日曆季 · 可刷約2,857",
+        "scenarios": [
+          "旅日"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "capPeriod": "quarter",
+        "capSpend": 2857,
+        "start": "2026-01-01",
+        "source": "https://event.esunbank.com.tw/credit/kumamon-card/japan-discount-paypay.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      }
+    ],
+    "note": "日本指定商店加碼依帳單期，PayPay回饋依日曆季，兩者不共用也不疊加。指定商店須能辨識請款名稱，訂房須由日本商店請款。",
+    "alert": "日本指定商店加碼6%須登錄；PayPay官網未列登錄要求，已移除舊誤述。兩種支付均應留意各自上限。",
+    "end": "2026-12-31",
+    "fee": "正卡3,000元；首年免，次年帳單e化／玉山自扣／任一消費可免，附卡免",
+    "feeSource": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/kumamon_card",
+    "feeCheckedAt": "2026-09-08"
   },
-
   {
-    id:"hsbc-travel",
-    name:"匯豐 旅人無限卡", issuer:"匯豐銀行 · 旅遊積分", rail:"#db0011",
-    url:"https://www.hsbc.com.tw/credit-cards/products/travel/visa-infinite/",
-    valid:"年度權益 · 年費NT$8,000", tags:["哩程"],
-    rates:{"哩程":10},
-    pts:"旅遊積分 · 1:1 兌15+航空哩程（華航自2026/4/1起同步調整為1:1）",
-    tiers:[
-      {rate:"18元/哩",label:"國內一般消費",sub:"NT$18 = 1 旅遊積分（1:1 兌哩）",cap:"無上限"},
-      {rate:"10元/哩",hi:true,label:"國外一般消費",sub:"NT$10 = 1 旅遊積分（1:1 兌哩）",cap:"無上限"},
-      {rate:"權益",hi:true,label:"機場貴賓室8次/年 · 機場接送4次/年",sub:"Visa Infinite 旅遊權益",cap:"每年"},
+    "id": "hsbc-travel",
+    "name": "匯豐 旅人無限卡",
+    "issuer": "匯豐銀行 · 旅遊積分",
+    "rail": "#db0011",
+    "url": "https://www.hsbc.com.tw/content/hsbc/tw/zh_tw/credit-cards/products/travel/visa-infinite/",
+    "valid": "累哩至2026/12/31；旅遊權益至2027/06/30",
+    "tags": [
+      "哩程"
     ],
-    note:"哩程主力卡：旅遊積分 1:1 兌換 15+ 航空哩程，華航兌換比例自2026/4/1起調整為1旅遊積分=1哩（原較低比例）。國外 10元/哩、國內 18元/哩。含機場貴賓室8次、接送4次/年。年費 NT$8,000。首刷禮核卡30天內滿1萬送8,000積分。"
+    "pts": "旅遊積分 · 1:1 兌15+航空哩程（華航自2026/4/1起同步調整為1:1）",
+    "tiers": [
+      {
+        "rate": "18元/哩",
+        "label": "國內一般消費",
+        "sub": "NT$18 = 1 旅遊積分（1:1 兌哩）",
+        "cap": "無上限",
+        "scenarios": [
+          "哩程"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-07-01",
+        "source": "https://shop.hsbc.com.tw/installments/creditcard/rewards/info.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "10元/哩",
+        "hi": true,
+        "label": "國外一般消費",
+        "sub": "NT$10 = 1 旅遊積分（1:1 兌哩）",
+        "cap": "無上限",
+        "scenarios": [
+          "哩程"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-07-01",
+        "source": "https://shop.hsbc.com.tw/installments/creditcard/rewards/info.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "權益",
+        "hi": true,
+        "label": "機場貴賓室8次／權益年度",
+        "sub": "限正卡，須刷國際機票全額或國外團費80%以上並預約；通常提前5工作天，連假7工作天。",
+        "cap": "2026/07/01～2027/06/30共8次",
+        "scenarios": [],
+        "end": "2027-06-30",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-07-01",
+        "capPeriod": "benefitYear",
+        "source": "https://www.hsbc.com.tw/zh-tw/credit-cards/benefits/lounge-services/",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "權益",
+        "label": "機場接送4次／權益年度",
+        "sub": "刷全额機票或達官方團費門檻；限定服務區域，預約條件以原文為準。",
+        "cap": "2026/07/01～2027/06/30共4次",
+        "start": "2026-07-01",
+        "end": "2027-06-30",
+        "capPeriod": "benefitYear",
+        "kind": "regular",
+        "audience": "all",
+        "scenarios": [],
+        "source": "https://www.hsbc.com.tw/en-tw/credit-cards/benefits/airport-transfer/",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      }
+    ],
+    "note": "累哩計劃按季公告，已公告Q4延續；旅遊權益年度為7/1～次年6/30，不是曆年。新戶8,000積分另需指定期間申辦、30天刷1萬元與登入Card+、60天內繳全額年費及設定電子帳單，請查原文。",
+    "end": null,
+    "fee": "正卡8,000元（無年費優惠辦法）",
+    "feeCheckedAt": "2026-09-08",
+    "feeSource": "https://www.hsbc.com.tw/content/dam/hsbc/tw/docs/credit-cards/product-tour.pdf"
   },
-
   {
-    id:"ctbc-ci",
-    name:"中信 華航鼎尊無限卡", issuer:"中國信託 · 華航哩程", rail:"#b89a5e",
-    url:"https://www.ctbcbank.com/content/dam/minisite/long/creditcard/CTBCCI/index.html",
-    valid:"年度權益 · 年費NT$22,000", tags:["哩程"],
-    rates:{"哩程":9},
-    pts:"華航哩程 · 直接累華夏哩程免兌換 · 送華夏金卡會籍2年",
-    tiers:[
-      {rate:"18元/哩",label:"國內外一般消費（基本）",sub:"NT$18 = 1 華航哩",cap:"無上限"},
-      {rate:"9元/哩",hi:true,label:"國外實體／華航官網機票／eMall／旅遊訂房（x2）",sub:"NT$18 = 2 哩",cap:"無上限"},
-      {rate:"6元/哩",hi:true,label:"生日當月 海外實體（x3）",sub:"NT$18 = 3 哩",cap:"依活動"},
-      {rate:"權益",hi:true,label:"華航貴賓室不限次 · 指定機場接送 · 華夏金卡會籍2年",sub:"商務艙86折起",cap:"每年"},
+    "id": "ctbc-ci",
+    "name": "中信 華航鼎尊無限卡",
+    "issuer": "中國信託 · 華航哩程",
+    "rail": "#b89a5e",
+    "url": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/CTBCCI/index.html",
+    "valid": "累哩2026/07/01–12/31；旅遊權益依各細則",
+    "tags": [
+      "哩程"
     ],
-    note:"純哩程卡：直接累華航華夏哩程（免兌換）。國外實體/機票/訂房 x2（9元/哩），生日月海外 x3（6元/哩，每月加碼上限正卡8萬哩）。送華夏金卡會籍2年、華航貴賓室不限次、機場接送。年費 NT$22,000，首刷禮核卡30天滿8,888元送17,000哩，加上首刷綁定華夏會員送3,000哩，合計2萬哩。"
+    "pts": "中信哩程點數／華夏會員 · 兌換方式請確認官方入口",
+    "tiers": [
+      {
+        "rate": "18元/哩",
+        "label": "國內外一般消費（基本）",
+        "sub": "NT$18 = 1 華航哩",
+        "cap": "基本回饋上限待確認",
+        "scenarios": [
+          "哩程"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-07-01",
+        "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/CTBCCI/index.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率；上限待查證"
+      },
+      {
+        "rate": "9元/哩",
+        "hi": true,
+        "label": "國外實體／華航官網機票／eMall／旅遊訂房（x2）",
+        "sub": "指定海外實體、華航／華信官網、Sky Boutique／機上免稅；六大平台限國外住宿且收海外手續費。倍數含基本。",
+        "cap": "2倍／生日3倍共用加碼額度：正卡8萬、附卡2萬哩／月；月份定義待確認",
+        "scenarios": [
+          "哩程"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-07-01",
+        "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/CTBCCI/index.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "capPeriod": null
+      },
+      {
+        "rate": "6元/哩",
+        "hi": true,
+        "label": "生日當月 海外實體（x3）",
+        "sub": "生日月海外面對面；手機感應可，網路／條碼／第三方不算。",
+        "cap": "2倍／生日3倍共用加碼額度：正卡8萬、附卡2萬哩／月；月份定義待確認",
+        "scenarios": [],
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "start": "2026-07-01",
+        "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/CTBCCI/index.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "capPeriod": null
+      },
+      {
+        "rate": "權益",
+        "hi": true,
+        "label": "華航貴賓室不限次（有門檻）／接送每戶每年6次",
+        "sub": "前1月2萬、前3月10萬、前12月60萬擇一；本人持實體卡與當日華航／華信登機證。月份及年度重置定義待確認。",
+        "cap": "接送6次／年；另有指定貴賓室4次（請見比較表）",
+        "scenarios": [],
+        "end": null,
+        "kind": "regular",
+        "audience": "all",
+        "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/CTBCCI/faq.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "次數／消費門檻；重置週期待確認"
+      }
+    ],
+    "note": "首次申辦之華夏金卡2年需繳年費、綁定會員、首刷後申請，並非續卡每年再送。首刷最優20,000哩，原30天8,888元與17,000＋3,000拆分尚待確認；不視為已核實。",
+    "end": null,
+    "fee": "正卡22,000元，附卡免；鼎尊無免年費辦法",
+    "feeCheckedAt": "2026-09-08",
+    "feeSource": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/CTBCCI/feature.html",
+    "alert": "指定2倍與生日3倍加碼共用每月額度，不能標無上限；基本哩程上限與兌換機制仍待確認。"
   },
-
   {
-    id:"cathay-eva",
-    name:"國泰 長榮極致無限卡", issuer:"國泰世華 · 長榮哩程", rail:"#0a6b3b",
-    url:"https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/eva",
-    valid:"年度權益 · 年費NT$20,000", tags:["哩程"],
-    rates:{"哩程":10},
-    pts:"長榮無限萬哩遊哩程 · 需年收200萬 · 長榮貴賓室不限次",
-    tiers:[
-      {rate:"20元/哩",label:"國內一般消費",sub:"NT$20 = 1 哩",cap:"無上限"},
-      {rate:"10元/哩",hi:true,label:"長榮官網購票／海外消費／機上免稅",sub:"即日起至2026/12/31免登錄享有，屆期後未登錄降為NT$15/哩",cap:"無上限"},
-      {rate:"10元/哩",hi:true,label:"旅行社長榮機票／國外自由行／團體旅遊（登錄）",sub:"需登錄啟用，未啟用依一般消費回饋",cap:"無上限"},
-      {rate:"權益",hi:true,label:"長榮貴賓室 · 機場接送6次/年 · 官網購票9折",sub:"貴賓室需搭乘台灣出發的長榮／立榮國際航班並出示登機證＋實體卡；接送需預約前帳單新增消費滿20,000元",cap:"每年"},
+    "id": "cathay-eva",
+    "name": "國泰 長榮極致無限卡",
+    "issuer": "國泰世華 · 長榮哩程",
+    "rail": "#0a6b3b",
+    "url": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/eva",
+    "valid": "累哩2026/01/01–12/31；貴賓室2026下半年",
+    "tags": [
+      "哩程"
     ],
-    note:"長榮哩程主力卡：國外／長榮官網最優 10元/哩，即日起至2026/12/31免登錄即可享有（屆期後未登錄將降為15元/哩，請留意官網公告）。年費 NT$20,000、需年收入200萬。機場接送最高6次/年（每次預約前需帳單新增消費達2萬元）、長榮貴賓室需符合搭機條件。首刷禮核卡60天滿5萬送50,000哩。"
+    "pts": "長榮無限萬哩遊哩程 · 各權益有門檻",
+    "tiers": [
+      {
+        "rate": "20元/哩",
+        "label": "國內一般消費",
+        "sub": "NT$20 = 1 哩",
+        "cap": "基本回饋上限待確認",
+        "scenarios": [
+          "哩程"
+        ],
+        "end": null,
+        "kind": "regular",
+        "audience": "all",
+        "source": "https://www.cathaybk.com.tw/cathaybk/-/media/fddd4d9d98754438a663ee9129eb345a.pdf",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "20元／哩；基本期限及上限待確認"
+      },
+      {
+        "rate": "10元/哩",
+        "hi": true,
+        "label": "長榮官網/App／機上免稅／海外實體及指定線上住宿",
+        "sub": "2026免登錄；免稅預購及其他海外交易為15元／哩，不是全部海外10元／哩。",
+        "cap": "兩層共用每人每曆年20萬哩總回饋（正附卡合計）",
+        "scenarios": [
+          "哩程"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-01-01",
+        "capPeriod": "year",
+        "source": "https://www.cathaybk.com.tw/cathaybk/personal/credit-card/cards/intro/eva/login/",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "10元/哩",
+        "hi": true,
+        "label": "旅行社長榮機票／國外自由行／團體旅遊（登錄）",
+        "sub": "本人搭長榮／立榮國際線，搭後5～180日登錄；機票／团費限登錄前2年，每航程單筆不得分刷。",
+        "cap": "兩層共用每人每曆年20萬哩總回饋（正附卡合計）",
+        "scenarios": [
+          "哩程"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-01-01",
+        "capPeriod": "year",
+        "source": "https://www.cathaybk.com.tw/cathaybk/personal/credit-card/cards/intro/eva/login/",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "權益",
+        "hi": true,
+        "label": "長榮貴賓室（限適用航班、艙等及本人）",
+        "sub": "台灣出發長榮／立榮實際營運國際線；登機證及實體卡，不攜伴；適用貴賓室依艙等。",
+        "cap": "依當日航班與艙等",
+        "scenarios": [],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-07-01",
+        "source": "https://www.cathaybk.com.tw/cathaybk/-/media/fddd4d9d98754438a663ee9129eb345a.pdf",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "權益",
+        "label": "機場接送6次／曆年",
+        "sub": "當期或前期新增消費2萬元，或前三期合計6萬元；正附卡合計，當年預約並使用。",
+        "cap": "每曆年6次",
+        "start": "2026-01-01",
+        "end": "2026-12-31",
+        "capPeriod": "year",
+        "kind": "regular",
+        "audience": "all",
+        "scenarios": [],
+        "source": "https://www.cathaybk.com.tw/cathaybk/-/media/fddd4d9d98754438a663ee9129eb345a.pdf",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      }
+    ],
+    "note": "202608權益手冊常態首刷：60日消費1萬元並繳全額年費送35,000哩；原5萬元50,000哩加碼案尚待確認。續卡全額年費送20,000哩（2026）。另有U.First本人每日最多2次（台灣時間），不與長榮自營貴賓室混算。",
+    "end": null,
+    "fee": "正卡20,000元",
+    "feeCheckedAt": "2026-09-08",
+    "feeSource": "https://www.cathaybk.com.tw/cathaybk/-/media/fddd4d9d98754438a663ee9129eb345a.pdf",
+    "alert": "10元／哩僅適用指定類別、共用每年20萬哩總回饋額度；不推定2027政策。"
   },
-
   {
-    id:"esun-starlux",
-    name:"玉山 星宇世界卡", issuer:"玉山銀行 · 星宇哩程", rail:"#1a1a2e",
-    url:"https://www.esunbank.com/zh-tw/personal/credit-card/intro/co-branded-card/starlux-card",
-    valid:"年度權益 · 年費NT$6,000", tags:["哩程"],
-    rates:{"哩程":10},
-    pts:"星宇 COSMILE 哩程 · 生日月海外2倍",
-    tiers:[
-      {rate:"20元/哩",label:"國內一般消費",sub:"NT$20 = 1 哩",cap:"無上限"},
-      {rate:"10元/哩",hi:true,label:"國外一般消費",sub:"NT$10 = 1 哩",cap:"無上限"},
-      {rate:"5元/哩",hi:true,label:"生日當月 海外實體（2倍，需登錄）",sub:"NT$5 = 1 哩",cap:"無上限"},
-      {rate:"權益",hi:true,label:"機場貴賓室6次/年（需達消費門檻）· 機場接送4趟/年",sub:"門檻：預約前60天內新增消費滿3萬元且含機票／團費，或前180天內滿20萬元",cap:"每年"},
+    "id": "esun-starlux",
+    "name": "玉山 星宇世界卡",
+    "issuer": "玉山銀行 · 星宇哩程",
+    "rail": "#1a1a2e",
+    "url": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/co-branded-card/starlux-card",
+    "valid": "加碼／旅遊權益2026年；基本期限待確認",
+    "tags": [
+      "哩程"
     ],
-    note:"星宇 COSMILE 哩程卡：國外 10元/哩、生日月海外 5元/哩（2倍，需登錄並繳全額年費）。貴賓室與接送皆需達消費門檻（前60天滿3萬含機票團費，或前180天滿20萬）。注意官網主頁標示的「貴賓室最高12次」為更高階的「世界之極卡」數字，本張「世界卡」為6次。年費 NT$6,000（附卡免年費）。"
+    "pts": "星宇 COSMILE 哩程 · 生日月海外2倍",
+    "tiers": [
+      {
+        "rate": "20元/哩",
+        "label": "國內一般消費",
+        "sub": "NT$20 = 1 哩",
+        "cap": "基本回饋上限待確認",
+        "scenarios": [
+          "哩程"
+        ],
+        "end": null,
+        "kind": "regular",
+        "audience": "all",
+        "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/co-branded-card/starlux-card",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "基本比率；期限及上限待確認"
+      },
+      {
+        "rate": "10元/哩",
+        "hi": true,
+        "label": "國外一般消費",
+        "sub": "NT$10 = 1 哩",
+        "cap": "基本回饋上限待確認",
+        "scenarios": [
+          "哩程"
+        ],
+        "end": null,
+        "kind": "regular",
+        "audience": "all",
+        "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/co-branded-card/starlux-card",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "基本比率；期限及上限待確認"
+      },
+      {
+        "rate": "5元/哩",
+        "hi": true,
+        "label": "生日當月 海外實體（2倍，需登錄）",
+        "sub": "正卡生日曆月海外實體、當月前含當月登錄一次、繳全額年費；正附卡合併。",
+        "cap": "生日加碼上限待確認",
+        "scenarios": [],
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "start": "2026-01-01",
+        "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/co-branded-card/starlux-card",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／比率／資格；上限待確認"
+      },
+      {
+        "rate": "權益",
+        "hi": true,
+        "label": "世界卡機場貴賓室12次／曆年",
+        "sub": "每次出國最多2次。一般資格：使用前60天滿3萬且含國際票／國外團費，或180天滿20萬；正附卡門檻分算。",
+        "cap": "每曆年12次；每次出國2次",
+        "scenarios": [],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-01-01",
+        "capPeriod": "year",
+        "source": "https://www.esunbank.com/zh-tw/personal/credit-card/benefit/vip-room",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "權益",
+        "label": "世界卡機場接送：一般2趟／指定理財會員最高4趟",
+        "sub": "一般資格：預約前60天滿3萬且含機票／團費，或180天滿20萬。理財資格有不同門檻；正附卡合計。",
+        "cap": "每曆年2趟；指定理財會員最高4趟",
+        "start": "2026-01-01",
+        "end": "2026-12-31",
+        "capPeriod": "year",
+        "kind": "regular",
+        "audience": "all",
+        "scenarios": [],
+        "source": "https://www.esunbank.com/zh-tw/personal/credit-card/benefit/airport-pickup",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "10元/哩",
+        "label": "星宇指定通路2倍（國內適用消費）",
+        "sub": "星宇官網/App、形象店、béshopping、機上免稅；含基本，需繳全額年費。",
+        "cap": "上限待確認",
+        "start": "2026-01-01",
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "scenarios": [
+          "哩程"
+        ],
+        "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/co-branded-card/starlux-card",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／通路／比率；上限待確認"
+      }
+    ],
+    "note": "本卡為世界卡：貴賓室12次，一般資格接送2趟。私銀／極致會員與登峰／菁英會員條件另列官網。續卡繳全額年費送5,000哩（2026）。",
+    "end": null,
+    "fee": "正卡6,000元，附卡免；世界卡無免年費條件",
+    "alert": "更正舊資料：並非貴賓室6次、所有人接送4趟；已分別連結世界卡專屬細則。",
+    "feeCheckedAt": "2026-09-08",
+    "feeSource": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/co-branded-card/starlux-card"
   },
-
   {
-    id:"ctbc-linepay",
-    name:"中信 LINE Pay 卡", issuer:"中國信託 · LINE POINTS", rail:"#06c755",
-    url:"https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/index.html",
-    valid:"2026/07/01–12/31", tags:["LINE Pay"],
-    rates:{"LINE Pay":1},
-    pts:"LINE POINTS · 需綁定台灣 LINE Pay 帳號 · 點數效期180天",
-    tiers:[
-      {rate:"1",label:"國內外一般消費",sub:"需綁定 LINE Pay 帳號，僅限面對面交易，網路/條碼/第三方支付不列入",cap:"無上限"},
-      {rate:"2.8",hi:true,label:"國外實體商店消費",sub:"面對面含 Apple/Google/Samsung Pay（基本1%＋加碼1.8%）",cap:"無上限"},
-      {rate:"5",hi:true,label:"國外實體消費登錄加碼（2026/7/1–9/30）",sub:"每週二開放3,000名登錄名額，含原2.8%回饋",cap:"活動期間每歸戶上限450點"},
-      {rate:"20",hi:true,label:"Klook 台港澳商品（輪替活動）",sub:"飯店最高12% LINE POINTS ＋ 8% OFF 優惠碼・2026/3/30–12/31",cap:"依活動公告"},
-      {rate:"1",label:"一卡通消費",sub:"需綁定卡片，免登錄",cap:"無上限"},
+    "id": "ctbc-linepay",
+    "name": "中信 LINE Pay 卡",
+    "issuer": "中國信託 · LINE POINTS",
+    "rail": "#06c755",
+    "url": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/index.html",
+    "valid": "2026/07/01–12/31",
+    "tags": [
+      "LINE Pay",
+      "旅日",
+      "旅韓",
+      "旅歐美",
+      "旅遊機票"
     ],
-    note:"LINE POINTS 累積主力卡：常態一般消費 1%、國外實體 2.8%（面對面）。輪替型活動最高可觀但需個別登錄且期間不一：Klook 台港澳最高20%（至12/31）、旅遊通路（Hotels.com／易遊網等）最高25%、KKBOX 訂閱8折再享最高5%（全年）。代表回饋率仍以常態 1% 計。點數效期180天，主活動期間 2026/7/1–12/31。"
-  },
+    "pts": "LINE POINTS · 需綁定台灣 LINE Pay 帳號 · 點數效期180天",
+    "tiers": [
+      {
+        "rate": "1",
+        "label": "國內外一般消費",
+        "sub": "須綁台灣LINE Pay帳號；排除官方不回饋項目，並非僅限面對面交易。",
+        "cap": "無上限",
+        "scenarios": [
+          "LINE Pay"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-07-01",
+        "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/notice.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "2.8",
+        "hi": true,
+        "label": "國外實體商店消費",
+        "sub": "面對面含 Apple/Google/Samsung Pay（基本1%＋加碼1.8%）",
+        "cap": "無上限",
+        "scenarios": [
+          "旅日",
+          "旅韓",
+          "旅歐美"
+        ],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-07-01",
+        "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/notice.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "end": "2026-09-30",
+        "rate": "5",
+        "hi": true,
+        "label": "國外實體消費登錄加碼（2026/7/1–9/30）",
+        "sub": "每週二開放3,000名登錄名額，含原2.8%回饋",
+        "cap": "加碼2.2%整段活動共用450點／歸戶 · 可刷約20,454",
+        "scenarios": [
+          "旅日",
+          "旅韓",
+          "旅歐美"
+        ],
+        "kind": "limited",
+        "audience": "all",
+        "start": "2026-07-01",
+        "capPeriod": "campaign",
+        "capSpend": 20454,
+        "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/page_travel.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "12",
+        "hi": true,
+        "label": "Klook指定台港澳商品：最高12%點數",
+        "sub": "含基本1%；另送8%OFF折扣碼（折抵上限200元），不是同筆20%回饋。Visa、指定入口與代碼，需完成使用。",
+        "cap": "本檔點數上限500；限500組／每帳號一次",
+        "scenarios": [
+          "旅遊機票"
+        ],
+        "end": "2026-09-30",
+        "kind": "limited",
+        "audience": "all",
+        "start": "2026-08-20",
+        "capPeriod": "campaign",
+        "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/page_travel.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      },
+      {
+        "rate": "1",
+        "label": "一卡通大眾運輸（不含高鐵／計程車）",
+        "sub": "綁卡後月累積每100元回饋1點，正附分算；依業者回傳資料月份計算，非所有一卡通消費。",
+        "cap": "無上限",
+        "scenarios": [],
+        "end": "2026-12-31",
+        "kind": "regular",
+        "audience": "all",
+        "start": "2026-01-01",
+        "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/index.html",
+        "checkedAt": "2026-09-08",
+        "verifiedFields": "日期／回饋率／上限週期／條件"
+      }
+    ],
+    "note": "海外5%之450點是加碼2.2%的整段活動上限，不是每週重置。Klook點數與後續折扣碼分開；其他輪替活動需另查日期。",
+    "end": "2026-12-31",
+    "fee": "一般卡正卡1,800元／附卡900元；電子／行動帳單或LINE Pay綁卡可享免年費資格，依年費產生時公告",
+    "feeSource": "https://service.ctbcbank.com/FAQ/Page01?kmid=11631@km",
+    "feeCheckedAt": "2026-09-08",
+    "alert": "基本1%不受「海外面對面」限制；Klook不得將12%點數與8%折扣碼相加成20%回饋。"
+  }
 ];
 
-// 活動截止日（YYYY-MM-DD）：30天內到期的卡自動掛「即將到期」紅標；哩程卡為年度權益不列
-const VALID_END={unicard:'2026-12-31',dawho:'2026-12-31',sport:'2026-12-31',richart:'2027-03-31',cube:'2026-12-31','dbs-aov':'2026-12-31','dbs-eco':'2026-12-31',linebank:'2027-07-31',breeze:'2026-12-31',mcard:'2026-12-31',jihe:'2026-12-31',green:'2026-12-31',costco:'2027-12-31','fubon-j':'2026-12-31',ubear:'2026-08-31',pi:'2026-08-31',kumamon:'2026-12-31','ctbc-linepay':'2026-12-31'};
-// 代表回饋率的條件標籤：限時活動／需登錄／需訂閱／需資格等，顯示在「回饋排序」pill 上，避免限時天花板與常態回饋混排誤導
-const RATE_META={
-  unicard:{'網購':'需訂閱UP選','LINE Pay':'需訂閱UP選','旅日':'需訂閱UP選','旅韓':'需訂閱UP選','旅歐美':'需訂閱UP選'},
-  dawho:{'無腦日常':'需大戶資格','悠遊卡加值':'需大戶資格','旅日':'需大戶資格','旅韓':'需大戶資格','旅歐美':'需大戶資格'},
-  sport:{'Apple/Google/Samsung Pay':'需運動達標'},
-  'dbs-eco':{'Apple/Google/Samsung Pay':'限時至8/31·需每月登錄','LINE Pay':'限時至8/31·需每月登錄'},
-  costco:{'旅日':'需登錄','旅韓':'需登錄','旅歐美':'需登錄'},
-  'fubon-j':{'旅日':'限時Q3·需登錄','旅韓':'限時Q3·需登錄','悠遊卡加值':'需登錄'},
-  kumamon:{'旅日':'需登錄'},
-  jihe:{'旅日':'疊加值'},
-};
-// 代表回饋率天花板層的「可刷金額」（NT$/期，取該卡該情境最高%那一層的上限換算）；未列＝無固定上限
-// 用途：①同%並列時排序 tie-break（可刷高者優先）②回饋排序 pill 顯示小字提示
-const RATE_CAP={
-  unicard:{'網購':142857,'LINE Pay':142857,'旅日':142857,'旅韓':142857,'旅歐美':142857},
-  dawho:{'無腦日常':16000,'悠遊卡加值':3333,'旅日':16000,'旅韓':16000,'旅歐美':16000},
-  sport:{'Apple/Google/Samsung Pay':10000},
-  'dbs-aov':{'網購':5556,'影音訂閱':5556,'美食外送':5556,'售票電玩':5556,'旅日':12500,'旅韓':12500,'旅歐美':12500},
-  'dbs-eco':{'Apple/Google/Samsung Pay':10000,'LINE Pay':10000,'旅日':15000,'旅韓':15000,'旅歐美':15000},
-  linebank:{'網購':10000,'影音訂閱':10000,'售票電玩':10000},
-  breeze:{'百貨':500000},
-  mcard:{'旅遊機票':6000},
-  jihe:{'旅日':20000},
-  green:{'綠色消費':6000},
-  costco:{'旅日':15000,'旅韓':15000,'旅歐美':15000},
-  'fubon-j':{'旅日':33333,'旅韓':33333,'悠遊卡加值':500},
-  ubear:{'LINE Pay':7500,'網購':7500,'影音訂閱':1111},
-  pi:{'網購':6000},
-  kumamon:{'旅日':8333},
-};
-const capOf=(c,s)=>{const v=RATE_CAP[c.id]&&RATE_CAP[c.id][s];return v==null?9e15:v;};
-// 年費（已查證的才列；哩程卡年費在 valid 顯示）
-const FEE={
-  kumamon:'首年免，次年電子帳單／自扣／任一消費即免',
-  'fubon-j':'1,800，申請電子帳單即免',
-  pi:'首年免，次年帳單e化／自扣／任一消費即免',
-};
-const scenarios = ["全部","LINE Pay","Apple/Google/Samsung Pay","無腦日常","網購","影音訂閱","美食外送","旅遊機票","旅日","旅韓","旅歐美","售票電玩","好市多","百貨","悠遊卡加值","綠色消費","停車","保費"];
+// 卡片內容與推薦共用各優惠層；不再另存回饋率、上限、日期對照表。
+function expired(end,now=Date.now()){
+  return !!end && now>=Date.parse(end+'T00:00:00+08:00')+86400000;
+}
+function allOffers(c){return (c.tiers||c.schemes?.flatMap(s=>s.tiers)||[]);}
+function bestOffer(c,s){
+  const options=allOffers(c).filter(t=>t.scenarios?.includes(s)&&offerActive(t)&&offerAllowed(t)&&!t.suspendRanking)
+    .map(t=>({...t,value:t.scenarioRates?.[s] ?? (/^[0-9]+(?:[.][0-9]+)?(?:元[/]哩)?$/.test(t.rate)?parseFloat(t.rate):NaN)}))
+    .filter(t=>Number.isFinite(t.value));
+  options.sort((a,b)=>(s==='哩程'?a.value-b.value:b.value-a.value)||compareCaps({cap:a.capSpend,period:a.capPeriod},{cap:b.capSpend,period:b.capPeriod}));
+  return options[0]||null;
+}
+function capOf(c,s){return bestOffer(c,s)?.capSpend ?? null;}
+function compareCaps(a,b){
+  if(!a.period||a.period!==b.period||a.cap==null||b.cap==null)return 0;
+  return b.cap-a.cap;
+}
+function compareCards(a,b,s){
+ const x=bestOffer(a,s),y=bestOffer(b,s);
+ return compareCaps({cap:x?.capSpend,period:x?.capPeriod},{cap:y?.capSpend,period:y?.capPeriod});
+}
+function rateActive(c,s){return !!bestOffer(c,s);}
+const scenarios = ["全部","LINE Pay","全支付","Pi 拍錢包","台新Pay","Apple/Google/Samsung Pay","無腦日常","網購","影音訂閱","美食外送","旅遊機票","旅日","旅韓","旅歐美","售票電玩","好市多","百貨","悠遊卡加值","綠色消費","停車","保費"];
 let activeScenario = "全部";
 let activeTab = "cash";
+let showLimited=true,excludeNew=true;
+function offerActive(t){
+  return (!t.start || Date.now()>=Date.parse(t.start+'T00:00:00+08:00')) && !expired(t.end);
+}
+function offerAllowed(t){return (showLimited||t.kind!=='limited')&&(!excludeNew||t.audience!=='new');}
+function refreshOffers(){recoExpanded=false;renderReco();renderGrid();renderMileStrip();}
+function focusCard(id){document.getElementById('card-'+id)?.focus({preventScroll:true});}
 const isMileCard = c => c.tags.includes("哩程");
 const tabCards = () => cards.filter(c => isMileCard(c) === (activeTab==="mile"));
 // 「全部」視圖依發卡行分組（以資料中首次出現順序為組序，組內維持原順序）
@@ -812,13 +3353,17 @@ let visibleCards = new Set(cards.map(c=>c.id));
 const LS_KEY='ccg-visible';
 try{
   const saved=JSON.parse(localStorage.getItem(LS_KEY)||'null');
-  if(Array.isArray(saved)&&saved.length){
+  if(Array.isArray(saved)){
     const ids=new Set(cards.map(c=>c.id));
     const v=saved.filter(id=>ids.has(id));
-    if(v.length)visibleCards=new Set(v);
+    visibleCards=new Set(v);
+  }else if(saved?.version===2 && Array.isArray(saved.selected) && Array.isArray(saved.known)){
+    const known=new Set(saved.known),selected=new Set(saved.selected);
+    visibleCards=new Set(cards.filter(c=>!known.has(c.id)||selected.has(c.id)).map(c=>c.id));
   }
 }catch(e){}
-function saveVisible(){try{localStorage.setItem(LS_KEY,JSON.stringify([...visibleCards]))}catch(e){}}
+function saveVisible(){try{localStorage.setItem(LS_KEY,JSON.stringify({version:2,known:cards.map(c=>c.id),selected:[...visibleCards]}))}catch(e){}}
+saveVisible();
 // 選卡器手機版收合（桌機不受影響）
 let selCollapsed = matchMedia('(max-width:680px)').matches;
 function toggleSelector(){selCollapsed=!selCollapsed;updateSelectorUI();}
@@ -826,6 +3371,7 @@ function updateSelectorUI(){
   document.querySelector('.selector').classList.toggle('collapsed',selCollapsed);
   const n=tabCards().filter(c=>visibleCards.has(c.id)).length,t=tabCards().length;
   document.getElementById('selToggle').textContent=selCollapsed?`展開（顯示 ${n}/${t} 張）▾`:'收合 ▴';
+  document.getElementById('selToggle').setAttribute('aria-expanded',String(!selCollapsed));
 }
 
 function switchTab(tab){
@@ -835,8 +3381,11 @@ function switchTab(tab){
   recoExpanded = false;
   document.getElementById('tabCash').classList.toggle('active', tab==='cash');
   document.getElementById('tabMile').classList.toggle('active', tab==='mile');
+  document.getElementById('tabCash').setAttribute('aria-pressed',String(tab==='cash'));
+  document.getElementById('tabMile').setAttribute('aria-pressed',String(tab==='mile'));
+  document.getElementById('cashTools').style.display=tab==='mile'?'none':'';
   document.querySelector('.filter').style.display = tab==='mile' ? 'none' : '';
-  document.querySelectorAll('.chip').forEach(x=>x.classList.toggle('active', x.textContent==='全部'));
+  document.querySelectorAll('.chip').forEach(x=>{x.classList.toggle('active', x.textContent==='全部');x.setAttribute('aria-pressed',String(x.textContent==='全部'));});
   renderSelector();
   renderReco();
   renderGrid();
@@ -850,16 +3399,21 @@ const grid = document.getElementById('grid');
 function renderSelector(){
   selGrid.innerHTML = "";
   tabCards().forEach(c=>{
-    const pill = document.createElement('div');
+    const pill = document.createElement('button');
+    pill.type='button';
+    pill.setAttribute('aria-pressed',String(visibleCards.has(c.id)));
     pill.className = "sel-pill"+(visibleCards.has(c.id)?" on":"");
     pill.innerHTML = `<span class="dot"></span>${c.name}`;
     pill.onclick = ()=>{
       if(visibleCards.has(c.id)) visibleCards.delete(c.id);
       else visibleCards.add(c.id);
       saveVisible();
-      renderSelector();
+      pill.classList.toggle('on',visibleCards.has(c.id));
+      pill.setAttribute('aria-pressed',String(visibleCards.has(c.id)));
+      updateSelectorUI();
       renderReco();
       renderGrid();
+      renderMileStrip();
     };
     selGrid.appendChild(pill);
   });
@@ -875,6 +3429,7 @@ function selectAll(state){
   renderSelector();
   renderReco();
   renderGrid();
+  renderMileStrip();
 }
 
 function rateSuffix(r){
@@ -883,21 +3438,25 @@ function rateSuffix(r){
 
 // 到期角標：30天內到期→紅標「即將到期」；已過期→灰標「已到期」
 function expBadge(c){
-  const end=VALID_END[c.id];if(!end)return'';
-  const days=Math.ceil((new Date(end+'T23:59:59')-Date.now())/86400000);
-  if(days<0)return`<span class="expire ended">已到期 請確認新方案</span>`;
+  const end=c.end;if(!end)return'';
+  const days=Math.ceil((Date.parse(end+'T00:00:00+08:00')+86400000-Date.now())/86400000);
+  if(expired(end))return`<span class="expire ended">已到期 請確認新方案</span>`;
   if(days<=30)return`<span class="expire">⏳ 即將到期 ${end.slice(5).replace('-','/')}止</span>`;
   return'';
 }
 
-function renderTier(t){
+function renderTier(t,defaultEnd){
+  const end=t.end || defaultEnd;
+  const ended=expired(end);
   return `
-    <div class="tier">
-      <div class="rate ${t.hi?'hi':''}">${t.rate}<small>${rateSuffix(t.rate)}</small></div>
+    <div class="tier${activeScenario!=='全部'&&t.scenarios?.includes(activeScenario)?' relevant':''}${ended?' inactive':''}">
+      <div class="rate ${offerActive({...t,end})&&t.hi?'hi':''}">${t.rate}<small>${rateSuffix(t.rate)}</small></div>
       <div class="tier-info">
         <div class="tier-label">${t.label}</div>
+        <div class="tier-meta">${t.kind==='limited'?'限時優惠':'一般方案'}${t.audience==='new'?' · 新戶／新卡專屬':''} · ${end?`${ended?'已到期／待確認新方案 · ':t.start&&Date.now()<Date.parse(t.start+'T00:00:00+08:00')?'尚未開始 · ':''}${t.start?t.start+'～':'優惠至 '}${end}`:'日期待確認'}</div>
         ${t.sub?`<div class="tier-sub">${t.sub}</div>`:''}
-        ${t.cap?`<span class="cap ${t.cap==='無上限'?'none':''}">${t.cap}</span>`:''}
+        <span class="cap ${t.cap==='無上限'?'none':''}">${t.cap||'上限待確認'}</span>
+        <div class="tier-meta">${t.source?`<a href="${t.source}" target="_blank" rel="noopener">官方依據 ↗</a> · `:''}${t.checkedAt?'核對 '+t.checkedAt+' · '+(t.verifiedFields||'日期／週期'):'待查證'}</div>
       </div>
     </div>`;
 }
@@ -907,8 +3466,8 @@ function renderGrid(){
   let shown = 0;
   let list = tabCards().filter(c=>visibleCards.has(c.id) && (activeScenario==="全部" || c.tags.includes(activeScenario)));
   if(activeScenario!=="全部"){
-    const rateOf = c => (c.rates && typeof c.rates[activeScenario]==='number') ? c.rates[activeScenario] : -1;
-    list.sort((a,b)=> rateOf(b)-rateOf(a) || capOf(b,activeScenario)-capOf(a,activeScenario));
+    const rateOf = c => bestOffer(c,activeScenario)?.value ?? -1;
+    list.sort((a,b)=> rateOf(b)-rateOf(a) || compareCards(a,b,activeScenario));
   }else{
     list.sort((a,b)=> BANK_IDX[bankOf(a)]-BANK_IDX[bankOf(b)]);
   }
@@ -916,6 +3475,8 @@ function renderGrid(){
     shown++;
     const el = document.createElement('article');
     el.className = "card";
+    el.id='card-'+c.id;
+    el.tabIndex=-1;
     const tagsHtml = c.tags.map(t=>{
       let cls = "tag";
       if(t==="旅日") cls += " jp";
@@ -926,14 +3487,14 @@ function renderGrid(){
 
     let body = "";
     if(c.schemes){
-      body = c.schemes.map(s=>`
+      body = c.schemes.filter(s=>s.tiers.some(offerAllowed)).map(s=>`
         <div class="scheme ${s.hi?'hi':''}">
           <div class="scheme-name">${s.name}</div>
-          <div class="tiers">${s.tiers.map(renderTier).join('')}</div>
+          <div class="tiers">${s.tiers.filter(offerAllowed).map(t=>renderTier({...t,source:t.source||s.source||c.url,end:t.end||s.end})).join('')}</div>
         </div>
       `).join("");
     } else {
-      body = `<div class="tiers">${c.tiers.map(renderTier).join('')}</div>`;
+      body = `<div class="tiers">${c.tiers.filter(offerAllowed).map(t=>renderTier({...t,source:t.source||c.url})).join('')}</div>`;
     }
 
     el.innerHTML = `
@@ -948,7 +3509,7 @@ function renderGrid(){
           <div class="valid"><span>適用期間</span>${c.valid}${expBadge(c)?'<br>'+expBadge(c):''}</div>
         </div>
         <span class="pts">點數 · <b>${c.pts}</b></span>
-        ${FEE[c.id]?`<span class="pts">年費 · <b>${FEE[c.id]}</b></span>`:''}
+        <span class="pts">年費 · <b>${c.fee||'待查證（不代表免年費）'}</b>${c.feeCheckedAt?` · 核對 ${c.feeCheckedAt}`:c.fee?' · 尚待重新核實':''}${c.feeSource?` · <a href="${c.feeSource}" target="_blank" rel="noopener">依據 ↗</a>`:''}</span>
         ${body}
         ${c.alert?`<div class="alert"><span class="ic">⚠</span><span><b>留意：</b>${c.alert}</span></div>`:''}
         ${c.note?`<div class="note">${c.note}</div>`:''}
@@ -960,18 +3521,22 @@ function renderGrid(){
     grid.appendChild(el);
   });
   if(shown===0) grid.innerHTML = `<div class="empty">此組合下無對應卡片，請調整篩選</div>`;
+  document.getElementById('resultStatus').textContent=`${activeTab==='cash'?'現金回饋':'哩程回饋'} · ${activeScenario} · 顯示 ${shown} 張。回饋須符合條件；待查證項目請先確認官方公告。`;
 }
 
 scenarios.forEach(s=>{
-  const ch = document.createElement('div');
+  const ch = document.createElement('button');
+  ch.type='button';
+  ch.setAttribute('aria-pressed',String(s===activeScenario));
   ch.className = "chip"+(s===activeScenario?" active":"");
   ch.textContent = s;
   ch.onclick = ()=>{
     activeScenario = s;
     recoExpanded = false;
-    document.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.chip').forEach(x=>{x.classList.remove('active');x.setAttribute('aria-pressed','false');});
     ch.classList.add('active');
-    ch.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});
+    ch.setAttribute('aria-pressed','true');
+    ch.scrollIntoView({inline:'center',block:'nearest',behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});
     renderReco();
     renderGrid();
   };
@@ -982,32 +3547,36 @@ scenarios.forEach(s=>{
 function renderMileStrip(){
   const box=document.getElementById('mileStrip');
   if(activeTab!=='mile'){box.classList.add('hide');box.innerHTML='';return;}
-  const rows=cards.filter(isMileCard)
-    .map(c=>({n:c.name,v:c.rates['哩程'],fee:(c.valid.match(/年費NT\$[\d,]+/)||[''])[0]}))
+  const rows=cards.filter(c=>isMileCard(c)&&visibleCards.has(c.id))
+    .map(c=>({id:c.id,n:c.name,v:bestOffer(c,'哩程')?.value,fee:c.fee}))
+    .filter(c=>Number.isFinite(c.v))
     .sort((a,b)=>a.v-b.v);
   box.classList.remove('hide');
   box.innerHTML=`<span class="ms-label">常態最優累哩比較 · 元/哩越低越好</span>`+
-    rows.map((r,i)=>`<span class="reco-pill"><span class="reco-medal">${i+1}</span>${r.n}<b>NT$${r.v}/哩</b>${r.fee?`<span class="reco-cap">${r.fee}</span>`:''}</span>`).join('');
+    rows.map((r,i)=>`<a class="reco-pill" href="#card-${r.id}" onclick="focusCard('${r.id}')"><span class="reco-medal">${i+1}</span>${r.n}<b>NT$${r.v}/哩</b>${r.fee?`<span class="reco-cap">${r.fee}</span>`:''}</a>`).join('');
 }
 let recoExpanded=false;
-function toggleReco(){recoExpanded=!recoExpanded;renderReco();}
+function toggleReco(){recoExpanded=!recoExpanded;renderReco();document.querySelector('.reco-more')?.focus();}
 function renderReco(){
   const box = document.getElementById('reco');
   if(activeScenario==="全部"){ box.style.display='none'; box.innerHTML=''; return; }
   const ranked = tabCards()
-    .filter(c=>visibleCards.has(c.id) && c.tags.includes(activeScenario) && c.rates && typeof c.rates[activeScenario]==='number')
-    .sort((a,b)=> b.rates[activeScenario]-a.rates[activeScenario] || capOf(b,activeScenario)-capOf(a,activeScenario));
+    .filter(c=>visibleCards.has(c.id) && rateActive(c,activeScenario) && c.tags.includes(activeScenario))
+    .sort((a,b)=> bestOffer(b,activeScenario).value-bestOffer(a,activeScenario).value || compareCards(a,b,activeScenario));
   if(!ranked.length){ box.style.display='none'; box.innerHTML=''; return; }
   box.style.display='flex';
   const pill=(c,i)=>{
-    const meta=RATE_META[c.id]&&RATE_META[c.id][activeScenario];
-    const cap=RATE_CAP[c.id]&&RATE_CAP[c.id][activeScenario];
-    return`<span class="reco-pill"><span class="reco-medal">${i+1}</span>${c.name}<b>${c.rates[activeScenario]}%</b>${cap?`<span class="reco-cap">可刷${cap.toLocaleString()}</span>`:''}${meta?`<span class="reco-meta">${meta}</span>`:''}</span>`;
+    const offer=bestOffer(c,activeScenario);
+    const meta=[offer.condition||offer.label,offer.kind==='limited'?'限時優惠':'',!offer.checkedAt?'尚待核實':''].filter(Boolean).join(' · ');
+    const cap=offer.capSpend;
+    const period=offer.capPeriod;
+    const periodLabel={month:'日曆月',postingMonth:'入帳月',reportingMonth:'回報月',paymentMonth:'繳款月',statement:'每期帳單',quarter:'日曆季',campaign:'活動期間',year:'曆年',benefitYear:'權益年度'}[period] || '週期待確認';
+    return`<a class="reco-pill" href="#card-${c.id}" onclick="focusCard('${c.id}')"><span class="reco-medal">${i+1}</span>${c.name}<b>${offer.value}%</b>${cap!=null?`<span class="reco-cap">可刷約${cap.toLocaleString()}（${periodLabel}）</span>`:`<span class="reco-cap">${offer.cap||'上限待確認'}</span>`}${meta?`<span class="reco-meta">${meta}</span>`:''}</a>`;
   };
   const show = recoExpanded ? ranked : ranked.slice(0,3);
-  box.innerHTML = `<span class="reco-label">${activeScenario} 回饋排序</span>` +
+  box.innerHTML = `<span class="reco-label">${activeScenario} · 符合條件時最高回饋</span>` +
     show.map(pill).join('') +
-    (ranked.length>3?`<span class="reco-pill reco-more" onclick="toggleReco()">${recoExpanded?'收合 ▴':`+${ranked.length-3} 更多 ▾`}</span>`:'');
+    (ranked.length>3?`<button type="button" class="reco-pill reco-more" aria-expanded="${recoExpanded}" onclick="toggleReco()">${recoExpanded?'收合 ▴':`+${ranked.length-3} 更多 ▾`}</button>`:'');
 }
 
 renderSelector();
