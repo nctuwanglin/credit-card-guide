@@ -1,0 +1,13 @@
+{
+  "name": "credit-card-dashboard-checks",
+  "private": true,
+  "scripts": {
+    "test": "node --test dashboard.test.cjs validation.test.cjs",
+    "validate": "node validate-data.cjs",
+    "test:ui": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "axe-core": "4.13.0"
+  }
+}

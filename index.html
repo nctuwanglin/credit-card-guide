@@ -12,12 +12,12 @@
     --bg:#e7e9ee;
     --surface:#ffffff;
     --ink:#15171f;
-    --muted:#646b7c;
-    --faint:#9aa1b1;
+    --muted:#596173;
+    --faint:#596173;
     --line:#dde0e8;
-    --gain:#0c7a4a;
+    --gain:#096f42;
     --gain-soft:#e4f3eb;
-    --amber:#9a6a05;
+    --amber:#805600;
     --amber-soft:#f7eed7;
     --shadow:0 1px 2px rgba(20,23,31,.05),0 8px 24px -16px rgba(20,23,31,.25);
   }
@@ -136,7 +136,7 @@
   }
   .reco-pill b{color:var(--gain);font-family:"JetBrains Mono",monospace;font-size:13px;margin-left:2px}
   .reco-medal{color:var(--gain);font-weight:700}
-  .reco-meta{font-size:10px;font-weight:600;color:#9a6a05;background:#f7eed7;border-radius:4px;padding:0 5px;margin-left:2px}
+  .reco-meta{font-size:10px;font-weight:600;color:var(--amber);background:#f7eed7;border-radius:4px;padding:0 5px;margin-left:2px}
   .reco-more{cursor:pointer;background:#f6f7fa;border:1px dashed var(--line);color:var(--muted);user-select:none}
   .reco-more:hover{border-color:var(--ink);color:var(--ink)}
 
@@ -146,7 +146,7 @@
 
   /* ---------- EXPIRY BADGE ---------- */
   .expire{display:inline-block;margin-top:4px;font-size:10px;font-weight:700;letter-spacing:.03em;border-radius:5px;padding:1px 7px;color:#fff;background:#d64533;font-family:"Noto Sans TC",sans-serif}
-  .expire.ended{background:#9aa1b1}
+  .expire.ended{background:#596173}
 
   /* ---------- RECO CAP HINT ---------- */
   .reco-cap{font-size:10px;color:var(--faint);margin-left:3px;font-family:"JetBrains Mono",monospace}
@@ -171,7 +171,7 @@
   /* ---------- GRID ---------- */
   .grid{
     display:grid;gap:16px;padding:26px 0 0;
-    grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+    grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));
   }
   @media(max-width:560px){.grid{grid-template-columns:1fr;gap:14px}}
 
@@ -291,9 +291,21 @@
   .skip-link:focus{top:8px}
   .card{scroll-margin-top:90px}
   .tier.relevant{background:var(--gain-soft);border-radius:8px;padding:8px 4px;border-left:3px solid var(--gain)}
-  .tier.inactive{opacity:.72}
+  .tier.inactive{background:#f6f7fa;border-radius:6px}
   .tier-meta{font-size:10.5px;color:var(--muted);margin-top:4px}
   .tier-meta a{color:var(--gain)}
+  .verification-warning{color:var(--amber)}
+  .audit{margin-top:14px;border-top:1px solid var(--line);font-size:11px;color:var(--muted)}
+  .audit summary{cursor:pointer;padding:12px 0;min-height:44px;line-height:20px;font-weight:600;color:var(--muted)}
+  .audit[open] summary{color:var(--ink)}
+  .audit-records{list-style:none;padding:0;margin:0}
+  .audit-records li{padding:7px 0;border-top:1px solid var(--line);line-height:1.7;overflow-wrap:anywhere}
+  .audit-records b,.audit-records span{display:block}
+  .audit-records b{font-weight:500;color:var(--ink)}
+  .audit-sources{padding-left:20px;line-height:2;margin:8px 0}
+  .audit-sources a{color:var(--gain);overflow-wrap:anywhere;display:inline-block;min-height:44px;padding:10px 0}
+  .tier-meta a,.official{min-height:44px;display:inline-flex;align-items:center}
+  .card-body,.pts,.cap,.note,.alert,.tier-sub{overflow-wrap:anywhere;min-width:0}
   a.reco-pill{text-decoration:none;flex-wrap:wrap;max-width:100%}
   .offer-controls{display:flex;gap:16px;flex-wrap:wrap;padding-top:12px;font-size:12px;color:var(--muted)}
   .offer-controls label{display:flex;align-items:center;gap:6px;min-height:32px;cursor:pointer}
@@ -1001,8 +1013,8 @@ const cards = [
           {
             "rate": "1.3",
             "label": "保費消費",
-            "sub": "一次付清、不受LEVEL限制；排除國外、躉繳、投資型、彈性繳及0利率分期。",
-            "cap": "保費專屬上限待確認",
+            "sub": "一次付清、不受LEVEL限制；排除國外、躉繳、投資型、彈性繳及0利率分期。 交易與入帳均須於2026/7/1–2027/3/31期間內。",
+            "cap": "每期帳單永久信用額度＋30萬元，與切換刷平台合併計算",
             "scenarios": [
               "保費"
             ],
@@ -1012,18 +1024,22 @@ const cards = [
             "start": "2026-07-01",
             "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
             "checkedAt": "2026-09-08",
-            "verifiedFields": "日期／比率／排除條件；上限待確認",
-            "capPeriod": null
+            "verifiedFields": "日期／比率／共用帳單上限／排除條件",
+            "capPeriod": "statement"
           }
         ]
       }
     ],
     "note": "7大刷＋Chill刷，保費免切換。每日一次按當日23:59方案認定；LEVEL2需台新帳戶自扣並符合生效時間。Chill的9/30是開放切換截止，不推定10月延續。",
-    "alert": "所有切換方案含LINE Pay與假日刷，均受每期帳單消費額限制。點數折抵30%及改制日期尚待核實。",
+    "alert": "保費與切換刷合併計算每期消費額上限。Richart Life單筆消費點數折抵：1點1元、每筆最高30%，須結帳前申請（2026/1/6–12/31）；不是整期帳單30%。",
     "end": "2027-03-31",
     "fee": "依卡等：商務鈦金／商務御璽4,500；御璽／鈦金／晶緻3,000；白金1,500；世界商務6,000元。首年免，次年電子／行動帳單免（2026規則）",
     "feeSource": "https://mkp.taishinbank.com.tw/TsCms/marketing/expose/WM_20260708095300794/index.html",
-    "feeCheckedAt": "2026-09-08"
+    "feeCheckedAt": "2026-09-08",
+    "pointSources": [
+      "https://richartlife.taishinbank.com.tw/taishin-point/rights"
+    ],
+    "pointsCheckedAt": "2026-09-08"
   },
   {
     "id": "cube",
@@ -1047,7 +1063,7 @@ const cards = [
       "LINE Pay",
       "無腦日常"
     ],
-    "pts": "小樹點 · LEVEL2可用本人國泰帳戶App繳費或自扣、次月升級；點數效期／折抵限制待核實",
+    "pts": "小樹點 · 新點數效期3年（按月計）；一般即時折抵1點1元、單筆最高30%，須結帳前申請。其他兌換依專案。LEVEL2本人國泰帳戶App繳費或自扣，次月升級。",
     "schemes": [
       {
         "name": "玩數位（4大常駐之一）",
@@ -1276,7 +1292,7 @@ const cards = [
           {
             "rate": "2",
             "label": "LINE Pay 綁定CUBE信用卡消費",
-            "sub": "先在CUBE App領券，次月15日前入帳；官方全文未列8次消費門檻。",
+            "sub": "先在CUBE App領券，依消費日認列，次月15日（含）前入帳；未列8次消費門檻。",
             "cap": "加碼1.7%上限50點／月 · 可刷約2,941（月份切點待確認）",
             "scenarios": [
               "LINE Pay"
@@ -1358,7 +1374,12 @@ const cards = [
     "end": "2026-12-31",
     "fee": "正卡1,800元／附卡免；首年免，電子帳單或正卡年12筆或正附年18万元任一免",
     "feeSource": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube",
-    "feeCheckedAt": "2026-09-08"
+    "feeCheckedAt": "2026-09-08",
+    "pointSources": [
+      "https://www.cathaybk.com.tw/cathaybk/promo/event/credit-card/discount/2026/pointannounceInfo05/index.html",
+      "https://www.cathaybk.com.tw/eservice/bonus/IndexS0?act=view&id=1"
+    ],
+    "pointsCheckedAt": "2026-09-08"
   },
   {
     "id": "dbs-aov",
@@ -1439,9 +1460,9 @@ const cards = [
       {
         "rate": "10",
         "label": "星耀領航：新取得星耀資格之LINE Pay",
-        "sub": "活動內首次取得星耀資格（資產30萬元），登錄且每月转帳或換匯一筆；需維持資格。不推算與其他回饋疊加。",
-        "cap": "最高500元／月（月份精確切點待確認）",
-        "capPeriod": null,
+        "sub": "活動內首次取得星耀資格（資產30萬元），登錄且每月轉帳或換匯一筆；需維持資格。不推算與其他回饋疊加。 交易日每月1日至月底，次月15日前入帳；7月自7/16起。",
+        "cap": "最高500元／交易日日曆月",
+        "capPeriod": "month",
         "start": "2026-07-16",
         "end": "2026-12-31",
         "kind": "limited",
@@ -1452,7 +1473,7 @@ const cards = [
         "condition": "首次星耀理財資格＋登錄＋每月任務",
         "source": "https://www.dbs.com.tw/personal-zh/EA/starway/index.html?cid=tw:zh:cbg:cen:dis:own:acq:ban:casa:dpst:aovstarway:na:na",
         "checkedAt": "2026-09-08",
-        "verifiedFields": "日期／回饋率／上限週期／條件"
+        "verifiedFields": "日期／比率／日曆月週期／資格與入帳期限"
       }
     ],
     "note": "生活玩家精選通路不含一般LINE Pay，但另有星耀資格活動。小額支付特店僅享9%加碼，不能一律當10%。",
@@ -1574,9 +1595,9 @@ const cards = [
       {
         "rate": "10",
         "label": "星耀領航：新取得星耀資格之LINE Pay",
-        "sub": "活動內首次取得星耀資格（資產30萬元），登錄且每月转帳或換匯一筆；需維持資格。不推算與其他回饋疊加。",
-        "cap": "最高500元／月（月份精確切點待確認）",
-        "capPeriod": null,
+        "sub": "活動內首次取得星耀資格（資產30萬元），登錄且每月轉帳或換匯一筆；需維持資格。不推算與其他回饋疊加。 交易日每月1日至月底，次月15日前入帳；7月自7/16起。",
+        "cap": "最高500元／交易日日曆月",
+        "capPeriod": "month",
         "start": "2026-07-16",
         "end": "2026-12-31",
         "kind": "limited",
@@ -1587,7 +1608,7 @@ const cards = [
         "condition": "首次星耀理財資格＋登錄＋每月任務",
         "source": "https://www.dbs.com.tw/personal-zh/EA/starway/index.html?cid=tw:zh:cbg:cen:dis:own:acq:ban:casa:dpst:aovstarway:na:na",
         "checkedAt": "2026-09-08",
-        "verifiedFields": "日期／回饋率／上限週期／條件"
+        "verifiedFields": "日期／比率／日曆月週期／資格與入帳期限"
       }
     ],
     "note": "海外及eco加碼為帳單期；已到期16%不進推薦。新戶LINE Pay的300點是活動總額，不能每期重領。",
@@ -1751,20 +1772,19 @@ const cards = [
       },
       {
         "rate": "2H",
-        "label": "市區停車2小時（2026續行待確認）",
-        "sub": "前月消費滿5,000元 · 台灣聯通／詮營／ViVi PARK／嘟嘟房／車麻吉等，每日限用1次，請自行確認官網是否延續",
-        "cap": "每月5次 · 每次2小時",
+        "label": "市區停車：每次2小時",
+        "sub": "單卡前一日曆月一般消費滿8,000元，停車前一日已請款；台灣聯通／詮營／ViVi PARK／嘟嘟房／車麻吉等。正附合併，多卡次數取最優，不累加。",
+        "cap": "每月最多5次，每日1次，每次2小時",
         "scenarios": [
           "停車"
         ],
-        "end": "2022-01-31",
+        "end": "2027-01-31",
         "kind": "regular",
         "audience": "all",
-        "start": "2021-02-01",
-        "source": "https://card.ubot.com.tw/eCard/activity/2021PARKING/index.htm",
+        "start": "2026-02-01",
+        "source": "https://activity.ubot.com.tw/aws_act/freeparking/index.htm",
         "checkedAt": "2026-09-08",
-        "verifiedFields": "舊細則每月5次；2026期限未確認",
-        "suspendRanking": true,
+        "verifiedFields": "新主公告日期／8,000元門檻／次數及歸戶；同頁細則殘留舊年度，日期一致性待確認",
         "capPeriod": "month"
       },
       {
@@ -1827,24 +1847,24 @@ const cards = [
       },
       {
         "rate": "權益",
-        "label": "U.First全球機場貴賓室",
-        "sub": "使用前3月刷機票／團費2萬，或使用前1月往前一年一般消費15萬，擇一。Priority Pass現行及共額規則待確認。",
-        "cap": "會員卡有效期內4次（非已確認曆年）",
+        "label": "U.First／既有Priority Pass機場貴賓室",
+        "sub": "使用前3月機票／團費2萬，或前1月往前一年一般消費15萬，擇一。2025年底前核發PP可用至原效期，不再續發；到期前1個月可主動申請U.First，不自動轉換。",
+        "cap": "會員卡1年效期內4次；正附分算。PP轉U.First共額／剩餘次數移轉待確認",
         "scenarios": [],
         "end": "2026-12-31",
         "kind": "regular",
         "audience": "all",
         "start": "2026-01-01",
-        "source": "https://www.youfirst.com.tw/lounge/ubot/index.aspx",
+        "source": "https://card.ubot.com.tw/CardRights/AirPort_Vip",
         "checkedAt": "2026-09-08",
-        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "verifiedFields": "2026公告／會員卡效期及次數／正附分算／換卡流程；跨制度共額待確認",
         "capPeriod": "membership"
       }
     ],
     "note": "百貨免費停車與市區停車是兩項獨立權益。舊購物金與市區停車保留供核對，但不視為2026已續約；未取得新公告不代表銀行已取消。",
     "end": "2026-12-31",
     "fee": "正附各5,000元；首年免，前一年一般消費30萬元免、15萬至未滿30萬收2,500元，否則5,000元",
-    "alert": "百貨4小時已核實；舊滿額刷卡金及市區停車的2026續行仍待確認，不列回饋排行。",
+    "alert": "百貨停車不限消費4小時；市區停車另需前月8,000元。市區停車主公告至2027/1/31，但細則仍殘留舊年度日期。舊滿額刷卡金2026續行待確認，不列排行。",
     "feeSource": "https://card.ubot.com.tw/eCard/fee/24B/index.html",
     "feeCheckedAt": "2026-09-08"
   },
@@ -2081,7 +2101,7 @@ const cards = [
       {
         "rate": "1.5",
         "label": "日本三大交通卡儲值",
-        "sub": "日幣儲值三大交通卡；每月15日10:00登錄，次月10日前請款，不加日幣基本2.5%。",
+        "sub": "日幣儲值三大交通卡；每月15日10:00登錄，次月10日前請款，不加日幣基本2.5%。 正附卡歸戶合併，依帳單消費日認列。",
         "cap": "金額上限未載明／待確認；每月限量1萬名",
         "scenarios": [
           "旅日"
@@ -2487,7 +2507,7 @@ const cards = [
         "rate": "2",
         "label": "網路投保",
         "sub": "0.5%＋1.5%；指定國內網路投保一次付清，須登錄，排除分期／行動支付／國外保險。",
-        "cap": "加碼上限200元；單筆／活動歸戶定義待確認",
+        "cap": "加碼上限200元；正附合併回饋正卡，單筆或整段活動封頂待確認",
         "scenarios": [
           "保費"
         ],
@@ -2496,7 +2516,7 @@ const cards = [
         "audience": "all",
         "source": "https://www.fubon.com/banking/event/credit_card/costcoweb/travel/evt5-23.html",
         "checkedAt": "2026-09-08",
-        "verifiedFields": "日期／回饋率／上限週期／條件",
+        "verifiedFields": "日期／比率／正附歸戶／登錄；封頂作用單位待確認",
         "start": "2026-07-01",
         "capPeriod": null
       },
@@ -2701,9 +2721,9 @@ const cards = [
         "audience": "all",
         "start": "2026-09-01",
         "capPeriod": "month",
-        "source": "https://event.esunbank.com.tw/credit/pi-card/index.html",
+        "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/co-branded-card/pi-card",
         "checkedAt": "2026-09-08",
-        "verifiedFields": "日期／回饋率／上限週期／條件"
+        "verifiedFields": "5%含基本1%／日曆月上限300／登錄及自扣；基本與加碼封頂算法待確認"
       },
       {
         "rate": "1.2",
@@ -2726,7 +2746,9 @@ const cards = [
     "note": "一般消費加碼依日曆月累計、每月擇優一次，舊一期已登錄者不用重登。Pi拍錢包加碼單筆需滿499元。保費不計入一般消費加碼。",
     "alert": "已續約至2027/02/28；3%層加碼上限提高為3,000 P幣／月。舊全家5%不能直接套用新一期合作通路方案。",
     "end": "2027-02-28",
-    "fee": "首年免，次年帳單e化／自扣／任一消費即免"
+    "fee": "正卡3,000元，首年免；附卡免。每年有消費可免年費（Pi官方FAQ；其他減免途徑待確認）",
+    "feeSource": "https://web.piapp.com.tw/faq/ic18122204/",
+    "feeCheckedAt": "2026-09-08"
   },
   {
     "id": "kumamon",
@@ -2744,6 +2766,8 @@ const cards = [
         "rate": "0.5",
         "label": "國內一般消費（基本）",
         "sub": "需綁定帳單e化＋玉山帳戶自動扣繳卡費",
+        "source": "https://event.esunbank.com.tw/credit/kumamon-card/index.html",
+        "verifiedFields": "沿用既有資料；國內基本回饋／上限／日期待重新核實",
         "cap": "無上限",
         "scenarios": [],
         "end": "2026-12-31",
@@ -3002,12 +3026,13 @@ const cards = [
         "scenarios": [
           "哩程"
         ],
-        "end": null,
+        "end": "2026-12-31",
         "kind": "regular",
         "audience": "all",
         "source": "https://www.cathaybk.com.tw/cathaybk/-/media/fddd4d9d98754438a663ee9129eb345a.pdf",
         "checkedAt": "2026-09-08",
-        "verifiedFields": "20元／哩；基本期限及上限待確認"
+        "verifiedFields": "20元／哩／手冊共通適用期限；基本回饋上限待確認",
+        "start": "2026-07-01"
       },
       {
         "rate": "10元/哩",
@@ -3089,7 +3114,7 @@ const cards = [
     "issuer": "玉山銀行 · 星宇哩程",
     "rail": "#1a1a2e",
     "url": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/co-branded-card/starlux-card",
-    "valid": "加碼／旅遊權益2026年；基本期限待確認",
+    "valid": "基本哩程／加碼／旅遊權益2026年",
     "tags": [
       "哩程"
     ],
@@ -3103,12 +3128,13 @@ const cards = [
         "scenarios": [
           "哩程"
         ],
-        "end": null,
+        "end": "2026-12-31",
         "kind": "regular",
         "audience": "all",
         "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/co-branded-card/starlux-card",
         "checkedAt": "2026-09-08",
-        "verifiedFields": "基本比率；期限及上限待確認"
+        "verifiedFields": "基本比率／2026期限；基本回饋上限未明載，待確認",
+        "start": "2026-01-01"
       },
       {
         "rate": "10元/哩",
@@ -3119,12 +3145,13 @@ const cards = [
         "scenarios": [
           "哩程"
         ],
-        "end": null,
+        "end": "2026-12-31",
         "kind": "regular",
         "audience": "all",
         "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/co-branded-card/starlux-card",
         "checkedAt": "2026-09-08",
-        "verifiedFields": "基本比率；期限及上限待確認"
+        "verifiedFields": "基本比率／2026期限；基本回饋上限未明載，待確認",
+        "start": "2026-01-01"
       },
       {
         "rate": "5元/哩",
@@ -3445,7 +3472,22 @@ function expBadge(c){
   return'';
 }
 
-function renderTier(t,defaultEnd){
+function renderAudit(c){
+  const sources=new Map();
+  const reference=(url)=>{
+    if(!url)return '來源待補';
+    if(url===c.url)return '信用卡官網';
+    if(!sources.has(url))sources.set(url,sources.size+1);
+    return '來源 '+sources.get(url);
+  };
+  const offers=c.schemes?c.schemes.flatMap(s=>s.tiers.map(t=>({...t,label:s.name+'／'+t.label,source:t.source||s.source}))):c.tiers||[];
+  const records=offers.map(t=>`<li><b>${t.label}</b><span>${t.checkedAt?'核對 '+t.checkedAt:'尚待查證'}${t.verifiedFields?'；'+t.verifiedFields:''}；${reference(t.source||c.url)}${t.capSource?'；上限依據：'+reference(t.capSource):''}</span></li>`);
+  records.push(`<li><b>年費</b><span>${c.feeCheckedAt?'核對 '+c.feeCheckedAt:'尚待重新核實'}；${reference(c.feeSource)}</span></li>`);
+  if(c.pointSources?.length)records.push(`<li><b>點數使用</b><span>${c.pointsCheckedAt?'核對 '+c.pointsCheckedAt+'；':''}${c.pointSources.map(reference).join('、')}</span></li>`);
+  return `<details class="audit"><summary>資料來源與查證紀錄</summary><ul class="audit-records">${records.join('')}</ul>${sources.size?`<ul class="audit-sources">${[...sources].map(([url,n])=>`<li><a href="${url}" target="_blank" rel="noopener">來源 ${n}：官方條款</a></li>`).join('')}</ul>`:''}</details>`;
+}
+
+function renderTier(t,defaultEnd,cardUrl){
   const end=t.end || defaultEnd;
   const ended=expired(end);
   return `
@@ -3456,7 +3498,8 @@ function renderTier(t,defaultEnd){
         <div class="tier-meta">${t.kind==='limited'?'限時優惠':'一般方案'}${t.audience==='new'?' · 新戶／新卡專屬':''} · ${end?`${ended?'已到期／待確認新方案 · ':t.start&&Date.now()<Date.parse(t.start+'T00:00:00+08:00')?'尚未開始 · ':''}${t.start?t.start+'～':'優惠至 '}${end}`:'日期待確認'}</div>
         ${t.sub?`<div class="tier-sub">${t.sub}</div>`:''}
         <span class="cap ${t.cap==='無上限'?'none':''}">${t.cap||'上限待確認'}</span>
-        <div class="tier-meta">${t.source?`<a href="${t.source}" target="_blank" rel="noopener">官方依據 ↗</a> · `:''}${t.checkedAt?'核對 '+t.checkedAt+' · '+(t.verifiedFields||'日期／週期'):'待查證'}</div>
+        ${!t.checkedAt||/待確認|待核實|待驗證|待查證|未確認|未核實|未驗證|未查證/.test(t.verifiedFields||'')?`<div class="tier-meta verification-warning">${t.checkedAt?t.verifiedFields:'待查證'}</div>`:''}
+        ${t.source&&t.source!==cardUrl?`<div class="tier-meta"><a href="${t.source}" target="_blank" rel="noopener">活動詳情</a></div>`:''}
       </div>
     </div>`;
 }
@@ -3476,6 +3519,7 @@ function renderGrid(){
     const el = document.createElement('article');
     el.className = "card";
     el.id='card-'+c.id;
+    el.setAttribute('aria-labelledby','heading-'+c.id);
     el.tabIndex=-1;
     const tagsHtml = c.tags.map(t=>{
       let cls = "tag";
@@ -3490,11 +3534,11 @@ function renderGrid(){
       body = c.schemes.filter(s=>s.tiers.some(offerAllowed)).map(s=>`
         <div class="scheme ${s.hi?'hi':''}">
           <div class="scheme-name">${s.name}</div>
-          <div class="tiers">${s.tiers.filter(offerAllowed).map(t=>renderTier({...t,source:t.source||s.source||c.url,end:t.end||s.end})).join('')}</div>
+          <div class="tiers">${s.tiers.filter(offerAllowed).map(t=>renderTier({...t,source:t.source||s.source||c.url,end:t.end||s.end},undefined,c.url)).join('')}</div>
         </div>
       `).join("");
     } else {
-      body = `<div class="tiers">${c.tiers.filter(offerAllowed).map(t=>renderTier({...t,source:t.source||c.url})).join('')}</div>`;
+      body = `<div class="tiers">${c.tiers.filter(offerAllowed).map(t=>renderTier({...t,source:t.source||c.url},undefined,c.url)).join('')}</div>`;
     }
 
     el.innerHTML = `
@@ -3503,19 +3547,19 @@ function renderGrid(){
         <div class="tags">${tagsHtml}</div>
         <div class="head">
           <div class="name-block">
-            <div class="name">${c.name}</div>
+            <h2 class="name" id="heading-${c.id}">${c.name}</h2>
             <div class="issuer">${c.issuer}</div>
           </div>
           <div class="valid"><span>適用期間</span>${c.valid}${expBadge(c)?'<br>'+expBadge(c):''}</div>
         </div>
         <span class="pts">點數 · <b>${c.pts}</b></span>
-        <span class="pts">年費 · <b>${c.fee||'待查證（不代表免年費）'}</b>${c.feeCheckedAt?` · 核對 ${c.feeCheckedAt}`:c.fee?' · 尚待重新核實':''}${c.feeSource?` · <a href="${c.feeSource}" target="_blank" rel="noopener">依據 ↗</a>`:''}</span>
+        <span class="pts">年費 · <b>${c.fee||'待查證（不代表免年費）'}</b>${!c.feeCheckedAt&&c.fee?' · 尚待重新核實':''}</span>
         ${body}
         ${c.alert?`<div class="alert"><span class="ic">⚠</span><span><b>留意：</b>${c.alert}</span></div>`:''}
         ${c.note?`<div class="note">${c.note}</div>`:''}
+        ${renderAudit(c)}
         <div class="footer-link">
-          <span style="font-size:11px;color:var(--faint);font-family:'JetBrains Mono',monospace">OFFICIAL</span>
-          <a class="official" href="${c.url}" target="_blank" rel="noopener">查看官方公告 <span class="arrow">→</span></a>
+          <a class="official" href="${c.url}" target="_blank" rel="noopener">信用卡官網 <span class="arrow">→</span></a>
         </div>
       </div>`;
     grid.appendChild(el);
