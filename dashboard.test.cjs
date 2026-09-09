@@ -4,6 +4,7 @@ const fs=require('node:fs');
 const vm=require('node:vm');
 const html=fs.readFileSync(process.env.DASHBOARD_FILE||__dirname+'/'+(fs.existsSync(__dirname+'/2026信用卡回饋指南.html')?'2026信用卡回饋指南.html':'index.html'),'utf8');
 const script=html.match(/<script>([\s\S]*?)<\/script>/)[1].split('// 瀏覽統計：')[0];
+test('cards do not display audit records while retaining official links',()=>{const b=boot();const rendered=b.get('grid').children.map(c=>c.innerHTML).join('');assert.doesNotMatch(rendered,/資料來源與查證紀錄|class="audit"/);assert.match(rendered,/信用卡官網/);});
 function boot(saved, now='2026-09-08T12:00:00+08:00'){
   const elements=new Map();
   const element=(tag='div')=>({tagName:tag.toUpperCase(),innerHTML:'',textContent:'',style:{},attrs:{},children:[],classList:{toggle(){},add(){},remove(){}},setAttribute(k,v){this.attrs[k]=String(v)},appendChild(e){this.children.push(e)},scrollIntoView(){},focus(){}});
