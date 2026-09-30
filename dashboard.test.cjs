@@ -4,6 +4,32 @@ const fs=require('node:fs');
 const vm=require('node:vm');
 const html=fs.readFileSync(process.env.DASHBOARD_FILE||__dirname+'/'+(fs.existsSync(__dirname+'/2026信用卡回饋指南.html')?'2026信用卡回饋指南.html':'index.html'),'utf8');
 const script=html.match(/<script>([\s\S]*?)<\/script>/)[1].split('// 瀏覽統計：')[0];
+test('CUBE Q4 birthday delivery offer is eligible in October',()=>{
+  const b=boot(undefined,'2026-10-01T12:00:00+08:00');
+  assert.equal(b.run("bestOffer(cards.find(c=>c.id==='cube'),'美食外送').value"),3.5);
+});
+test('Fubon J Q4 offers remain eligible through December and expire in January',()=>{
+  const oct=boot(undefined,'2026-10-01T12:00:00+08:00');
+  assert.equal(oct.run("bestOffer(cards.find(c=>c.id==='fubon-j'),'旅日').rate"),'10');
+  assert.equal(oct.run("bestOffer(cards.find(c=>c.id==='fubon-j'),'旅韓').rate"),'6');
+  const jan=boot(undefined,'2027-01-01T12:00:00+08:00');
+  assert.equal(jan.run("bestOffer(cards.find(c=>c.id==='fubon-j'),'旅韓')"),null);
+});
+test('October insurance uses Q4 promotion and falls back to standard when limited offers excluded',()=>{
+  const b=boot(undefined,'2026-10-01T12:00:00+08:00');
+  assert.equal(b.run("bestOffer(cards.find(c=>c.id==='fubon-j'),'保費').rate"),'2');
+  assert.equal(b.run("bestOffer(cards.find(c=>c.id==='costco'),'保費').rate"),'2');
+  b.run('showLimited=false');
+  assert.equal(b.run("bestOffer(cards.find(c=>c.id==='fubon-j'),'保費').rate"),'0.5');
+  assert.equal(b.run("bestOffer(cards.find(c=>c.id==='costco'),'保費').rate"),'0.5');
+});
+test('October Kumamon gifts are visible without inflating Japan reward ranking',()=>{
+  const b=boot(undefined,'2026-10-01T12:00:00+08:00');
+  assert.equal(b.run("bestOffer(cards.find(c=>c.id==='kumamon'),'旅日').rate"),'8.5');
+  const rendered=b.get('grid').children.map(c=>c.innerHTML).join('');
+  assert.match(rendered,/環球影城/);
+  assert.match(rendered,/披肩毯/);
+});
 test('cards do not display audit records while retaining official links',()=>{const b=boot();const rendered=b.get('grid').children.map(c=>c.innerHTML).join('');assert.doesNotMatch(rendered,/資料來源與查證紀錄|class="audit"/);assert.match(rendered,/信用卡官網/);});
 function boot(saved, now='2026-09-08T12:00:00+08:00'){
   const elements=new Map();
@@ -95,7 +121,7 @@ test('DAWHO Plus auto topup participates in conditional maximum',()=>{
   assert.equal(boot().run("bestOffer(cards.find(c=>c.name.includes('DAWHO')),'悠遊卡加值').value"),5);
 });
 test('LINE Pay card overseas and Klook offers appear in their scenarios',()=>{
-  const b=boot();
+  const b=boot(undefined,'2026-10-01T12:00:00+08:00');
   assert.equal(b.run("bestOffer(cards.find(c=>c.id==='ctbc-linepay'),'旅日').value"),5);
   assert.equal(b.run("bestOffer(cards.find(c=>c.id==='ctbc-linepay'),'旅遊機票').value"),12);
 });

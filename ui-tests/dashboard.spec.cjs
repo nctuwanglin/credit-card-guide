@@ -1,7 +1,7 @@
 const {test,expect}=require('@playwright/test');
 test.beforeEach(async({page})=>{
   await page.route('https://**/*',route=>route.abort());
-  await page.clock.setFixedTime(new Date('2026-09-08T12:00:00+08:00'));
+  await page.clock.setFixedTime(new Date('2026-10-01T12:00:00+08:00'));
 });
 for(const width of [320,390,768,1280]){
   test(`responsive ${width}: both tabs, all cards, hidden audit and overflow`,async({page})=>{
