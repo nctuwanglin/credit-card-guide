@@ -77,3 +77,12 @@ test('mobile: every scenario, headings, hidden audit records and filter states',
   const violations=await page.evaluate(async()=> (await axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']}})).violations.map(v=>({id:v.id,targets:v.nodes.map(n=>n.target)})));
   expect(violations).toEqual([]);expect(errors).toEqual([]);
 });
+test('compact cards: collapsed height stays under two screens and details open by keyboard',async({page})=>{
+  await page.setViewportSize({width:1280,height:900});await page.goto('/');
+  const heights=await page.locator('.card').evaluateAll(cs=>cs.map(c=>[c.id,c.getBoundingClientRect().height]));
+  for(const [id,h] of heights)expect(h,id).toBeLessThan(1100);
+  const summary=page.locator('details.more > summary').first();
+  await summary.focus();await page.keyboard.press('Enter');
+  await expect(page.locator('details.more').first()).toHaveAttribute('open','');
+  await expect(page.locator('.tier.inactive')).toHaveCount(0);
+});

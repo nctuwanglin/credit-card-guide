@@ -290,6 +290,24 @@
   .skip-link{position:absolute;left:16px;top:-80px;background:white;padding:12px;z-index:100}
   .skip-link:focus{top:8px}
   .card{scroll-margin-top:90px}
+  .grid{align-items:start}
+  /* 摘要＋展開：卡面預設只列重點優惠，其餘收進原生 details */
+  .ctiers{display:flex;flex-direction:column;gap:10px}
+  .ctier{display:flex;gap:12px;align-items:baseline}
+  .ctier-info{flex:1;min-width:0}
+  .ctier-label{font-size:13px;font-weight:500;color:var(--ink);line-height:1.4}
+  .chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}
+  .chips span{font-size:10.5px;font-weight:600;line-height:1.5;padding:0 7px;border-radius:5px;background:#eef0f4;color:#3f4658;overflow-wrap:anywhere}
+  .chips .c-cap{background:var(--gain-soft);color:var(--gain);font-family:"JetBrains Mono",monospace}
+  .chips .c-lim,.chips .c-warn{background:var(--amber-soft);color:#6b4a02}
+  .chips .c-cond{background:#e6eefb;color:#1b4f93}
+  details.more{border-top:1px dashed var(--line)}
+  details.more>summary{cursor:pointer;min-height:44px;display:flex;align-items:center;gap:6px;font-size:12.5px;font-weight:700;color:var(--gain);list-style:none}
+  details.more>summary::-webkit-details-marker{display:none}
+  details.more>summary::after{content:"▾";font-size:11px}
+  details.more[open]>summary::after{content:"▴"}
+  details.more>.more-body{display:flex;flex-direction:column;gap:11px;padding:2px 0 8px}
+  .tag.more-tag{background:transparent;border:1px dashed var(--line)}
   .tier.relevant{background:var(--gain-soft);border-radius:8px;padding:8px 4px;border-left:3px solid var(--gain)}
   .tier.inactive{background:#f6f7fa;border-radius:6px}
   .tier-meta{font-size:10.5px;color:var(--muted);margin-top:4px}
@@ -4193,6 +4211,80 @@ function renderAudit(c){
   return `<details class="audit"><summary>資料來源與查證紀錄</summary><ul class="audit-records">${records.join('')}</ul>${sources.size?`<ul class="audit-sources">${[...sources].map(([url,n])=>`<li><a href="${url}" target="_blank" rel="noopener">來源 ${n}：官方條款</a></li>`).join('')}</ul>`:''}</details>`;
 }
 
+// ---------- 摘要＋展開 ----------
+const PERIOD_LABEL={month:'日曆月',postingMonth:'入帳月',reportingMonth:'回報月',paymentMonth:'繳款月',statement:'每期帳單',quarter:'日曆季',campaign:'活動期間',year:'曆年',benefitYear:'權益年度'};
+const NUM_RATE=/^[0-9]+(?:\.[0-9]+)?(?:元\/哩)?$/;
+const SUMMARY_MAX=4,TAG_MAX=5;
+// 把 schemes/tiers 攤平成 [{t,s}]，並把方案層的 source/end 下放到每層（與 renderTier 既有邏輯一致）
+function cardOffers(c){
+  if(c.schemes)return c.schemes.flatMap(s=>s.tiers.map(t=>({t:{...t,source:t.source||s.source||c.url,end:t.end||s.end},s:s.name})));
+  return (c.tiers||[]).map(t=>({t:{...t,source:t.source||c.url},s:null}));
+}
+// 挑摘要層：只挑「目前有效、可比較的數字回饋」。選了情境→該情境相關層（含限時）優先；
+// 「全部」→一般方案依 hi／回饋高低，方案卡每個方案只取一層。t.highlight===true 可手動釘選。
+function pickHighlights(c,scn,live){
+  const mile=isMileCard(c);
+  const val=o=>o.t.scenarioRates?.[scn] ?? parseFloat(o.t.rate);
+  const better=(a,b)=>mile?val(a)-val(b):val(b)-val(a);
+  const ok=live.filter(o=>offerActive(o.t)&&!o.t.suspendRanking);
+  const picks=[];
+  const add=o=>{if(picks.length<SUMMARY_MAX&&!picks.includes(o)&&!picks.some(p=>p.t.label===o.t.label))picks.push(o);};
+  ok.filter(o=>o.t.highlight).forEach(add);
+  if(scn!=='全部')ok.filter(o=>NUM_RATE.test(o.t.rate)&&o.t.scenarios?.includes(scn)).sort(better).forEach(add);
+  // 選了情境就只列該情境的層，避免拿其他通路的高回饋「補滿」造成誤導；完全沒有相關層才退回一般層
+  if(scn==='全部'||picks.length===0){
+    const seen=new Set(picks.map(o=>o.s).filter(Boolean));
+    ok.filter(o=>NUM_RATE.test(o.t.rate)&&o.t.kind!=='limited'&&!picks.includes(o))
+      .sort((a,b)=>(!!b.t.hi-!!a.t.hi)||better(a,b))
+      .forEach(o=>{if(o.s&&seen.has(o.s))return;if(o.s)seen.add(o.s);add(o);});
+  }
+  return picks.sort(better);
+}
+// 長句只留首個子句（完整文字放 title，詳細規則在展開區與官網）；卡面不被共通條件／共用上限的長說明洗版
+function shortText(str,n){
+  const first=String(str).split(/[；;，（(。]/)[0].trim()||String(str);
+  const cut=first.length>n?first.slice(0,n)+'…':first;
+  return {text:cut,truncated:cut!==String(str)};
+}
+function chipSpan(cls,str,n){
+  const {text,truncated}=shortText(str,n);
+  return `<span class="${cls}"${truncated?` title="${String(str).replace(/"/g,'&quot;')}"`:''}>${text}</span>`;
+}
+function capChip(t){
+  if(t.capSpend!=null)return `可刷約${t.capSpend.toLocaleString()}${PERIOD_LABEL[t.capPeriod]?'／'+PERIOD_LABEL[t.capPeriod]:''}`;
+  return t.cap||'上限待確認';
+}
+function renderCompactTier(t){
+  const unverified=!t.checkedAt||/待確認|待核實|待驗證|待查證|未確認|未核實|未驗證|未查證/.test(t.verifiedFields||'');
+  const chips=[
+    t.kind==='limited'?`<span class="c-lim">限時${t.end?'至'+t.end.slice(5).replace('-','/'):''}</span>`:'',
+    t.audience==='new'?'<span class="c-lim">新戶專屬</span>':'',
+    t.condition?chipSpan('c-cond',t.condition,12):'',
+    chipSpan(t.cap==='無上限'?'':'c-cap',capChip(t),22),
+    unverified?'<span class="c-warn">待確認</span>':''
+  ].join('');
+  return `<div class="ctier"><div class="rate ${t.hi?'hi':''}">${t.rate}<small>${rateSuffix(t.rate)}</small></div><div class="ctier-info"><div class="ctier-label">${t.label}</div><div class="chips">${chips}</div></div></div>`;
+}
+function renderOfferList(c,list){
+  if(!c.schemes)return `<div class="tiers">${list.map(o=>renderTier(o.t,undefined,c.url)).join('')}</div>`;
+  const groups=[];
+  list.forEach(o=>{let g=groups.find(x=>x.s===o.s);if(!g){g={s:o.s,items:[]};groups.push(g);}g.items.push(o);});
+  return groups.map(g=>`<div class="scheme ${c.schemes.find(s=>s.name===g.s)?.hi?'hi':''}"><div class="scheme-name">${g.s}</div><div class="tiers">${g.items.map(o=>renderTier(o.t,undefined,c.url)).join('')}</div></div>`).join('');
+}
+function renderCardBody(c){
+  // 過期的層不再佔卡面（推薦本來就已排除）；限時／新戶篩選沿用 offerAllowed
+  const live=cardOffers(c).filter(o=>offerAllowed(o.t)&&!expired(o.t.end));
+  const picks=pickHighlights(c,activeScenario,live);
+  const rest=live.filter(o=>!picks.includes(o));
+  const limited=rest.filter(o=>o.t.kind==='limited'),regular=rest.filter(o=>o.t.kind!=='limited');
+  let html=picks.length?`<div class="ctiers">${picks.map(o=>renderCompactTier(o.t)).join('')}</div>`:'';
+  if(limited.length)html+=`<details class="more"><summary>🎁 限時／活動優惠 ${limited.length} 項</summary><div class="more-body">${renderOfferList(c,limited)}</div></details>`;
+  const noteHtml=c.note?`<div class="note">${c.note}</div>`:'';
+  if(regular.length)html+=`<details class="more"><summary>更多優惠 ${regular.length} 項${c.note?'與說明':''}</summary><div class="more-body">${renderOfferList(c,regular)}${noteHtml}</div></details>`;
+  else html+=noteHtml;
+  return html;
+}
+
 function renderTier(t,defaultEnd,cardUrl){
   const end=t.end || defaultEnd;
   const ended=expired(end);
@@ -4227,25 +4319,16 @@ function renderGrid(){
     el.id='card-'+c.id;
     el.setAttribute('aria-labelledby','heading-'+c.id);
     el.tabIndex=-1;
-    const tagsHtml = c.tags.map(t=>{
+    const sortedTags=[...c.tags].sort((a,b)=>(b===activeScenario)-(a===activeScenario));
+    const tagsHtml = sortedTags.slice(0,TAG_MAX).map(t=>{
       let cls = "tag";
       if(t==="旅日") cls += " jp";
       else if(t==="旅韓") cls += " kr";
       else if(t==="旅歐美") cls += " eu";
       return `<span class="${cls}">${t}</span>`;
-    }).join("");
+    }).join("")+(sortedTags.length>TAG_MAX?`<span class="tag more-tag" title="${sortedTags.slice(TAG_MAX).join('、')}">+${sortedTags.length-TAG_MAX}</span>`:'');
 
-    let body = "";
-    if(c.schemes){
-      body = c.schemes.filter(s=>s.tiers.some(offerAllowed)).map(s=>`
-        <div class="scheme ${s.hi?'hi':''}">
-          <div class="scheme-name">${s.name}</div>
-          <div class="tiers">${s.tiers.filter(offerAllowed).map(t=>renderTier({...t,source:t.source||s.source||c.url,end:t.end||s.end},undefined,c.url)).join('')}</div>
-        </div>
-      `).join("");
-    } else {
-      body = `<div class="tiers">${c.tiers.filter(offerAllowed).map(t=>renderTier({...t,source:t.source||c.url},undefined,c.url)).join('')}</div>`;
-    }
+    const body = renderCardBody(c);
 
     el.innerHTML = `
       <div class="rail" style="background:${c.rail}"></div>
@@ -4262,7 +4345,6 @@ function renderGrid(){
         <span class="pts">年費 · <b>${c.fee||'待查證（不代表免年費）'}</b>${!c.feeCheckedAt&&c.fee?' · 尚待重新核實':''}</span>
         ${body}
         ${c.alert?`<div class="alert"><span class="ic">⚠</span><span><b>留意：</b>${c.alert}</span></div>`:''}
-        ${c.note?`<div class="note">${c.note}</div>`:''}
         <div class="footer-link">
           <a class="official" href="${c.url}" target="_blank" rel="noopener">信用卡官網 <span class="arrow">→</span></a>
         </div>
@@ -4319,7 +4401,7 @@ function renderReco(){
     const meta=[offer.condition||offer.label,offer.kind==='limited'?'限時優惠':'',!offer.checkedAt?'尚待核實':''].filter(Boolean).join(' · ');
     const cap=offer.capSpend;
     const period=offer.capPeriod;
-    const periodLabel={month:'日曆月',postingMonth:'入帳月',reportingMonth:'回報月',paymentMonth:'繳款月',statement:'每期帳單',quarter:'日曆季',campaign:'活動期間',year:'曆年',benefitYear:'權益年度'}[period] || '週期待確認';
+    const periodLabel=PERIOD_LABEL[period] || '週期待確認';
     return`<a class="reco-pill" href="#card-${c.id}" onclick="focusCard('${c.id}')"><span class="reco-medal">${i+1}</span>${c.name}<b>${offer.value}%</b>${cap!=null?`<span class="reco-cap">可刷約${cap.toLocaleString()}（${periodLabel}）</span>`:`<span class="reco-cap">${offer.cap||'上限待確認'}</span>`}${meta?`<span class="reco-meta">${meta}</span>`:''}</a>`;
   };
   const show = recoExpanded ? ranked : ranked.slice(0,3);

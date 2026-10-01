@@ -37,6 +37,7 @@ function validateData({cards,scenarios}){
       if(!Array.isArray(t.scenarios)||t.scenarios.some(s=>!allowed.has(s)))error('情境 mapping 無效');
       if((t.scenarios||[]).some(s=>!(c.tags||[]).includes(s)))error('優惠情境未列在卡片 tags');
       if(!['regular','limited'].includes(t.kind))error('kind 無效');
+      if(t.highlight!==undefined&&typeof t.highlight!=='boolean')error('highlight 必須是布林值');
       if(!['all','new'].includes(t.audience))error('audience 無效');
       if(t.capSpend!=null&&(!Number.isFinite(t.capSpend)||t.capSpend<0))error('capSpend 必須是非負有限數字');
       if(t.capPeriod!=null&&!periods.has(t.capPeriod))error('capPeriod 週期無效');

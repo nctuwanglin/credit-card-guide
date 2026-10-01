@@ -196,3 +196,58 @@ test('Richart Taishin Pay does not rank as Apple Google Samsung Pay',()=>{
 test('M card 6 percent total cap is not treated as bonus-only cap',()=>{
   assert.equal(boot().run("bestOffer(cards.find(c=>c.id==='mcard'),'旅遊機票').capSpend"),5000);
 });
+// ---- 摘要＋展開（卡片精簡呈現）----
+const OCT='2026-10-01T12:00:00+08:00';
+function summaryOf(b,id,scn='全部'){
+  return b.run(`(()=>{const c=cards.find(x=>x.id==='${id}');activeScenario='${scn}';const live=cardOffers(c).filter(o=>offerAllowed(o.t)&&!expired(o.t.end));return pickHighlights(c,activeScenario,live).map(o=>o.t)})()`);
+}
+test('summary shows at most 4 active, comparable, regular offers',()=>{
+  const b=boot(undefined,OCT);
+  for(const id of b.run("cards.map(c=>c.id)")){
+    const picks=summaryOf(b,id);
+    assert.ok(picks.length<=4,id+' summary too long');
+    for(const t of picks){assert.ok(/^[0-9.]+(元\/哩)?$/.test(t.rate),id+' non-numeric '+t.rate);assert.notEqual(t.kind,'limited',id+' limited in 全部 summary');}
+  }
+});
+test('Kumamon Japan summary leads with 8.5 percent and CUBE cards stay short',()=>{
+  const b=boot(undefined,OCT);
+  assert.equal(summaryOf(b,'kumamon','旅日')[0].rate,'8.5');
+  b.run("activeScenario='全部'");
+  const html=b.run("renderCardBody(cards.find(c=>c.id==='cube'))");
+  assert.ok((html.match(/class="ctier"/g)||[]).length<=4);
+  assert.match(html,/<details class="more">/);
+});
+test('selected scenario never backfills with unrelated high-rate tiers',()=>{
+  const b=boot(undefined,OCT);
+  for(const id of ['richart','mcard','pi']){
+    const picks=summaryOf(b,id,'保費');
+    assert.ok(picks.length>0);
+    for(const t of picks)assert.ok(t.scenarios.includes('保費'),id+' backfilled '+t.label);
+  }
+});
+test('expired tiers are not rendered on the card but every live tier is shown exactly once',()=>{
+  const b=boot(undefined,'2026-10-01T12:00:00+08:00');
+  b.run("cards.push({id:'fx',name:'測試卡',tags:['網購'],tiers:[{rate:'5',label:'有效層',scenarios:['網購'],kind:'regular',audience:'all',end:'2026-12-31'},{rate:'9',label:'過期層',scenarios:['網購'],kind:'limited',audience:'all',end:'2026-08-31'},{rate:'權益',label:'權益層',kind:'regular',audience:'all'}]});activeScenario='全部'");
+  const html=b.run("renderCardBody(cards.find(c=>c.id==='fx'))");
+  assert.doesNotMatch(html,/過期層/);
+  assert.equal((html.match(/有效層/g)||[]).length,1);
+  assert.match(html,/權益層/);
+});
+test('limited and plus-rate offers are collapsed, still present in card HTML',()=>{
+  const b=boot(undefined,OCT);
+  const html=b.run("renderCardBody(cards.find(c=>c.id==='kumamon'))");
+  assert.match(html,/限時／活動優惠/);
+  const summary=html.split('<details')[0];
+  assert.doesNotMatch(summary,/名古屋|九州|披肩毯/);
+  assert.match(html,/九州JR博多/);
+});
+test('long condition and cap text is shortened in chips with full text kept in title',()=>{
+  const b=boot();
+  const out=b.run("renderCompactTier({rate:'3',label:'x',condition:'切換對應方案並具LEVEL2（台新帳戶自扣依生效規則；新申辦60天試用）',cap:'無上限',checkedAt:'2026-10-01',verifiedFields:'日期'})");
+  assert.match(out,/title="切換對應方案並具LEVEL2（台新帳戶自扣依生效規則；新申辦60天試用）"/);
+  assert.doesNotMatch(out,/>切換對應方案並具LEVEL2（/);
+});
+test('thousands separator in cap chip is not treated as a clause break',()=>{
+  const out=boot().run("renderCompactTier({rate:'8.5',label:'x',capSpend:8333,capPeriod:'statement',cap:'加碼上限500/期 · 可刷8,333',checkedAt:'2026-10-01',verifiedFields:'日期'})");
+  assert.match(out,/可刷約8,333／每期帳單/);
+});
