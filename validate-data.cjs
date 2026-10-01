@@ -42,7 +42,7 @@ function validateData({cards,scenarios}){
       if(t.capSpend!=null&&(!Number.isFinite(t.capSpend)||t.capSpend<0))error('capSpend 必須是非負有限數字');
       if(t.capPeriod!=null&&!periods.has(t.capPeriod))error('capPeriod 週期無效');
       if(t.capSpend!=null&&!t.capPeriod)warn('可刷金額週期待確認，不視為無上限');
-      if(!t.cap||/待確認|未知|待核實|請自行/.test(t.cap))warn('上限待確認');
+      if(!t.cap||/待確認|未知|待核實|請自行|未載|未註明/.test(t.cap))warn('上限待確認');
       if(!t.end)warn('截止日未確認');
       for(const [s,v] of Object.entries(t.scenarioRates||{}))if(!(t.scenarios||[]).includes(s)||!Number.isFinite(v)||v<=0)error('scenarioRates 情境或數值無效');
     }

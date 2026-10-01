@@ -251,3 +251,23 @@ test('thousands separator in cap chip is not treated as a clause break',()=>{
   const out=boot().run("renderCompactTier({rate:'8.5',label:'x',capSpend:8333,capPeriod:'statement',cap:'加碼上限500/期 · 可刷8,333',checkedAt:'2026-10-01',verifiedFields:'日期'})");
   assert.match(out,/可刷約8,333／每期帳單/);
 });
+test('expired offer with unconfirmed continuation stays visible on the card face',()=>{
+  const b=boot(undefined,'2026-10-01T12:00:00+08:00');
+  const html=b.run("renderCardBody(cards.find(c=>c.id==='breeze'))");
+  assert.match(html,/class="ctier stale"/);
+  assert.match(html,/續行待確認/);
+});
+test('plain expired offers are hidden but uncertain ones are not',()=>{
+  const b=boot(undefined,'2026-10-01T12:00:00+08:00');
+  b.run("cards.push({id:'fx2',name:'測試卡2',tags:['網購'],tiers:[{rate:'5',label:'有效層',scenarios:['網購'],kind:'regular',audience:'all',end:'2026-12-31'},{rate:'9',label:'確定過期層',scenarios:['網購'],kind:'regular',audience:'all',end:'2026-08-31'},{rate:'7',label:'疑似續行（續行待確認）',scenarios:['網購'],kind:'regular',audience:'all',end:'2026-08-31'}]});activeScenario='全部'");
+  const html=b.run("renderCardBody(cards.find(c=>c.id==='fx2'))");
+  assert.doesNotMatch(html,/確定過期層/);
+  assert.match(html,/疑似續行/);
+});
+test('validator treats official-silence wording as unknown, not as verified',()=>{
+  const {validateData}=require('./validate-data.cjs');
+  const base={id:'x',name:'x',url:'https://a.test/',tags:['網購'],tiers:[{rate:'3',label:'a',scenarios:['網購'],kind:'regular',audience:'all',source:'https://a.test/',verifiedFields:'v',checkedAt:'2026-10-01',end:'2026-12-31',cap:'官網未載基本哩上限'}]};
+  const r=validateData({cards:[base],scenarios:['全部','網購']});
+  assert.equal(r.errors.length,0);
+  assert.ok(r.warnings.some(w=>/上限待確認/.test(w)));
+});
