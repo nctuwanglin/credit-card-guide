@@ -293,6 +293,7 @@
   .grid{align-items:start}
   /* 摘要＋展開：卡面預設只列重點優惠，其餘收進原生 details */
   .ctiers{display:flex;flex-direction:column;gap:10px}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
   .ctier{display:flex;gap:12px;align-items:baseline}
   .ctier-info{flex:1;min-width:0}
   .ctier-label{font-size:13px;font-weight:500;color:var(--ink);line-height:1.4}
@@ -2111,6 +2112,7 @@ const cards = [
         "rate": "4H",
         "hi": true,
         "label": "微風百貨停車：無限卡免費4小時",
+        "highlight": true,
         "sub": "平假日不限消費金額；廣場、南京、松高、信義、南山。入場須在開店前30分起至閉店前30分，詳各館公告。",
         "cap": "每卡每日每車1次，最多4小時；以出場時間為準",
         "scenarios": [
@@ -4221,8 +4223,8 @@ const NUM_RATE=/^[0-9]+(?:\.[0-9]+)?(?:元\/哩)?$/;
 const SUMMARY_MAX=4,TAG_MAX=5;
 // 把 schemes/tiers 攤平成 [{t,s}]，並把方案層的 source/end 下放到每層（與 renderTier 既有邏輯一致）
 function cardOffers(c){
-  if(c.schemes)return c.schemes.flatMap(s=>s.tiers.map(t=>({t:{...t,source:t.source||s.source||c.url,end:t.end||s.end},s:s.name})));
-  return (c.tiers||[]).map(t=>({t:{...t,source:t.source||c.url},s:null}));
+  if(c.schemes)return c.schemes.flatMap((s,si)=>s.tiers.map((t,ti)=>({key:`${c.id}:scheme:${si}:${ti}`,t:{...t,source:t.source||s.source||c.url,end:t.end||s.end},s:s.name})));
+  return (c.tiers||[]).map((t,ti)=>({key:`${c.id}:tier:${ti}`,t:{...t,source:t.source||c.url},s:null}));
 }
 // 挑摘要層：只挑「目前有效、可比較的數字回饋」。選了情境→該情境相關層（含限時）優先；
 // 「全部」→一般方案依 hi／回饋高低，方案卡每個方案只取一層。t.highlight===true 可手動釘選。
@@ -4233,7 +4235,7 @@ function pickHighlights(c,scn,live){
   const ok=live.filter(o=>offerActive(o.t)&&!o.t.suspendRanking);
   const picks=[];
   const add=o=>{if(picks.length<SUMMARY_MAX&&!picks.includes(o)&&!picks.some(p=>p.t.label===o.t.label))picks.push(o);};
-  ok.filter(o=>o.t.highlight).forEach(add);
+  ok.filter(o=>o.t.highlight&&(scn==='全部'||o.t.scenarios?.includes(scn))).forEach(add);
   if(scn!=='全部')ok.filter(o=>NUM_RATE.test(o.t.rate)&&o.t.scenarios?.includes(scn)).sort(better).forEach(add);
   // 選了情境就只列該情境的層，避免拿其他通路的高回饋「補滿」造成誤導；完全沒有相關層才退回一般層
   if(scn==='全部'||picks.length===0){
@@ -4244,7 +4246,7 @@ function pickHighlights(c,scn,live){
   }
   return picks.sort(better);
 }
-// 長句只留首個子句（完整文字放 title，詳細規則在展開區與官網）；卡面不被共通條件／共用上限的長說明洗版
+// 長句只留首個子句；完整條件必須同時出現在可點擊／鍵盤展開的詳細區。
 function shortText(str,n){
   const first=String(str).split(/[；;，（(。]/)[0].trim()||String(str);
   const cut=first.length>n?first.slice(0,n)+'…':first;
@@ -4258,17 +4260,22 @@ function capChip(t){
   if(t.capSpend!=null)return `可刷約${t.capSpend.toLocaleString()}${PERIOD_LABEL[t.capPeriod]?'／'+PERIOD_LABEL[t.capPeriod]:''}`;
   return t.cap||'上限待確認';
 }
-function renderCompactTier(t,stale){
+function displayRate(t){
+  return String(t.scenarioRates?.[activeScenario] ?? t.rate);
+}
+function renderCompactTier(t,stale,scheme,cardUrl,key){
   const unverified=!t.checkedAt||/待確認|待核實|待驗證|待查證|未確認|未核實|未驗證|未查證/.test(t.verifiedFields||'');
   const chips=[
     stale?`<span class="c-warn">條款期間已至${t.end}，續行待確認</span>`:'',
     !stale&&t.kind==='limited'?`<span class="c-lim">限時${t.end?'至'+t.end.slice(5).replace('-','/'):''}</span>`:'',
     t.audience==='new'?'<span class="c-lim">新戶專屬</span>':'',
     t.condition?chipSpan('c-cond',t.condition,12):'',
-    chipSpan(t.cap==='無上限'?'':'c-cap',capChip(t),22),
+    `<span class="${t.cap==='無上限'?'':'c-cap'}">${t.cap||'上限待確認'}</span>`,
+    t.capSpend!=null?chipSpan('c-cap',capChip(t),40):'',
     unverified?'<span class="c-warn">待確認</span>':''
   ].join('');
-  return `<div class="ctier${stale?' stale':''}"><div class="rate ${t.hi&&!stale?'hi':''}">${t.rate}<small>${rateSuffix(t.rate)}</small></div><div class="ctier-info"><div class="ctier-label">${t.label}</div><div class="chips">${chips}</div></div></div>`;
+  const rate=displayRate(t);
+  return `<div class="ctier${stale?' stale':''}"><div class="rate ${t.hi&&!stale?'hi':''}">${rate}<small>${rateSuffix(rate)}</small></div><div class="ctier-info">${scheme?`<div class="scheme-name">${scheme}</div>`:''}<div class="ctier-label">${t.label}</div><div class="chips">${chips}</div><details class="more offer-details"${key?` data-detail-key="${key}"`:''}><summary>完整條件與上限<span class="sr-only">：${scheme||''} ${t.label}</span></summary>${renderTier(t,undefined,cardUrl,true)}</details></div></div>`;
 }
 function renderOfferList(c,list){
   if(!c.schemes)return `<div class="tiers">${list.map(o=>renderTier(o.t,undefined,c.url)).join('')}</div>`;
@@ -4285,25 +4292,27 @@ function renderCardBody(c){
   const picks=pickHighlights(c,activeScenario,live);
   const rest=live.filter(o=>!picks.includes(o));
   const limited=rest.filter(o=>o.t.kind==='limited'),regular=rest.filter(o=>o.t.kind!=='limited');
-  const rows=picks.map(o=>renderCompactTier(o.t)).concat(stale.map(o=>renderCompactTier(o.t,true)));
+  const rows=picks.map(o=>renderCompactTier(o.t,false,o.s,c.url,o.key));
   let html=rows.length?`<div class="ctiers">${rows.join('')}</div>`:'';
-  if(limited.length)html+=`<details class="more"><summary>🎁 限時／活動優惠 ${limited.length} 項</summary><div class="more-body">${renderOfferList(c,limited)}</div></details>`;
+  if(limited.length)html+=`<details class="more" data-detail-key="${c.id}:limited"><summary>🎁 限時／活動優惠 ${limited.length} 項</summary><div class="more-body">${renderOfferList(c,limited)}</div></details>`;
   const noteHtml=c.note?`<div class="note">${c.note}</div>`:'';
-  if(regular.length)html+=`<details class="more"><summary>更多優惠 ${regular.length} 項${c.note?'與說明':''}</summary><div class="more-body">${renderOfferList(c,regular)}${noteHtml}</div></details>`;
+  if(regular.length)html+=`<details class="more" data-detail-key="${c.id}:regular"><summary>更多優惠 ${regular.length} 項${c.note?'與說明':''}</summary><div class="more-body">${renderOfferList(c,regular)}${noteHtml}</div></details>`;
   else html+=noteHtml;
+  if(stale.length)html+=`<details class="more" data-detail-key="${c.id}:stale"><summary>過期待確認 ${stale.length} 項</summary><div class="more-body">${stale.map(o=>renderCompactTier(o.t,true,o.s,c.url,o.key)).join('')}</div></details>`;
   return html;
 }
 
-function renderTier(t,defaultEnd,cardUrl){
+function renderTier(t,defaultEnd,cardUrl,detailsOnly=false){
   const end=t.end || defaultEnd;
   const ended=expired(end);
   return `
     <div class="tier${activeScenario!=='全部'&&t.scenarios?.includes(activeScenario)?' relevant':''}${ended?' inactive':''}">
-      <div class="rate ${offerActive({...t,end})&&t.hi?'hi':''}">${t.rate}<small>${rateSuffix(t.rate)}</small></div>
+      ${detailsOnly?'':`<div class="rate ${offerActive({...t,end})&&t.hi?'hi':''}">${displayRate(t)}<small>${rateSuffix(displayRate(t))}</small></div>`}
       <div class="tier-info">
-        <div class="tier-label">${t.label}</div>
+        ${detailsOnly?'':`<div class="tier-label">${t.label}</div>`}
         <div class="tier-meta">${t.kind==='limited'?'限時優惠':'一般方案'}${t.audience==='new'?' · 新戶／新卡專屬':''} · ${end?`${ended?'已到期／待確認新方案 · ':t.start&&Date.now()<Date.parse(t.start+'T00:00:00+08:00')?'尚未開始 · ':''}${t.start?t.start+'～':'優惠至 '}${end}`:'日期待確認'}</div>
         ${t.sub?`<div class="tier-sub">${t.sub}</div>`:''}
+        ${t.condition?`<div class="tier-sub">${t.condition}</div>`:''}
         <span class="cap ${t.cap==='無上限'?'none':''}">${t.cap||'上限待確認'}</span>
         ${!t.checkedAt||/待確認|待核實|待驗證|待查證|未確認|未核實|未驗證|未查證/.test(t.verifiedFields||'')?`<div class="tier-meta verification-warning">${t.checkedAt?t.verifiedFields:'待查證'}</div>`:''}
         ${t.source&&t.source!==cardUrl?`<div class="tier-meta"><a href="${t.source}" target="_blank" rel="noopener">活動詳情</a></div>`:''}
@@ -4311,7 +4320,10 @@ function renderTier(t,defaultEnd,cardUrl){
     </div>`;
 }
 
+// 僅保留本次瀏覽的展開狀態；以原始優惠位置識別，不受排序與摘要位置改變影響。
+const detailStates=new Map();
 function renderGrid(){
+  document.querySelectorAll('#grid details[data-detail-key]').forEach(d=>detailStates.set(d.dataset.detailKey,d.open));
   grid.innerHTML = "";
   let shown = 0;
   let list = tabCards().filter(c=>visibleCards.has(c.id) && (activeScenario==="全部" || c.tags.includes(activeScenario)));
@@ -4361,6 +4373,7 @@ function renderGrid(){
     grid.appendChild(el);
   });
   if(shown===0) grid.innerHTML = `<div class="empty">此組合下無對應卡片，請調整篩選</div>`;
+  document.querySelectorAll('#grid details[data-detail-key]').forEach(d=>{d.open=detailStates.get(d.dataset.detailKey)===true;});
   document.getElementById('resultStatus').textContent=`${activeTab==='cash'?'現金回饋':'哩程回饋'} · ${activeScenario} · 顯示 ${shown} 張。回饋須符合條件；待查證項目請先確認官方公告。`;
 }
 

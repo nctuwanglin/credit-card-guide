@@ -197,16 +197,58 @@ test('M card 6 percent total cap is not treated as bonus-only cap',()=>{
   assert.equal(boot().run("bestOffer(cards.find(c=>c.id==='mcard'),'旅遊機票').capSpend"),5000);
 });
 // ---- 摘要＋展開（卡片精簡呈現）----
+test('compact summary preserves shared reward cap as well as spend estimate',()=>{
+  const b=boot(undefined,'2026-10-03T12:00:00+08:00');
+  const out=b.run("renderCompactTier({rate:'3',label:'測試',cap:'兩方案共用上限1,000點／月；正附卡合併',capSpend:50000,capPeriod:'month'})").split('<details')[0];
+  assert.match(out,/>兩方案共用上限1,000點／月；正附卡合併</);
+  assert.match(out,/可刷約50,000／日曆月/);
+});
+test('unknown reward cap stays explicit even when a spend estimate exists',()=>{
+  const out=boot().run("renderCompactTier({rate:'3',label:'測試',capSpend:5000,capPeriod:'month'})").split('<details')[0];
+  assert.match(out,/上限待確認/);
+  assert.match(out,/可刷約5,000/);
+});
+test('every eligible offer keeps complete stored rules across all scenarios',()=>{
+  const b=boot(undefined,'2026-10-03T12:00:00+08:00');
+  const gaps=b.run(`(()=>{const gaps=[];for(const scn of scenarios){activeScenario=scn;for(const c of cards){const body=renderCardBody(c);for(const o of cardOffers(c).filter(o=>offerAllowed(o.t)&&!expired(o.t.end))){for(const f of ['sub','condition','cap','start','end'])if(o.t[f]&&!body.includes(o.t[f]))gaps.push(c.id+'/'+scn+'/'+o.t.label+'/'+f);if(o.s&&!body.includes(o.s))gaps.push(c.id+'/'+scn+'/scheme');if(o.t.source!==c.url&&!body.includes(o.t.source))gaps.push(c.id+'/'+scn+'/source');}}}return gaps})()`);
+  assert.deepEqual(Array.from(gaps),[]);
+});
+test('highlighted Pi offer keeps its spending and enrollment requirements accessible',()=>{
+  const b=boot(undefined,'2026-10-03T12:00:00+08:00');
+  const out=b.run("renderCardBody(cards.find(c=>c.id==='pi'))");
+  assert.match(out,/單筆滿499元，須登錄、帳單e化及玉山自扣/);
+  assert.match(out,/<details class="more offer-details"[^>]*>/);
+});
+test('overseas headline uses scenario rate and all-scenario retains domestic and overseas rates',()=>{
+  const b=boot(undefined,'2026-10-03T12:00:00+08:00');
+  const out=b.run("activeScenario='旅日';renderCardBody(cards.find(c=>c.name.includes('DAWHO')))");
+  assert.match(out,/class="rate hi">6<small>%/);
+  const all=b.run("activeScenario='全部';renderCardBody(cards.find(c=>c.name.includes('DAWHO')))");
+  assert.match(all,/國內5%／國外6%/);
+});
+test('Breeze pins active parking before secondary expired offers',()=>{
+  const b=boot(undefined,'2026-10-03T12:00:00+08:00');
+  assert.ok(summaryOf(b,'breeze').some(t=>t.rate==='4H'));
+  const out=b.run("renderCardBody(cards.find(c=>c.id==='breeze'))");
+  assert.ok(out.indexOf('微風百貨停車')<out.indexOf('舊滿額刷卡金'));
+  assert.match(out,/<summary>過期待確認/);
+});
+test('Unicard summary retains plan names and full conditions without hover',()=>{
+  const b=boot(undefined,'2026-10-03T12:00:00+08:00');
+  const out=b.run("renderCardBody(cards.find(c=>c.id==='unicard'))");
+  assert.match(out,/UP選 訂閱制 149點\/月/);
+  assert.match(out,/>需UP選資格或付149點／月</);
+});
 const OCT='2026-10-01T12:00:00+08:00';
 function summaryOf(b,id,scn='全部'){
   return b.run(`(()=>{const c=cards.find(x=>x.id==='${id}');activeScenario='${scn}';const live=cardOffers(c).filter(o=>offerAllowed(o.t)&&!expired(o.t.end));return pickHighlights(c,activeScenario,live).map(o=>o.t)})()`);
 }
-test('summary shows at most 4 active, comparable, regular offers',()=>{
+test('summary shows at most 4 active regular offers including pinned benefits',()=>{
   const b=boot(undefined,OCT);
   for(const id of b.run("cards.map(c=>c.id)")){
     const picks=summaryOf(b,id);
     assert.ok(picks.length<=4,id+' summary too long');
-    for(const t of picks){assert.ok(/^[0-9.]+(元\/哩)?$/.test(t.rate),id+' non-numeric '+t.rate);assert.notEqual(t.kind,'limited',id+' limited in 全部 summary');}
+    for(const t of picks){assert.ok(t.highlight||/^[0-9.]+(元\/哩)?$/.test(t.rate),id+' non-numeric '+t.rate);assert.notEqual(t.kind,'limited',id+' limited in 全部 summary');}
   }
 });
 test('Kumamon Japan summary leads with 8.5 percent and CUBE cards stay short',()=>{
@@ -215,7 +257,7 @@ test('Kumamon Japan summary leads with 8.5 percent and CUBE cards stay short',()
   b.run("activeScenario='全部'");
   const html=b.run("renderCardBody(cards.find(c=>c.id==='cube'))");
   assert.ok((html.match(/class="ctier"/g)||[]).length<=4);
-  assert.match(html,/<details class="more">/);
+  assert.match(html,/<details class="more"[^>]*>/);
 });
 test('selected scenario never backfills with unrelated high-rate tiers',()=>{
   const b=boot(undefined,OCT);
@@ -230,7 +272,7 @@ test('expired tiers are not rendered on the card but every live tier is shown ex
   b.run("cards.push({id:'fx',name:'測試卡',tags:['網購'],tiers:[{rate:'5',label:'有效層',scenarios:['網購'],kind:'regular',audience:'all',end:'2026-12-31'},{rate:'9',label:'過期層',scenarios:['網購'],kind:'limited',audience:'all',end:'2026-08-31'},{rate:'權益',label:'權益層',kind:'regular',audience:'all'}]});activeScenario='全部'");
   const html=b.run("renderCardBody(cards.find(c=>c.id==='fx'))");
   assert.doesNotMatch(html,/過期層/);
-  assert.equal((html.match(/有效層/g)||[]).length,1);
+  assert.equal((html.match(/class="ctier-label">有效層</g)||[]).length,1);
   assert.match(html,/權益層/);
 });
 test('limited and plus-rate offers are collapsed, still present in card HTML',()=>{
@@ -245,7 +287,8 @@ test('long condition and cap text is shortened in chips with full text kept in t
   const b=boot();
   const out=b.run("renderCompactTier({rate:'3',label:'x',condition:'切換對應方案並具LEVEL2（台新帳戶自扣依生效規則；新申辦60天試用）',cap:'無上限',checkedAt:'2026-10-01',verifiedFields:'日期'})");
   assert.match(out,/title="切換對應方案並具LEVEL2（台新帳戶自扣依生效規則；新申辦60天試用）"/);
-  assert.doesNotMatch(out,/>切換對應方案並具LEVEL2（/);
+  assert.doesNotMatch(out.split('<details')[0],/>切換對應方案並具LEVEL2（/);
+  assert.match(out,/<div class="tier-sub">切換對應方案並具LEVEL2（/);
 });
 test('thousands separator in cap chip is not treated as a clause break',()=>{
   const out=boot().run("renderCompactTier({rate:'8.5',label:'x',capSpend:8333,capPeriod:'statement',cap:'加碼上限500/期 · 可刷8,333',checkedAt:'2026-10-01',verifiedFields:'日期'})");

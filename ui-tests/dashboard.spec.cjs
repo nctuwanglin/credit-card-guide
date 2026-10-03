@@ -1,4 +1,50 @@
 const {test,expect}=require('@playwright/test');
+test('open and closed detail states survive scenario, offer-filter and tab changes',async({page})=>{
+  await page.goto('/');
+  const card=page.locator('#card-unicard');
+  const offer=card.locator('.offer-details').first();
+  await offer.locator('summary').click();
+  await page.getByRole('button',{name:'網購',exact:true}).click();
+  await expect(card.locator('.offer-details').first()).toHaveAttribute('open','');
+  await page.getByLabel('排除新戶／新卡專屬').uncheck();
+  await expect(card.locator('.offer-details').first()).toHaveAttribute('open','');
+  await page.locator('#tabMile').click();await page.locator('#tabCash').click();
+  await expect(card.locator('.offer-details').first()).toHaveAttribute('open','');
+  await card.locator('.offer-details').first().locator('summary').click();
+  await page.getByRole('button',{name:'全部',exact:true}).click();
+  await expect(card.locator('.offer-details').first()).not.toHaveAttribute('open','');
+  await page.reload();await expect(card.locator('.offer-details').first()).not.toHaveAttribute('open','');
+});
+test('all expanded cards expose complete rules, plan names and caps in the visible page',async({page})=>{
+  await page.setViewportSize({width:390,height:844});await page.goto('/');
+  for(const tab of ['#tabCash','#tabMile']){
+    await page.locator(tab).click();
+    for(const scenario of ['全部','旅日','網購']){
+      const button=page.getByRole('button',{name:scenario,exact:true});
+      if(!await button.isVisible())continue;
+      await button.click();
+      const missing=await page.evaluate(()=>{
+        document.querySelectorAll('#grid details').forEach(d=>d.open=true);
+        // scheme-name uses CSS uppercase; compare content independently of casing/whitespace.
+        const norm=s=>String(s).replace(/\s+/g,'').toUpperCase();
+        const plain=s=>{const e=document.createElement('div');e.innerHTML=s;return norm(e.textContent);};
+        const missing=[];
+        for(const c of cards){
+          const el=document.getElementById('card-'+c.id);if(!el)continue;
+          const visible=norm(el.innerText);
+          for(const o of cardOffers(c).filter(o=>offerAllowed(o.t)&&!expired(o.t.end))){
+            for(const field of ['sub','condition','cap','start','end'])
+              if(o.t[field]&&!visible.includes(plain(o.t[field])))missing.push(c.id+'/'+o.t.label+'/'+field);
+            if(o.s&&!visible.includes(plain(o.s)))missing.push(c.id+'/scheme');
+          }
+        }
+        return missing;
+      });
+      expect(missing).toEqual([]);
+      expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+    }
+  }
+});
 test.beforeEach(async({page})=>{
   await page.route('https://**/*',route=>route.abort());
   await page.clock.setFixedTime(new Date('2026-10-01T12:00:00+08:00'));
@@ -84,5 +130,17 @@ test('compact cards: collapsed height stays under two screens and details open b
   const summary=page.locator('details.more > summary').first();
   await summary.focus();await page.keyboard.press('Enter');
   await expect(page.locator('details.more').first()).toHaveAttribute('open','');
-  await expect(page.locator('.tier.inactive')).toHaveCount(0);
+  await expect(page.locator('.tier.inactive:visible')).toHaveCount(0);
+});
+test('summary conditions are accessible by keyboard and mobile click',async({page})=>{
+  await page.setViewportSize({width:390,height:844});await page.goto('/');
+  const pi=page.locator('.card').filter({has:page.getByRole('heading',{name:/Pi/})});
+  const details=pi.locator('.offer-details').first();
+  await details.locator('summary').focus();await page.keyboard.press('Enter');
+  await expect(details.getByText(/單筆滿499元/)).toBeVisible();
+  await page.keyboard.press('Space');await expect(details).not.toHaveAttribute('open','');
+  await details.locator('summary').click();await expect(details.getByText(/單筆滿499元/)).toBeVisible();
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  const unicard=page.locator('.card').filter({has:page.getByRole('heading',{name:/Unicard/})});
+  await expect(unicard.getByText('UP選 訂閱制 149點/月',{exact:true})).toBeVisible();
 });
