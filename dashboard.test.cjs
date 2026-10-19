@@ -4,6 +4,19 @@ const fs=require('node:fs');
 const vm=require('node:vm');
 const html=fs.readFileSync(process.env.DASHBOARD_FILE||__dirname+'/'+(fs.existsSync(__dirname+'/2026信用卡回饋指南.html')?'2026信用卡回饋指南.html':'index.html'),'utf8');
 const script=html.match(/<script>([\s\S]*?)<\/script>/)[1].split('// 瀏覽統計：')[0];
+test('101 Infinite card has correct cash rates, distinct shopping points and pinned mall parking',()=>{
+  const b=boot(undefined,'2026-10-19T12:00:00+08:00');
+  assert.equal(b.run("cards.filter(c=>c.id==='ctbc-101').length"),1);
+  assert.equal(b.run("bestOffer(cards.find(c=>c.id==='ctbc-101'),'無腦日常').value"),1);
+  assert.equal(b.run("bestOffer(cards.find(c=>c.id==='ctbc-101'),'旅日').value"),1.2);
+  const out=b.run("renderCardBody(cards.find(c=>c.id==='ctbc-101'))");
+  assert.match(out,/1%現金＋2%101 POINT/);
+  assert.match(out,/每卡每日每車限1次/);
+  assert.ok(summaryOf(b,'ctbc-101').some(t=>t.rate==='4H'));
+  assert.doesNotMatch(out,/新卡點數10倍/);
+  b.run('excludeNew=false');
+  assert.match(b.run("renderCardBody(cards.find(c=>c.id==='ctbc-101'))"),/新卡點數10倍/);
+});
 test('CUBE Q4 birthday delivery offer is eligible in October',()=>{
   const b=boot(undefined,'2026-10-01T12:00:00+08:00');
   assert.equal(b.run("bestOffer(cards.find(c=>c.id==='cube'),'美食外送').value"),3.5);

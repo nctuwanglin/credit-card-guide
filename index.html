@@ -390,6 +390,106 @@
 <script>
 const cards = [
   {
+    "id": "ctbc-101",
+    "name": "中信 TAIPEI 101 鼎極無限卡",
+    "issuer": "中國信託銀行 · VISA Infinite",
+    "rail": "#ab8b48",
+    "url": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/NB2019073104-31/",
+    "valid": "官網權益至2026/12/31；新卡活動另見條件",
+    "end": "2026-12-31",
+    "tags": ["百貨","停車","無腦日常","旅日","旅韓","旅歐美"],
+    "pts": "現金＋101 POINT購物金；100點抵25元，100點為單位；一般點數至次年12/31、生日活動贈點30日",
+    "pointSources": ["https://www.taipei-101.com.tw/tw/shopping/point"],
+    "pointsCheckedAt": "2026-10-19",
+    "fee": "正、附卡各5,000元；2026年底前申辦並核卡享首年免（停用未滿一年重辦不適用）；次年免年費門檻待核實",
+    "feeSource": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/NB2019073104-31/",
+    "feeCheckedAt": "2026-10-19",
+    "tiers": [
+      {
+        "rate": "4H", "label": "台北101館內停車・過卡免費4小時", "highlight": true, "hi": true,
+        "sub": "鼎極卡不需當日消費門檻；不混用御璽卡2小時或其他卡等的滿額折抵規則。",
+        "cap": "每卡每日每車限1次，最多4小時", "capPeriod": "day",
+        "scenarios": ["停車"], "kind": "regular", "audience": "all", "end": "2026-12-31",
+        "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/NB2019073104-31/",
+        "checkedAt": "2026-10-19", "verifiedFields": "鼎極卡別／館內停車時數／門檻／次數／截止日"
+      },
+      {
+        "rate": "3", "label": "台北101館內最高3%（現金＋購物金）", "hi": true,
+        "sub": "1%現金＋2%101 POINT購物金；2%已含原會員點數，不再另加。每100元享價值2元購物金（8點），加贈部分每年2／5／8／11月底匯入會員APP。",
+        "condition": "限台北101館內適用消費；非所有百貨通用，購物金不得兌現",
+        "cap": "無上限", "scenarios": ["百貨"], "kind": "regular", "audience": "all", "end": "2026-12-31",
+        "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/NB2019073104-31/",
+        "checkedAt": "2026-10-19", "verifiedFields": "官網主圖與條款核實：1%現金＋2%購物金／無上限／截止日／排除項目"
+      },
+      {
+        "rate": "1", "label": "國內一般消費",
+        "sub": "現金回饋；分期付款及銀行公告不回饋交易不適用。",
+        "cap": "無上限", "scenarios": ["無腦日常"], "kind": "regular", "audience": "all", "end": "2026-12-31",
+        "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/NB2019073104-31/",
+        "checkedAt": "2026-10-19", "verifiedFields": "國內1%／無上限／分期排除／截止日"
+      },
+      {
+        "rate": "1.2", "label": "國外一般消費",
+        "sub": "現金回饋；分期付款及銀行公告不回饋交易不適用。",
+        "cap": "國外1.2%上限待確認", "scenarios": ["旅日","旅韓","旅歐美"],
+        "kind": "regular", "audience": "all", "end": "2026-12-31",
+        "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/NB2019073104-31/",
+        "checkedAt": "2026-10-19", "verifiedFields": "國外1.2%與截止日已核實；國外上限待確認"
+      },
+      {
+        "rate": "9折", "label": "觀景台門票與指定商品",
+        "sub": "全票、101F／快速通關加購及紀念商品9折；優惠票、團體票不適用，商品以現場公告為準。",
+        "cap": "門票每人每次最多4張；每位成人可攜2名6歲以下兒童免費",
+        "scenarios": [], "kind": "regular", "audience": "all", "end": "2026-12-31",
+        "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/NB2019073104-31/",
+        "checkedAt": "2026-10-19", "verifiedFields": "折扣／限購張數／排除／截止日"
+      },
+      {
+        "rate": "折扣", "label": "館內購物／餐飲／超市優惠",
+        "sub": "指定商店、餐廳及美食街9折至95折；Mia C’bon 95折，特價商品除外，以現場公告為準。",
+        "cap": "適用品項與次數上限待確認", "scenarios": ["百貨"],
+        "kind": "regular", "audience": "all", "end": "2026-12-31",
+        "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/NB2019073104-31/",
+        "checkedAt": "2026-10-19", "verifiedFields": "折扣範圍／截止日；個別店家上限待確認"
+      },
+      {
+        "rate": "權益", "label": "生日禮遇・點數與高空餐券",
+        "sub": "生日當月館內首三筆點數2倍。生日禮讚寄送月之前三個月（不含寄送月）館內累計滿6,000元贈雙人下午茶券，滿60,000元贈雙人午餐券，餐券擇優。",
+        "cap": "生日首3筆，每筆活動贈點上限1,000點、效期30日；餐券擇優1份",
+        "capSource": "https://www.taipei-101.com.tw/tw/shopping/point",
+        "scenarios": [], "kind": "regular", "audience": "all", "end": "2026-12-31",
+        "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/NB2019073104-31/",
+        "checkedAt": "2026-10-19", "verifiedFields": "生日條件／餐券門檻／點數上限效期／截止日"
+      },
+      {
+        "rate": "權益", "label": "新戶／新卡首刷禮",
+        "sub": "7/1–12/31收件、2027/1/15前核卡；核卡後30天一般消費滿3,000元，新戶贈3,200點（購物金800元），既有中信客戶首次辦101正卡贈1,000點（250元）。須2027/2/15前請款；新戶須申辦前一年未持中信正卡且首次辦101。",
+        "cap": "每戶正卡限領一次；新戶、新卡擇一不重複",
+        "scenarios": [], "kind": "limited", "audience": "new", "start": "2026-07-01", "end": "2026-12-31",
+        "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/NB2019073104-31/",
+        "checkedAt": "2026-10-19", "verifiedFields": "圖片與註腳：新戶／新卡條件／30天3,000元／點數／申辦與核卡期限"
+      },
+      {
+        "rate": "權益", "label": "新卡點數10倍（不是現金10%）",
+        "sub": "首次申辦101正卡；7/1–12/31收件、2027/1/15前核卡。核卡後3個月含核卡月，館內單筆滿3,000元享101 Point點數10倍（含原1倍），15日內須請款；附卡點數歸正卡。不自行推算與2%疊加率。",
+        "cap": "每筆加碼上限3,000點；依核卡月份，於2026/11月至2027/4月底前回饋",
+        "scenarios": [], "kind": "limited", "audience": "new", "start": "2026-07-01", "end": "2026-12-31",
+        "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/NB2019073104-31/",
+        "checkedAt": "2026-10-19", "verifiedFields": "圖片及註腳：首次申辦／單筆門檻／每筆加碼上限／期間"
+      },
+      {
+        "rate": "權益", "label": "首刷滿額・饗A Joy雙人晚餐",
+        "sub": "7/1–12/31收件、2027/1/15前核卡；核卡後90天一般消費累計101萬元，贈雙人晚餐券，須2027/4/15前請款。正附合計；需訂位及預付每人1,000元訂金，用餐後退還，特殊節日不適用。",
+        "cap": "雙人晚餐券1份；數量有限，兌完為止",
+        "scenarios": [], "kind": "limited", "audience": "new", "start": "2026-07-01", "end": "2026-12-31",
+        "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/NB2019073104-31/",
+        "checkedAt": "2026-10-19", "verifiedFields": "圖片及註腳：90天101萬元／禮遇／申辦、核卡及請款期限"
+      }
+    ],
+    "note": "館內2%購物金排除禮券、三聯式發票、點數／券折抵部分及官網列示店家（含停車管理處等）。另有國際購物合作、時尚活動邀請、卡氏美容優惠，依101現場規則。",
+    "alert": "市區停車與機場接送／停車／貴賓室的卡別、門檻及額度尚待核實，未套用新鼎極或尊榮鼎極數字；次年免年費門檻亦待確認。"
+  },
+  {
     "id": "unicard",
     "name": "玉山 Unicard",
     "issuer": "玉山銀行 · e point",
