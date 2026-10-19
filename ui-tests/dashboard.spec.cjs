@@ -1,4 +1,21 @@
 const {test,expect}=require('@playwright/test');
+test('merchant search ranks verified offers, handles currency, clears and fits mobile',async({page})=>{
+  await page.clock.setFixedTime(new Date('2026-10-19T12:00:00+08:00'));
+  await page.setViewportSize({width:320,height:844});await page.goto('/');
+  await page.locator('#merchantQuery').fill('淘寶');
+  const results=page.locator('#merchantResults');
+  await expect(results.locator('ol > li').first()).toContainText('10%');
+  await expect(results).toContainText('需先確認帳單請款幣別');
+  await page.locator('#merchantCurrency').selectOption('foreign');
+  await expect(results.locator('ol > li').nth(1)).toContainText('5.5%');
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+  await page.locator('#merchantQuery').fill('TAOBAO');
+  await expect(results.locator('ol > li').first()).toContainText('10%');
+  await page.locator('#merchantQuery').fill('沒有這家商店');
+  await expect(results.locator('ol > li')).toHaveCount(0);
+  await page.locator('#merchantQuery').fill('<img src=x onerror=alert(1)>');
+  await expect(results.locator('img')).toHaveCount(0);
+});
 test('open and closed detail states survive scenario, offer-filter and tab changes',async({page})=>{
   await page.goto('/');
   const card=page.locator('#card-unicard');
@@ -112,7 +129,7 @@ test('mobile: every scenario, headings, hidden audit records and filter states',
   for(const label of labels){
     await page.getByRole('button',{name:label,exact:true}).click();
     expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
-    expect(await page.locator('.card').count()).toBe(await page.getByRole('heading',{level:2}).count());
+    expect(await page.locator('.card').count()).toBe(await page.locator('#grid').getByRole('heading',{level:2}).count());
   }
   await page.getByRole('button',{name:'全部',exact:true}).click();
   await page.getByLabel('排除新戶／新卡專屬').uncheck();

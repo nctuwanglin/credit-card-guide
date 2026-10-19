@@ -293,6 +293,18 @@
   .grid{align-items:start}
   /* 摘要＋展開：卡面預設只列重點優惠，其餘收進原生 details */
   .ctiers{display:flex;flex-direction:column;gap:10px}
+  .merchant-search{margin:16px 0;padding:18px;border:1px solid var(--line);border-radius:14px;background:var(--paper,#fff)}
+  .merchant-search h2{margin:0 0 10px;font-size:17px}
+  .merchant-fields{display:flex;flex-wrap:wrap;gap:10px;align-items:end}
+  .merchant-fields label{display:flex;flex-direction:column;gap:5px;font-size:13px;flex:1;min-width:150px}
+  .merchant-fields input,.merchant-fields select,.merchant-search button{min-height:44px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);padding:8px;font:inherit;max-width:100%}
+  .merchant-hint,.merchant-status{font-size:12px;line-height:1.7;color:var(--muted)}
+  .merchant-list{padding:0;list-style:none;display:grid;gap:12px}
+  .merchant-item{padding:12px;border:1px solid var(--line);border-radius:10px;overflow-wrap:anywhere;font-size:13px;line-height:1.7}
+  .merchant-item h3{font-size:15px;margin:0 0 6px}
+  .merchant-item strong{color:var(--gain)}
+  .merchant-item a{display:inline-flex;align-items:center;min-height:44px}
+  .merchant-item summary{cursor:pointer;min-height:44px;display:flex;align-items:center}
   .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
   .ctier{display:flex;gap:12px;align-items:baseline}
   .ctier-info{flex:1;min-width:0}
@@ -378,6 +390,23 @@
     <label><input type="checkbox" checked onchange="excludeNew=this.checked;refreshOffers()">排除新戶／新卡專屬</label>
   </div>
   <div class="reco" id="reco"></div>
+  <section class="merchant-search" aria-labelledby="merchantHeading">
+    <h2 id="merchantHeading">商家搜尋・該刷哪張？</h2>
+    <div class="merchant-fields">
+      <label for="merchantQuery">商家名稱
+        <input id="merchantQuery" type="search" placeholder="例如：淘寶、蝦皮、Netflix" maxlength="80" aria-describedby="merchantHint" oninput="if(!event.isComposing)setMerchantQuery(this.value)" oncompositionend="setMerchantQuery(this.value)">
+      </label>
+      <label for="merchantCurrency">帳單請款幣別
+        <select id="merchantCurrency" onchange="merchantCurrency=this.value;renderMerchantSearch()">
+          <option value="unknown">尚不確定</option><option value="twd">新臺幣請款</option><option value="foreign">外幣請款</option>
+        </select>
+      </label>
+      <button type="button" onclick="clearMerchantSearch()">清除搜尋</button>
+    </div>
+    <p class="merchant-hint" id="merchantHint">以商家直接刷卡為前提，只比較已勾選的現金回饋卡；沿用上方限時／新戶設定，不受情境選擇限制。百分比未扣海外或平台手續費，也未計算已使用額度；電子錢包、分期與特殊商品須另核對。</p>
+    <p class="merchant-status" id="merchantStatus" role="status" aria-live="polite" aria-atomic="true"></p>
+    <div id="merchantResults"></div>
+  </section>
 </div>
 <div class="wrap"><div class="milestrip hide" id="mileStrip"></div></div>
 
@@ -1013,6 +1042,9 @@ const cards = [
             "rate": "3.3",
             "hi": true,
             "label": "網購／影音／AI／遊戲訂閱",
+            "merchants": ["淘寶","蝦皮","momo","PChome","酷澎","Netflix","Disney+","Steam","ChatGPT","Claude","Canva","Notion","iHerb"],
+            "merchantCheckedAt": "2026-10-19",
+            "merchantEnd": "2026-12-31",
             "sub": "蝦皮、momo、PChome、Netflix、Disney+、Steam、ChatGPT、Claude，新增iHerb、Olive Young、Canva、Notion",
             "cap": "每期帳單永久信用額度＋30万元消費額上限",
             "scenarios": [
@@ -1127,6 +1159,9 @@ const cards = [
           {
             "rate": "3.3",
             "label": "Chill刷：數位外掛",
+            "merchants": ["淘寶","蝦皮","酷澎","Uber Eats"],
+            "merchantCheckedAt": "2026-10-19",
+            "merchantEnd": "2026-12-31",
             "sub": "指定Apple直營、蝦皮、淘寶、酷澎、Uber Eats；與10%／5%適用通路不同。",
             "cap": "每期帳單永久信用額度＋30萬元消費額上限",
             "capPeriod": "statement",
@@ -1780,6 +1815,10 @@ const cards = [
         "rate": "10",
         "hi": true,
         "label": "生活玩家精選通路（加碼9%）",
+        "merchants": ["淘寶","蝦皮","Netflix","Disney+","Spotify","Uber Eats","foodpanda","Steam"],
+        "merchantCheckedAt": "2026-10-19",
+        "merchantEnd": "2026-12-31",
+        "merchantNote": "需指定星展帳戶自動扣繳；加碼9%上限500點／月，正附卡合併。不疊入新戶或其他支付加碼。",
         "sub": "遊戲：Garena、GASH、MyCard、巴哈姆特、Nintendo、PlayStation、Steam、App Store、Google Play／售票：寬宏、年代、拓元、KKTIX／影音：YouTube Premium、Netflix、Disney+、Spotify、Twitch、TikTok、愛奇藝、CatchPlay、KKBOX、KKTV、LiTV／外送餐飲：Uber Eats、foodpanda、麥當勞、肯德基、摩斯、拿坡里、Pizza Hut／網購玩具：蝦皮、淘寶、Animate、野獸國、POPMART、Logitech、NOVA、三創；另含鼎美、KHTOY、TOYSNAP、東海模型。須指定星展帳戶自扣，次月15日前入帳。",
         "cap": "9%加碼上限500點／消費日曆月；正附及同卡多卡合併 · 約可刷5,556",
         "scenarios": [
@@ -2118,6 +2157,11 @@ const cards = [
         "rate": "4",
         "hi": true,
         "label": "指定通路：國內4%／國外5.5%",
+        "merchants": ["淘寶","蝦皮","momo","PChome","酷澎","Netflix","Disney+","Spotify","Steam"],
+        "merchantCheckedAt": "2026-10-19",
+        "merchantEnd": "2027-07-31",
+        "merchantForeignRate": 5.5,
+        "merchantNote": "依帳單消費地金額及幣別判定：新臺幣請款4%，外幣請款5.5%；分期等非一般消費排除。正附歸戶，按日曆入帳月合計。",
         "sub": "MOMO、PChome、淘寶、蝦皮、酷澎、Netflix、Disney+、CatchPlay、Spotify、LINE TV、KKTV、KKBOX、Steam、PlayStation、Nintendo、Blizzard、Garena、MyCard、拓元tixCraft、KKTIX",
         "cap": "加碼3%上限300元／歸戶／日曆入帳月 · 可刷10,000",
         "scenarios": [
@@ -4509,8 +4553,74 @@ function renderMileStrip(){
     rows.map((r,i)=>`<a class="reco-pill" href="#card-${r.id}" onclick="focusCard('${r.id}')"><span class="reco-medal">${i+1}</span>${r.n}<b>NT$${r.v}/哩</b>${r.fee?`<span class="reco-cap">${r.fee}</span>`:''}</a>`).join('');
 }
 let recoExpanded=false;
+let merchantQuery='',merchantCurrency='unknown';
+const MERCHANT_ALIASES={
+  '淘寶':['淘宝','taobao'], '蝦皮':['虾皮','shopee'], '酷澎':['coupang'],
+  'momo':['momo購物網','富邦momo'], 'PChome':['pchome24h','pchome線上購物'],
+  'Netflix':['網飛','奈飛'], 'Disney+':['disneyplus','迪士尼+'],
+  'Spotify':[], 'Uber Eats':['ubereats'], 'foodpanda':['熊貓外送'],
+  'Steam':[], 'ChatGPT':['chatgpt'], 'Claude':[], 'Canva':[], 'Notion':[], 'iHerb':[]
+};
+function merchantNorm(s){return String(s).normalize('NFKC').toLowerCase().replace(/\s+/g,'').trim();}
+function merchantName(query){
+  const q=merchantNorm(query);
+  return Object.keys(MERCHANT_ALIASES).find(n=>[n,...MERCHANT_ALIASES[n]].some(a=>merchantNorm(a)===q))||null;
+}
+function escapeText(s){return String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+function merchantResults(query,currency='unknown'){
+  const name=merchantName(query), ranked=[],uncertain=[];
+  if(!name)return {name,ranked,uncertain};
+  for(const c of cards.filter(c=>!isMileCard(c)&&visibleCards.has(c.id))){
+    const candidates=[];
+    for(const o of cardOffers(c)){
+      const t=o.t;
+      if(!offerActive(t)||!offerAllowed(t))continue;
+      const explicit=t.merchants?.includes(name);
+      const mentions=merchantNorm([t.label,t.sub,t.condition].join(' ')).includes(merchantNorm(name));
+      if(!explicit&&!mentions)continue;
+      const hasCurrency=t.merchantForeignRate!=null;
+      const valid=explicit&&t.merchantCheckedAt&&t.merchantEnd&&!expired(t.merchantEnd)&&!t.suspendRanking&&/^\d+(\.\d+)?$/.test(t.rate);
+      if(!valid||(hasCurrency&&!['twd','foreign'].includes(currency))){
+        uncertain.push({c,t,s:o.s,reason:valid?'需先確認帳單請款幣別；新臺幣'+t.rate+'%／外幣'+t.merchantForeignRate+'%':'文字提及不等於已確認適用；未列入回饋排名'});
+        continue;
+      }
+      candidates.push({c,t,s:o.s,value:currency==='foreign'&&hasCurrency?t.merchantForeignRate:Number(t.rate)});
+    }
+    candidates.sort((a,b)=>b.value-a.value||compareCaps({cap:a.t.capSpend,period:a.t.capPeriod},{cap:b.t.capSpend,period:b.t.capPeriod}));
+    if(candidates.length)ranked.push(candidates[0]);
+  }
+  ranked.sort((a,b)=>b.value-a.value||compareCaps({cap:a.t.capSpend,period:a.t.capPeriod},{cap:b.t.capSpend,period:b.t.capPeriod})||a.c.name.localeCompare(b.c.name,'zh-Hant'));
+  return {name,ranked,uncertain:uncertain.filter(r=>!ranked.some(x=>x.c.id===r.c.id)).filter((r,i,a)=>a.findIndex(x=>x.c.id===r.c.id)===i)};
+}
+function setMerchantQuery(value){merchantQuery=String(value).slice(0,80);renderMerchantSearch();}
+function clearMerchantSearch(){merchantQuery='';document.getElementById('merchantQuery').value='';renderMerchantSearch();document.getElementById('merchantQuery').focus();}
+function showMerchantCard(id){
+  activeScenario='全部';
+  document.querySelectorAll('.chip').forEach(x=>{x.classList.toggle('active',x.textContent==='全部');x.setAttribute('aria-pressed',String(x.textContent==='全部'));});
+  renderReco();renderGrid();
+  const card=document.getElementById('card-'+id);card?.scrollIntoView({block:'start'});focusCard(id);
+}
+function renderMerchantSearch(){
+  const box=document.getElementById('merchantResults'),status=document.getElementById('merchantStatus');
+  if(!merchantQuery.trim()){box.innerHTML='';status.textContent='輸入商家全名或英文別名；目前先收錄淘寶、蝦皮等指定通路，未涵蓋全部卡片與商家。';return;}
+  const result=merchantResults(merchantQuery,merchantCurrency);
+  if(!result.name){status.textContent='尚未收錄這個商家，請使用完整名稱；沒有結果不代表沒有回饋。';box.innerHTML='';return;}
+  status.textContent=result.name+'：'+result.ranked.length+'張符合目前篩選的已收錄卡片；'+result.uncertain.length+'張需確認。依條件成立、未達上限前的回饋率排序，非扣費後淨回饋。';
+  box.innerHTML='<ol class="merchant-list">'+result.ranked.map((r,i)=>{
+    const t=r.t;
+    return '<li class="merchant-item"><h3>'+escapeText((i+1)+'. '+r.c.name)+' <strong>'+r.value+'%</strong></h3>'+
+      '<div>'+escapeText(r.s||t.label)+'</div><div>'+escapeText(t.condition||'適用條件請見下方完整說明')+'</div>'+
+      '<div>'+escapeText(t.cap||'上限待確認')+(t.capSpend!=null?' · 可刷約'+t.capSpend.toLocaleString()+'／'+escapeText(PERIOD_LABEL[t.capPeriod]||'週期待確認'):'')+'</div>'+
+      '<div>'+escapeText(t.merchantNote||'')+'</div><div>適用至 '+escapeText(t.end<t.merchantEnd?t.end:t.merchantEnd)+'</div>'+
+      '<details><summary>完整適用說明</summary><p>'+escapeText(t.sub)+'</p><p>'+escapeText(r.c.note)+'</p><p>'+escapeText(r.c.alert)+'</p><p>回饋形式：'+escapeText(r.c.pts)+'</p></details>'+
+      '<button type="button" onclick="showMerchantCard(\''+r.c.id+'\')">查看卡片</button> <a href="'+escapeText(t.source)+'" target="_blank" rel="noopener">官方活動條件</a></li>';
+  }).join('')+'</ol>'+
+  (result.uncertain.length?'<h3>待確認適用性（不參與排名）</h3><ul class="merchant-list">'+result.uncertain.map(r=>'<li class="merchant-item">'+escapeText(r.c.name)+'：'+escapeText(r.reason)+'<br>'+escapeText(r.t.merchantNote||r.t.label)+'</li>').join('')+'</ul>':'')+
+  (!result.ranked.length?'<p>目前沒有可排序的結果，可檢查選卡、請款幣別與優惠篩選；不代表其他卡片完全沒有回饋。</p>':'');
+}
 function toggleReco(){recoExpanded=!recoExpanded;renderReco();document.querySelector('.reco-more')?.focus();}
 function renderReco(){
+  renderMerchantSearch();
   const box = document.getElementById('reco');
   if(activeScenario==="全部"){ box.style.display='none'; box.innerHTML=''; return; }
   const ranked = tabCards()

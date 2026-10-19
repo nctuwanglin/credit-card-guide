@@ -29,6 +29,11 @@ function validateData({cards,scenarios}){
       if(!t.label||typeof t.rate!=='string'||!t.rate.trim())error('缺少 label/rate');
       else if(!/^\d+(\.\d+)?$/.test(t.rate)&&!(/^\d+(\.\d+)?元\/哩$/.test(t.rate)&&parseFloat(t.rate)>0)&&!/^\d+(H|折|點|元券)$/.test(t.rate)&&!/^\$\d+$/.test(t.rate)&&!['權益','折扣','☕'].includes(t.rate)&&!(/^\+\d+(\.\d+)?$/.test(t.rate)&&Array.isArray(t.scenarios)&&t.scenarios.length===0))error('rate 格式無效');
       if(!url(t.source))error('缺少有效 HTTPS source');
+      if(t.merchants!==undefined){
+        if(!Array.isArray(t.merchants)||!t.merchants.length||t.merchants.some(n=>typeof n!=='string'||!n.trim())||new Set(t.merchants).size!==t.merchants.length)error('merchants 必須是不重複的商家名稱陣列');
+        if(!date(t.merchantCheckedAt)||!date(t.merchantEnd))error('商家對應必須有有效查證與截止日期');
+      }
+      if(t.merchantForeignRate!==undefined&&(!t.merchants||!Number.isFinite(t.merchantForeignRate)||t.merchantForeignRate<=0))error('merchantForeignRate 必須是有商家對應的正有限數字');
       for(const k of ['capSource'])if(t[k]&&!url(t[k]))error(`${k} 連結無效`);
       for(const k of ['start','end','checkedAt'])if(t[k]!=null&&!date(t[k]))error(`${k} 日期無效`);
       if(date(t.start)&&date(t.end)&&t.start>t.end)error('起訖日期顛倒');

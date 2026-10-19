@@ -4,6 +4,35 @@ const fs=require('node:fs');
 const vm=require('node:vm');
 const html=fs.readFileSync(process.env.DASHBOARD_FILE||__dirname+'/'+(fs.existsSync(__dirname+'/2026信用卡回饋指南.html')?'2026信用卡回饋指南.html':'index.html'),'utf8');
 const script=html.match(/<script>([\s\S]*?)<\/script>/)[1].split('// 瀏覽統計：')[0];
+test('merchant search normalizes Taobao aliases and ranks only matched tiers',()=>{
+  const b=boot(undefined,'2026-10-19T12:00:00+08:00');
+  for(const q of ['淘寶','淘宝',' TAOBAO ','Ｔａｏｂａｏ']){
+    const result=b.run(`merchantResults(${JSON.stringify(q)},'twd')`);
+    assert.equal(result.ranked[0].c.id,'dbs-aov');
+    assert.equal(result.ranked[0].value,10);
+    assert.equal(result.ranked.find(r=>r.c.id==='richart').value,3.3);
+    assert.equal(result.ranked.find(r=>r.c.id==='linebank').value,4);
+    assert.ok(!result.ranked.some(r=>r.c.id==='ubear'));
+  }
+});
+test('merchant currency uncertainty is separated, and filters exclude ineligible offers',()=>{
+  const b=boot(undefined,'2026-10-19T12:00:00+08:00');
+  assert.ok(b.run("merchantResults('淘寶','unknown').uncertain.some(r=>r.c.id==='linebank')"));
+  assert.equal(b.run("merchantResults('淘寶','foreign').ranked.find(r=>r.c.id==='linebank').value"),5.5);
+  b.run("visibleCards.delete('dbs-aov')");
+  assert.ok(!b.run("merchantResults('淘寶','twd').ranked.some(r=>r.c.id==='dbs-aov')"));
+  b.run("showLimited=false");
+  assert.ok(b.run("merchantResults('淘寶','twd').ranked.every(r=>r.t.kind!=='limited')"));
+  const jan=boot(undefined,'2027-01-01T12:00:00+08:00');
+  assert.ok(!jan.run("merchantResults('淘寶','twd').ranked.some(r=>r.c.id==='dbs-aov')"));
+});
+test('unknown or unsafe search does not become a generic shopping ranking',()=>{
+  const b=boot();
+  assert.equal(b.run("merchantResults('不認識商家','twd').ranked.length"),0);
+  assert.equal(b.run("merchantResults('淘','twd').ranked.length"),0);
+  b.run("merchantQuery='<img src=x onerror=alert(1)>';renderMerchantSearch()");
+  assert.doesNotMatch(b.get('merchantResults').innerHTML,/<img/);
+});
 test('101 Infinite card has correct cash rates, distinct shopping points and pinned mall parking',()=>{
   const b=boot(undefined,'2026-10-19T12:00:00+08:00');
   assert.equal(b.run("cards.filter(c=>c.id==='ctbc-101').length"),1);

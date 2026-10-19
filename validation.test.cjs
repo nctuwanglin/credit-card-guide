@@ -1,6 +1,12 @@
 const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const {validateData}=require('./validate-data.cjs');
+test('merchant mappings require dates, unique names and a finite foreign rate',()=>{
+  for(const fields of [{merchants:['淘寶']},{merchants:['淘寶','淘寶'],merchantCheckedAt:'2026-10-19',merchantEnd:'2026-12-31'},{merchantForeignRate:Infinity}]){
+    const d=fixture();Object.assign(d.cards[0].tiers[0],fields);
+    assert.ok(validateData(d).errors.length);
+  }
+});
 function fixture(){return {scenarios:['全部','網購'],cards:[{id:'test',name:'測試銀行 測試卡',url:'https://bank.example/card',tags:['網購'],tiers:[{label:'網購',rate:'3',scenarios:['網購'],kind:'regular',audience:'all',start:'2026-01-01',end:'2026-12-31',source:'https://bank.example/offer',checkedAt:'2026-09-08',verifiedFields:'比率／日期',cap:'上限待確認'}]}]};}
 test('explicit unknown cap is permitted and reported as warning',()=>{const r=validateData(fixture());assert.equal(r.errors.length,0);assert.ok(r.warnings.length);});
 test('duplicate card ids and unknown scenarios fail validation',()=>{const d=fixture();d.cards.push(structuredClone(d.cards[0]));d.cards[0].tiers[0].scenarios=['不存在'];assert.match(validateData(d).errors.join('\n'),/重複|情境/);});
