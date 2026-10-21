@@ -29,11 +29,43 @@ function validateData({cards,scenarios}){
       if(!t.label||typeof t.rate!=='string'||!t.rate.trim())error('缺少 label/rate');
       else if(!/^\d+(\.\d+)?$/.test(t.rate)&&!(/^\d+(\.\d+)?元\/哩$/.test(t.rate)&&parseFloat(t.rate)>0)&&!/^\d+(H|折|點|元券)$/.test(t.rate)&&!/^\$\d+$/.test(t.rate)&&!['權益','折扣','☕'].includes(t.rate)&&!(/^\+\d+(\.\d+)?$/.test(t.rate)&&Array.isArray(t.scenarios)&&t.scenarios.length===0))error('rate 格式無效');
       if(!url(t.source))error('缺少有效 HTTPS source');
+      if(t.search!==undefined){
+        const s=t.search;
+        if(!s||!['verified','expired','nonMerchant','unresolved'].includes(s.status))error('search 狀態無效');
+        else {
+          if(typeof s.reason!=='string'||!s.reason.trim())error('search 缺少覆蓋說明');
+          if(!Array.isArray(s.merchants)||s.merchants.some(n=>typeof n!=='string'||!n.trim())||new Set(s.merchants).size!==s.merchants.length)error('search 商家清單無效');
+          if(s.aliases&&(typeof s.aliases!=='object'||Array.isArray(s.aliases)||Object.entries(s.aliases).some(([n,a])=>!s.merchants?.includes(n)||!Array.isArray(a)||a.some(x=>typeof x!=='string'||!x.trim()))))error('search 別名對應無效');
+          if(s.status==='verified'){
+            if(!s.merchants?.length||!url(s.source)||!date(s.checkedAt)||!date(s.end))error('verified search 缺少有效商家／來源／日期');
+            if(!Array.isArray(s.channels)||!s.channels.length||s.channels.some(x=>typeof x!=='string'||!x.trim()))error('search 缺少交易方式');
+            if(!['cash','mile','perk'].includes(s.searchType))error('searchType 無效');
+            if(s.searchType==='cash'&&!/^\d+(\.\d+)?$/.test(t.rate))error('cash search 回饋單位無效');
+            if(s.searchType==='mile'&&!/^\d+(\.\d+)?元\/哩$/.test(t.rate))error('mile search 回饋單位無效');
+            if(date(t.end)&&s.end>t.end)error('search 日期不能超過優惠期間');
+          }
+          if(s.status==='unresolved')warn('搜尋涵蓋待確認：'+s.reason);
+          if(s.gaps!==undefined&&(!Array.isArray(s.gaps)||s.gaps.some(x=>typeof x!=='string'||!x.trim())))error('search gaps 無效');
+          for(const gap of Array.isArray(s.gaps)?s.gaps:[])warn('搜尋部分缺口：'+gap);
+          if(s.rules!==undefined&&(!Array.isArray(s.rules)||!s.rules.length))error('search rules 無效');
+          const groups=Array.isArray(s.rules)?s.rules:[];
+          const groupKeys=new Set(['merchants','aliases','channels','qualifier','queryScenarios']);
+          for(const g of groups){
+            if(!g||Object.keys(g).some(k=>!groupKeys.has(k))){error('search group 不可覆寫回饋或查證欄位');continue;}
+            if(!Array.isArray(g.merchants)||!g.merchants.length||g.merchants.some(n=>!s.merchants?.includes(n))||new Set(g.merchants).size!==g.merchants.length)error('search group 商家無效');
+            if(!Array.isArray(g.channels)||!g.channels.length||g.channels.some(x=>typeof x!=='string'||!x.trim()))error('search group 交易方式無效');
+            if(g.aliases&&(typeof g.aliases!=='object'||Object.entries(g.aliases).some(([n,a])=>!g.merchants?.includes(n)||!Array.isArray(a)||a.some(x=>typeof x!=='string'||!x.trim()))))error('search group 別名無效');
+            if(g.qualifier!==undefined&&typeof g.qualifier!=='string')error('search group 條件無效');
+          }
+          if(groups.length&&s.merchants?.some(n=>!groups.some(g=>g?.merchants?.includes(n))))error('search 商家缺少分組規則');
+          for(const g of [s,...groups].filter(Boolean))for(const [n,scenario] of Object.entries(g.queryScenarios||{}))if(!g.merchants?.includes(n)||!Number.isFinite(t.scenarioRates?.[scenario]))error('search queryScenarios 必須引用既有回饋');
+        }
+      }
       if(t.merchants!==undefined){
         if(!Array.isArray(t.merchants)||!t.merchants.length||t.merchants.some(n=>typeof n!=='string'||!n.trim())||new Set(t.merchants).size!==t.merchants.length)error('merchants 必須是不重複的商家名稱陣列');
         if(!date(t.merchantCheckedAt)||!date(t.merchantEnd))error('商家對應必須有有效查證與截止日期');
       }
-      if(t.merchantForeignRate!==undefined&&(!t.merchants||!Number.isFinite(t.merchantForeignRate)||t.merchantForeignRate<=0))error('merchantForeignRate 必須是有商家對應的正有限數字');
+      if(t.merchantForeignRate!==undefined&&(!(t.merchants||t.search?.merchants?.length)||!Number.isFinite(t.merchantForeignRate)||t.merchantForeignRate<=0))error('merchantForeignRate 必須是有商家對應的正有限數字');
       for(const k of ['capSource'])if(t[k]&&!url(t[k]))error(`${k} 連結無效`);
       for(const k of ['start','end','checkedAt'])if(t[k]!=null&&!date(t[k]))error(`${k} 日期無效`);
       if(date(t.start)&&date(t.end)&&t.start>t.end)error('起訖日期顛倒');

@@ -4,10 +4,127 @@ const fs=require('node:fs');
 const vm=require('node:vm');
 const html=fs.readFileSync(process.env.DASHBOARD_FILE||__dirname+'/'+(fs.existsSync(__dirname+'/2026信用卡回饋指南.html')?'2026信用卡回饋指南.html':'index.html'),'utf8');
 const script=html.match(/<script>([\s\S]*?)<\/script>/)[1].split('// 瀏覽統計：')[0];
+test('Japan search compares all four cards in the same physical payment context',()=>{
+  const b=boot(undefined,'2026-10-22T12:00:00+08:00');
+  for(const q of ['日本消費','日本實體消費','日本實體一般消費']){
+    for(const [id,rate] of [['unicard',4.5],['fubon-j',6],['dbs-aov',5],['dbs-eco',5]])
+      assert.equal(b.run(`merchantResults(${JSON.stringify(q)}).ranked.find(r=>r.c.id==='${id}')?.value`),rate,q+'/'+id);
+  }
+  b.run("setMerchantQuery('日本消費')");
+  assert.match(b.get('merchantResults').innerHTML,/4\.5%/);
+  assert.match(b.get('merchantResults').innerHTML,/1,000|1000/);
+  assert.match(b.get('merchantResults').innerHTML,/UP選/);
+  assert.equal(b.run("merchantResults('日本消費','online').ranked.some(r=>['unicard','fubon-j','dbs-aov','dbs-eco'].includes(r.c.id))"),false);
+});
+test('domestic NTD direct channel retains verified M card Uber reward',()=>{
+  const b=boot(undefined,'2026-10-21T12:00:00+08:00');
+  assert.equal(b.run("merchantResults('Uber','國內臺幣請款').ranked.find(r=>r.c.id==='mcard')?.value"),6);
+  assert.equal(b.run("searchChannelMatches(['direct'],'LINE Pay')"),false);
+});
+test('render reconciles a channel removed by card selection',()=>{
+  const b=boot(undefined,'2026-10-21T12:00:00+08:00');
+  b.run("merchantQuery='Agoda';merchantChannel='平台／旅行社直接付款';visibleCards=new Set(['costco']);renderMerchantSearch()");
+  assert.equal(b.run('merchantChannel'),'direct');
+  assert.match(b.get('merchantResults').innerHTML,/3%/);
+});
+test('search result identifies the actual qualification tier without schemes',()=>{
+  const b=boot(undefined,'2026-10-21T12:00:00+08:00');
+  b.run("merchantQuery='國外一般消費';renderMerchantSearch()");
+  assert.match(b.get('merchantResults').innerHTML,/大戶Plus資格/);
+});
+function searchFixture(b,id,rate,search={},extra={}){
+  b.run(`cards.push(${JSON.stringify({id,name:'測試銀行 '+id,tags:/元\/哩/.test(rate)?['哩程']:[],tiers:[{label:id,rate,kind:'regular',audience:'all',start:'2026-01-01',end:'2026-12-31',cap:'無上限',source:'https://bank.example/offer',search:{status:'verified',reason:'官方指定',merchants:['測試商店'],aliases:{},source:'https://bank.example/offer',checkedAt:'2026-10-21',end:'2026-12-31',channels:['direct'],searchType:/元\/哩/.test(rate)?'mile':'cash',...search},...extra}]})});visibleCards.add(${JSON.stringify(id)})`);
+}
+test('merchant groups isolate channels, qualifiers and scenario-specific rates',()=>{
+  const b=boot(undefined,'2026-10-21T12:00:00+08:00');
+  searchFixture(b,'grouped','3',{merchants:['測試商店','另一商店'],rules:[
+    {merchants:['測試商店'],aliases:{'測試商店':['Group Hotel']},channels:['平台線上即時付款'],qualifier:'不含現場付款',queryScenarios:{'測試商店':'旅日'}},
+    {merchants:['另一商店'],channels:['physical'],qualifier:'限街邊門市'}
+  ]},{scenarioRates:{'旅日':4}});
+  assert.equal(b.run("merchantResults('Group Hotel').ranked.length"),0);
+  assert.equal(b.run("merchantResults('Group Hotel','physical').ranked.length"),0);
+  assert.equal(b.run("merchantResults('Group Hotel','平台線上即時付款').ranked[0]?.value"),4);
+  assert.equal(b.run("merchantResults('另一商店','平台線上即時付款').ranked.length"),0);
+  b.run("merchantQuery='Group Hotel';merchantChannel='平台線上即時付款';renderMerchantSearch()");
+  assert.match(b.get('merchantResults').innerHTML,/不含現場付款/);
+});
+test('structured search respects channels, exclusions, evidence and exact aliases',()=>{
+  const b=boot(undefined,'2026-10-21T12:00:00+08:00');
+  searchFixture(b,'online','6',{channels:['online'],aliases:{'測試商店':['Test Shop']}});
+  assert.equal(b.run("merchantResults('testshop').ranked.length"),0);
+  assert.equal(b.run("merchantResults('testshop','online').ranked[0]?.value"),6);
+  assert.equal(b.run("merchantResults('測試商店','physical').ranked.length"),0);
+  searchFixture(b,'blocked','99',{status:'unresolved'});
+  searchFixture(b,'expired-evidence','98',{end:'2026-09-30'});
+  assert.equal(b.run("merchantResults('測試商店').ranked.length"),0);
+  assert.equal(b.run("merchantResults('測試').ranked.length"),0);
+  assert.ok(b.run("merchantResults('測試').suggestions.includes('測試商店')"));
+});
+test('ambiguous alias gives candidates instead of selecting one merchant',()=>{
+  const b=boot();
+  searchFixture(b,'alias-a','3',{merchants:['商家甲'],aliases:{'商家甲':['同名']}});
+  searchFixture(b,'alias-b','9',{merchants:['商家乙'],aliases:{'商家乙':['同名']}});
+  assert.equal(b.run("merchantResults('同名').ranked.length"),0);
+  assert.equal(b.run("merchantResults('同名').suggestions.length"),2);
+});
+test('mile search sorts lower cost first and perks never enter percent ranking',()=>{
+  const b=boot();
+  searchFixture(b,'mile20','20元/哩');searchFixture(b,'mile10','10元/哩');
+  searchFixture(b,'parking','4H',{searchType:'perk'});
+  assert.equal(b.run("merchantResults('測試商店').perks[0]?.c.id"),'parking');
+  assert.equal(b.run("merchantResults('測試商店').ranked.length"),0);
+  b.run("activeTab='mile'");
+  assert.equal(b.run("merchantResults('測試商店').ranked[0]?.value"),10);
+  b.run("merchantQuery='測試商店';renderMerchantSearch()");
+  assert.match(b.get('merchantResults').innerHTML,/10元\/哩/);
+  assert.doesNotMatch(b.get('merchantResults').innerHTML,/10%/);
+});
+test('generic consumption query never applies to an arbitrary named merchant',()=>{
+  const b=boot();searchFixture(b,'general','2',{merchants:['國內一般消費']});
+  assert.equal(b.run("merchantResults('國內一般消費').ranked.find(r=>r.c.id==='general')?.value"),2);
+  assert.equal(b.run("merchantResults('未確認請款商家').ranked.length"),0);
+});
+test('more specific direct-payment channels retain applicable generic direct offers, never wallets',()=>{
+  const b=boot();searchFixture(b,'direct','3');searchFixture(b,'online','4',{channels:['online']});
+  assert.equal(b.run("merchantResults('測試商店','平台線上即時付款').ranked.length"),2);
+  assert.equal(b.run("merchantResults('測試商店','LINE Pay').ranked.length"),0);
+});
+for(const card of JSON.parse(html.match(/const cards =\s*(\[[\s\S]*?\n\]);/)[1]))test('search coverage: '+card.id+' positive, excluded channel, expiry and cap',()=>{
+  const offers=[...(card.tiers||[]),...(card.schemes||[]).flatMap(s=>s.tiers)];
+  let checked=0;
+  for(const t of offers.filter(t=>t.search?.status==='verified'&&!t.suspendRanking)){
+    const when=t.start&&t.start>'2026-10-21'?t.start:'2026-10-21';
+    if(when>t.search.end)continue;
+    const b=boot(undefined,when+'T12:00:00+08:00');
+    // Isolate one real tier so a higher tier cannot hide an invalid or missing match.
+    b.run(`cards.splice(0,cards.length,${JSON.stringify({...card,schemes:undefined,tiers:[t]})});visibleCards=new Set([${JSON.stringify(card.id)}]);excludeNew=false;activeTab=${JSON.stringify(card.tags.includes('哩程')?'mile':'cash')}`);
+    for(const r of t.search.rules||[t.search]){
+      const q=r.merchants[0],channel=r.channels[0];
+      const found=b.run(`merchantResults(${JSON.stringify(q)},${JSON.stringify(channel)})`);
+      const results=[...found.ranked,...found.perks];
+      assert.equal(results.length,1,card.id+'/'+t.label+'/'+q);
+      assert.equal(results[0].t.cap,t.cap);
+      assert.equal(b.run(`merchantResults(${JSON.stringify(q)},'不適用的付款方式').ranked.length+merchantResults(${JSON.stringify(q)},'不適用的付款方式').perks.length`),0);
+      checked++;
+    }
+    b.run("cards[0].tiers[0].search.end='2020-01-01'");
+    const r=t.search.rules?.[0]||t.search;
+    assert.equal(b.run(`(()=>{const r=merchantResults(${JSON.stringify(r.merchants[0])},${JSON.stringify(r.channels[0])});return r.ranked.length+r.perks.length})()`),0);
+  }
+  assert.ok(checked,card.id+' has no verified searchable offer');
+});
+test('Agoda matches Unicard and merchant data is searchable without a separate alias entry',()=>{
+  const b=boot(undefined,'2026-10-21T12:00:00+08:00');
+  for(const q of ['Agoda','agoda',' AGODA ','安可達']){
+    assert.equal(b.run(`merchantResults(${JSON.stringify(q)},'平台線上即時付款').ranked.find(r=>r.c.id==='unicard')?.value`),4.5);
+  }
+  b.run("const st=cards.find(c=>c.id==='unicard').schemes[1].tiers[0].search;st.merchants.push('測試新商家');st.rules[0].merchants.push('測試新商家')");
+  assert.equal(b.run("merchantResults('測試新商家').ranked[0]?.value"),3);
+});
 test('merchant search normalizes Taobao aliases and ranks only matched tiers',()=>{
   const b=boot(undefined,'2026-10-19T12:00:00+08:00');
   for(const q of ['淘寶','淘宝',' TAOBAO ','Ｔａｏｂａｏ']){
-    const result=b.run(`merchantResults(${JSON.stringify(q)},'twd')`);
+    const result=b.run(`merchantResults(${JSON.stringify(q)})`);
     assert.equal(result.ranked[0].c.id,'dbs-aov');
     assert.equal(result.ranked[0].value,10);
     assert.equal(result.ranked.find(r=>r.c.id==='richart').value,3.3);
@@ -15,21 +132,22 @@ test('merchant search normalizes Taobao aliases and ranks only matched tiers',()
     assert.ok(!result.ranked.some(r=>r.c.id==='ubear'));
   }
 });
-test('merchant currency uncertainty is separated, and filters exclude ineligible offers',()=>{
+test('merchant dual currency rates rank conservatively and filters exclude ineligible offers',()=>{
   const b=boot(undefined,'2026-10-19T12:00:00+08:00');
-  assert.ok(b.run("merchantResults('淘寶','unknown').uncertain.some(r=>r.c.id==='linebank')"));
-  assert.equal(b.run("merchantResults('淘寶','foreign').ranked.find(r=>r.c.id==='linebank').value"),5.5);
+  assert.equal(b.run("merchantResults('淘寶').ranked.find(r=>r.c.id==='linebank')?.value"),4);
+  b.run("merchantQuery='淘寶';renderMerchantSearch()");
+  assert.match(b.get('merchantResults').innerHTML,/新臺幣 4%／外幣 5.5%/);
   b.run("visibleCards.delete('dbs-aov')");
-  assert.ok(!b.run("merchantResults('淘寶','twd').ranked.some(r=>r.c.id==='dbs-aov')"));
+  assert.ok(!b.run("merchantResults('淘寶').ranked.some(r=>r.c.id==='dbs-aov')"));
   b.run("showLimited=false");
-  assert.ok(b.run("merchantResults('淘寶','twd').ranked.every(r=>r.t.kind!=='limited')"));
+  assert.ok(b.run("merchantResults('淘寶').ranked.every(r=>r.t.kind!=='limited')"));
   const jan=boot(undefined,'2027-01-01T12:00:00+08:00');
-  assert.ok(!jan.run("merchantResults('淘寶','twd').ranked.some(r=>r.c.id==='dbs-aov')"));
+  assert.ok(!jan.run("merchantResults('淘寶').ranked.some(r=>r.c.id==='dbs-aov')"));
 });
 test('unknown or unsafe search does not become a generic shopping ranking',()=>{
   const b=boot();
-  assert.equal(b.run("merchantResults('不認識商家','twd').ranked.length"),0);
-  assert.equal(b.run("merchantResults('淘','twd').ranked.length"),0);
+  assert.equal(b.run("merchantResults('不認識商家').ranked.length"),0);
+  assert.equal(b.run("merchantResults('淘').ranked.length"),0);
   b.run("merchantQuery='<img src=x onerror=alert(1)>';renderMerchantSearch()");
   assert.doesNotMatch(b.get('merchantResults').innerHTML,/<img/);
 });
@@ -279,7 +397,7 @@ test('Unicard summary retains plan names and full conditions without hover',()=>
   const b=boot(undefined,'2026-10-03T12:00:00+08:00');
   const out=b.run("renderCardBody(cards.find(c=>c.id==='unicard'))");
   assert.match(out,/UP選 訂閱制 149點\/月/);
-  assert.match(out,/>需UP選資格或付149點／月</);
+  assert.match(out,/需訂閱UP選（符合資格或付149點／月）/);
 });
 const OCT='2026-10-01T12:00:00+08:00';
 function summaryOf(b,id,scn='全部'){

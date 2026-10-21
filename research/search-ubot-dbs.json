@@ -1,0 +1,2548 @@
+[
+  {
+    "cardId": "dbs-aov",
+    "scheme": null,
+    "label": "國內外一般消費（基本）",
+    "status": "verified",
+    "reason": "官方一般消費類別；不自動匹配任意商家。",
+    "merchants": [
+      "國內一般消費",
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "source": "https://www.dbs.com.tw/personal-zh/cards/dbs-aov/index.html",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "國內一般消費",
+          "國外一般消費"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "僅合格一般消費；不含分期及銀行排除項目，仍須達卡片任務"
+      }
+    ]
+  },
+  {
+    "cardId": "dbs-aov",
+    "scheme": null,
+    "label": "指定地區實體消費（加碼4%，歐洲5%）",
+    "status": "verified",
+    "reason": "指定地區面對面外幣條件已核；不映射任意品牌。",
+    "merchants": [
+      "韓國實體一般消費",
+      "泰國實體一般消費",
+      "新加坡實體一般消費",
+      "美洲實體一般消費",
+      "日本實體一般消費"
+    ],
+    "aliases": {},
+    "source": "https://www.dbs.com.tw/personal-zh/cards/dbs-aov/index.html",
+    "end": "2026-12-31",
+    "channels": [
+      "指定地區實體外幣",
+      "physical"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "韓國實體一般消費",
+          "泰國實體一般消費",
+          "新加坡實體一般消費",
+          "美洲實體一般消費"
+        ],
+        "channels": [
+          "指定地區實體外幣"
+        ],
+        "qualifier": "限實體卡／Apple Pay／Samsung Pay；收海外手續費，不含儲值"
+      },
+      {
+        "merchants": [
+          "日本實體一般消費"
+        ],
+        "channels": [
+          "physical"
+        ],
+        "qualifier": "限日本實體卡／Apple Pay／Samsung Pay外幣面對面消費且收海外手續費；不含網購與儲值"
+      }
+    ],
+    "gaps": [
+      "歐洲基本回饋排除與加碼的總率差異尚需獨立建模。"
+    ]
+  },
+  {
+    "cardId": "dbs-aov",
+    "scheme": null,
+    "label": "生活玩家精選通路（加碼9%）",
+    "status": "verified",
+    "reason": "官方精選通路表完整具名名單；不延伸第三方支付。",
+    "merchants": [
+      "App Store",
+      "Google Play",
+      "Garena",
+      "GASH",
+      "MyCard",
+      "Nintendo",
+      "PlayStation",
+      "Steam",
+      "巴哈姆特",
+      "Logitech",
+      "NOVA",
+      "三創生活園區",
+      "寬宏售票",
+      "KKTIX",
+      "年代售票",
+      "拓元售票",
+      "Animate",
+      "野獸國",
+      "POPMART",
+      "鼎美玩具",
+      "KHTOY",
+      "TOYSNAP",
+      "東海模型",
+      "YouTube Premium",
+      "Netflix",
+      "Disney+",
+      "Twitch",
+      "TikTok",
+      "愛奇藝",
+      "CatchPlay",
+      "KKTV",
+      "LiTV",
+      "Spotify",
+      "KKBOX",
+      "蝦皮",
+      "淘寶",
+      "Uber Eats",
+      "foodpanda",
+      "麥當勞",
+      "肯德基",
+      "摩斯漢堡",
+      "拿坡里",
+      "Pizza Hut"
+    ],
+    "aliases": {},
+    "source": "https://www.dbs.com.tw/personal-zh/cards/dbs-aov/index.html",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "App Store",
+          "Google Play",
+          "Garena",
+          "GASH",
+          "MyCard",
+          "Nintendo",
+          "PlayStation",
+          "Steam",
+          "巴哈姆特",
+          "Logitech",
+          "NOVA",
+          "三創生活園區",
+          "寬宏售票",
+          "KKTIX",
+          "年代售票",
+          "拓元售票",
+          "Animate",
+          "野獸國",
+          "POPMART",
+          "鼎美玩具",
+          "KHTOY",
+          "TOYSNAP",
+          "東海模型",
+          "YouTube Premium",
+          "Netflix",
+          "Disney+",
+          "Twitch",
+          "TikTok",
+          "愛奇藝",
+          "CatchPlay",
+          "KKTV",
+          "LiTV",
+          "Spotify",
+          "KKBOX",
+          "蝦皮",
+          "淘寶",
+          "Uber Eats",
+          "foodpanda",
+          "麥當勞",
+          "肯德基",
+          "摩斯漢堡",
+          "拿坡里",
+          "Pizza Hut"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "須指定星展帳戶自扣；限指定通路直接請款"
+      }
+    ]
+  },
+  {
+    "cardId": "dbs-aov",
+    "scheme": null,
+    "label": "星耀領航：新取得星耀資格之LINE Pay",
+    "status": "verified",
+    "reason": "支付服務查詢；不匹配任意合作店直刷。",
+    "merchants": [
+      "LINE Pay"
+    ],
+    "aliases": {},
+    "source": "https://www.dbs.com.tw/personal-zh/EA/starway/index.html?cid=tw:zh:cbg:cen:dis:own:acq:ban:casa:dpst:aovstarway:na:na",
+    "end": "2026-12-31",
+    "channels": [
+      "LINE Pay"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "LINE Pay"
+        ],
+        "channels": [
+          "LINE Pay"
+        ],
+        "qualifier": "首次星耀資格、維持資產30萬及每月任務／登錄；以LINE Pay請款名稱認列"
+      }
+    ]
+  },
+  {
+    "cardId": "dbs-aov",
+    "scheme": null,
+    "label": "星願集刷：每5筆滿888元合格交易加碼",
+    "status": "verified",
+    "reason": "一般消費成組活動，以額外權益顯示，不把單筆任意消費列總回饋。",
+    "merchants": [
+      "國內一般消費",
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "source": "https://www.dbs.com.tw/personal-zh/cards/offers/2026q3atl/index.html",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "國內一般消費",
+          "國外一般消費"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "額外加碼非總率；每月登錄、每筆888元且成組5筆，名額依排序"
+      }
+    ]
+  },
+  {
+    "cardId": "dbs-aov",
+    "scheme": null,
+    "label": "星饗世界：海外實體餐飲活動",
+    "status": "verified",
+    "reason": "餐飲類別與面對面交易條件，不按任意餐廳品牌推定MCC。",
+    "merchants": [
+      "海外實體餐飲"
+    ],
+    "aliases": {},
+    "source": "https://www.dbs.com.tw/personal-zh/cards/offers/20260912ovsdining/index.html",
+    "end": "2026-12-31",
+    "channels": [
+      "海外實體餐廳"
+    ],
+    "searchType": "perk",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "海外實體餐飲"
+        ],
+        "channels": [
+          "海外實體餐廳"
+        ],
+        "qualifier": "額外加碼非總率；當月登錄，每日最高金額一筆，名額依排序"
+      }
+    ]
+  },
+  {
+    "cardId": "dbs-aov",
+    "scheme": null,
+    "label": "摘星假期：國旅滿2萬元限量回饋",
+    "status": "verified",
+    "reason": "完整三大類通路，滿額限量活動不併入總率排名。",
+    "merchants": [
+      "國內飯店住宿",
+      "立榮航空",
+      "華信航空",
+      "台灣高鐵",
+      "和運租車",
+      "iRent",
+      "格上租車",
+      "中油直營",
+      "全國加油",
+      "台塑石油加油站",
+      "台亞加油站",
+      "六福村主題樂園",
+      "麗寶樂園",
+      "九族文化村",
+      "劍湖山世界主題樂園",
+      "義大遊樂世界",
+      "小人國",
+      "遠雄海洋公園",
+      "Xpark",
+      "國立海生館",
+      "Klook",
+      "KKday"
+    ],
+    "aliases": {},
+    "source": "https://www.dbs.com.tw/personal-zh/cards/offers/domestictravel/index.html",
+    "end": "2026-12-31",
+    "channels": [
+      "飯店直接住宿付款",
+      "官方直接購票／服務",
+      "國內臺幣請款"
+    ],
+    "searchType": "perk",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "國內飯店住宿"
+        ],
+        "channels": [
+          "飯店直接住宿付款"
+        ],
+        "qualifier": "額外活動；限臺灣臺幣住宿MCC，不含平台、餐廳及長租"
+      },
+      {
+        "merchants": [
+          "立榮航空",
+          "華信航空",
+          "台灣高鐵",
+          "和運租車",
+          "iRent",
+          "格上租車",
+          "中油直營",
+          "全國加油",
+          "台塑石油加油站",
+          "台亞加油站",
+          "六福村主題樂園",
+          "麗寶樂園",
+          "九族文化村",
+          "劍湖山世界主題樂園",
+          "義大遊樂世界",
+          "小人國",
+          "遠雄海洋公園",
+          "Xpark",
+          "國立海生館"
+        ],
+        "channels": [
+          "官方直接購票／服務"
+        ],
+        "qualifier": "額外活動；月滿2萬、登錄且依金額排名限500名"
+      },
+      {
+        "merchants": [
+          "Klook",
+          "KKday"
+        ],
+        "channels": [
+          "國內臺幣請款"
+        ],
+        "qualifier": "額外活動；月滿2萬、登錄且依金額排名限500名"
+      }
+    ]
+  },
+  {
+    "cardId": "dbs-eco",
+    "scheme": null,
+    "label": "國內外一般消費（基本）",
+    "status": "verified",
+    "reason": "官方一般消費類別；不自動匹配任意商家。",
+    "merchants": [
+      "國內一般消費",
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "source": "https://www.dbs.com.tw/personal-zh/cards/dbs_eco/index.html",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "國內一般消費",
+          "國外一般消費"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "僅合格一般消費；不含分期及銀行排除項目，仍須達卡片任務"
+      }
+    ]
+  },
+  {
+    "cardId": "dbs-eco",
+    "scheme": null,
+    "label": "指定地區實體 ＋4%",
+    "status": "verified",
+    "reason": "指定地區面對面外幣條件已核；不映射任意品牌。",
+    "merchants": [
+      "韓國實體一般消費",
+      "泰國實體一般消費",
+      "新加坡實體一般消費",
+      "美洲實體一般消費",
+      "日本實體一般消費"
+    ],
+    "aliases": {},
+    "source": "https://www.dbs.com.tw/personal-zh/cards/dbs_eco/index.html",
+    "end": "2026-12-31",
+    "channels": [
+      "指定地區實體外幣",
+      "physical"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "韓國實體一般消費",
+          "泰國實體一般消費",
+          "新加坡實體一般消費",
+          "美洲實體一般消費"
+        ],
+        "channels": [
+          "指定地區實體外幣"
+        ],
+        "qualifier": "限實體卡／Apple Pay／Samsung Pay；收海外手續費，不含儲值"
+      },
+      {
+        "merchants": [
+          "日本實體一般消費"
+        ],
+        "channels": [
+          "physical"
+        ],
+        "qualifier": "限日本實體卡／Apple Pay／Samsung Pay外幣面對面消費且收海外手續費；不含網購與儲值"
+      }
+    ],
+    "gaps": [
+      "歐洲基本回饋排除與加碼的總率差異尚需獨立建模。"
+    ]
+  },
+  {
+    "cardId": "dbs-eco",
+    "scheme": null,
+    "label": "eco 消費 ＋9%",
+    "status": "verified",
+    "reason": "官方列出的支持企業與指定資費；不推定第三方代收適用。",
+    "merchants": [
+      "Tesla充電",
+      "Gogoro電池資費",
+      "鮮乳坊",
+      "茶籽堂",
+      "禾乃川",
+      "玩轉學校",
+      "直接跟農夫買",
+      "綠藤生機",
+      "艾瑪絲",
+      "覺亞",
+      "CILU",
+      "甘樂文創",
+      "EVOPURE+",
+      "臺灣藍鵲茶與石虎米"
+    ],
+    "aliases": {},
+    "source": "https://www.dbs.com.tw/personal-zh/cards/dbs_eco/index.html",
+    "end": "2026-12-31",
+    "channels": [
+      "官方充電／電池資費",
+      "direct"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "Tesla充電",
+          "Gogoro電池資費"
+        ],
+        "channels": [
+          "官方充電／電池資費"
+        ],
+        "qualifier": "不含購車；須帳單顯示指定名稱"
+      },
+      {
+        "merchants": [
+          "鮮乳坊",
+          "茶籽堂",
+          "禾乃川",
+          "玩轉學校",
+          "直接跟農夫買",
+          "綠藤生機",
+          "艾瑪絲",
+          "覺亞",
+          "CILU",
+          "甘樂文創",
+          "EVOPURE+",
+          "臺灣藍鵲茶與石虎米"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "限指定商家請款，不含LINE Pay、街口與分期"
+      }
+    ]
+  },
+  {
+    "cardId": "dbs-eco",
+    "scheme": null,
+    "label": "「刷出星級生活」行動支付加碼（需每月登錄）",
+    "status": "expired",
+    "reason": "本層已過期，未套用其他活動的續期；不參與搜尋推薦。",
+    "merchants": [],
+    "aliases": {},
+    "source": "https://www.dbs.com.tw/personal-zh/cards/offers/2026q2atl/index.html",
+    "end": "2026-08-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "dbs-eco",
+    "scheme": null,
+    "label": "新戶 LINE Pay 加碼（限新戶）",
+    "status": "expired",
+    "reason": "本層已過期，未套用其他活動的續期；不參與搜尋推薦。",
+    "merchants": [],
+    "aliases": {},
+    "source": "https://www.dbs.com.tw/personal-zh/cards/dbs_eco/index.html",
+    "end": "2026-09-30",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "dbs-eco",
+    "scheme": null,
+    "label": "星耀領航：新取得星耀資格之LINE Pay",
+    "status": "verified",
+    "reason": "支付服務查詢；不匹配任意合作店直刷。",
+    "merchants": [
+      "LINE Pay"
+    ],
+    "aliases": {},
+    "source": "https://www.dbs.com.tw/personal-zh/EA/starway/index.html?cid=tw:zh:cbg:cen:dis:own:acq:ban:casa:dpst:aovstarway:na:na",
+    "end": "2026-12-31",
+    "channels": [
+      "LINE Pay"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "LINE Pay"
+        ],
+        "channels": [
+          "LINE Pay"
+        ],
+        "qualifier": "首次星耀資格、維持資產30萬及每月任務／登錄；以LINE Pay請款名稱認列"
+      }
+    ]
+  },
+  {
+    "cardId": "dbs-eco",
+    "scheme": null,
+    "label": "星願集刷：每5筆滿888元合格交易加碼",
+    "status": "verified",
+    "reason": "一般消費成組活動，以額外權益顯示，不把單筆任意消費列總回饋。",
+    "merchants": [
+      "國內一般消費",
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "source": "https://www.dbs.com.tw/personal-zh/cards/offers/2026q3atl/index.html",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "國內一般消費",
+          "國外一般消費"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "額外加碼非總率；每月登錄、每筆888元且成組5筆，名額依排序"
+      }
+    ]
+  },
+  {
+    "cardId": "dbs-eco",
+    "scheme": null,
+    "label": "星饗世界：海外實體餐飲活動",
+    "status": "verified",
+    "reason": "餐飲類別與面對面交易條件，不按任意餐廳品牌推定MCC。",
+    "merchants": [
+      "海外實體餐飲"
+    ],
+    "aliases": {},
+    "source": "https://www.dbs.com.tw/personal-zh/cards/offers/20260912ovsdining/index.html",
+    "end": "2026-12-31",
+    "channels": [
+      "海外實體餐廳"
+    ],
+    "searchType": "perk",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "海外實體餐飲"
+        ],
+        "channels": [
+          "海外實體餐廳"
+        ],
+        "qualifier": "額外加碼非總率；當月登錄，每日最高金額一筆，名額依排序"
+      }
+    ]
+  },
+  {
+    "cardId": "dbs-eco",
+    "scheme": null,
+    "label": "摘星假期：國旅滿2萬元限量回饋",
+    "status": "verified",
+    "reason": "完整三大類通路，滿額限量活動不併入總率排名。",
+    "merchants": [
+      "國內飯店住宿",
+      "立榮航空",
+      "華信航空",
+      "台灣高鐵",
+      "和運租車",
+      "iRent",
+      "格上租車",
+      "中油直營",
+      "全國加油",
+      "台塑石油加油站",
+      "台亞加油站",
+      "六福村主題樂園",
+      "麗寶樂園",
+      "九族文化村",
+      "劍湖山世界主題樂園",
+      "義大遊樂世界",
+      "小人國",
+      "遠雄海洋公園",
+      "Xpark",
+      "國立海生館",
+      "Klook",
+      "KKday"
+    ],
+    "aliases": {},
+    "source": "https://www.dbs.com.tw/personal-zh/cards/offers/domestictravel/index.html",
+    "end": "2026-12-31",
+    "channels": [
+      "飯店直接住宿付款",
+      "官方直接購票／服務",
+      "國內臺幣請款"
+    ],
+    "searchType": "perk",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "國內飯店住宿"
+        ],
+        "channels": [
+          "飯店直接住宿付款"
+        ],
+        "qualifier": "額外活動；限臺灣臺幣住宿MCC，不含平台、餐廳及長租"
+      },
+      {
+        "merchants": [
+          "立榮航空",
+          "華信航空",
+          "台灣高鐵",
+          "和運租車",
+          "iRent",
+          "格上租車",
+          "中油直營",
+          "全國加油",
+          "台塑石油加油站",
+          "台亞加油站",
+          "六福村主題樂園",
+          "麗寶樂園",
+          "九族文化村",
+          "劍湖山世界主題樂園",
+          "義大遊樂世界",
+          "小人國",
+          "遠雄海洋公園",
+          "Xpark",
+          "國立海生館"
+        ],
+        "channels": [
+          "官方直接購票／服務"
+        ],
+        "qualifier": "額外活動；月滿2萬、登錄且依金額排名限500名"
+      },
+      {
+        "merchants": [
+          "Klook",
+          "KKday"
+        ],
+        "channels": [
+          "國內臺幣請款"
+        ],
+        "qualifier": "額外活動；月滿2萬、登錄且依金額排名限500名"
+      }
+    ]
+  },
+  {
+    "cardId": "linebank",
+    "scheme": null,
+    "label": "國內一般消費",
+    "status": "verified",
+    "reason": "官方一般消費類別；不自動匹配任意商家。",
+    "merchants": [
+      "國內一般消費"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/LINEBankCard/index.htm",
+    "end": "2027-07-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "國內一般消費"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "僅合格一般消費；不含分期及銀行排除項目，仍須達卡片任務"
+      }
+    ]
+  },
+  {
+    "cardId": "linebank",
+    "scheme": null,
+    "label": "國外一般消費",
+    "status": "verified",
+    "reason": "官方一般消費類別；不自動匹配任意商家。",
+    "merchants": [
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/LINEBankCard/index.htm",
+    "end": "2027-07-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "國外一般消費"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "僅合格一般消費；不含分期及銀行排除項目，仍須達卡片任務"
+      }
+    ]
+  },
+  {
+    "cardId": "linebank",
+    "scheme": null,
+    "label": "指定通路：國內4%／國外5.5%",
+    "status": "verified",
+    "reason": "官方20家完整名單及臺幣／外幣定義核對，不加入自扣禮。",
+    "merchants": [
+      "momo",
+      "PChome",
+      "淘寶",
+      "蝦皮",
+      "酷澎",
+      "Netflix",
+      "Disney+",
+      "CatchPlay",
+      "Spotify",
+      "LINE TV",
+      "KKTV",
+      "KKBOX",
+      "Steam",
+      "PlayStation",
+      "Nintendo",
+      "Blizzard",
+      "Garena",
+      "MyCard",
+      "拓元售票",
+      "KKTIX"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/LINEBankCard/index.htm",
+    "end": "2027-07-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "momo",
+          "PChome",
+          "淘寶",
+          "蝦皮",
+          "酷澎",
+          "Netflix",
+          "Disney+",
+          "CatchPlay",
+          "Spotify",
+          "LINE TV",
+          "KKTV",
+          "KKBOX",
+          "Steam",
+          "PlayStation",
+          "Nintendo",
+          "Blizzard",
+          "Garena",
+          "MyCard",
+          "拓元售票",
+          "KKTIX"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "限指定平台直接請款；雙幣別以較低比例排序"
+      }
+    ]
+  },
+  {
+    "cardId": "linebank",
+    "scheme": null,
+    "label": "Uber Eats／foodpanda外送活動",
+    "status": "verified",
+    "reason": "已逐條核對202607delivery活動，商家帳單名稱及請款期限沿用tier。",
+    "merchants": [
+      "Uber Eats",
+      "foodpanda"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/aws_act/2026/202607delivery/index.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "Uber Eats",
+          "foodpanda"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "須當月登錄；限App外送，不含Uber One或搭車"
+      }
+    ]
+  },
+  {
+    "cardId": "linebank",
+    "scheme": null,
+    "label": "第四季指定旅遊滿額禮（最高9,500元）",
+    "status": "verified",
+    "reason": "完整官方指定旅遊及旅行社清單；多門檻刷卡金獨立權益不換算固定百分比。",
+    "merchants": [
+      "Agoda",
+      "Hotels.com",
+      "Booking.com",
+      "樂天旅遊",
+      "Airbnb",
+      "KKday",
+      "Klook",
+      "Trip.com",
+      "聯邦X肯驛線上旅遊商城",
+      "易遊網",
+      "易飛網",
+      "雄獅旅遊",
+      "可樂旅遊",
+      "東南旅遊",
+      "鳳凰旅遊",
+      "大興旅遊",
+      "五福旅遊",
+      "山富旅遊",
+      "太平洋旅遊",
+      "世邦旅遊",
+      "良友旅遊",
+      "長汎旅遊",
+      "信安旅遊",
+      "百威旅遊",
+      "理想旅遊",
+      "燦星旅遊",
+      "加利利旅行社",
+      "清晨旅行社",
+      "暢遊旅行",
+      "飛揚旅行社",
+      "凱旋旅行社",
+      "巨大旅遊",
+      "典華旅行社",
+      "誠翔運通旅行社",
+      "賓士旅行社",
+      "華友旅行社",
+      "旅天下直營",
+      "利百加旅遊",
+      "世興旅行社",
+      "旅遊家旅行社",
+      "航空公司購票",
+      "飯店住宿"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/aws_act/2026/202610travel/index.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "平台／旅行社直接付款",
+      "指定MCC直接付款"
+    ],
+    "searchType": "perk",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "Agoda",
+          "Hotels.com",
+          "Booking.com",
+          "樂天旅遊",
+          "Airbnb",
+          "KKday",
+          "Klook",
+          "Trip.com",
+          "聯邦X肯驛線上旅遊商城",
+          "易遊網",
+          "易飛網",
+          "雄獅旅遊",
+          "可樂旅遊",
+          "東南旅遊",
+          "鳳凰旅遊",
+          "大興旅遊",
+          "五福旅遊",
+          "山富旅遊",
+          "太平洋旅遊",
+          "世邦旅遊",
+          "良友旅遊",
+          "長汎旅遊",
+          "信安旅遊",
+          "百威旅遊",
+          "理想旅遊",
+          "燦星旅遊",
+          "加利利旅行社",
+          "清晨旅行社",
+          "暢遊旅行",
+          "飛揚旅行社",
+          "凱旋旅行社",
+          "巨大旅遊",
+          "典華旅行社",
+          "誠翔運通旅行社",
+          "賓士旅行社",
+          "華友旅行社",
+          "旅天下直營",
+          "利百加旅遊",
+          "世興旅行社",
+          "旅遊家旅行社"
+        ],
+        "channels": [
+          "平台／旅行社直接付款"
+        ],
+        "qualifier": "全行共用，須登錄與月滿額；搜尋不計分期加碼，最高9,500含另有分期條件"
+      },
+      {
+        "merchants": [
+          "航空公司購票",
+          "飯店住宿"
+        ],
+        "channels": [
+          "指定MCC直接付款"
+        ],
+        "qualifier": "須登錄與滿額；以官方航空／飯店MCC認列，不泛配任意商家"
+      }
+    ]
+  },
+  {
+    "cardId": "breeze",
+    "scheme": null,
+    "label": "舊滿額刷卡金2%／3%（2026續行待確認）",
+    "status": "unresolved",
+    "reason": "尚未完成本層官方交易名單與排除條件查證，暫不推薦。",
+    "merchants": [],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/aws_act/2026/2026breeze-shopping/index.htm",
+    "end": "2024-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "breeze",
+    "scheme": null,
+    "label": "微風百貨停車：無限卡免費4小時",
+    "status": "verified",
+    "reason": "沿用先前原始表格逐格核對之無限卡4小時，不使用文字擷取錯位的低卡等門檻。",
+    "merchants": [
+      "微風廣場停車場",
+      "微風南京停車場",
+      "微風信義停車場",
+      "微風松高停車場",
+      "微風南山停車場",
+      "微風百貨停車"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/aws_act/2026/2026breeze-shopping/index.htm#Modalb",
+    "end": "2026-12-31",
+    "channels": [
+      "physical"
+    ],
+    "searchType": "perk",
+    "checkedAt": "2026-10-01",
+    "rules": [
+      {
+        "merchants": [
+          "微風廣場停車場",
+          "微風南京停車場",
+          "微風信義停車場",
+          "微風松高停車場",
+          "微風南山停車場",
+          "微風百貨停車"
+        ],
+        "channels": [
+          "physical"
+        ],
+        "qualifier": "限無限卡、五館停車；每卡每日每車一次"
+      }
+    ]
+  },
+  {
+    "cardId": "breeze",
+    "scheme": null,
+    "label": "市區停車：每次2小時",
+    "status": "verified",
+    "reason": "僅權益服務查詢；合作場站依各業者即時清單，不泛配所有同品牌停車場。",
+    "merchants": [
+      "聯邦市區停車服務"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/aws_act/freeparking/index.htm",
+    "end": "2027-01-31",
+    "channels": [
+      "指定合作停車場"
+    ],
+    "searchType": "perk",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "聯邦市區停車服務"
+        ],
+        "channels": [
+          "指定合作停車場"
+        ],
+        "qualifier": "須前月消費達門檻；部分場站不適用，請先確認場站"
+      }
+    ],
+    "gaps": [
+      "台灣聯通、詮營、ViVi PARK、嘟嘟房、車麻吉的個別場站完整清單未建模。"
+    ]
+  },
+  {
+    "cardId": "breeze",
+    "scheme": null,
+    "label": "館內精選專櫃／美食／超市折扣",
+    "status": "unresolved",
+    "reason": "尚未完成本層官方交易名單與排除條件查證，暫不推薦。",
+    "merchants": [],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/aws_act/2026/2026breeze-shopping/index.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "breeze",
+    "scheme": null,
+    "label": "週四電子酬賓券",
+    "status": "unresolved",
+    "reason": "尚未完成本層官方交易名單與排除條件查證，暫不推薦。",
+    "merchants": [],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/aws_act/2026/2026breeze-shopping/index.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "breeze",
+    "scheme": null,
+    "label": "Trine&Zen 崔妮傑恩 免費美式咖啡",
+    "status": "verified",
+    "reason": "官方明列兩店及無限卡每天權益，不混御璽卡週四資格。",
+    "merchants": [
+      "Trine&Zen崔妮傑恩微風廣場店",
+      "Trine&Zen崔妮傑恩微風中央研究院店"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/aws_act/2026/2026breeze-shopping/index.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "physical"
+    ],
+    "searchType": "perk",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "Trine&Zen崔妮傑恩微風廣場店",
+          "Trine&Zen崔妮傑恩微風中央研究院店"
+        ],
+        "channels": [
+          "physical"
+        ],
+        "qualifier": "無限卡每日每卡跨館合計一杯"
+      }
+    ]
+  },
+  {
+    "cardId": "breeze",
+    "scheme": null,
+    "label": "微風影城購票65折",
+    "status": "verified",
+    "reason": "官方微風電影日專屬購票權益。",
+    "merchants": [
+      "微風影城"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/aws_act/2026/2026breeze-shopping/index.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "physical"
+    ],
+    "searchType": "perk",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "微風影城"
+        ],
+        "channels": [
+          "physical"
+        ],
+        "qualifier": "限實體卡現場購當日場次，不是所有國賓影城"
+      }
+    ]
+  },
+  {
+    "cardId": "breeze",
+    "scheme": null,
+    "label": "U.First／既有Priority Pass機場貴賓室",
+    "status": "unresolved",
+    "reason": "尚未完成本層官方交易名單與排除條件查證，暫不推薦。",
+    "merchants": [],
+    "aliases": {},
+    "source": "https://card.ubot.com.tw/CardRights/AirPort_Vip",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "breeze",
+    "scheme": null,
+    "label": "第四季指定旅遊滿額禮（最高9,500元）",
+    "status": "verified",
+    "reason": "完整官方指定旅遊及旅行社清單；多門檻刷卡金獨立權益不換算固定百分比。",
+    "merchants": [
+      "Agoda",
+      "Hotels.com",
+      "Booking.com",
+      "樂天旅遊",
+      "Airbnb",
+      "KKday",
+      "Klook",
+      "Trip.com",
+      "聯邦X肯驛線上旅遊商城",
+      "易遊網",
+      "易飛網",
+      "雄獅旅遊",
+      "可樂旅遊",
+      "東南旅遊",
+      "鳳凰旅遊",
+      "大興旅遊",
+      "五福旅遊",
+      "山富旅遊",
+      "太平洋旅遊",
+      "世邦旅遊",
+      "良友旅遊",
+      "長汎旅遊",
+      "信安旅遊",
+      "百威旅遊",
+      "理想旅遊",
+      "燦星旅遊",
+      "加利利旅行社",
+      "清晨旅行社",
+      "暢遊旅行",
+      "飛揚旅行社",
+      "凱旋旅行社",
+      "巨大旅遊",
+      "典華旅行社",
+      "誠翔運通旅行社",
+      "賓士旅行社",
+      "華友旅行社",
+      "旅天下直營",
+      "利百加旅遊",
+      "世興旅行社",
+      "旅遊家旅行社",
+      "航空公司購票",
+      "飯店住宿"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/aws_act/2026/202610travel/index.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "平台／旅行社直接付款",
+      "指定MCC直接付款"
+    ],
+    "searchType": "perk",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "Agoda",
+          "Hotels.com",
+          "Booking.com",
+          "樂天旅遊",
+          "Airbnb",
+          "KKday",
+          "Klook",
+          "Trip.com",
+          "聯邦X肯驛線上旅遊商城",
+          "易遊網",
+          "易飛網",
+          "雄獅旅遊",
+          "可樂旅遊",
+          "東南旅遊",
+          "鳳凰旅遊",
+          "大興旅遊",
+          "五福旅遊",
+          "山富旅遊",
+          "太平洋旅遊",
+          "世邦旅遊",
+          "良友旅遊",
+          "長汎旅遊",
+          "信安旅遊",
+          "百威旅遊",
+          "理想旅遊",
+          "燦星旅遊",
+          "加利利旅行社",
+          "清晨旅行社",
+          "暢遊旅行",
+          "飛揚旅行社",
+          "凱旋旅行社",
+          "巨大旅遊",
+          "典華旅行社",
+          "誠翔運通旅行社",
+          "賓士旅行社",
+          "華友旅行社",
+          "旅天下直營",
+          "利百加旅遊",
+          "世興旅行社",
+          "旅遊家旅行社"
+        ],
+        "channels": [
+          "平台／旅行社直接付款"
+        ],
+        "qualifier": "全行共用，須登錄與月滿額；搜尋不計分期加碼，最高9,500含另有分期條件"
+      },
+      {
+        "merchants": [
+          "航空公司購票",
+          "飯店住宿"
+        ],
+        "channels": [
+          "指定MCC直接付款"
+        ],
+        "qualifier": "須登錄與滿額；以官方航空／飯店MCC認列，不泛配任意商家"
+      }
+    ]
+  },
+  {
+    "cardId": "mcard",
+    "scheme": null,
+    "label": "國內一般消費",
+    "status": "verified",
+    "reason": "官方一般消費類別；不自動匹配任意商家。",
+    "merchants": [
+      "國內一般消費"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/2026Mcard/index.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "國內一般消費"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "僅合格一般消費；不含分期及銀行排除項目，仍須達卡片任務"
+      }
+    ]
+  },
+  {
+    "cardId": "mcard",
+    "scheme": null,
+    "label": "海外一般消費（含非實體）",
+    "status": "verified",
+    "reason": "官方一般消費類別；不自動匹配任意商家。",
+    "merchants": [
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/2026Mcard/index.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "國外一般消費"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "僅合格一般消費；不含分期及銀行排除項目，仍須達卡片任務"
+      }
+    ]
+  },
+  {
+    "cardId": "mcard",
+    "scheme": null,
+    "label": "機票／訂房網／旅行社／KLOOK／KKDAY／台鐵／客運／計程車／租車",
+    "status": "verified",
+    "reason": "指定交通／旅遊完整列舉名單及MCC類別已核。",
+    "merchants": [
+      "Agoda",
+      "Booking.com",
+      "Hotels.com",
+      "Expedia",
+      "Trip.com",
+      "AsiaYo",
+      "易遊網",
+      "Airbnb",
+      "Klook",
+      "KKday",
+      "FunNow",
+      "萬達通",
+      "東南旅遊",
+      "山富旅遊",
+      "五福旅遊",
+      "雄獅旅遊",
+      "鳳凰旅遊",
+      "可樂旅遊",
+      "台鐵",
+      "國光客運",
+      "統聯客運",
+      "和欣客運",
+      "葛瑪蘭客運",
+      "Uber",
+      "LINE GO",
+      "yoxi",
+      "台灣大車隊",
+      "大都會計程車",
+      "聯邦租車",
+      "和運租車",
+      "格上租車",
+      "航空公司購票",
+      "國內飯店住宿"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/2026Mcard/index.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "平台線上即時付款",
+      "direct",
+      "指定MCC直接付款"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "Agoda",
+          "Booking.com",
+          "Hotels.com",
+          "Expedia",
+          "Trip.com",
+          "AsiaYo",
+          "易遊網",
+          "Airbnb",
+          "Klook",
+          "KKday",
+          "FunNow",
+          "萬達通"
+        ],
+        "channels": [
+          "平台線上即時付款"
+        ],
+        "qualifier": "需電子帳單；平台直接請款，不含現場飯店付款"
+      },
+      {
+        "merchants": [
+          "東南旅遊",
+          "山富旅遊",
+          "五福旅遊",
+          "雄獅旅遊",
+          "鳳凰旅遊",
+          "可樂旅遊",
+          "台鐵",
+          "國光客運",
+          "統聯客運",
+          "和欣客運",
+          "葛瑪蘭客運",
+          "Uber",
+          "LINE GO",
+          "yoxi",
+          "台灣大車隊",
+          "大都會計程車",
+          "聯邦租車",
+          "和運租車",
+          "格上租車"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "需電子帳單；指定交通／旅行服務直接請款"
+      },
+      {
+        "merchants": [
+          "航空公司購票",
+          "國內飯店住宿"
+        ],
+        "channels": [
+          "指定MCC直接付款"
+        ],
+        "qualifier": "依銀行認列航空／國內飯店行業代碼，非任意平台請款"
+      }
+    ]
+  },
+  {
+    "cardId": "mcard",
+    "scheme": null,
+    "label": "國內保費",
+    "status": "verified",
+    "reason": "國內保費類別，不泛配保險品牌或海外保單。",
+    "merchants": [
+      "國內保費"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/2026Mcard/index.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "國內保費"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "需電子帳單，且未登錄保費分期"
+      }
+    ]
+  },
+  {
+    "cardId": "mcard",
+    "scheme": null,
+    "label": "指定國家實體超額消費加碼",
+    "status": "unresolved",
+    "reason": "尚未完成本層官方交易名單與排除條件查證，暫不推薦。",
+    "merchants": [],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/aws_act/2026/20260607overseas/index.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "mcard",
+    "scheme": null,
+    "label": "Mastercard海外指定商戶（十月最高12%，細項待核實）",
+    "status": "unresolved",
+    "reason": "Mastercard個別商戶完整優惠與啟用條件位於登入後頁面；未取得授權資料，不猜測最高率適用所有商家。",
+    "merchants": [],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/2026Mcard/index.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "mcard",
+    "scheme": null,
+    "label": "第四季指定旅遊滿額禮（最高9,500元）",
+    "status": "verified",
+    "reason": "完整官方指定旅遊及旅行社清單；多門檻刷卡金獨立權益不換算固定百分比。",
+    "merchants": [
+      "Agoda",
+      "Hotels.com",
+      "Booking.com",
+      "樂天旅遊",
+      "Airbnb",
+      "KKday",
+      "Klook",
+      "Trip.com",
+      "聯邦X肯驛線上旅遊商城",
+      "易遊網",
+      "易飛網",
+      "雄獅旅遊",
+      "可樂旅遊",
+      "東南旅遊",
+      "鳳凰旅遊",
+      "大興旅遊",
+      "五福旅遊",
+      "山富旅遊",
+      "太平洋旅遊",
+      "世邦旅遊",
+      "良友旅遊",
+      "長汎旅遊",
+      "信安旅遊",
+      "百威旅遊",
+      "理想旅遊",
+      "燦星旅遊",
+      "加利利旅行社",
+      "清晨旅行社",
+      "暢遊旅行",
+      "飛揚旅行社",
+      "凱旋旅行社",
+      "巨大旅遊",
+      "典華旅行社",
+      "誠翔運通旅行社",
+      "賓士旅行社",
+      "華友旅行社",
+      "旅天下直營",
+      "利百加旅遊",
+      "世興旅行社",
+      "旅遊家旅行社",
+      "航空公司購票",
+      "飯店住宿"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/aws_act/2026/202610travel/index.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "平台／旅行社直接付款",
+      "指定MCC直接付款"
+    ],
+    "searchType": "perk",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "Agoda",
+          "Hotels.com",
+          "Booking.com",
+          "樂天旅遊",
+          "Airbnb",
+          "KKday",
+          "Klook",
+          "Trip.com",
+          "聯邦X肯驛線上旅遊商城",
+          "易遊網",
+          "易飛網",
+          "雄獅旅遊",
+          "可樂旅遊",
+          "東南旅遊",
+          "鳳凰旅遊",
+          "大興旅遊",
+          "五福旅遊",
+          "山富旅遊",
+          "太平洋旅遊",
+          "世邦旅遊",
+          "良友旅遊",
+          "長汎旅遊",
+          "信安旅遊",
+          "百威旅遊",
+          "理想旅遊",
+          "燦星旅遊",
+          "加利利旅行社",
+          "清晨旅行社",
+          "暢遊旅行",
+          "飛揚旅行社",
+          "凱旋旅行社",
+          "巨大旅遊",
+          "典華旅行社",
+          "誠翔運通旅行社",
+          "賓士旅行社",
+          "華友旅行社",
+          "旅天下直營",
+          "利百加旅遊",
+          "世興旅行社",
+          "旅遊家旅行社"
+        ],
+        "channels": [
+          "平台／旅行社直接付款"
+        ],
+        "qualifier": "全行共用，須登錄與月滿額；搜尋不計分期加碼，最高9,500含另有分期條件"
+      },
+      {
+        "merchants": [
+          "航空公司購票",
+          "飯店住宿"
+        ],
+        "channels": [
+          "指定MCC直接付款"
+        ],
+        "qualifier": "須登錄與滿額；以官方航空／飯店MCC認列，不泛配任意商家"
+      }
+    ]
+  },
+  {
+    "cardId": "jihe",
+    "scheme": null,
+    "label": "國內一般消費",
+    "status": "verified",
+    "reason": "官方一般消費類別；不自動匹配任意商家。",
+    "merchants": [
+      "國內一般消費"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/2026JiHoCard/domestic.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "國內一般消費"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "僅合格一般消費；不含分期及銀行排除項目，仍須達卡片任務"
+      }
+    ]
+  },
+  {
+    "cardId": "jihe",
+    "scheme": null,
+    "label": "國內日系名店加碼（+4%）",
+    "status": "verified",
+    "reason": "已核官方23品牌及門市例外；UNIQLO／GU須指定門市。",
+    "merchants": [
+      "思夢樂",
+      "GLOBAL WORK",
+      "niko and …",
+      "LOWRYS FARM",
+      "LAKOLE",
+      "studio CLIP",
+      "repipi armario",
+      "HARE",
+      "Heather",
+      "PAGEBOY",
+      "RAGEBLUE",
+      "LEPSIM",
+      "JEANASIS",
+      "DAISO大創百貨",
+      "Standard Products",
+      "THREEPPY",
+      "日藥本舖",
+      "松本清",
+      "Tomod’s",
+      "札幌藥妝",
+      "TSUTAYA BOOKSTORE",
+      "UNIQLO",
+      "GU"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/2026JiHoCard/domestic.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "臺灣指定實體門市",
+      "臺灣官網"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "思夢樂",
+          "GLOBAL WORK",
+          "niko and …",
+          "LOWRYS FARM",
+          "LAKOLE",
+          "studio CLIP",
+          "repipi armario",
+          "HARE",
+          "Heather",
+          "PAGEBOY",
+          "RAGEBLUE",
+          "LEPSIM",
+          "JEANASIS",
+          "DAISO大創百貨",
+          "Standard Products",
+          "THREEPPY",
+          "日藥本舖",
+          "松本清",
+          "Tomod’s",
+          "札幌藥妝",
+          "TSUTAYA BOOKSTORE"
+        ],
+        "channels": [
+          "臺灣指定實體門市"
+        ],
+        "qualifier": "不含日藥本舖百貨／店中店及大創店中店；不含第三方支付"
+      },
+      {
+        "merchants": [
+          "UNIQLO",
+          "GU"
+        ],
+        "channels": [
+          "臺灣官網"
+        ],
+        "qualifier": "限品牌網路商店直接刷卡"
+      },
+      {
+        "merchants": [
+          "UNIQLO",
+          "GU"
+        ],
+        "channels": [
+          "臺灣指定實體門市"
+        ],
+        "qualifier": "UNIQLO限直營／列名商場，GU限官方列名10店；非所有百貨門市"
+      }
+    ],
+    "gaps": [
+      "UNIQLO／GU逐分店名稱尚未展開，僅指定門市渠道提示。"
+    ]
+  },
+  {
+    "cardId": "jihe",
+    "scheme": null,
+    "label": "日幣消費（基本）",
+    "status": "verified",
+    "reason": "日幣一般消費服務查詢，不推定國際品牌交易幣別。",
+    "merchants": [
+      "日本一般消費"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/2026JiHoCard/japan.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "日本一般消費"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "限日幣一般消費，不含分期與排除項目"
+      }
+    ]
+  },
+  {
+    "cardId": "jihe",
+    "scheme": null,
+    "label": "日本實體 Apple/Google Pay 感應（需登錄）",
+    "status": "verified",
+    "reason": "官方日本行動支付條款明列感應及排除。",
+    "merchants": [
+      "日本實體一般消費"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/2026JiHoCard/japan.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "日本Apple／Google Pay感應"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "日本實體一般消費"
+        ],
+        "channels": [
+          "日本Apple／Google Pay感應"
+        ],
+        "qualifier": "需登錄，單筆臺幣100元；不含交通、網路或QUICPay"
+      }
+    ]
+  },
+  {
+    "cardId": "jihe",
+    "scheme": null,
+    "label": "前月帳單滿3萬 升級加碼",
+    "status": "verified",
+    "reason": "前月帳單條件不是當月消費門檻，不作無條件日本回饋。",
+    "merchants": [
+      "日本實體一般消費"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/2026JiHoCard/japan.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "日本Apple／Google Pay感應"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "日本實體一般消費"
+        ],
+        "channels": [
+          "日本Apple／Google Pay感應"
+        ],
+        "qualifier": "需登錄、前月帳單滿3萬及單筆100元；不含交通、網路、QUICPay"
+      }
+    ]
+  },
+  {
+    "cardId": "jihe",
+    "scheme": null,
+    "label": "日本熱門商店（疊加天花板）",
+    "status": "verified",
+    "reason": "官方11店清單；只有滿足行動支付疊加條件時顯示原8%層。",
+    "merchants": [
+      "7-ELEVEN",
+      "全家",
+      "LAWSON",
+      "東京迪士尼樂園",
+      "大阪環球影城",
+      "永旺",
+      "三越",
+      "高島屋",
+      "BicCamera",
+      "Yodobashi",
+      "唐吉訶德"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/2026JiHoCard/japan.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "日本Apple／Google Pay感應"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "7-ELEVEN",
+          "全家",
+          "LAWSON",
+          "東京迪士尼樂園",
+          "大阪環球影城",
+          "永旺",
+          "三越",
+          "高島屋",
+          "BicCamera",
+          "Yodobashi",
+          "唐吉訶德"
+        ],
+        "channels": [
+          "日本Apple／Google Pay感應"
+        ],
+        "qualifier": "最高率須登錄＋前月帳單滿3萬；限日本日幣實體，不含樂園網路票／飯店"
+      }
+    ]
+  },
+  {
+    "cardId": "jihe",
+    "scheme": null,
+    "label": "日本三大交通卡儲值",
+    "status": "verified",
+    "reason": "三交通卡儲值獨立規則，不視為日本一般消費。",
+    "merchants": [
+      "Suica",
+      "PASMO",
+      "ICOCA"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/2026JiHoCard/japan.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "日本交通卡日幣儲值"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "Suica",
+          "PASMO",
+          "ICOCA"
+        ],
+        "channels": [
+          "日本交通卡日幣儲值"
+        ],
+        "qualifier": "需當月登錄；不加日幣基本回饋"
+      }
+    ]
+  },
+  {
+    "cardId": "jihe",
+    "scheme": null,
+    "label": "指定國家實體超額消費加碼",
+    "status": "unresolved",
+    "reason": "尚未完成本層官方交易名單與排除條件查證，暫不推薦。",
+    "merchants": [],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/aws_act/2026/20260607overseas/index.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "jihe",
+    "scheme": null,
+    "label": "新戶日本實體消費加碼",
+    "status": "verified",
+    "reason": "新戶權益以額外活動列示，沿用新戶篩選。",
+    "merchants": [
+      "日本實體一般消費"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/2026JiHoCard/japan.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "日本實體（日圓）"
+    ],
+    "searchType": "perk",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "日本實體一般消費"
+        ],
+        "channels": [
+          "日本實體（日圓）"
+        ],
+        "qualifier": "額外加碼非總率；活動內申辦核卡新戶，不含網路及交通"
+      }
+    ]
+  },
+  {
+    "cardId": "jihe",
+    "scheme": null,
+    "label": "第四季指定旅遊滿額禮（最高9,500元）",
+    "status": "verified",
+    "reason": "完整官方指定旅遊及旅行社清單；多門檻刷卡金獨立權益不換算固定百分比。",
+    "merchants": [
+      "Agoda",
+      "Hotels.com",
+      "Booking.com",
+      "樂天旅遊",
+      "Airbnb",
+      "KKday",
+      "Klook",
+      "Trip.com",
+      "聯邦X肯驛線上旅遊商城",
+      "易遊網",
+      "易飛網",
+      "雄獅旅遊",
+      "可樂旅遊",
+      "東南旅遊",
+      "鳳凰旅遊",
+      "大興旅遊",
+      "五福旅遊",
+      "山富旅遊",
+      "太平洋旅遊",
+      "世邦旅遊",
+      "良友旅遊",
+      "長汎旅遊",
+      "信安旅遊",
+      "百威旅遊",
+      "理想旅遊",
+      "燦星旅遊",
+      "加利利旅行社",
+      "清晨旅行社",
+      "暢遊旅行",
+      "飛揚旅行社",
+      "凱旋旅行社",
+      "巨大旅遊",
+      "典華旅行社",
+      "誠翔運通旅行社",
+      "賓士旅行社",
+      "華友旅行社",
+      "旅天下直營",
+      "利百加旅遊",
+      "世興旅行社",
+      "旅遊家旅行社",
+      "航空公司購票",
+      "飯店住宿"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/aws_act/2026/202610travel/index.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "平台／旅行社直接付款",
+      "指定MCC直接付款"
+    ],
+    "searchType": "perk",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "Agoda",
+          "Hotels.com",
+          "Booking.com",
+          "樂天旅遊",
+          "Airbnb",
+          "KKday",
+          "Klook",
+          "Trip.com",
+          "聯邦X肯驛線上旅遊商城",
+          "易遊網",
+          "易飛網",
+          "雄獅旅遊",
+          "可樂旅遊",
+          "東南旅遊",
+          "鳳凰旅遊",
+          "大興旅遊",
+          "五福旅遊",
+          "山富旅遊",
+          "太平洋旅遊",
+          "世邦旅遊",
+          "良友旅遊",
+          "長汎旅遊",
+          "信安旅遊",
+          "百威旅遊",
+          "理想旅遊",
+          "燦星旅遊",
+          "加利利旅行社",
+          "清晨旅行社",
+          "暢遊旅行",
+          "飛揚旅行社",
+          "凱旋旅行社",
+          "巨大旅遊",
+          "典華旅行社",
+          "誠翔運通旅行社",
+          "賓士旅行社",
+          "華友旅行社",
+          "旅天下直營",
+          "利百加旅遊",
+          "世興旅行社",
+          "旅遊家旅行社"
+        ],
+        "channels": [
+          "平台／旅行社直接付款"
+        ],
+        "qualifier": "全行共用，須登錄與月滿額；搜尋不計分期加碼，最高9,500含另有分期條件"
+      },
+      {
+        "merchants": [
+          "航空公司購票",
+          "飯店住宿"
+        ],
+        "channels": [
+          "指定MCC直接付款"
+        ],
+        "qualifier": "須登錄與滿額；以官方航空／飯店MCC認列，不泛配任意商家"
+      }
+    ]
+  },
+  {
+    "cardId": "green",
+    "scheme": null,
+    "label": "國內一般消費（基本）",
+    "status": "verified",
+    "reason": "官方一般消費類別；不自動匹配任意商家。",
+    "merchants": [
+      "國內一般消費"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/2026GreenCard/index.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "國內一般消費"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "僅合格一般消費；不含分期及銀行排除項目，仍須達卡片任務"
+      }
+    ],
+    "gaps": [
+      "國外2%未建立獨立tier，未以國內1%代替。"
+    ]
+  },
+  {
+    "cardId": "green",
+    "scheme": null,
+    "label": "指定綠色消費（加碼5%）",
+    "status": "verified",
+    "reason": "已讀主頁全部生機選品／蔬食／捐款名單及註2限制，分組避免將購車當充電。",
+    "merchants": [
+      "仙桃素",
+      "鈺善閣",
+      "祥和蔬食料理",
+      "曙光居",
+      "毛蔬亞洲蔬食",
+      "MIACUCINA",
+      "小小樹食",
+      "陽明春天",
+      "寬心園",
+      "養心茶樓",
+      "熱浪島南洋蔬食茶堂",
+      "原素食府",
+      "聖德科斯",
+      "里仁",
+      "棉花田",
+      "台灣主婦聯盟",
+      "安永鮮物",
+      "Green & Safe",
+      "野菜村有機生活館",
+      "直接跟農夫買",
+      "甘樂文創",
+      "鮮乳坊",
+      "茶籽堂",
+      "AESOP",
+      "10/10 HOPE",
+      "綠藤生機",
+      "O’right歐萊德",
+      "全國特急電",
+      "EVALUE",
+      "EVOASIS",
+      "Tesla充電",
+      "Gogoro電池資費",
+      "eMoving電池資費",
+      "iRent",
+      "GoShare",
+      "WeMo Scooter",
+      "臺灣野灣野生動物保育協會",
+      "黑潮海洋文教基金會",
+      "台灣重新思考環境教育協會",
+      "中華民國荒野保護協會",
+      "台灣千里步道協會",
+      "看見齊柏林基金會",
+      "主婦聯盟環境保護基金會"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/2026GreenCard/index.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "指定獨立店／官網",
+      "臺灣官網",
+      "永康信義體驗店／官網",
+      "官方充電／電池資費",
+      "direct",
+      "官方捐款"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "仙桃素",
+          "鈺善閣",
+          "祥和蔬食料理",
+          "曙光居",
+          "毛蔬亞洲蔬食",
+          "MIACUCINA",
+          "小小樹食",
+          "陽明春天",
+          "寬心園",
+          "養心茶樓",
+          "熱浪島南洋蔬食茶堂",
+          "原素食府",
+          "聖德科斯",
+          "里仁",
+          "棉花田",
+          "台灣主婦聯盟",
+          "安永鮮物",
+          "Green & Safe",
+          "野菜村有機生活館",
+          "直接跟農夫買",
+          "甘樂文創",
+          "鮮乳坊",
+          "茶籽堂",
+          "AESOP",
+          "10/10 HOPE"
+        ],
+        "channels": [
+          "指定獨立店／官網"
+        ],
+        "qualifier": "需電子帳單；排除百貨店中店，帳單須為指定商家"
+      },
+      {
+        "merchants": [
+          "綠藤生機"
+        ],
+        "channels": [
+          "臺灣官網"
+        ],
+        "qualifier": "限官網直接刷卡"
+      },
+      {
+        "merchants": [
+          "O’right歐萊德"
+        ],
+        "channels": [
+          "永康信義體驗店／官網"
+        ],
+        "qualifier": "不含其他店家"
+      },
+      {
+        "merchants": [
+          "全國特急電",
+          "EVALUE",
+          "EVOASIS",
+          "Tesla充電",
+          "Gogoro電池資費",
+          "eMoving電池資費"
+        ],
+        "channels": [
+          "官方充電／電池資費"
+        ],
+        "qualifier": "限官方App／網站資費，不含購車"
+      },
+      {
+        "merchants": [
+          "iRent",
+          "GoShare",
+          "WeMo Scooter"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "限共享交通費用"
+      },
+      {
+        "merchants": [
+          "臺灣野灣野生動物保育協會",
+          "黑潮海洋文教基金會",
+          "台灣重新思考環境教育協會",
+          "中華民國荒野保護協會",
+          "台灣千里步道協會",
+          "看見齊柏林基金會",
+          "主婦聯盟環境保護基金會"
+        ],
+        "channels": [
+          "官方捐款"
+        ],
+        "qualifier": "須指定機構直接請款"
+      }
+    ]
+  },
+  {
+    "cardId": "green",
+    "scheme": null,
+    "label": "生活代扣繳（電信／水電瓦斯／路邊停車）",
+    "status": "verified",
+    "reason": "官網列舉代扣事業與城市清單，服務名稱查詢不適用商品購買。",
+    "merchants": [
+      "台電",
+      "台北自來水",
+      "台灣自來水",
+      "大台北瓦斯",
+      "欣泰油氣",
+      "欣欣天然",
+      "新海瓦斯",
+      "欣湖天然氣",
+      "欣中天然氣",
+      "欣桃天然氣",
+      "陽明山瓦斯",
+      "欣南天然氣",
+      "欣雄天然氣",
+      "欣高石油氣",
+      "中華電信",
+      "台灣大哥大",
+      "遠傳電信",
+      "指定城市路邊停車"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/2026GreenCard/index.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "銀行自動代扣"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "台電",
+          "台北自來水",
+          "台灣自來水",
+          "大台北瓦斯",
+          "欣泰油氣",
+          "欣欣天然",
+          "新海瓦斯",
+          "欣湖天然氣",
+          "欣中天然氣",
+          "欣桃天然氣",
+          "陽明山瓦斯",
+          "欣南天然氣",
+          "欣雄天然氣",
+          "欣高石油氣",
+          "中華電信",
+          "台灣大哥大",
+          "遠傳電信",
+          "指定城市路邊停車"
+        ],
+        "channels": [
+          "銀行自動代扣"
+        ],
+        "qualifier": "需電子帳單；非自行到繳費平台付款；路邊停車限台北、新北、桃園、新竹縣市、台中、台南、高雄"
+      }
+    ]
+  },
+  {
+    "cardId": "green",
+    "scheme": null,
+    "label": "一卡通綠色大眾運輸（每趟）",
+    "status": "verified",
+    "reason": "每趟點數權益獨立顯示，不換算百分比。",
+    "merchants": [
+      "一卡通大眾運輸"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/2026GreenCard/index.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "實體一卡通票證"
+    ],
+    "searchType": "perk",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "一卡通大眾運輸"
+        ],
+        "channels": [
+          "實體一卡通票證"
+        ],
+        "qualifier": "先註冊iPASS MONEY及綠點；不是直接信用卡購票"
+      }
+    ]
+  },
+  {
+    "cardId": "green",
+    "scheme": null,
+    "label": "iPASS MONEY餘額繳聯邦卡費",
+    "status": "verified",
+    "reason": "僅繳卡費服務，避免誤套一般消費。",
+    "merchants": [
+      "iPASS MONEY繳聯邦卡費"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/aws_act/2026/2026ipassmoneybill/index.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "iPASS MONEY帳戶餘額"
+    ],
+    "searchType": "cash",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "iPASS MONEY繳聯邦卡費"
+        ],
+        "channels": [
+          "iPASS MONEY帳戶餘額"
+        ],
+        "qualifier": "須綁卡並同意綠點；不是消費再加碼"
+      }
+    ]
+  },
+  {
+    "cardId": "green",
+    "scheme": null,
+    "label": "第四季指定旅遊滿額禮（最高9,500元）",
+    "status": "verified",
+    "reason": "完整官方指定旅遊及旅行社清單；多門檻刷卡金獨立權益不換算固定百分比。",
+    "merchants": [
+      "Agoda",
+      "Hotels.com",
+      "Booking.com",
+      "樂天旅遊",
+      "Airbnb",
+      "KKday",
+      "Klook",
+      "Trip.com",
+      "聯邦X肯驛線上旅遊商城",
+      "易遊網",
+      "易飛網",
+      "雄獅旅遊",
+      "可樂旅遊",
+      "東南旅遊",
+      "鳳凰旅遊",
+      "大興旅遊",
+      "五福旅遊",
+      "山富旅遊",
+      "太平洋旅遊",
+      "世邦旅遊",
+      "良友旅遊",
+      "長汎旅遊",
+      "信安旅遊",
+      "百威旅遊",
+      "理想旅遊",
+      "燦星旅遊",
+      "加利利旅行社",
+      "清晨旅行社",
+      "暢遊旅行",
+      "飛揚旅行社",
+      "凱旋旅行社",
+      "巨大旅遊",
+      "典華旅行社",
+      "誠翔運通旅行社",
+      "賓士旅行社",
+      "華友旅行社",
+      "旅天下直營",
+      "利百加旅遊",
+      "世興旅行社",
+      "旅遊家旅行社",
+      "航空公司購票",
+      "飯店住宿"
+    ],
+    "aliases": {},
+    "source": "https://activity.ubot.com.tw/aws_act/2026/202610travel/index.htm",
+    "end": "2026-12-31",
+    "channels": [
+      "平台／旅行社直接付款",
+      "指定MCC直接付款"
+    ],
+    "searchType": "perk",
+    "checkedAt": "2026-10-21",
+    "rules": [
+      {
+        "merchants": [
+          "Agoda",
+          "Hotels.com",
+          "Booking.com",
+          "樂天旅遊",
+          "Airbnb",
+          "KKday",
+          "Klook",
+          "Trip.com",
+          "聯邦X肯驛線上旅遊商城",
+          "易遊網",
+          "易飛網",
+          "雄獅旅遊",
+          "可樂旅遊",
+          "東南旅遊",
+          "鳳凰旅遊",
+          "大興旅遊",
+          "五福旅遊",
+          "山富旅遊",
+          "太平洋旅遊",
+          "世邦旅遊",
+          "良友旅遊",
+          "長汎旅遊",
+          "信安旅遊",
+          "百威旅遊",
+          "理想旅遊",
+          "燦星旅遊",
+          "加利利旅行社",
+          "清晨旅行社",
+          "暢遊旅行",
+          "飛揚旅行社",
+          "凱旋旅行社",
+          "巨大旅遊",
+          "典華旅行社",
+          "誠翔運通旅行社",
+          "賓士旅行社",
+          "華友旅行社",
+          "旅天下直營",
+          "利百加旅遊",
+          "世興旅行社",
+          "旅遊家旅行社"
+        ],
+        "channels": [
+          "平台／旅行社直接付款"
+        ],
+        "qualifier": "全行共用，須登錄與月滿額；搜尋不計分期加碼，最高9,500含另有分期條件"
+      },
+      {
+        "merchants": [
+          "航空公司購票",
+          "飯店住宿"
+        ],
+        "channels": [
+          "指定MCC直接付款"
+        ],
+        "qualifier": "須登錄與滿額；以官方航空／飯店MCC認列，不泛配任意商家"
+      }
+    ]
+  }
+]

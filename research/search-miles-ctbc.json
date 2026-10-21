@@ -1,0 +1,782 @@
+[
+  {
+    "cardId": "ctbc-101",
+    "scheme": null,
+    "label": "台北101館內停車・過卡免費4小時",
+    "status": "verified",
+    "reason": "明確館內停車服務查詢；鼎極卡不需當日消費，每卡每日每車一次，不匹配其他101消費。",
+    "merchants": [
+      "台北101停車場"
+    ],
+    "aliases": {
+      "台北101停車場": [
+        "TAIPEI 101停車場",
+        "101館內停車"
+      ]
+    },
+    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/NB2019073104-31/",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "physical"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "ctbc-101",
+    "scheme": null,
+    "label": "台北101館內最高3%（現金＋購物金）",
+    "status": "unresolved",
+    "reason": "館內3%混合現金與購物金，不能視為現金3%；銀行列9項排除，101 Point一般規則又排除觀景台等不同項目，完整適用商家目錄未取得，不能由全館字樣推定全部品牌分店。",
+    "merchants": [],
+    "aliases": {},
+    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/NB2019073104-31/",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "ctbc-101",
+    "scheme": null,
+    "label": "國內一般消費",
+    "status": "verified",
+    "reason": "僅一般消費類別查詢；排除分期與銀行不回饋交易，不映射任意商家。",
+    "merchants": [
+      "國內一般消費"
+    ],
+    "aliases": {},
+    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/NB2019073104-31/",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "ctbc-101",
+    "scheme": null,
+    "label": "國外一般消費",
+    "status": "verified",
+    "reason": "僅一般消費類別查詢；排除分期與銀行不回饋交易，上限未知仍沿用原tier。",
+    "merchants": [
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/NB2019073104-31/",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "ctbc-101",
+    "scheme": null,
+    "label": "觀景台門票與指定商品",
+    "status": "verified",
+    "reason": "限觀景台全票、101F／快速通關加購及指定紀念商品；優惠票、團體票不適用，商品須現場確認。只顯示權益。",
+    "merchants": [
+      "台北101觀景台"
+    ],
+    "aliases": {
+      "台北101觀景台": [
+        "TAIPEI 101 Observatory",
+        "101觀景台"
+      ]
+    },
+    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/NB2019073104-31/",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "physical"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "ctbc-101",
+    "scheme": null,
+    "label": "館內購物／餐飲／超市優惠",
+    "status": "unresolved",
+    "reason": "官方只明列Mia C’bon及特定商店／餐廳，完整折扣店家名單與適用品項未公開取得，各店9折至95折不一；不得以Mia C’bon全分店或全館匹配。",
+    "merchants": [
+      "Mia C’bon台北101店"
+    ],
+    "aliases": {},
+    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/NB2019073104-31/",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "physical"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "ctbc-101",
+    "scheme": null,
+    "label": "生日禮遇・點數與高空餐券",
+    "status": "unresolved",
+    "reason": "生日點數適用館內參與店家，不等於全館；完整參與名單未取得。餐券是達檻贈禮，不代表餐廳刷卡享倍數。",
+    "merchants": [],
+    "aliases": {},
+    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/NB2019073104-31/",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "ctbc-101",
+    "scheme": null,
+    "label": "新戶／新卡首刷禮",
+    "status": "nonMerchant",
+    "reason": "申辦／新戶首刷達檻贈禮，不是特定商家交易的固定回饋；不參與商家排名。",
+    "merchants": [],
+    "aliases": {},
+    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/NB2019073104-31/",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "ctbc-101",
+    "scheme": null,
+    "label": "新卡點數10倍（不是現金10%）",
+    "status": "unresolved",
+    "reason": "點數10倍不是現金10%；首次申辦、核卡月、館內發票、單筆門檻與排除名單須共同判斷，完整適用商家尚未建立。",
+    "merchants": [],
+    "aliases": {},
+    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/NB2019073104-31/",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "ctbc-101",
+    "scheme": null,
+    "label": "首刷滿額・饗A Joy雙人晚餐",
+    "status": "nonMerchant",
+    "reason": "一般消費累計達檻贈饗A Joy餐券，並非在饗A Joy刷卡享回饋；不建立餐廳匹配。",
+    "merchants": [],
+    "aliases": {},
+    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/NB2019073104-31/",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "hsbc-travel",
+    "scheme": null,
+    "label": "國內一般消費",
+    "status": "verified",
+    "reason": "Q4旅遊積分條款；僅國內一般消費類別，排除銀行列示非一般消費，不泛化商家。",
+    "merchants": [
+      "國內一般消費"
+    ],
+    "aliases": {},
+    "source": "https://shop.hsbc.com.tw/installments/creditcard/rewards/info.html",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "mile"
+  },
+  {
+    "cardId": "hsbc-travel",
+    "scheme": null,
+    "label": "國外一般消費",
+    "status": "verified",
+    "reason": "Q4旅遊積分條款；須臺灣以外交易且帳單收取國外交易手續費，僅類別查詢，不推定海外網站必然適用。",
+    "merchants": [
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "source": "https://shop.hsbc.com.tw/installments/creditcard/rewards/info.html",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "mile"
+  },
+  {
+    "cardId": "hsbc-travel",
+    "scheme": null,
+    "label": "機場貴賓室8次／權益年度",
+    "status": "verified",
+    "reason": "瀏覽器展開官方表格核對；正卡、全額機票或團費80%、事前預約。以服務名稱查詢，不宣稱全球每個據點均已建檔。",
+    "merchants": [
+      "匯豐旅人機場貴賓室服務"
+    ],
+    "aliases": {
+      "匯豐旅人機場貴賓室服務": [
+        "滙豐旅人機場貴賓室服務",
+        "匯豐貴賓室"
+      ]
+    },
+    "source": "https://www.hsbc.com.tw/zh-tw/credit-cards/benefits/lounge-services/",
+    "checkedAt": "2026-10-21",
+    "end": "2027-06-30",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "hsbc-travel",
+    "scheme": null,
+    "label": "機場接送4次／權益年度",
+    "status": "verified",
+    "reason": "官方2026/7/1至2027/6/30接送權益；須全額機票或國外團費超過80%，限定區域且事前預約；服務查詢不是接送商家消費回饋。",
+    "merchants": [
+      "匯豐旅人機場接送服務"
+    ],
+    "aliases": {},
+    "source": "https://www.hsbc.com.tw/en-tw/credit-cards/benefits/airport-transfer/",
+    "checkedAt": "2026-10-21",
+    "end": "2027-06-30",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "ctbc-ci",
+    "scheme": null,
+    "label": "國內外一般消費（基本）",
+    "status": "verified",
+    "reason": "官方卡等表核對鼎尊基本哩；僅國內外一般消費類別，不推定任意商家符合排除規則。",
+    "merchants": [
+      "國內一般消費",
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/CTBCCI/index.html",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "mile"
+  },
+  {
+    "cardId": "ctbc-ci",
+    "scheme": null,
+    "label": "國外實體／華航官網機票／eMall／旅遊訂房（x2）",
+    "status": "verified",
+    "reason": "指定航空及六家住宿平台已核，按請款交易條件分組。",
+    "merchants": [
+      "中華航空官網購票",
+      "華信航空官網購票",
+      "華航eMall",
+      "華航Sky Boutique",
+      "華航機上免稅品",
+      "Agoda",
+      "Hotels.com",
+      "Expedia",
+      "Trip.com",
+      "Booking.com",
+      "Airbnb"
+    ],
+    "aliases": {},
+    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/CTBCCI/index.html",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct",
+      "海外住宿（國外請款）"
+    ],
+    "searchType": "mile",
+    "rules": [
+      {
+        "merchants": [
+          "中華航空官網購票",
+          "華信航空官網購票",
+          "華航eMall",
+          "華航Sky Boutique",
+          "華航機上免稅品"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "限官網購票或指定免稅／eMall，不含第三方支付"
+      },
+      {
+        "merchants": [
+          "Agoda",
+          "Hotels.com",
+          "Expedia",
+          "Trip.com",
+          "Booking.com",
+          "Airbnb"
+        ],
+        "channels": [
+          "海外住宿（國外請款）"
+        ],
+        "qualifier": "限國外住宿，且帳單有國外交易手續費"
+      }
+    ],
+    "gaps": [
+      "海外實體一般消費類別尚未另建。"
+    ]
+  },
+  {
+    "cardId": "ctbc-ci",
+    "scheme": null,
+    "label": "生日當月 海外實體（x3）",
+    "status": "verified",
+    "reason": "僅生日月海外實體一般消費類別；面對面且國別碼非臺灣，排除網路／條碼／第三方支付。原tier生日條件及共用額度仍須顯示。",
+    "merchants": [
+      "生日當月國外實體一般消費"
+    ],
+    "aliases": {},
+    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/CTBCCI/index.html",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "physical"
+    ],
+    "searchType": "mile"
+  },
+  {
+    "cardId": "ctbc-ci",
+    "scheme": null,
+    "label": "華航貴賓室不限次（有門檻）／接送每戶每年6次",
+    "status": "unresolved",
+    "reason": "FAQ核對卡等與門檻，但原tier end為null；貴賓室與接送混合且權益年度／完整據點未核清，不能補造截止日。",
+    "merchants": [],
+    "aliases": {},
+    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/CTBCCI/faq.html",
+    "checkedAt": "2026-10-21",
+    "end": null,
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "cathay-eva",
+    "scheme": null,
+    "label": "國內一般消費",
+    "status": "verified",
+    "reason": "手冊一般消費示例確認極致無限卡基本哩；僅國內一般消費類別，保留原上限未知。",
+    "merchants": [
+      "國內一般消費"
+    ],
+    "aliases": {},
+    "source": "https://www.cathaybk.com.tw/cathaybk/-/media/fddd4d9d98754438a663ee9129eb345a.pdf",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "mile"
+  },
+  {
+    "cardId": "cathay-eva",
+    "scheme": null,
+    "label": "長榮官網/App／機上免稅／海外實體及指定線上住宿",
+    "status": "verified",
+    "reason": "先涵蓋原tier標籤明確列示的航空與海外住宿，不借用10元/哩套其他新增服務。",
+    "merchants": [
+      "長榮航空官網/App購票",
+      "長榮航空機上免稅品",
+      "Agoda",
+      "Airbnb",
+      "Hotels.com",
+      "Expedia",
+      "Booking.com",
+      "Trip.com",
+      "AsiaYo",
+      "KKday",
+      "Klook"
+    ],
+    "aliases": {},
+    "source": "https://www.cathaybk.com.tw/cathaybk/personal/credit-card/cards/intro/eva/login/",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct",
+      "海外住宿（國外請款）",
+      "海外住宿（外幣請款）"
+    ],
+    "searchType": "mile",
+    "rules": [
+      {
+        "merchants": [
+          "長榮航空官網/App購票",
+          "長榮航空機上免稅品"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "不含免稅品預購"
+      },
+      {
+        "merchants": [
+          "Agoda",
+          "Airbnb",
+          "Hotels.com",
+          "Expedia",
+          "Booking.com",
+          "Trip.com",
+          "AsiaYo"
+        ],
+        "channels": [
+          "海外住宿（國外請款）"
+        ],
+        "qualifier": "須海外請款住宿，不含30天以上長租"
+      },
+      {
+        "merchants": [
+          "KKday",
+          "Klook"
+        ],
+        "channels": [
+          "海外住宿（外幣請款）"
+        ],
+        "qualifier": "須海外住宿且外幣請款"
+      }
+    ],
+    "gaps": [
+      "海外餐飲、交通卡、交通、航空與娛樂等新增類別需要獨立tier及MCC條件；尚未整合。"
+    ]
+  },
+  {
+    "cardId": "cathay-eva",
+    "scheme": null,
+    "label": "旅行社長榮機票／國外自由行／團體旅遊（登錄）",
+    "status": "verified",
+    "reason": "限定航程登錄服務查詢，不映射任意旅行社所有商品。",
+    "merchants": [
+      "旅行社長榮機票／旅遊登錄"
+    ],
+    "aliases": {},
+    "source": "https://www.cathaybk.com.tw/cathaybk/personal/credit-card/cards/intro/eva/login/",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "指定長榮航程"
+    ],
+    "searchType": "mile",
+    "rules": [
+      {
+        "merchants": [
+          "旅行社長榮機票／旅遊登錄"
+        ],
+        "channels": [
+          "指定長榮航程"
+        ],
+        "qualifier": "限本人搭乘、單筆指定機票／團費，搭後5–180日成功登錄"
+      }
+    ]
+  },
+  {
+    "cardId": "cathay-eva",
+    "scheme": null,
+    "label": "長榮貴賓室（限適用航班、艙等及本人）",
+    "status": "verified",
+    "reason": "手冊PDF第29頁：臺灣出發、長榮／立榮實際營運國際線，本人實體卡與登機證，不攜伴；各艙等館別須依原文，只提供服務查詢。",
+    "merchants": [
+      "長榮航空機場貴賓室服務"
+    ],
+    "aliases": {},
+    "source": "https://www.cathaybk.com.tw/cathaybk/-/media/fddd4d9d98754438a663ee9129eb345a.pdf",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "cathay-eva",
+    "scheme": null,
+    "label": "機場接送6次／曆年",
+    "status": "verified",
+    "reason": "手冊PDF第28頁核對年度、次數及帳單門檻；只提供權益服務查詢，指定區域、預約及加價規則仍適用。",
+    "merchants": [
+      "國泰長榮卡機場接送服務"
+    ],
+    "aliases": {},
+    "source": "https://www.cathaybk.com.tw/cathaybk/-/media/fddd4d9d98754438a663ee9129eb345a.pdf",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "esun-starlux",
+    "scheme": null,
+    "label": "國內一般消費",
+    "status": "verified",
+    "reason": "官方動態表格世界卡欄核對；繳全額年費，排除非一般及特店分期，僅國內類別查詢。",
+    "merchants": [
+      "國內一般消費"
+    ],
+    "aliases": {},
+    "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/co-branded-card/starlux-card",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "mile"
+  },
+  {
+    "cardId": "esun-starlux",
+    "scheme": null,
+    "label": "國外一般消費",
+    "status": "verified",
+    "reason": "官方動態表格世界卡欄核對；繳全額年費，排除非一般及特店分期，僅國外類別查詢。",
+    "merchants": [
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/co-branded-card/starlux-card",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "mile"
+  },
+  {
+    "cardId": "esun-starlux",
+    "scheme": null,
+    "label": "生日當月 海外實體（2倍，需登錄）",
+    "status": "verified",
+    "reason": "正卡生日月海外面對面一般交易，當月前含當月登錄並繳全額年費；排除網路、條碼及第三方支付。PayPay綁卡不適用；僅條件類別查詢。",
+    "merchants": [
+      "生日當月國外實體一般消費"
+    ],
+    "aliases": {},
+    "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/co-branded-card/starlux-card",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "physical"
+    ],
+    "searchType": "mile"
+  },
+  {
+    "cardId": "esun-starlux",
+    "scheme": null,
+    "label": "世界卡機場貴賓室12次／曆年",
+    "status": "verified",
+    "reason": "官方動態世界卡專屬區塊確認；一般資格按原tier門檻，私銀／極致另有資格，正附分算。只查U.First服務，不泛化所有機場商家。",
+    "merchants": [
+      "玉山U.First機場貴賓室服務"
+    ],
+    "aliases": {
+      "玉山U.First機場貴賓室服務": [
+        "玉山U First機場貴賓室服務",
+        "玉山機場貴賓室"
+      ]
+    },
+    "source": "https://www.esunbank.com/zh-tw/personal/credit-card/benefit/vip-room",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "esun-starlux",
+    "scheme": null,
+    "label": "世界卡機場接送：一般2趟／指定理財會員最高4趟",
+    "status": "verified",
+    "reason": "官方動態世界卡區塊確認一般2趟、指定理財最高4趟；正附及指定世界卡共用，限區域並需預約。只提供服務查詢。",
+    "merchants": [
+      "玉山世界卡機場接送服務"
+    ],
+    "aliases": {},
+    "source": "https://www.esunbank.com/zh-tw/personal/credit-card/benefit/airport-pickup",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "esun-starlux",
+    "scheme": null,
+    "label": "星宇指定通路2倍（國內適用消費）",
+    "status": "verified",
+    "reason": "四指定通路完整核對，限定本層國內認列條件。",
+    "merchants": [
+      "星宇航空官網/App購票",
+      "星宇航空形象門市",
+      "béshopping",
+      "星宇航空國際航線機上免稅品"
+    ],
+    "aliases": {},
+    "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/co-branded-card/starlux-card",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "國內臺幣請款"
+    ],
+    "searchType": "mile",
+    "rules": [
+      {
+        "merchants": [
+          "星宇航空官網/App購票",
+          "星宇航空形象門市",
+          "béshopping",
+          "星宇航空國際航線機上免稅品"
+        ],
+        "channels": [
+          "國內臺幣請款"
+        ],
+        "qualifier": "限國內認列；不含購買哩程、第三方支付，須繳全額年費"
+      }
+    ]
+  },
+  {
+    "cardId": "ctbc-linepay",
+    "scheme": null,
+    "label": "國內外一般消費",
+    "status": "verified",
+    "reason": "基本一般消費不以面對面為限；須綁臺灣LINE Pay，排除分期與非一般消費。僅國內／國外類別，不推定所有LINE Pay商家。",
+    "merchants": [
+      "國內一般消費",
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/notice.html",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct",
+      "LINE Pay"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "ctbc-linepay",
+    "scheme": null,
+    "label": "國外實體商店消費",
+    "status": "unresolved",
+    "reason": "面對面／國別碼條件已核，但海外不回饋項目含部分歐洲地區，完整排除清單尚未核清；不能以全海外實體概括推薦。",
+    "merchants": [],
+    "aliases": {},
+    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/notice.html",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "ctbc-linepay",
+    "scheme": null,
+    "label": "國外實體消費登錄加碼（2026/7/1–9/30）",
+    "status": "expired",
+    "reason": "原tier於2026/9/30到期，不以Q4續行延長舊層；不參與排名。",
+    "merchants": [],
+    "aliases": {},
+    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/page_travel.html",
+    "checkedAt": "2026-10-21",
+    "end": "2026-09-30",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "ctbc-linepay",
+    "scheme": null,
+    "label": "Klook指定台港澳商品：最高12%點數",
+    "status": "expired",
+    "reason": "中秋Klook檔於2026/9/30到期，保留原期限；不參與排名。",
+    "merchants": [
+      "Klook"
+    ],
+    "aliases": {},
+    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/page_travel.html",
+    "checkedAt": "2026-10-21",
+    "end": "2026-09-30",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "ctbc-linepay",
+    "scheme": null,
+    "label": "一卡通大眾運輸（不含高鐵／計程車）",
+    "status": "verified",
+    "reason": "僅實體卡內一卡通儲值金搭乘指定大眾運輸類別；排除高鐵、計程車及Hami Pay/Fitbit Pay等行動一卡通，並非一卡通自動加值或所有店家。",
+    "merchants": [
+      "一卡通大眾運輸"
+    ],
+    "aliases": {
+      "一卡通大眾運輸": [
+        "一卡通交通消費"
+      ]
+    },
+    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/index.html",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "一卡通"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "ctbc-linepay",
+    "scheme": null,
+    "label": "Klook國慶檔台港澳指定商品：最高12%點數",
+    "status": "expired",
+    "reason": "國慶Klook檔於2026/10/11到期，不將另一期活動套用原tier；不參與排名。",
+    "merchants": [
+      "Klook"
+    ],
+    "aliases": {},
+    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/page_travel.html",
+    "checkedAt": "2026-10-21",
+    "end": "2026-10-11",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "ctbc-linepay",
+    "scheme": null,
+    "label": "國外實體消費登錄加碼（2026Q4）",
+    "status": "unresolved",
+    "reason": "瀏覽器已核對Q4期間、登錄限額、整檔450點與請款期限；但部分歐洲國家不回饋完整名單尚未核清，不能以全海外實體推薦。",
+    "merchants": [],
+    "aliases": {},
+    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/page_travel.html",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  }
+]

@@ -1,13 +1,52 @@
 const {test,expect}=require('@playwright/test');
+test('Japan query immediately compares four cards with conditions',async({page})=>{
+  await page.goto('/');
+  await page.locator('#merchantQuery').fill('日本消費');
+  await expect(page.locator('#merchantStatus')).toContainText('日本實體一般消費');
+  for(const [name,rate] of [['玉山 Unicard','4.5%'],['富邦 J 卡','6%'],['星展 傳說對決','5%'],['星展 eco 永續','5%']]){
+    await expect(page.locator('#merchantResults ol > li').filter({hasText:name})).toContainText(rate);
+  }
+  await expect(page.locator('#merchantResults')).toContainText('UP選');
+  await expect(page.locator('#merchantResults')).toContainText('1,000');
+});
+test('search stays available in mile tab and suggestions do not guess a merchant',async({page})=>{
+  await page.goto('/');
+  await page.locator('#merchantQuery').fill('Agod');
+  await expect(page.locator('#merchantResults ol > li')).toHaveCount(0);
+  await page.locator('#merchantResults').getByRole('button',{name:'Agoda',exact:true}).click();
+  await expect(page.locator('#merchantQuery')).toHaveValue('Agoda');
+  await page.locator('#tabMile').click();
+  await expect(page.locator('#merchantQuery')).toBeVisible();
+  await expect(page.getByLabel('排除新戶／新卡專屬')).toBeVisible();
+  await page.getByRole('button',{name:'清除搜尋',exact:true}).click();
+  await expect(page.locator('#merchantResults')).toBeEmpty();
+});
+test('search separates channels, mile units and venue perks in the rendered page',async({page})=>{
+  await page.goto('/');
+  await page.evaluate(()=>{
+    const rule={status:'verified',reason:'fixture',merchants:['測試通路'],aliases:{},source:'https://bank.example',checkedAt:'2026-10-01',end:'2026-12-31',channels:['online']};
+    for(const [id,rate,type] of [['cash','6','cash'],['mile','10元/哩','mile'],['perk','4H','perk']]){
+      cards.push({id:'qa-'+id,name:'測試銀行 '+id,tags:type==='mile'?['哩程']:[],tiers:[{label:'測試通路權益',rate,cap:'每月300',kind:'regular',audience:'all',end:'2026-12-31',search:{...rule,searchType:type}}]});visibleCards.add('qa-'+id);
+    }
+  });
+  await page.locator('#merchantQuery').fill('測試通路');
+  await expect(page.locator('#merchantResults ol > li')).toHaveCount(0);
+  await page.getByRole('button',{name:'線上直接刷卡',exact:true}).click();
+  await expect(page.locator('#merchantResults ol')).toContainText('6%');
+  await expect(page.locator('#merchantResults ul')).toContainText('4H');
+  await page.locator('#tabMile').click();
+  await expect(page.locator('#merchantResults ol')).toContainText('10元/哩');
+  await expect(page.locator('#merchantResults')).not.toContainText('10%');
+});
 test('merchant composing input updates results without relying on compositionend',async({page})=>{
   await page.goto('/');
   await page.locator('#merchantQuery').evaluate(el=>{el.value='淘寶';el.dispatchEvent(new InputEvent('input',{bubbles:true,isComposing:true,data:'寶'}));});
   await expect(page.locator('#merchantStatus')).toContainText('淘寶：');
 });
-test('merchant explicit search and Enter read the current input value',async({page})=>{
+test('merchant search has no redundant button and Enter reads the current input',async({page})=>{
   await page.goto('/');
-  await page.locator('#merchantQuery').evaluate(el=>{el.value='淘寶';});
-  await page.getByRole('button',{name:'搜尋推薦',exact:true}).click();
+  await expect(page.getByRole('button',{name:'搜尋推薦',exact:true})).toHaveCount(0);
+  await page.locator('#merchantQuery').fill('淘寶');
   await expect(page.locator('#merchantStatus')).toContainText('淘寶：');
   await page.getByRole('button',{name:'清除搜尋',exact:true}).click();
   await page.locator('#merchantQuery').evaluate(el=>{el.value='淘寶';});
@@ -20,9 +59,15 @@ test('merchant search ranks verified offers, handles currency, clears and fits m
   await page.locator('#merchantQuery').fill('淘寶');
   const results=page.locator('#merchantResults');
   await expect(results.locator('ol > li').first()).toContainText('10%');
-  await expect(results).toContainText('需先確認帳單請款幣別');
-  await page.locator('#merchantCurrency').selectOption('foreign');
-  await expect(results.locator('ol > li').nth(1)).toContainText('5.5%');
+  await expect(page.locator('#merchantCurrency')).toHaveCount(0);
+  await expect(results).toContainText('國泰世華 CUBE');
+  await expect(results.locator('details')).toHaveCount(0);
+  await expect(results.locator('ol > li').first()).toContainText('500點');
+  await expect(results.locator('ol > li').filter({hasText:'聯邦 LINE Bank'})).toContainText('新臺幣 4%／外幣 5.5%');
+  await page.locator('#merchantQuery').fill('agoda');
+  await page.locator('#merchantChannels').getByRole('button',{name:'平台線上即時付款',exact:true}).click();
+  await expect(results.locator('ol > li').filter({hasText:'玉山 Unicard'})).toContainText('4.5%');
+  await expect(results).toContainText('5,000點');
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   await page.locator('#merchantQuery').fill('TAOBAO');
   await expect(results.locator('ol > li').first()).toContainText('10%');

@@ -1,6 +1,19 @@
 const {test}=require('node:test');
 const assert=require('node:assert/strict');
 const {validateData}=require('./validate-data.cjs');
+test('grouped search rejects unbound merchants, rate overrides and invalid scenario references',()=>{
+  const search={status:'verified',reason:'核實',merchants:['商家'],source:'https://bank.example',checkedAt:'2026-10-21',end:'2026-12-31',channels:['direct'],searchType:'cash'};
+  for(const group of [{merchants:['別家'],channels:['direct']},{merchants:['商家'],channels:[]},{merchants:['商家'],channels:['direct'],rate:99},{merchants:['商家'],channels:['direct'],queryScenarios:{'商家':'旅日'}}]){
+    const d=fixture();d.cards[0].tiers[0].search={...search,rules:[group]};assert.ok(validateData(d).errors.length,JSON.stringify(group));
+  }
+});
+test('verified search rejects missing evidence, invalid aliases, channels and reward units',()=>{
+  const valid={status:'verified',reason:'官方指定',merchants:['商家'],aliases:{'商家':['別名']},channels:['direct'],searchType:'cash',source:'https://bank.example/offer',checkedAt:'2026-10-21',end:'2026-12-31'};
+  for(const change of [{source:''},{end:'2026-02-30'},{channels:[]},{merchants:[]},{aliases:{'別家':['別名']}},{searchType:'mile'}]){
+    const d=fixture();d.cards[0].tiers[0].search={...valid,...change};assert.ok(validateData(d).errors.length,JSON.stringify(change));
+  }
+  const d=fixture();d.cards[0].tiers[0].search=valid;assert.equal(validateData(d).errors.length,0);
+});
 test('merchant mappings require dates, unique names and a finite foreign rate',()=>{
   for(const fields of [{merchants:['淘寶']},{merchants:['淘寶','淘寶'],merchantCheckedAt:'2026-10-19',merchantEnd:'2026-12-31'},{merchantForeignRate:Infinity}]){
     const d=fixture();Object.assign(d.cards[0].tiers[0],fields);

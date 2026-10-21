@@ -2,7 +2,8 @@
   "name": "credit-card-dashboard-checks",
   "private": true,
   "scripts": {
-    "test": "node --test dashboard.test.cjs validation.test.cjs",
+    "test": "node --test dashboard.test.cjs validation.test.cjs search-coverage.test.cjs",
+    "search:integrate": "node scripts/integrate-search.cjs --write",
     "validate": "node validate-data.cjs",
     "test:ui": "playwright test"
   },

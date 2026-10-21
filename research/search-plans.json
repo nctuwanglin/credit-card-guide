@@ -1,0 +1,2701 @@
+[
+  {
+    "cardId": "dawho",
+    "scheme": null,
+    "label": "一般消費（基本）",
+    "end": "2026-12-31",
+    "source": "https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/DAWHO.html",
+    "status": "verified",
+    "reason": "國內一般消費用既有tier.rate；國外一般消費引用既有scenarioRates.旅日（官方海外同率，不限日本），不複製比例。國外須非臺灣國別且外幣；一般消費排除項目及分期不適用，任務層另排除保費。僅泛類別查詢，不匹配任意商家。",
+    "merchants": [
+      "國內一般消費",
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash",
+    "queryScenarios": {
+      "國外一般消費": "旅日"
+    },
+    "qualifier": "海外需非臺灣國別且外幣；各資產／任務條件仍須符合"
+  },
+  {
+    "cardId": "dawho",
+    "scheme": null,
+    "label": "大戶資格：國內3.5%／國外4.5%",
+    "end": "2026-12-31",
+    "source": "https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/DAWHO.html",
+    "status": "verified",
+    "reason": "國內一般消費用既有tier.rate；國外一般消費引用既有scenarioRates.旅日（官方海外同率，不限日本），不複製比例。國外須非臺灣國別且外幣；一般消費排除項目及分期不適用，任務層另排除保費。僅泛類別查詢，不匹配任意商家。",
+    "merchants": [
+      "國內一般消費",
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash",
+    "queryScenarios": {
+      "國外一般消費": "旅日"
+    },
+    "qualifier": "海外需非臺灣國別且外幣；各資產／任務條件仍須符合"
+  },
+  {
+    "cardId": "dawho",
+    "scheme": null,
+    "label": "大戶Plus資格：國內5%／國外6%",
+    "end": "2026-12-31",
+    "source": "https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/DAWHO.html",
+    "status": "verified",
+    "reason": "國內一般消費用既有tier.rate；國外一般消費引用既有scenarioRates.旅日（官方海外同率，不限日本），不複製比例。國外須非臺灣國別且外幣；一般消費排除項目及分期不適用，任務層另排除保費。僅泛類別查詢，不匹配任意商家。",
+    "merchants": [
+      "國內一般消費",
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash",
+    "queryScenarios": {
+      "國外一般消費": "旅日"
+    },
+    "qualifier": "海外需非臺灣國別且外幣；各資產／任務條件仍須符合"
+  },
+  {
+    "cardId": "dawho",
+    "scheme": null,
+    "label": "悠遊卡自動加值（大戶）",
+    "end": "2026-12-31",
+    "source": "https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/DAWHO.html",
+    "status": "verified",
+    "reason": "僅自動加值服務，不匹配任意悠遊卡消費商家；保留原大戶／Plus資格、自扣與電子帳單條件及帳單上限。",
+    "merchants": [
+      "悠遊卡自動加值"
+    ],
+    "aliases": {
+      "悠遊卡自動加值": [
+        "悠遊自動加值"
+      ]
+    },
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "悠遊卡自動加值"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "dawho",
+    "scheme": null,
+    "label": "悠遊卡自動加值（大戶Plus）",
+    "end": "2026-12-31",
+    "source": "https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/DAWHO.html",
+    "status": "verified",
+    "reason": "僅自動加值服務，不匹配任意悠遊卡消費商家；保留原大戶／Plus資格、自扣與電子帳單條件及帳單上限。",
+    "merchants": [
+      "悠遊卡自動加值"
+    ],
+    "aliases": {
+      "悠遊卡自動加值": [
+        "悠遊自動加值"
+      ]
+    },
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "悠遊卡自動加值"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "sport",
+    "scheme": null,
+    "label": "一般消費（基本）",
+    "end": "2026-12-31",
+    "source": "https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/sportcard.html",
+    "status": "verified",
+    "reason": "國內外同率；僅一般消費查詢，不泛配商家。須電子帳單及DACARD串接，不含分期。",
+    "merchants": [
+      "國內一般消費",
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "sport",
+    "scheme": null,
+    "label": "達運動條件",
+    "end": "2026-12-31",
+    "source": "https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/sportcard.html",
+    "status": "verified",
+    "reason": "國內外同率；運動達標、自扣及電子帳單條件沿用tier，不含保費與分期，不泛配商家。",
+    "merchants": [
+      "國內一般消費",
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "sport",
+    "scheme": null,
+    "label": "達運動條件＋指定支付／通路",
+    "end": "2026-12-31",
+    "source": "https://bank.sinopac.com/sinopacBT/personal/credit-card/introduction/bankcard/sportcard.html",
+    "status": "unresolved",
+    "reason": "商家與四種支付共用一tier但不能作商家×支付笛卡兒積。喬山限街邊門市、Nuli限官網訂閱、Google Play僅應用程式並排除Google One/YouTube等；運動中心只有城市類別，未列各營運商。需拆服務/門市/支付規則；活動頁仍無可靠新期50/300點上限完整佐證。",
+    "merchants": [
+      "World Gym",
+      "健身工廠",
+      "Curves",
+      "喬山健康科技",
+      "Welltivity",
+      "台北市運動中心",
+      "新北市運動中心",
+      "Nuli女力APP",
+      "摩曼頓",
+      "Anytime Fitness",
+      "超核心健身中心",
+      "DAZN",
+      "屈臣氏",
+      "康是美",
+      "寶雅",
+      "好心肝健檢中心",
+      "杏一藥局",
+      "大樹藥局",
+      "丁丁藥局",
+      "新高橋藥局",
+      "App Store",
+      "Google Play",
+      "Nintendo",
+      "PlayStation",
+      "Steam"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "direct",
+      "Apple Pay",
+      "Google Pay",
+      "Samsung Pay",
+      "Garmin Pay"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "richart",
+    "scheme": "Pay 著刷 / LINE Pay",
+    "label": "台新Pay／台新Pay+指定通路",
+    "end": "2027-12-31",
+    "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+    "status": "unresolved",
+    "reason": "已追台新Pay、TWQR、台新Pay+入口；TWQR文字擷取失敗，台新Pay完整商家另在Richart Life App且部分名單為無文字圖片，不能聲稱全名單。三種介面帳單需分別TS＊、T-、台新電子支付；日韓與臺灣不能共用品牌規則。此處僅列卡片頁明列品牌，不作完整可推薦集合。",
+    "merchants": [
+      "全家",
+      "7-ELEVEN",
+      "新光三越",
+      "Richart Mart",
+      "康是美",
+      "IKEA",
+      "NET",
+      "神腦國際",
+      "燦坤",
+      "全國電子",
+      "麥當勞",
+      "美廉社",
+      "大樹藥局",
+      "LAWSON",
+      "BicCamera",
+      "GS25",
+      "DAISO"
+    ],
+    "aliases": {
+      "全家": [
+        "FamilyMart",
+        "全家便利商店"
+      ],
+      "7-ELEVEN": [
+        "7-11",
+        "統一超商"
+      ]
+    },
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "台新Pay",
+      "台新Pay+"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "richart",
+    "scheme": "Pay 著刷 / LINE Pay",
+    "label": "LINE Pay／全盈+PAY（Pay著刷）",
+    "end": "2027-12-31",
+    "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+    "status": "verified",
+    "reason": "以支付服務查詢，不將合作店名視為直接刷卡通路。",
+    "merchants": [
+      "LINE Pay",
+      "全盈+PAY"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "LINE Pay",
+      "全盈+PAY"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "LINE Pay"
+        ],
+        "channels": [
+          "LINE Pay"
+        ],
+        "qualifier": "切Pay著刷／LEVEL2；限臺灣臺幣，排除四大超商、稅費"
+      },
+      {
+        "merchants": [
+          "全盈+PAY"
+        ],
+        "channels": [
+          "全盈+PAY"
+        ],
+        "qualifier": "切Pay著刷／LEVEL2；限臺灣臺幣，排除四大超商、稅費"
+      }
+    ]
+  },
+  {
+    "cardId": "richart",
+    "scheme": "天天刷",
+    "label": "超商／超市／量販／加油／停車",
+    "end": "2027-12-31",
+    "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+    "status": "verified",
+    "reason": "逐服務拆分；藥妝分店例外仍有缺口。",
+    "merchants": [
+      "萬家福",
+      "樂家康",
+      "大買家",
+      "唐吉訶德",
+      "LOPIA",
+      "臺鐵",
+      "台灣高鐵",
+      "台灣大車隊",
+      "LINEGO",
+      "yoxi",
+      "中油直營",
+      "全國加油",
+      "全國特急電",
+      "EVOASIS",
+      "EVALUE",
+      "車麻吉",
+      "全家",
+      "7-ELEVEN",
+      "智生活",
+      "USPACE",
+      "Uber",
+      "台灣Bolt"
+    ],
+    "aliases": {
+      "全家": [
+        "FamilyMart",
+        "全家便利商店"
+      ],
+      "7-ELEVEN": [
+        "7-11",
+        "統一超商"
+      ],
+      "車麻吉": [
+        "Autopass"
+      ]
+    },
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "臺灣直接付款",
+      "台新Pay",
+      "到府服務",
+      "停車",
+      "國內臺幣請款"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "萬家福",
+          "樂家康",
+          "大買家",
+          "唐吉訶德",
+          "LOPIA",
+          "臺鐵",
+          "台灣高鐵",
+          "台灣大車隊",
+          "LINEGO",
+          "yoxi",
+          "中油直營",
+          "全國加油",
+          "全國特急電",
+          "EVOASIS",
+          "EVALUE",
+          "車麻吉"
+        ],
+        "channels": [
+          "臺灣直接付款"
+        ],
+        "qualifier": "切天天刷／LEVEL2；限指定服務直接請款"
+      },
+      {
+        "merchants": [
+          "全家",
+          "7-ELEVEN"
+        ],
+        "channels": [
+          "台新Pay"
+        ],
+        "qualifier": "切天天刷／LEVEL2；不是一般直接刷卡"
+      },
+      {
+        "merchants": [
+          "智生活"
+        ],
+        "channels": [
+          "到府服務"
+        ],
+        "qualifier": "不含社區管理費"
+      },
+      {
+        "merchants": [
+          "USPACE"
+        ],
+        "channels": [
+          "停車"
+        ],
+        "qualifier": "限停車費"
+      },
+      {
+        "merchants": [
+          "Uber",
+          "台灣Bolt"
+        ],
+        "channels": [
+          "國內臺幣請款"
+        ],
+        "qualifier": "限臺灣搭車"
+      }
+    ],
+    "gaps": [
+      "藥妝完整排除門市尚未結構化，不以所有分店適用宣稱完整。",
+      "未啟用：寶雅、康是美、屈臣氏、杏一醫療、大樹藥局、丁丁藥局、佑全保健藥妝、健康人生藥局"
+    ]
+  },
+  {
+    "cardId": "richart",
+    "scheme": "大筆刷",
+    "label": "百貨／時尚品牌",
+    "end": "2027-12-31",
+    "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+    "status": "verified",
+    "reason": "完整指定百貨館別與時尚品牌，按臺灣指定門市／官網條件顯示。",
+    "merchants": [
+      "新光三越",
+      "遠東百貨",
+      "遠東SOGO",
+      "漢神巨蛋",
+      "漢神百貨",
+      "漢神洲際",
+      "微風廣場",
+      "微風南京",
+      "微風松高",
+      "微風信義",
+      "微風南山",
+      "台北101",
+      "遠東巨城",
+      "廣三SOGO",
+      "南紡購物中心",
+      "誠品生活",
+      "京站",
+      "三創生活",
+      "夢時代",
+      "統一時代",
+      "DREAM PLAZA",
+      "中友百貨",
+      "LaLaport南港",
+      "LaLaport台中",
+      "MITSUI OUTLET PARK林口",
+      "MITSUI OUTLET PARK台中港",
+      "MITSUI OUTLET PARK台南",
+      "華泰名品城",
+      "SKM Park Outlets",
+      "IKEA",
+      "特力屋",
+      "HOLA",
+      "宜得利",
+      "瑪黑家居",
+      "UNIQLO",
+      "GU",
+      "ZARA",
+      "NET",
+      "lululemon"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "臺灣指定門市／官網"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "新光三越",
+          "遠東百貨",
+          "遠東SOGO",
+          "漢神巨蛋",
+          "漢神百貨",
+          "漢神洲際",
+          "微風廣場",
+          "微風南京",
+          "微風松高",
+          "微風信義",
+          "微風南山",
+          "台北101",
+          "遠東巨城",
+          "廣三SOGO",
+          "南紡購物中心",
+          "誠品生活",
+          "京站",
+          "三創生活",
+          "夢時代",
+          "統一時代",
+          "DREAM PLAZA",
+          "中友百貨",
+          "LaLaport南港",
+          "LaLaport台中",
+          "MITSUI OUTLET PARK林口",
+          "MITSUI OUTLET PARK台中港",
+          "MITSUI OUTLET PARK台南",
+          "華泰名品城",
+          "SKM Park Outlets",
+          "IKEA",
+          "特力屋",
+          "HOLA",
+          "宜得利",
+          "瑪黑家居",
+          "UNIQLO",
+          "GU",
+          "ZARA",
+          "NET",
+          "lululemon"
+        ],
+        "channels": [
+          "臺灣指定門市／官網"
+        ],
+        "qualifier": "切大筆刷／LEVEL2；排除新光站前、百貨店中店與誠品書店；時尚品牌限臺灣"
+      }
+    ]
+  },
+  {
+    "cardId": "richart",
+    "scheme": "好饗刷",
+    "label": "餐飲／KTV／娛樂",
+    "end": "2027-12-31",
+    "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+    "status": "verified",
+    "reason": "已列完整具名飯店及娛樂服務；餐飲MCC不泛配任意餐廳。",
+    "merchants": [
+      "王品瘋Pay",
+      "Uber Eats",
+      "foodpanda",
+      "拓元售票",
+      "KKTIX",
+      "年代售票",
+      "寬宏售票",
+      "OPENTIX",
+      "FunNow",
+      "錢櫃",
+      "好樂迪",
+      "ONCOR",
+      "sing!go",
+      "享溫馨",
+      "台北晶華酒店",
+      "礁溪晶泉丰旅",
+      "北投晶泉丰旅",
+      "台南晶英酒店",
+      "太魯閣晶英酒店",
+      "蘭城晶英酒店",
+      "捷絲旅",
+      "君品酒店",
+      "雲品溫泉酒店",
+      "翰品酒店",
+      "兆品酒店",
+      "品文旅",
+      "台北萬豪酒店",
+      "高雄萬豪酒店",
+      "W HOTEL",
+      "台北喜來登大飯店",
+      "台北士林萬麗酒店",
+      "台北國泰萬怡酒店",
+      "台北六福萬怡酒店",
+      "林口亞昕福朋喜來登酒店",
+      "八里福朋喜來登酒店",
+      "桃園喜來登酒店",
+      "新竹豐邑喜來登大飯店",
+      "宜蘭礁溪福朋喜來登酒店",
+      "台東桂田喜來登酒店",
+      "澎湖福朋喜來登酒店",
+      "然一酒店",
+      "台北寒舍艾美酒店",
+      "台北賦樂旅居",
+      "台北宿之酒店．臻品之選",
+      "台北中山雅樂軒酒店",
+      "台北北投雅樂軒酒店",
+      "台南安平雅樂軒酒店",
+      "桃園大溪笠復威斯汀度假酒店",
+      "宜蘭力麗威斯汀度假酒店",
+      "台中李方艾美酒店",
+      "台中萬楓酒店",
+      "台中豐邑MOXY酒店",
+      "花蓮潔西艾美酒店",
+      "煙波花蓮太魯閣",
+      "煙波新竹湖濱館",
+      "煙波新竹都會館",
+      "煙波花蓮館",
+      "煙波蘇澳四季雙泉館",
+      "煙波宜蘭館",
+      "煙波台南館",
+      "煙波花時間 宜蘭傳藝",
+      "煙波花時間 花蓮",
+      "礁溪老爺酒店",
+      "知本老爺酒店",
+      "新竹老爺酒店",
+      "北投老爺酒店",
+      "台北老爺酒店",
+      "台南老爺行旅",
+      "台中大毅老爺行旅",
+      "南港老爺行旅",
+      "老爺會館台北南西",
+      "老爺會館台北林森",
+      "台北福華大飯店",
+      "石門水庫福華渡假飯店",
+      "新竹福華大飯店",
+      "台中福華大飯店",
+      "溪頭福華渡假飯店",
+      "雲林華安大飯店",
+      "高雄福華大飯店",
+      "墾丁福華渡假飯店",
+      "台北漢來大飯店",
+      "高雄漢來大飯店",
+      "漢來日月行館",
+      "台北君悅酒店",
+      "臺中勤美洲際酒店",
+      "高雄洲際酒店",
+      "礁溪寒沐酒店"
+    ],
+    "aliases": {
+      "FunNow": [
+        "Funnow"
+      ]
+    },
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "王品瘋Pay",
+      "國內臺幣請款",
+      "physical",
+      "飯店直接付款"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "王品瘋Pay"
+        ],
+        "channels": [
+          "王品瘋Pay"
+        ],
+        "qualifier": "切好饗刷／LEVEL2"
+      },
+      {
+        "merchants": [
+          "Uber Eats",
+          "foodpanda",
+          "拓元售票",
+          "KKTIX",
+          "年代售票",
+          "寬宏售票",
+          "OPENTIX",
+          "FunNow"
+        ],
+        "channels": [
+          "國內臺幣請款"
+        ],
+        "qualifier": "切好饗刷／LEVEL2；原平台付款"
+      },
+      {
+        "merchants": [
+          "錢櫃",
+          "好樂迪",
+          "ONCOR",
+          "sing!go",
+          "享溫馨"
+        ],
+        "channels": [
+          "physical"
+        ],
+        "qualifier": "限KTV直接請款"
+      },
+      {
+        "merchants": [
+          "台北晶華酒店",
+          "礁溪晶泉丰旅",
+          "北投晶泉丰旅",
+          "台南晶英酒店",
+          "太魯閣晶英酒店",
+          "蘭城晶英酒店",
+          "捷絲旅",
+          "君品酒店",
+          "雲品溫泉酒店",
+          "翰品酒店",
+          "兆品酒店",
+          "品文旅",
+          "台北萬豪酒店",
+          "高雄萬豪酒店",
+          "W HOTEL",
+          "台北喜來登大飯店",
+          "台北士林萬麗酒店",
+          "台北國泰萬怡酒店",
+          "台北六福萬怡酒店",
+          "林口亞昕福朋喜來登酒店",
+          "八里福朋喜來登酒店",
+          "桃園喜來登酒店",
+          "新竹豐邑喜來登大飯店",
+          "宜蘭礁溪福朋喜來登酒店",
+          "台東桂田喜來登酒店",
+          "澎湖福朋喜來登酒店",
+          "然一酒店",
+          "台北寒舍艾美酒店",
+          "台北賦樂旅居",
+          "台北宿之酒店．臻品之選",
+          "台北中山雅樂軒酒店",
+          "台北北投雅樂軒酒店",
+          "台南安平雅樂軒酒店",
+          "桃園大溪笠復威斯汀度假酒店",
+          "宜蘭力麗威斯汀度假酒店",
+          "台中李方艾美酒店",
+          "台中萬楓酒店",
+          "台中豐邑MOXY酒店",
+          "花蓮潔西艾美酒店",
+          "煙波花蓮太魯閣",
+          "煙波新竹湖濱館",
+          "煙波新竹都會館",
+          "煙波花蓮館",
+          "煙波蘇澳四季雙泉館",
+          "煙波宜蘭館",
+          "煙波台南館",
+          "煙波花時間 宜蘭傳藝",
+          "煙波花時間 花蓮",
+          "礁溪老爺酒店",
+          "知本老爺酒店",
+          "新竹老爺酒店",
+          "北投老爺酒店",
+          "台北老爺酒店",
+          "台南老爺行旅",
+          "台中大毅老爺行旅",
+          "南港老爺行旅",
+          "老爺會館台北南西",
+          "老爺會館台北林森",
+          "台北福華大飯店",
+          "石門水庫福華渡假飯店",
+          "新竹福華大飯店",
+          "台中福華大飯店",
+          "溪頭福華渡假飯店",
+          "雲林華安大飯店",
+          "高雄福華大飯店",
+          "墾丁福華渡假飯店",
+          "台北漢來大飯店",
+          "高雄漢來大飯店",
+          "漢來日月行館",
+          "台北君悅酒店",
+          "臺中勤美洲際酒店",
+          "高雄洲際酒店",
+          "礁溪寒沐酒店"
+        ],
+        "channels": [
+          "飯店直接付款"
+        ],
+        "qualifier": "指定飯店本身請款，不含票券或代訂"
+      }
+    ],
+    "gaps": [
+      "一般餐飲MCC類別尚未提供獨立搜尋，避免由品牌推定交易代碼。"
+    ]
+  },
+  {
+    "cardId": "richart",
+    "scheme": "數趣刷",
+    "label": "網購／影音／AI／遊戲訂閱",
+    "end": "2027-12-31",
+    "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+    "status": "verified",
+    "reason": "完整數趣刷具名名單；僅原平台直接付款並保留商品排除。",
+    "merchants": [
+      "蝦皮",
+      "momo",
+      "酷澎",
+      "PChome",
+      "淘寶",
+      "Amazon",
+      "東森購物",
+      "博客來",
+      "Richart Mart",
+      "PayEasy",
+      "iHerb",
+      "SHEIN",
+      "Farfetch",
+      "Olive Young",
+      "知識衛星",
+      "AmazingTalker",
+      "TutorABC",
+      "Hahow",
+      "PressPlay",
+      "MyCard",
+      "遊戲橘子",
+      "Steam",
+      "PlayStation",
+      "Nintendo",
+      "Netflix",
+      "Disney+",
+      "ChatGPT",
+      "Notion",
+      "Canva",
+      "Perplexity",
+      "Claude"
+    ],
+    "aliases": {
+      "蝦皮": [
+        "蝦皮購物",
+        "Shopee"
+      ],
+      "momo": [
+        "momo購物網"
+      ],
+      "酷澎": [
+        "Coupang"
+      ],
+      "PChome": [
+        "PChome 24h購物"
+      ],
+      "淘寶": [
+        "淘宝",
+        "Taobao"
+      ],
+      "Disney+": [
+        "Disney Plus",
+        "迪士尼+"
+      ]
+    },
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "蝦皮",
+          "momo",
+          "酷澎",
+          "PChome",
+          "淘寶",
+          "Amazon",
+          "東森購物",
+          "博客來",
+          "Richart Mart",
+          "PayEasy",
+          "iHerb",
+          "SHEIN",
+          "Farfetch",
+          "Olive Young",
+          "知識衛星",
+          "AmazingTalker",
+          "TutorABC",
+          "Hahow",
+          "PressPlay",
+          "MyCard",
+          "遊戲橘子",
+          "Steam",
+          "PlayStation",
+          "Nintendo",
+          "Netflix",
+          "Disney+",
+          "ChatGPT",
+          "Notion",
+          "Canva",
+          "Perplexity",
+          "Claude"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "須切數趣刷／LEVEL2；不含儲值、票券、貴金屬、廣告及代繳；蝦皮限臺灣臺幣"
+      }
+    ]
+  },
+  {
+    "cardId": "richart",
+    "scheme": "玩旅刷",
+    "label": "海外消費／航空（15家）／訂房／旅行社（13家）／日韓交通卡",
+    "end": "2027-12-31",
+    "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+    "status": "verified",
+    "reason": "官方完整航空、訂房、旅行社及交通服務清單，依交易方式拆分。",
+    "merchants": [
+      "中華航空",
+      "長榮航空",
+      "星宇航空",
+      "台灣虎航",
+      "國泰航空",
+      "華信航空",
+      "立榮航空",
+      "樂桃航空",
+      "阿聯酋航空",
+      "亞洲航空",
+      "酷航",
+      "捷星航空",
+      "新加坡航空",
+      "日本航空",
+      "越捷航空",
+      "雄獅旅遊",
+      "易遊網",
+      "東南旅遊",
+      "可樂旅遊",
+      "長汎假期",
+      "五福旅遊",
+      "喜鴻假期",
+      "易飛旅遊",
+      "燦星旅遊",
+      "加利利旅行社",
+      "鳳凰國際旅行社",
+      "山富旅遊",
+      "行健旅遊",
+      "Klook",
+      "KKday",
+      "Agoda",
+      "Booking.com",
+      "Trip.com",
+      "Airbnb",
+      "Hotels.com",
+      "Expedia",
+      "Suica",
+      "ICOCA",
+      "PASMO",
+      "WOWPASS",
+      "Uber",
+      "Grab",
+      "AIRSIM",
+      "國外一般消費"
+    ],
+    "aliases": {
+      "Agoda": [
+        "安可達"
+      ],
+      "Booking.com": [
+        "Booking"
+      ],
+      "易遊網": [
+        "ezTravel"
+      ]
+    },
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "direct",
+      "平台線上即時付款",
+      "官方交通卡儲值",
+      "海外搭車",
+      "online"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "中華航空",
+          "長榮航空",
+          "星宇航空",
+          "台灣虎航",
+          "國泰航空",
+          "華信航空",
+          "立榮航空",
+          "樂桃航空",
+          "阿聯酋航空",
+          "亞洲航空",
+          "酷航",
+          "捷星航空",
+          "新加坡航空",
+          "日本航空",
+          "越捷航空",
+          "雄獅旅遊",
+          "易遊網",
+          "東南旅遊",
+          "可樂旅遊",
+          "長汎假期",
+          "五福旅遊",
+          "喜鴻假期",
+          "易飛旅遊",
+          "燦星旅遊",
+          "加利利旅行社",
+          "鳳凰國際旅行社",
+          "山富旅遊",
+          "行健旅遊"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "切玩旅刷／LEVEL2；航空限直接購票，旅行社限直營"
+      },
+      {
+        "merchants": [
+          "Klook",
+          "KKday",
+          "Agoda",
+          "Booking.com",
+          "Trip.com",
+          "Airbnb",
+          "Hotels.com",
+          "Expedia"
+        ],
+        "channels": [
+          "平台線上即時付款"
+        ],
+        "qualifier": "平台實際扣款，不含到店付款"
+      },
+      {
+        "merchants": [
+          "Suica",
+          "ICOCA",
+          "PASMO",
+          "WOWPASS"
+        ],
+        "channels": [
+          "官方交通卡儲值"
+        ],
+        "qualifier": "限指定交通卡儲值，不代表一般消費"
+      },
+      {
+        "merchants": [
+          "Uber",
+          "Grab"
+        ],
+        "channels": [
+          "海外搭車"
+        ],
+        "qualifier": "限國外叫車"
+      },
+      {
+        "merchants": [
+          "AIRSIM"
+        ],
+        "channels": [
+          "online"
+        ],
+        "qualifier": "限VISA／Mastercard"
+      },
+      {
+        "merchants": [
+          "國外一般消費"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "切玩旅刷／LEVEL2，須為銀行認列海外交易"
+      }
+    ]
+  },
+  {
+    "cardId": "richart",
+    "scheme": "假日刷",
+    "label": "週六日及官方定義國定例假日",
+    "end": "2027-12-31",
+    "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+    "status": "unresolved",
+    "reason": "僅國內官方節假日，不能每日適用；現有schema無星期/國定假日判定。手動保費可2%，自動扣繳仍1.3%，需日期與扣繳型態規則。",
+    "merchants": [
+      "國內一般消費"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "richart",
+    "scheme": "Chill刷（限時方案，至2026/12/31）",
+    "label": "瘋聚會／日常續命",
+    "end": "2026-12-31",
+    "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+    "status": "verified",
+    "reason": "完整Chill具名清單；只在指定獨立店／官網交易類別顯示。",
+    "merchants": [
+      "詹記麻辣火鍋",
+      "萬客什鍋",
+      "海底撈",
+      "屋馬燒肉",
+      "茶六燒肉堂",
+      "新村站著吃",
+      "燒肉政宗",
+      "碳佐麻里",
+      "雞湯大叔",
+      "gonna共樂遊",
+      "BRUN不然",
+      "CAFE ACME",
+      "The Antipodean",
+      "貳樓",
+      "樂子the Diner",
+      "Fake Sober",
+      "Draft Land",
+      "臺虎精釀",
+      "啜飲室",
+      "ABV系列",
+      "Bar TCRC",
+      "Bar Home",
+      "Phowa",
+      "MOONROCK",
+      "台灣代駕",
+      "Motodomo愛車管家",
+      "50嵐",
+      "得正",
+      "五桐號",
+      "龜記",
+      "UG TEA",
+      "叮哥茶飲",
+      "CAFE!N",
+      "%Arabica",
+      "COMPOSE COFFEE"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "指定獨立店／官網"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "詹記麻辣火鍋",
+          "萬客什鍋",
+          "海底撈",
+          "屋馬燒肉",
+          "茶六燒肉堂",
+          "新村站著吃",
+          "燒肉政宗",
+          "碳佐麻里",
+          "雞湯大叔",
+          "gonna共樂遊",
+          "BRUN不然",
+          "CAFE ACME",
+          "The Antipodean",
+          "貳樓",
+          "樂子the Diner",
+          "Fake Sober",
+          "Draft Land",
+          "臺虎精釀",
+          "啜飲室",
+          "ABV系列",
+          "Bar TCRC",
+          "Bar Home",
+          "Phowa",
+          "MOONROCK",
+          "台灣代駕",
+          "Motodomo愛車管家",
+          "50嵐",
+          "得正",
+          "五桐號",
+          "龜記",
+          "UG TEA",
+          "叮哥茶飲",
+          "CAFE!N",
+          "%Arabica",
+          "COMPOSE COFFEE"
+        ],
+        "channels": [
+          "指定獨立店／官網"
+        ],
+        "qualifier": "須切Chill刷／LEVEL2；排除百貨、商場、飯店及非指定平台"
+      }
+    ]
+  },
+  {
+    "cardId": "richart",
+    "scheme": "Chill刷（限時方案，至2026/12/31）",
+    "label": "約會犒賞／應援追星／熬夜追更",
+    "end": "2026-12-31",
+    "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+    "status": "verified",
+    "reason": "完整Chill具名清單；只在指定獨立店／官網交易類別顯示。",
+    "merchants": [
+      "饗饗INPARADISE",
+      "NAGOMI",
+      "WEVERSE",
+      "K-MONSTAR",
+      "微樂客",
+      "五大唱片",
+      "仙女樹",
+      "FANME",
+      "NOL",
+      "巴哈姆特",
+      "BOOK WALKER",
+      "Animate",
+      "樂天KOBO",
+      "Readmoo讀墨",
+      "Netflix",
+      "Disney+",
+      "愛爾達",
+      "好好生醫",
+      "POPCARE好在乎",
+      "營養師輕食",
+      "VITABOX",
+      "MYPROTEIN",
+      "UrMart優馬選品",
+      "Anytime Fitness",
+      "健身工廠",
+      "World Gym",
+      "超核心Hypercore",
+      "KX PILATES",
+      "虎鐵健身X器械皮拉提斯",
+      "17FIT",
+      "Adidas",
+      "New Balance",
+      "PUMA",
+      "Onitsuka Tiger",
+      "Nike",
+      "HOKA",
+      "Salomon",
+      "lululemon"
+    ],
+    "aliases": {
+      "Disney+": [
+        "Disney Plus",
+        "迪士尼+"
+      ]
+    },
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "指定獨立店／官網"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "饗饗INPARADISE",
+          "NAGOMI",
+          "WEVERSE",
+          "K-MONSTAR",
+          "微樂客",
+          "五大唱片",
+          "仙女樹",
+          "FANME",
+          "NOL",
+          "巴哈姆特",
+          "BOOK WALKER",
+          "Animate",
+          "樂天KOBO",
+          "Readmoo讀墨",
+          "Netflix",
+          "Disney+",
+          "愛爾達",
+          "好好生醫",
+          "POPCARE好在乎",
+          "營養師輕食",
+          "VITABOX",
+          "MYPROTEIN",
+          "UrMart優馬選品",
+          "Anytime Fitness",
+          "健身工廠",
+          "World Gym",
+          "超核心Hypercore",
+          "KX PILATES",
+          "虎鐵健身X器械皮拉提斯",
+          "17FIT",
+          "Adidas",
+          "New Balance",
+          "PUMA",
+          "Onitsuka Tiger",
+          "Nike",
+          "HOKA",
+          "Salomon",
+          "lululemon"
+        ],
+        "channels": [
+          "指定獨立店／官網"
+        ],
+        "qualifier": "須切Chill刷／LEVEL2；排除百貨、商場、飯店及非指定平台"
+      }
+    ]
+  },
+  {
+    "cardId": "richart",
+    "scheme": "Chill刷（限時方案，至2026/12/31）",
+    "label": "Chill刷：數位外掛",
+    "end": "2026-12-31",
+    "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+    "status": "verified",
+    "reason": "官方具名品牌及平台名單已核；不將品牌延伸到未指定經銷商。",
+    "merchants": [
+      "Apple直營",
+      "Studio A",
+      "Straight A",
+      "DJI",
+      "Insta360",
+      "GoPro",
+      "蝦皮",
+      "淘寶",
+      "酷澎",
+      "Uber Eats"
+    ],
+    "aliases": {
+      "蝦皮": [
+        "蝦皮購物",
+        "Shopee"
+      ],
+      "淘寶": [
+        "淘宝",
+        "Taobao"
+      ],
+      "酷澎": [
+        "Coupang"
+      ]
+    },
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "Apple直營",
+          "Studio A",
+          "Straight A",
+          "DJI",
+          "Insta360",
+          "GoPro",
+          "蝦皮",
+          "淘寶",
+          "酷澎",
+          "Uber Eats"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "須切Chill刷／LEVEL2；限品牌獨立店、官網或指定平台，非任意經銷商"
+      }
+    ]
+  },
+  {
+    "cardId": "richart",
+    "scheme": "Chill刷（限時方案，至2026/12/31）",
+    "label": "Chill刷：Pinkoi",
+    "end": "2026-12-31",
+    "source": "https://mkp.taishinbank.com.tw/TsCms/marketing/expose/WM_20260708095300794/index.html",
+    "status": "verified",
+    "reason": "官方完整Chill清單獨立列Pinkoi，10/1加入；選Chill、LEVEL2及既有帳單上限沿用，不含分期或非指定支付。",
+    "merchants": [
+      "Pinkoi"
+    ],
+    "aliases": {
+      "Pinkoi": [
+        "Pinkoi設計購物"
+      ]
+    },
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "online"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "richart",
+    "scheme": "保費（免切換）",
+    "label": "保費消費",
+    "end": "2027-12-31",
+    "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/ab46dfa7-5d88-11f1-b50f-0050568c09e3",
+    "status": "verified",
+    "reason": "保費服務查詢，不按保險品牌推定所有商品。",
+    "merchants": [
+      "國內保費"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "直接一次付清保費"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "國內保費"
+        ],
+        "channels": [
+          "直接一次付清保費"
+        ],
+        "qualifier": "限境內保單；排除躉繳、投資型、彈性繳、海外及分期；交易及入帳均須在期間內"
+      }
+    ]
+  },
+  {
+    "cardId": "richart",
+    "scheme": "LINE Pay十月領券加碼（Q4活動）",
+    "label": "LINE Pay：Pay著刷＋十月券",
+    "end": "2026-10-31",
+    "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/77509a62-84c5-11f0-b432-0050568c09e3",
+    "status": "verified",
+    "reason": "只提供支付服務查詢；期限沿用十月，不因Q4標題延長。",
+    "merchants": [
+      "LINE Pay"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "LINE Pay"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "LINE Pay"
+        ],
+        "channels": [
+          "LINE Pay"
+        ],
+        "qualifier": "須十月領券、Pay著刷／LEVEL2及臺灣臺幣；排除四大超商／稅費"
+      }
+    ]
+  },
+  {
+    "cardId": "cube",
+    "scheme": "秋日遊（2026/10/1–11/30）",
+    "label": "秋日遊：日本實體消費／指定交通卡",
+    "end": "2026-11-30",
+    "source": "https://www.cathaybk.com.tw/cathaybk/promo/event/credit-card/product/japanrewards/index.html",
+    "status": "verified",
+    "reason": "日本實體、交通卡與GO Taxi分組。",
+    "merchants": [
+      "愛電王",
+      "大丸福岡天神店",
+      "MITSUI OUTLET PARK日本實體商場",
+      "DiverCity Tokyo Plaza",
+      "BicCamera",
+      "阪急阪神百貨店",
+      "LUCUA大阪",
+      "多慶屋",
+      "大國藥妝",
+      "松本清",
+      "SUGI杉藥局",
+      "鶴羽藥妝",
+      "札幌藥妝",
+      "Suica",
+      "PASMO",
+      "ICOCA",
+      "GO Taxi"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "日本實體（日圓）",
+      "Apple Pay",
+      "日本叫車"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "愛電王",
+          "大丸福岡天神店",
+          "MITSUI OUTLET PARK日本實體商場",
+          "DiverCity Tokyo Plaza",
+          "BicCamera",
+          "阪急阪神百貨店",
+          "LUCUA大阪",
+          "多慶屋",
+          "大國藥妝",
+          "松本清",
+          "SUGI杉藥局",
+          "鶴羽藥妝",
+          "札幌藥妝"
+        ],
+        "channels": [
+          "日本實體（日圓）"
+        ],
+        "qualifier": "切秋日遊；限日本實體，不含臺灣同名店或網購"
+      },
+      {
+        "merchants": [
+          "Suica",
+          "PASMO",
+          "ICOCA"
+        ],
+        "channels": [
+          "Apple Pay"
+        ],
+        "qualifier": "限Apple錢包交通卡儲值"
+      },
+      {
+        "merchants": [
+          "GO Taxi"
+        ],
+        "channels": [
+          "日本叫車"
+        ],
+        "qualifier": "限日本GO Taxi服務"
+      }
+    ]
+  },
+  {
+    "cardId": "cube",
+    "scheme": "秋日遊（2026/10/1–11/30）",
+    "label": "秋日遊：日本四大機場指定免稅店",
+    "end": "2026-11-30",
+    "source": "https://www.cathaybk.com.tw/cathaybk/promo/event/credit-card/product/japanrewards/index.html",
+    "status": "verified",
+    "reason": "只匹配官方列明機場免稅店實體直刷：成田前三家、關西三家、新千歲與福岡各一家；不包含免稅折扣或額外券，切秋日遊與既有上限。",
+    "merchants": [
+      "Fa-So-La DUTY FREE",
+      "JAPAN DUTY FREE",
+      "JAL DUTYFREE",
+      "KIX DUTY FREE",
+      "TRK ARRIVAL Duty Free Shop",
+      "關西旅日記",
+      "New Chitose Airport Duty Free Shop",
+      "FUKUOKA AIRPORT DUTYFREE SHOP"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "physical"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "cube",
+    "scheme": "秋日遊（2026/10/1–11/30）",
+    "label": "秋日遊：日本指定品牌／餐廳預約平台",
+    "end": "2026-11-30",
+    "source": "https://www.cathaybk.com.tw/cathaybk/promo/event/credit-card/product/japanrewards/index.html",
+    "status": "verified",
+    "reason": "按指定日本實體門市與預約平台付款拆分。",
+    "merchants": [
+      "UNIQLO",
+      "Alpen GROUP",
+      "ABC-MART",
+      "Loft",
+      "COSME LOFT",
+      "寶可夢中心大阪店",
+      "寶可夢中心京都店",
+      "寶可夢中心札幌店",
+      "寶可夢中心澀谷店",
+      "寶可夢中心東京DX店",
+      "三麗鷗淺草店",
+      "三麗鷗上野店",
+      "三麗鷗紀伊國屋書店新宿本店",
+      "三麗鷗原宿店",
+      "三麗鷗池袋店",
+      "三麗鷗Vivitix Sunshine City Alpa店",
+      "三麗鷗大崎店",
+      "三麗鷗橫濱店",
+      "三麗鷗京都店",
+      "三麗鷗心齋橋店",
+      "三麗鷗難波戎橋店",
+      "三麗鷗神戶三宮店",
+      "三麗鷗廣島本通店",
+      "三麗鷗那霸Main Place店",
+      "KIDDY LAND原宿店",
+      "KIDDY LAND新宿店",
+      "KIDDY LAND京都四條河原町店",
+      "KIDDY LAND三宮店",
+      "3COINS+plus那霸Main Place店",
+      "3COINS+plus西武新宿PePe店",
+      "3COINS札幌地下街Pole Town店",
+      "3COINS LINKS UMEDA店",
+      "3COINS OOOPS!上野Echika fit店",
+      "3COINS八重洲地下街店",
+      "3COINS京都寺町店",
+      "3COINS OOOPS!札幌地下街Aurora Town店",
+      "3COINS神戶店",
+      "3COINS原宿本店",
+      "3COINS下北澤店",
+      "3COINS神戶Sanchika店",
+      "3COINS飯田橋Metropia店",
+      "3COINS東急Plaza蒲田店",
+      "3COINS+plus新札幌Sunpiazza店",
+      "Tabelog",
+      "TableCheck",
+      "OMAKASE"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "日本指定實體門市",
+      "平台線上即時付款"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "UNIQLO",
+          "Alpen GROUP",
+          "ABC-MART",
+          "Loft",
+          "COSME LOFT",
+          "寶可夢中心大阪店",
+          "寶可夢中心京都店",
+          "寶可夢中心札幌店",
+          "寶可夢中心澀谷店",
+          "寶可夢中心東京DX店",
+          "三麗鷗淺草店",
+          "三麗鷗上野店",
+          "三麗鷗紀伊國屋書店新宿本店",
+          "三麗鷗原宿店",
+          "三麗鷗池袋店",
+          "三麗鷗Vivitix Sunshine City Alpa店",
+          "三麗鷗大崎店",
+          "三麗鷗橫濱店",
+          "三麗鷗京都店",
+          "三麗鷗心齋橋店",
+          "三麗鷗難波戎橋店",
+          "三麗鷗神戶三宮店",
+          "三麗鷗廣島本通店",
+          "三麗鷗那霸Main Place店",
+          "KIDDY LAND原宿店",
+          "KIDDY LAND新宿店",
+          "KIDDY LAND京都四條河原町店",
+          "KIDDY LAND三宮店",
+          "3COINS+plus那霸Main Place店",
+          "3COINS+plus西武新宿PePe店",
+          "3COINS札幌地下街Pole Town店",
+          "3COINS LINKS UMEDA店",
+          "3COINS OOOPS!上野Echika fit店",
+          "3COINS八重洲地下街店",
+          "3COINS京都寺町店",
+          "3COINS OOOPS!札幌地下街Aurora Town店",
+          "3COINS神戶店",
+          "3COINS原宿本店",
+          "3COINS下北澤店",
+          "3COINS神戶Sanchika店",
+          "3COINS飯田橋Metropia店",
+          "3COINS東急Plaza蒲田店",
+          "3COINS+plus新札幌Sunpiazza店"
+        ],
+        "channels": [
+          "日本指定實體門市"
+        ],
+        "qualifier": "切秋日遊；限列名門市，須符合官方請款名稱"
+      },
+      {
+        "merchants": [
+          "Tabelog",
+          "TableCheck",
+          "OMAKASE"
+        ],
+        "channels": [
+          "平台線上即時付款"
+        ],
+        "qualifier": "只計平台實際扣款，不含現場餐費"
+      }
+    ],
+    "gaps": [
+      "KIDDY LAND最後兩家名稱原文標點不明，尚未啟用。"
+    ]
+  },
+  {
+    "cardId": "cube",
+    "scheme": "秋日遊（2026/10/1–11/30）",
+    "label": "秋日遊：HANDS台隆南港LaLaport店",
+    "end": "2026-11-30",
+    "source": "https://www.cathaybk.com.tw/cathaybk/promo/event/credit-card/product/japanrewards/index.html",
+    "status": "verified",
+    "reason": "僅此單一實體門市，切秋日遊；其他台隆店不匹配。滿額贈洗碗精屬另一商戶禮不加入回饋。",
+    "merchants": [
+      "HANDS台隆手創館南港LaLaport店"
+    ],
+    "aliases": {
+      "HANDS台隆手創館南港LaLaport店": [
+        "台隆南港LaLaport",
+        "HANDS南港LaLaport"
+      ]
+    },
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "physical"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "cube",
+    "scheme": "秋日遊（2026/10/1–11/30）",
+    "label": "秋日遊：指定旅遊平台最高5%",
+    "end": "2026-11-30",
+    "source": "https://www.cathaybk.com.tw/cathaybk/promo/event/credit-card/product/japanrewards/index.html",
+    "status": "unresolved",
+    "reason": "本層rate=5但官方另列Agoda/KKday/易遊網/國泰航空/台灣虎航/可樂/東南/Club Med為3.5、Trip.com與一般Klook為3；5僅Klook指定日本商品、Hotels.com/Expedia專屬連結。必須拆tier，不可全列5。merchants僅保留有5%子範圍者，仍需商品與專屬URL規則。",
+    "merchants": [
+      "Klook",
+      "Hotels.com",
+      "Expedia"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "online"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "cube",
+    "scheme": "秋日遊（2026/10/1–11/30）",
+    "label": "秋日遊：國內指定日系飯店",
+    "end": "2026-11-30",
+    "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+    "status": "verified",
+    "reason": "五家官方飯店，取共同明確適用的直接住宿交易；不涵蓋餐飲子範圍。",
+    "merchants": [
+      "JR東日本大飯店台北",
+      "礁溪寒沐酒店",
+      "索拉利亞西鐵飯店台北西門",
+      "台北大倉久和大飯店",
+      "日勝生加賀屋國際溫泉飯店"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "飯店直接住宿付款"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "JR東日本大飯店台北",
+          "礁溪寒沐酒店",
+          "索拉利亞西鐵飯店台北西門",
+          "台北大倉久和大飯店",
+          "日勝生加賀屋國際溫泉飯店"
+        ],
+        "channels": [
+          "飯店直接住宿付款"
+        ],
+        "qualifier": "限臺灣飯店本身請款的住宿；不含代訂平台"
+      }
+    ],
+    "gaps": [
+      "除礁溪寒沐外飯店餐飲等非住宿消費尚未建模。"
+    ]
+  },
+  {
+    "cardId": "cube",
+    "scheme": "秋日遊（2026/10/1–11/30）",
+    "label": "秋日遊：國內指定日系餐飲最高8%",
+    "end": "2026-11-30",
+    "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+    "status": "unresolved",
+    "reason": "混合8/5/3.5，原rate=8不能套全部餐飲；初魚/作另有官網或指定門市限制、inline排除。merchants保留8%群作待拆資料，5%及3.5%群記錄於報告；需逐商家/分店/付款平台規則。 雞湯桑與初魚指定門市未取得可逐店對照的完整附件，仍屬證據缺口。",
+    "merchants": [
+      "橘色涮涮屋一館",
+      "橘色涮涮屋二館",
+      "橘色涮涮屋台中館",
+      "Extension 1 by橘色",
+      "雞湯桑",
+      "朝炭",
+      "初魚鮨",
+      "初魚鉄板料亭",
+      "作天麩羅．割烹",
+      "濟安鮨日本料理",
+      "侍燒肉",
+      "梵燒肉",
+      "元一天婦羅",
+      "鳥苑燒鳥",
+      "すみか",
+      "山崎成蔵"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "cube",
+    "scheme": "玩數位（4大常駐之一）",
+    "label": "指定網購／影音／AI工具",
+    "end": "2026-12-31",
+    "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+    "status": "verified",
+    "reason": "官方玩數位具名名單與服務限制已核；訂閱以原平台直接扣款為限。",
+    "merchants": [
+      "ChatGPT",
+      "Canva",
+      "Claude",
+      "Cursor",
+      "Duolingo",
+      "Gamma",
+      "Gemini",
+      "Notion",
+      "Perplexity",
+      "Speak",
+      "Apple媒體服務",
+      "Google Play",
+      "Disney+",
+      "Netflix",
+      "Spotify",
+      "YouTube Premium",
+      "Max",
+      "蝦皮",
+      "momo",
+      "PChome 24h購物",
+      "小樹購",
+      "酷澎",
+      "淘寶",
+      "天貓"
+    ],
+    "aliases": {
+      "Disney+": [
+        "Disney Plus",
+        "迪士尼+"
+      ],
+      "蝦皮": [
+        "蝦皮購物",
+        "Shopee"
+      ],
+      "momo": [
+        "momo購物網"
+      ],
+      "PChome 24h購物": [
+        "PChome"
+      ],
+      "酷澎": [
+        "Coupang"
+      ],
+      "淘寶": [
+        "淘宝",
+        "Taobao"
+      ]
+    },
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "ChatGPT",
+          "Canva",
+          "Claude",
+          "Cursor",
+          "Duolingo",
+          "Gamma",
+          "Gemini",
+          "Notion",
+          "Perplexity",
+          "Speak",
+          "Apple媒體服務",
+          "Google Play",
+          "Disney+",
+          "Netflix",
+          "Spotify",
+          "YouTube Premium",
+          "Max",
+          "蝦皮",
+          "momo",
+          "PChome 24h購物",
+          "小樹購",
+          "酷澎",
+          "淘寶",
+          "天貓"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "須切玩數位／LEVEL2；酷澎限臺灣，排除儲值、票券及非指定硬體"
+      }
+    ]
+  },
+  {
+    "cardId": "cube",
+    "scheme": "樂饗購（4大常駐之一）",
+    "label": "百貨／餐飲／外送／藥妝",
+    "end": "2026-12-31",
+    "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+    "status": "unresolved",
+    "reason": "百貨排除店中櫃，統一時代排除DREAM PLAZA；餐飲屬MCC類別非完整品牌白名單，官方列小額支付例並連NCCC查詢，不能把例示當全部餐廳。需請款者/MCC/商品排除；四常駐3%需LEVEL2。",
+    "merchants": [
+      "遠東SOGO",
+      "遠東Garden City",
+      "新光三越",
+      "遠東百貨",
+      "台北101",
+      "BELLAVITA",
+      "微風廣場",
+      "統一時代台北店",
+      "誠品生活",
+      "ATT 4 FUN",
+      "京站",
+      "美麗華",
+      "NOKE忠泰樂生活",
+      "大葉高島屋",
+      "LaLaport南港",
+      "LaLaport台中",
+      "宏匯廣場",
+      "台茂購物中心",
+      "大江國際購物中心",
+      "遠東巨城",
+      "中友百貨",
+      "廣三SOGO",
+      "南紡購物中心",
+      "耐斯廣場",
+      "夢時代",
+      "漢神百貨",
+      "漢神巨蛋",
+      "新月廣場",
+      "CITYLINK",
+      "秀泰生活",
+      "環球購物中心",
+      "太平洋百貨",
+      "華泰名品城",
+      "SKM Park",
+      "MITSUI OUTLET PARK林口",
+      "MITSUI OUTLET PARK台中港",
+      "MITSUI OUTLET PARK台南",
+      "Uber Eats",
+      "foodpanda",
+      "拉亞漢堡",
+      "%Arabica",
+      "黑沃咖啡",
+      "SUBWAY",
+      "50嵐",
+      "麻古茶坊",
+      "六扇門時尚湯鍋",
+      "八方雲集",
+      "麥當勞",
+      "康是美",
+      "屈臣氏"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "cube",
+    "scheme": "趣旅行（4大常駐之一）",
+    "label": "海外實體／航空／訂房／旅行社",
+    "end": "2026-12-31",
+    "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+    "status": "verified",
+    "reason": "趣旅行指定品牌按交通、航空、住宿與平台方式分組。",
+    "merchants": [
+      "中華航空",
+      "長榮航空",
+      "星宇航空",
+      "台灣虎航",
+      "國泰航空",
+      "樂桃航空",
+      "阿聯酋航空",
+      "酷航",
+      "捷星航空",
+      "日本航空",
+      "ANA全日空",
+      "亞洲航空",
+      "聯合航空",
+      "新加坡航空",
+      "越捷航空",
+      "大韓航空",
+      "達美航空",
+      "土耳其航空",
+      "卡達航空",
+      "法國航空",
+      "易遊網",
+      "雄獅旅遊",
+      "可樂旅遊",
+      "東南旅遊",
+      "五福旅遊",
+      "燦星旅遊",
+      "山富旅遊",
+      "長汎假期",
+      "鳳凰旅行社",
+      "Ezfly易飛網",
+      "理想旅遊",
+      "永利旅行社",
+      "三賀旅行社",
+      "Suica",
+      "PASMO",
+      "ICOCA",
+      "Uber",
+      "Grab",
+      "台灣高鐵",
+      "yoxi",
+      "台灣大車隊",
+      "iRent",
+      "和運租車",
+      "格上租車",
+      "星野集團",
+      "全球迪士尼飯店",
+      "東橫INN",
+      "KKday",
+      "Klook",
+      "Agoda",
+      "Airbnb",
+      "Booking.com",
+      "Trip.com",
+      "東京迪士尼樂園",
+      "東京華納兄弟哈利波特影城",
+      "大阪環球影城"
+    ],
+    "aliases": {
+      "大阪環球影城": [
+        "USJ",
+        "日本環球影城"
+      ],
+      "Agoda": [
+        "安可達"
+      ],
+      "Booking.com": [
+        "Booking"
+      ],
+      "易遊網": [
+        "ezTravel"
+      ]
+    },
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "官方直接購票／服務",
+      "Apple Pay",
+      "短程交通／租車",
+      "飯店直接住宿付款",
+      "平台線上即時付款"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "中華航空",
+          "長榮航空",
+          "星宇航空",
+          "台灣虎航",
+          "國泰航空",
+          "樂桃航空",
+          "阿聯酋航空",
+          "酷航",
+          "捷星航空",
+          "日本航空",
+          "ANA全日空",
+          "亞洲航空",
+          "聯合航空",
+          "新加坡航空",
+          "越捷航空",
+          "大韓航空",
+          "達美航空",
+          "土耳其航空",
+          "卡達航空",
+          "法國航空",
+          "易遊網",
+          "雄獅旅遊",
+          "可樂旅遊",
+          "東南旅遊",
+          "五福旅遊",
+          "燦星旅遊",
+          "山富旅遊",
+          "長汎假期",
+          "鳳凰旅行社",
+          "Ezfly易飛網",
+          "理想旅遊",
+          "永利旅行社",
+          "三賀旅行社"
+        ],
+        "channels": [
+          "官方直接購票／服務"
+        ],
+        "qualifier": "切趣旅行／LEVEL2；航空機票與直營旅行社"
+      },
+      {
+        "merchants": [
+          "Suica",
+          "PASMO",
+          "ICOCA"
+        ],
+        "channels": [
+          "Apple Pay"
+        ],
+        "qualifier": "限Apple錢包交通卡儲值"
+      },
+      {
+        "merchants": [
+          "Uber",
+          "Grab",
+          "台灣高鐵",
+          "yoxi",
+          "台灣大車隊",
+          "iRent",
+          "和運租車",
+          "格上租車"
+        ],
+        "channels": [
+          "短程交通／租車"
+        ],
+        "qualifier": "不含機場接送、長租或代駕"
+      },
+      {
+        "merchants": [
+          "星野集團",
+          "全球迪士尼飯店",
+          "東橫INN"
+        ],
+        "channels": [
+          "飯店直接住宿付款"
+        ],
+        "qualifier": "限住宿MCC，不含餐廳／平台"
+      },
+      {
+        "merchants": [
+          "KKday",
+          "Klook",
+          "Agoda",
+          "Airbnb",
+          "Booking.com",
+          "Trip.com"
+        ],
+        "channels": [
+          "平台線上即時付款"
+        ],
+        "qualifier": "限平台請款，不含到店付款"
+      },
+      {
+        "merchants": [
+          "東京迪士尼樂園",
+          "東京華納兄弟哈利波特影城",
+          "大阪環球影城"
+        ],
+        "channels": [
+          "官方直接購票／服務"
+        ],
+        "qualifier": "限指定樂園官網／現場，不含代售"
+      }
+    ],
+    "gaps": [
+      "未另建立海外一般實體MCC類別查詢。"
+    ]
+  },
+  {
+    "cardId": "cube",
+    "scheme": "集精選（4大常駐之一）",
+    "label": "指定充電／停車／超商／量販／加油",
+    "end": "2026-12-31",
+    "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+    "status": "verified",
+    "reason": "指定充電、停車服務及國內實體名單已分組。",
+    "merchants": [
+      "U-POWER",
+      "EVOASIS",
+      "EVALUE",
+      "TAIL",
+      "iCharging",
+      "車麻吉",
+      "uTagGo",
+      "萬家福",
+      "樂家康",
+      "LOPIA",
+      "全聯福利中心",
+      "中油直營",
+      "7-ELEVEN",
+      "全家",
+      "IKEA"
+    ],
+    "aliases": {
+      "車麻吉": [
+        "Autopass"
+      ],
+      "7-ELEVEN": [
+        "7-11",
+        "統一超商"
+      ],
+      "全家": [
+        "FamilyMart",
+        "全家便利商店"
+      ]
+    },
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "官方充電資費",
+      "停車",
+      "臺灣實體直接刷卡"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "U-POWER",
+          "EVOASIS",
+          "EVALUE",
+          "TAIL",
+          "iCharging"
+        ],
+        "channels": [
+          "官方充電資費"
+        ],
+        "qualifier": "切集精選／LEVEL2；不含購車"
+      },
+      {
+        "merchants": [
+          "車麻吉",
+          "uTagGo"
+        ],
+        "channels": [
+          "停車"
+        ],
+        "qualifier": "車麻吉不含加油充電；uTagGo不含月租"
+      },
+      {
+        "merchants": [
+          "萬家福",
+          "樂家康",
+          "LOPIA",
+          "全聯福利中心",
+          "中油直營",
+          "7-ELEVEN",
+          "全家",
+          "IKEA"
+        ],
+        "channels": [
+          "臺灣實體直接刷卡"
+        ],
+        "qualifier": "切集精選／LEVEL2；全聯不含大全聯，LOPIA限臺灣"
+      }
+    ]
+  },
+  {
+    "cardId": "cube",
+    "scheme": "全支付（第5個可切換方案，2026/4/22–12/31）",
+    "label": "全聯／大全聯／全支付國內合作通路",
+    "end": "2026-12-31",
+    "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+    "status": "verified",
+    "reason": "以銀行明列兩店與支付服務查詢；不推定全聯直接刷卡適用。",
+    "merchants": [
+      "全聯福利中心",
+      "大全聯",
+      "全支付"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "全支付"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "全聯福利中心",
+          "大全聯",
+          "全支付"
+        ],
+        "channels": [
+          "全支付"
+        ],
+        "qualifier": "須切全支付方案；限國內合格消費，不含繳費、跨境、儲值、捐款、菸酒、奶粉及禮券"
+      }
+    ],
+    "gaps": [
+      "全支付其他合作店的逐店別名尚未建立；可用全支付服務查詢。"
+    ]
+  },
+  {
+    "cardId": "cube",
+    "scheme": "★ 童樂匯（家庭客群特殊權益，H2：2026/7/1–12/31）",
+    "label": "指定五感課程／嬰幼童品牌臺灣官網",
+    "end": "2026-12-31",
+    "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+    "status": "verified",
+    "reason": "童樂匯課程與嬰童臺灣官網分組；終止商家不收錄。",
+    "merchants": [
+      "10mois",
+      "Mamas&Papas",
+      "古北町",
+      "Little Wonders",
+      "Seahorse Originals",
+      "雲門舞集舞蹈教室",
+      "Yamaha音樂教室",
+      "TutorABC Junior",
+      "Etalking Kids",
+      "iSKI滑雪俱樂部",
+      "汐游寶寶",
+      "風城游汐谷"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "臺灣官網",
+      "指定教學課程"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "10mois",
+          "Mamas&Papas",
+          "古北町",
+          "Little Wonders",
+          "Seahorse Originals"
+        ],
+        "channels": [
+          "臺灣官網"
+        ],
+        "qualifier": "童樂匯資格；不含奶粉／藥品"
+      },
+      {
+        "merchants": [
+          "雲門舞集舞蹈教室",
+          "Yamaha音樂教室",
+          "TutorABC Junior",
+          "Etalking Kids",
+          "iSKI滑雪俱樂部",
+          "汐游寶寶",
+          "風城游汐谷"
+        ],
+        "channels": [
+          "指定教學課程"
+        ],
+        "qualifier": "不含教材、展演、場租；Yamaha限臺灣直營與揚昇石牌"
+      }
+    ]
+  },
+  {
+    "cardId": "cube",
+    "scheme": "★ 童樂匯（家庭客群特殊權益，H2：2026/7/1–12/31）",
+    "label": "親子餐廳／飯店／育樂／母嬰用品",
+    "end": "2026-12-31",
+    "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+    "status": "unresolved",
+    "reason": "陶板屋限王品瘋Pay、Xpark限館內人工櫃台、飯店限官網住宿、樂園限現場/官網購票、母嬰排除奶粉/藥品及店中店；甲蟲秘境7/26終止未收錄。需逐商家規則，不可共用direct。",
+    "merchants": [
+      "台灣壽司郎",
+      "雞湯大叔",
+      "陶板屋",
+      "YAYOI彌生軒",
+      "大戶屋",
+      "大樹先生的家",
+      "Money Jump媽妳講親子餐廳",
+      "小島3.5度親子餐廳",
+      "Klook",
+      "東京迪士尼樂園",
+      "大阪環球影城",
+      "麗寶樂園",
+      "六福村主題樂園",
+      "九族文化村",
+      "劍湖山世界主題樂園",
+      "義大遊樂世界",
+      "小叮噹科學園區主題樂園",
+      "Xpark",
+      "巧虎夢想樂園",
+      "台北喜來登大飯店",
+      "蘭城晶英酒店",
+      "台南晶英酒店",
+      "礁溪寒沐酒店",
+      "大溪笠復威斯汀度假酒店",
+      "煙波大飯店新竹湖濱館",
+      "麗寶福容大飯店",
+      "雲品溫泉酒店",
+      "和逸飯店台南西門館",
+      "和逸飯店桃園館",
+      "義大皇家酒店",
+      "高雄萬豪酒店",
+      "墾丁凱撒大飯店",
+      "花蓮遠雄悅來大飯店",
+      "瑞穗天合國際觀光酒店",
+      "六福莊",
+      "宜蘭礁溪鳳凰酒店",
+      "桃園名人堂花園大飯店",
+      "卡多摩嬰童館",
+      "媽咪愛",
+      "樂兒屋",
+      "寶齡婦幼館",
+      "步步樂BuBuLuv",
+      "安琪兒婦嬰百貨",
+      "宜兒樂",
+      "麗兒采家",
+      "Taobaby濤寶日記",
+      "俏媽咪",
+      "媽媽好"
+    ],
+    "aliases": {
+      "大阪環球影城": [
+        "USJ",
+        "日本環球影城"
+      ]
+    },
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "cube",
+    "scheme": "★ 童樂匯（家庭客群特殊權益，H2：2026/7/1–12/31）",
+    "label": "指定私校i繳費／國內保費",
+    "end": "2026-12-31",
+    "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+    "status": "verified",
+    "reason": "私校支付路徑明確分開；不以學校名稱匹配其他消費。",
+    "merchants": [
+      "台北美國學校",
+      "台北市私立道明外僑學校",
+      "馬禮遜學校",
+      "康乃薾美國學校",
+      "台北私立立人國際國小",
+      "康橋國際學校",
+      "華盛頓小學",
+      "復興實驗高中",
+      "維多利亞雙語中小學",
+      "高雄美國學校",
+      "台北歐洲學校"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "i繳費學費",
+      "家長入口轉i繳費"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "台北美國學校",
+          "台北市私立道明外僑學校",
+          "馬禮遜學校",
+          "康乃薾美國學校",
+          "台北私立立人國際國小",
+          "康橋國際學校",
+          "華盛頓小學",
+          "復興實驗高中",
+          "維多利亞雙語中小學",
+          "高雄美國學校"
+        ],
+        "channels": [
+          "i繳費學費"
+        ],
+        "qualifier": "童樂匯資格；限指定私校學費"
+      },
+      {
+        "merchants": [
+          "台北歐洲學校"
+        ],
+        "channels": [
+          "家長入口轉i繳費"
+        ],
+        "qualifier": "須TES家長入口跳轉"
+      }
+    ],
+    "gaps": [
+      "同層國內保費的特定保單排除尚未建立完整服務規則。"
+    ]
+  },
+  {
+    "cardId": "cube",
+    "scheme": "慶生月（壽星當月特殊權益，2026/10/1–12/31）",
+    "label": "壽星指定餐廳／日本樂園／遊戲／KTV",
+    "end": "2026-12-31",
+    "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+    "status": "unresolved",
+    "reason": "全名單已按指定門市展開；餐飲排除百貨/飯店/商場/inline，日本樂園只實體；遊戲平台為線上、指定甜點可官網，不能共用physical/online。正卡生日月資格沿用但需逐商家排除。",
+    "merchants": [
+      "大腕燒肉",
+      "茶六燒肉堂",
+      "老井極上燒肉",
+      "屋馬燒肉",
+      "鼎王麻辣鍋",
+      "無老鍋",
+      "老四川巴蜀麻辣燙",
+      "詹記麻辣火鍋",
+      "青沐",
+      "所SUO",
+      "嵩sung",
+      "JAI宅",
+      "新東南海鮮餐廳",
+      "龍都酒樓",
+      "吉品海鮮餐廳",
+      "老新台菜",
+      "輕井澤鍋物",
+      "湯棧",
+      "Hābu小餐館",
+      "空盤KOMBOI",
+      "野驢小餐館",
+      "肉料理福",
+      "台灣壽司郎",
+      "UNCLE SHAWN燒肉餐酒館",
+      "UNCLE RAY台中店",
+      "蜀叔麻辣鍋台北店",
+      "Pastaio",
+      "Pastaio noodle cafe",
+      "小方舟串燒酒場",
+      "毛丼丼飯專門店",
+      "毛房蔥柚鍋．冷藏肉專門",
+      "毛蔬亞洲蔬食",
+      "法國的秘密甜點大安店",
+      "法國的秘密甜點官網",
+      "法朋烘焙甜點坊",
+      "Miss V Bakery",
+      "興波咖啡華山旗艦店",
+      "興波咖啡南港展覽館店",
+      "東京迪士尼樂園",
+      "大阪環球影城",
+      "PlayStation",
+      "Nintendo",
+      "巴哈姆特動畫瘋",
+      "錢櫃",
+      "好樂迪",
+      "星聚點",
+      "享溫馨"
+    ],
+    "aliases": {
+      "大阪環球影城": [
+        "USJ",
+        "日本環球影城"
+      ]
+    },
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "cube",
+    "scheme": "慶生月（壽星當月特殊權益，2026/10/1–12/31）",
+    "label": "慶生月：新光三越／Uber Eats／Klook",
+    "end": "2026-12-31",
+    "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+    "status": "verified",
+    "reason": "生日資格沿用原tier；百貨與平台交易分開。",
+    "merchants": [
+      "新光三越",
+      "Uber Eats",
+      "Klook"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "physical",
+      "平台線上即時付款"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "新光三越"
+        ],
+        "channels": [
+          "physical"
+        ],
+        "qualifier": "正卡生日月切慶生月；不含SKM Park及獨立店中櫃"
+      },
+      {
+        "merchants": [
+          "Uber Eats",
+          "Klook"
+        ],
+        "channels": [
+          "平台線上即時付款"
+        ],
+        "qualifier": "正卡生日月切慶生月；限平台實際扣款"
+      }
+    ]
+  },
+  {
+    "cardId": "cube",
+    "scheme": "慶生月（壽星當月特殊權益，2026/10/1–12/31）",
+    "label": "慶生月：FunNow",
+    "end": "2026-12-31",
+    "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+    "status": "verified",
+    "reason": "完整單一平台，正卡生日月並切慶生月，平台實際扣款而非只訂位或店家自行收款；非分期，原上限沿用。",
+    "merchants": [
+      "FunNow"
+    ],
+    "aliases": {
+      "FunNow": [
+        "Funnow"
+      ]
+    },
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "online"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "cube",
+    "scheme": "LINE Pay 領券加碼（2026/5/1–10/31）",
+    "label": "LINE Pay 綁定CUBE信用卡消費",
+    "end": "2026-10-31",
+    "source": "https://www.cathay-cube.com.tw/cathaybk/personal/event/overview/credit-card/bonus/202604/LINEPay-202604",
+    "status": "unresolved",
+    "reason": "瀏覽器已讀即時完整條款；需領券、LINE Pay/LINE Pay Money、帳單指定前綴，排除外送/海外/稅費/部分商場店。完整通路只指向App好康地圖且部分店排除未明列，無法建立安全完整商家表。",
+    "merchants": [],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "LINE Pay",
+      "LINE Pay Money"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "cube",
+    "scheme": "固定回饋（切入後有鎖定）",
+    "label": "一般消費（不含保費）",
+    "end": "2026-12-31",
+    "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+    "status": "verified",
+    "reason": "一般消費查詢與海外實體分流。",
+    "merchants": [
+      "國內一般消費",
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "direct",
+      "海外線上一般消費"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "國內一般消費"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "切入固定回饋後有鎖定；不含保費"
+      },
+      {
+        "merchants": [
+          "國外一般消費"
+        ],
+        "channels": [
+          "海外線上一般消費"
+        ],
+        "qualifier": "海外實體另層，不混用"
+      }
+    ]
+  },
+  {
+    "cardId": "cube",
+    "scheme": "固定回饋（切入後有鎖定）",
+    "label": "固定回饋：海外實體",
+    "end": "2026-12-31",
+    "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+    "status": "verified",
+    "reason": "僅明確國外實體一般消費查詢，非任意商家或海外網站；固定回饋方案鎖定、原上限與排除依tier。",
+    "merchants": [
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "physical"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "cube",
+    "scheme": "台塑家",
+    "label": "台塑家指定加油／品牌／超商",
+    "end": "2026-12-31",
+    "source": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube-list",
+    "status": "verified",
+    "reason": "加油、品牌實體及購物網分組，不泛配支付。",
+    "merchants": [
+      "台塑石油加油站",
+      "台亞加油站",
+      "福懋加油站",
+      "統一速邁樂",
+      "台塑生醫",
+      "長庚生技",
+      "台塑蔬菜",
+      "7-ELEVEN",
+      "全家",
+      "萊爾富",
+      "台塑購物網"
+    ],
+    "aliases": {
+      "7-ELEVEN": [
+        "7-11",
+        "統一超商"
+      ],
+      "全家": [
+        "FamilyMart",
+        "全家便利商店"
+      ]
+    },
+    "checkedAt": "2026-10-21",
+    "channels": [
+      "指定實體加油站",
+      "臺灣實體直接刷卡",
+      "online"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "台塑石油加油站",
+          "台亞加油站",
+          "福懋加油站",
+          "統一速邁樂"
+        ],
+        "channels": [
+          "指定實體加油站"
+        ],
+        "qualifier": "切台塑家；速邁樂限本島，不含一般電子支付"
+      },
+      {
+        "merchants": [
+          "台塑生醫",
+          "長庚生技",
+          "台塑蔬菜",
+          "7-ELEVEN",
+          "全家",
+          "萊爾富"
+        ],
+        "channels": [
+          "臺灣實體直接刷卡"
+        ],
+        "qualifier": "切台塑家；限指定品牌實體消費"
+      },
+      {
+        "merchants": [
+          "台塑購物網"
+        ],
+        "channels": [
+          "online"
+        ],
+        "qualifier": "切台塑家；限指定網站直接付款"
+      }
+    ]
+  }
+]

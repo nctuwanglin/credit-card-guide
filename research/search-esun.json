@@ -1,0 +1,2499 @@
+[
+  {
+    "cardId": "unicard",
+    "scheme": "基本回饋",
+    "label": "一般消費",
+    "status": "verified",
+    "reason": "僅一般消費查詢；需帳單e化及玉山帳戶成功自扣。排除非一般消費、分期、歐盟實體，不延伸至任意商家。",
+    "merchants": [
+      "國內一般消費",
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "source": "https://event.esunbank.com.tw/credit/unicard/index.html",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "unicard",
+    "scheme": "簡單選 預設",
+    "label": "百大指定通路（預設）",
+    "status": "verified",
+    "reason": "已核官方百大名單，依訂房付款、國內臺幣與門市條件分組；未確認子範圍保留缺口。",
+    "merchants": [
+      "momo",
+      "蝦皮",
+      "淘寶",
+      "酷澎",
+      "新光三越",
+      "遠東SOGO",
+      "遠東Garden City",
+      "台北101",
+      "華泰名品城",
+      "三井OUTLET",
+      "秀泰生活",
+      "LaLaport",
+      "Big City遠東巨城購物中心",
+      "昇恆昌",
+      "統一時代百貨台北店",
+      "DREAM PLAZA",
+      "遠東百貨",
+      "Global Mall環球購物中心",
+      "台中漢神洲際購物廣場",
+      "微風百貨",
+      "誠品生活",
+      "誠品書店",
+      "誠品線上",
+      "萬家福",
+      "樂家康",
+      "屈臣氏",
+      "康是美",
+      "特力屋",
+      "HOLA",
+      "hoi好好生活",
+      "杏一藥局",
+      "卡多摩",
+      "Uber Eats",
+      "foodpanda",
+      "台灣中油直營站",
+      "台灣大車隊",
+      "台鐵",
+      "台灣高鐵",
+      "中華航空",
+      "長榮航空",
+      "日本航空",
+      "台灣虎航",
+      "樂桃航空",
+      "酷航",
+      "KKday",
+      "雄獅旅遊",
+      "可樂旅遊",
+      "東南旅遊",
+      "五福旅遊",
+      "加利利旅行社",
+      "找到了旅行社",
+      "喜鴻假期",
+      "鳳凰旅遊",
+      "旅天下直營",
+      "Apple直營店",
+      "小米台灣",
+      "全國電子",
+      "燦坤",
+      "拓元售票",
+      "威秀影城",
+      "國賓影城",
+      "新光影城",
+      "錢櫃KTV",
+      "富昇旅行社",
+      "SKM Park Outlets高雄草衙",
+      "skm online",
+      "新光三越台北信義新天地",
+      "DIAMOND TOWERS",
+      "新光三越台北站前店",
+      "新光三越台北南西店",
+      "新光三越台北天母店",
+      "新光三越桃園站前店",
+      "新光三越台中中港店",
+      "新光三越嘉義垂楊店",
+      "新光三越台南中山店",
+      "新光三越台南新天地",
+      "新光三越高雄三多店",
+      "新光三越高雄左營店",
+      "新光三越台南小北門店",
+      "遠百信義A13",
+      "遠百板橋",
+      "Mega City板橋大遠百",
+      "遠百桃園",
+      "遠百竹北",
+      "新竹大遠百",
+      "Top City台中大遠百",
+      "遠百嘉義",
+      "台南大遠百成功店",
+      "台南大遠百公園店",
+      "高雄大遠百",
+      "遠百花蓮",
+      "SOGO台北忠孝館",
+      "SOGO台北復興館",
+      "SOGO天母館",
+      "SOGO中壢館",
+      "SOGO新竹館",
+      "SOGO高雄館",
+      "微風廣場",
+      "微風南京",
+      "微風信義",
+      "微風松高",
+      "微風南山",
+      "微風台北車站",
+      "Apple台北101",
+      "Apple信義A13",
+      "Apple Store在線商城",
+      "Agoda",
+      "Booking.com",
+      "Hotels.com",
+      "Expedia",
+      "Trip.com",
+      "Uber",
+      "Klook",
+      "UNIQLO",
+      "NET",
+      "漢神百貨",
+      "特斯拉",
+      "日本實體一般消費"
+    ],
+    "aliases": {
+      "momo": [
+        "momo購物網",
+        "富邦momo"
+      ],
+      "蝦皮": [
+        "蝦皮購物",
+        "Shopee"
+      ],
+      "淘寶": [
+        "淘宝",
+        "Taobao",
+        "淘寶網",
+        "手機淘寶",
+        "淘寶Lite"
+      ],
+      "酷澎": [
+        "Coupang",
+        "Coupang酷澎"
+      ],
+      "台鐵": [
+        "臺鐵",
+        "台灣鐵路"
+      ],
+      "台灣高鐵": [
+        "高鐵",
+        "臺灣高鐵",
+        "THSR"
+      ],
+      "KKday": [
+        "kkday"
+      ],
+      "Klook": [
+        "客路"
+      ],
+      "雄獅旅遊": [
+        "雄獅旅行社"
+      ],
+      "東南旅遊": [
+        "東南旅行社"
+      ],
+      "Agoda": [
+        "agoda",
+        "安可達"
+      ]
+    },
+    "source": "https://event.esunbank.com.tw/credit/unicard/discount-channel.html",
+    "checkedAt": "2026-10-22",
+    "end": "2026-12-31",
+    "channels": [
+      "direct",
+      "平台線上即時付款",
+      "國內臺幣請款",
+      "臺灣街邊門市",
+      "臺灣官網",
+      "physical",
+      "官方充電資費"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "momo",
+          "蝦皮",
+          "淘寶",
+          "酷澎",
+          "新光三越",
+          "遠東SOGO",
+          "遠東Garden City",
+          "台北101",
+          "華泰名品城",
+          "三井OUTLET",
+          "秀泰生活",
+          "LaLaport",
+          "Big City遠東巨城購物中心",
+          "昇恆昌",
+          "統一時代百貨台北店",
+          "DREAM PLAZA",
+          "遠東百貨",
+          "Global Mall環球購物中心",
+          "台中漢神洲際購物廣場",
+          "微風百貨",
+          "誠品生活",
+          "誠品書店",
+          "誠品線上",
+          "萬家福",
+          "樂家康",
+          "屈臣氏",
+          "康是美",
+          "特力屋",
+          "HOLA",
+          "hoi好好生活",
+          "杏一藥局",
+          "卡多摩",
+          "Uber Eats",
+          "foodpanda",
+          "台灣中油直營站",
+          "台灣大車隊",
+          "台鐵",
+          "台灣高鐵",
+          "中華航空",
+          "長榮航空",
+          "日本航空",
+          "台灣虎航",
+          "樂桃航空",
+          "酷航",
+          "KKday",
+          "雄獅旅遊",
+          "可樂旅遊",
+          "東南旅遊",
+          "五福旅遊",
+          "加利利旅行社",
+          "找到了旅行社",
+          "喜鴻假期",
+          "鳳凰旅遊",
+          "旅天下直營",
+          "Apple直營店",
+          "小米台灣",
+          "全國電子",
+          "燦坤",
+          "拓元售票",
+          "威秀影城",
+          "國賓影城",
+          "新光影城",
+          "錢櫃KTV",
+          "富昇旅行社",
+          "SKM Park Outlets高雄草衙",
+          "skm online",
+          "新光三越台北信義新天地",
+          "DIAMOND TOWERS",
+          "新光三越台北站前店",
+          "新光三越台北南西店",
+          "新光三越台北天母店",
+          "新光三越桃園站前店",
+          "新光三越台中中港店",
+          "新光三越嘉義垂楊店",
+          "新光三越台南中山店",
+          "新光三越台南新天地",
+          "新光三越高雄三多店",
+          "新光三越高雄左營店",
+          "新光三越台南小北門店",
+          "遠百信義A13",
+          "遠百板橋",
+          "Mega City板橋大遠百",
+          "遠百桃園",
+          "遠百竹北",
+          "新竹大遠百",
+          "Top City台中大遠百",
+          "遠百嘉義",
+          "台南大遠百成功店",
+          "台南大遠百公園店",
+          "高雄大遠百",
+          "遠百花蓮",
+          "SOGO台北忠孝館",
+          "SOGO台北復興館",
+          "SOGO天母館",
+          "SOGO中壢館",
+          "SOGO新竹館",
+          "SOGO高雄館",
+          "微風廣場",
+          "微風南京",
+          "微風信義",
+          "微風松高",
+          "微風南山",
+          "微風台北車站",
+          "Apple台北101",
+          "Apple信義A13",
+          "Apple Store在線商城"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "須符合所選方案；以商家直接請款為準，百貨獨立櫃位除外"
+      },
+      {
+        "merchants": [
+          "Agoda",
+          "Booking.com",
+          "Hotels.com",
+          "Expedia",
+          "Trip.com"
+        ],
+        "channels": [
+          "平台線上即時付款"
+        ],
+        "qualifier": "限平台請款，不含飯店現場付款"
+      },
+      {
+        "merchants": [
+          "Uber",
+          "Klook"
+        ],
+        "channels": [
+          "國內臺幣請款"
+        ],
+        "qualifier": "限國內新臺幣交易"
+      },
+      {
+        "merchants": [
+          "UNIQLO",
+          "NET"
+        ],
+        "channels": [
+          "臺灣街邊門市"
+        ],
+        "qualifier": "不含百貨商場內門市"
+      },
+      {
+        "merchants": [
+          "UNIQLO",
+          "NET"
+        ],
+        "channels": [
+          "臺灣官網"
+        ],
+        "qualifier": "限品牌臺灣官網直接付款"
+      },
+      {
+        "merchants": [
+          "漢神百貨"
+        ],
+        "channels": [
+          "physical"
+        ],
+        "qualifier": "不含漢神巨蛋；須百貨本身請款"
+      },
+      {
+        "merchants": [
+          "特斯拉"
+        ],
+        "channels": [
+          "官方充電資費"
+        ],
+        "qualifier": "限官方充電，不代表購車回饋"
+      },
+      {
+        "merchants": [
+          "日本實體一般消費"
+        ],
+        "channels": [
+          "physical"
+        ],
+        "qualifier": "限日本實體一般消費直接刷卡，不含網購、第三方電子錢包及非一般消費；須帳單e化＋玉山臺幣帳戶成功自扣；任意選須選日本，4.5%須訂閱UP選"
+      }
+    ],
+    "gaps": [
+      "行動支付、除日本外17國實體、Wallet公益捐款及台塑石油PAY特殊基本回饋尚未全部建模。"
+    ]
+  },
+  {
+    "cardId": "unicard",
+    "scheme": "任意選 百大中自選8家",
+    "label": "自選8家通路",
+    "status": "verified",
+    "reason": "已核官方百大名單，依訂房付款、國內臺幣與門市條件分組；未確認子範圍保留缺口。",
+    "merchants": [
+      "momo",
+      "蝦皮",
+      "淘寶",
+      "酷澎",
+      "新光三越",
+      "遠東SOGO",
+      "遠東Garden City",
+      "台北101",
+      "華泰名品城",
+      "三井OUTLET",
+      "秀泰生活",
+      "LaLaport",
+      "Big City遠東巨城購物中心",
+      "昇恆昌",
+      "統一時代百貨台北店",
+      "DREAM PLAZA",
+      "遠東百貨",
+      "Global Mall環球購物中心",
+      "台中漢神洲際購物廣場",
+      "微風百貨",
+      "誠品生活",
+      "誠品書店",
+      "誠品線上",
+      "萬家福",
+      "樂家康",
+      "屈臣氏",
+      "康是美",
+      "特力屋",
+      "HOLA",
+      "hoi好好生活",
+      "杏一藥局",
+      "卡多摩",
+      "Uber Eats",
+      "foodpanda",
+      "台灣中油直營站",
+      "台灣大車隊",
+      "台鐵",
+      "台灣高鐵",
+      "中華航空",
+      "長榮航空",
+      "日本航空",
+      "台灣虎航",
+      "樂桃航空",
+      "酷航",
+      "KKday",
+      "雄獅旅遊",
+      "可樂旅遊",
+      "東南旅遊",
+      "五福旅遊",
+      "加利利旅行社",
+      "找到了旅行社",
+      "喜鴻假期",
+      "鳳凰旅遊",
+      "旅天下直營",
+      "Apple直營店",
+      "小米台灣",
+      "全國電子",
+      "燦坤",
+      "拓元售票",
+      "威秀影城",
+      "國賓影城",
+      "新光影城",
+      "錢櫃KTV",
+      "富昇旅行社",
+      "SKM Park Outlets高雄草衙",
+      "skm online",
+      "新光三越台北信義新天地",
+      "DIAMOND TOWERS",
+      "新光三越台北站前店",
+      "新光三越台北南西店",
+      "新光三越台北天母店",
+      "新光三越桃園站前店",
+      "新光三越台中中港店",
+      "新光三越嘉義垂楊店",
+      "新光三越台南中山店",
+      "新光三越台南新天地",
+      "新光三越高雄三多店",
+      "新光三越高雄左營店",
+      "新光三越台南小北門店",
+      "遠百信義A13",
+      "遠百板橋",
+      "Mega City板橋大遠百",
+      "遠百桃園",
+      "遠百竹北",
+      "新竹大遠百",
+      "Top City台中大遠百",
+      "遠百嘉義",
+      "台南大遠百成功店",
+      "台南大遠百公園店",
+      "高雄大遠百",
+      "遠百花蓮",
+      "SOGO台北忠孝館",
+      "SOGO台北復興館",
+      "SOGO天母館",
+      "SOGO中壢館",
+      "SOGO新竹館",
+      "SOGO高雄館",
+      "微風廣場",
+      "微風南京",
+      "微風信義",
+      "微風松高",
+      "微風南山",
+      "微風台北車站",
+      "Apple台北101",
+      "Apple信義A13",
+      "Apple Store在線商城",
+      "Agoda",
+      "Booking.com",
+      "Hotels.com",
+      "Expedia",
+      "Trip.com",
+      "Uber",
+      "Klook",
+      "UNIQLO",
+      "NET",
+      "漢神百貨",
+      "特斯拉",
+      "日本實體一般消費"
+    ],
+    "aliases": {
+      "momo": [
+        "momo購物網",
+        "富邦momo"
+      ],
+      "蝦皮": [
+        "蝦皮購物",
+        "Shopee"
+      ],
+      "淘寶": [
+        "淘宝",
+        "Taobao",
+        "淘寶網",
+        "手機淘寶",
+        "淘寶Lite"
+      ],
+      "酷澎": [
+        "Coupang",
+        "Coupang酷澎"
+      ],
+      "台鐵": [
+        "臺鐵",
+        "台灣鐵路"
+      ],
+      "台灣高鐵": [
+        "高鐵",
+        "臺灣高鐵",
+        "THSR"
+      ],
+      "KKday": [
+        "kkday"
+      ],
+      "Klook": [
+        "客路"
+      ],
+      "雄獅旅遊": [
+        "雄獅旅行社"
+      ],
+      "東南旅遊": [
+        "東南旅行社"
+      ],
+      "Agoda": [
+        "agoda",
+        "安可達"
+      ]
+    },
+    "source": "https://event.esunbank.com.tw/credit/unicard/discount-channel.html",
+    "checkedAt": "2026-10-22",
+    "end": "2026-12-31",
+    "channels": [
+      "direct",
+      "平台線上即時付款",
+      "國內臺幣請款",
+      "臺灣街邊門市",
+      "臺灣官網",
+      "physical",
+      "官方充電資費"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "momo",
+          "蝦皮",
+          "淘寶",
+          "酷澎",
+          "新光三越",
+          "遠東SOGO",
+          "遠東Garden City",
+          "台北101",
+          "華泰名品城",
+          "三井OUTLET",
+          "秀泰生活",
+          "LaLaport",
+          "Big City遠東巨城購物中心",
+          "昇恆昌",
+          "統一時代百貨台北店",
+          "DREAM PLAZA",
+          "遠東百貨",
+          "Global Mall環球購物中心",
+          "台中漢神洲際購物廣場",
+          "微風百貨",
+          "誠品生活",
+          "誠品書店",
+          "誠品線上",
+          "萬家福",
+          "樂家康",
+          "屈臣氏",
+          "康是美",
+          "特力屋",
+          "HOLA",
+          "hoi好好生活",
+          "杏一藥局",
+          "卡多摩",
+          "Uber Eats",
+          "foodpanda",
+          "台灣中油直營站",
+          "台灣大車隊",
+          "台鐵",
+          "台灣高鐵",
+          "中華航空",
+          "長榮航空",
+          "日本航空",
+          "台灣虎航",
+          "樂桃航空",
+          "酷航",
+          "KKday",
+          "雄獅旅遊",
+          "可樂旅遊",
+          "東南旅遊",
+          "五福旅遊",
+          "加利利旅行社",
+          "找到了旅行社",
+          "喜鴻假期",
+          "鳳凰旅遊",
+          "旅天下直營",
+          "Apple直營店",
+          "小米台灣",
+          "全國電子",
+          "燦坤",
+          "拓元售票",
+          "威秀影城",
+          "國賓影城",
+          "新光影城",
+          "錢櫃KTV",
+          "富昇旅行社",
+          "SKM Park Outlets高雄草衙",
+          "skm online",
+          "新光三越台北信義新天地",
+          "DIAMOND TOWERS",
+          "新光三越台北站前店",
+          "新光三越台北南西店",
+          "新光三越台北天母店",
+          "新光三越桃園站前店",
+          "新光三越台中中港店",
+          "新光三越嘉義垂楊店",
+          "新光三越台南中山店",
+          "新光三越台南新天地",
+          "新光三越高雄三多店",
+          "新光三越高雄左營店",
+          "新光三越台南小北門店",
+          "遠百信義A13",
+          "遠百板橋",
+          "Mega City板橋大遠百",
+          "遠百桃園",
+          "遠百竹北",
+          "新竹大遠百",
+          "Top City台中大遠百",
+          "遠百嘉義",
+          "台南大遠百成功店",
+          "台南大遠百公園店",
+          "高雄大遠百",
+          "遠百花蓮",
+          "SOGO台北忠孝館",
+          "SOGO台北復興館",
+          "SOGO天母館",
+          "SOGO中壢館",
+          "SOGO新竹館",
+          "SOGO高雄館",
+          "微風廣場",
+          "微風南京",
+          "微風信義",
+          "微風松高",
+          "微風南山",
+          "微風台北車站",
+          "Apple台北101",
+          "Apple信義A13",
+          "Apple Store在線商城"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "須符合所選方案；以商家直接請款為準，百貨獨立櫃位除外"
+      },
+      {
+        "merchants": [
+          "Agoda",
+          "Booking.com",
+          "Hotels.com",
+          "Expedia",
+          "Trip.com"
+        ],
+        "channels": [
+          "平台線上即時付款"
+        ],
+        "qualifier": "限平台請款，不含飯店現場付款"
+      },
+      {
+        "merchants": [
+          "Uber",
+          "Klook"
+        ],
+        "channels": [
+          "國內臺幣請款"
+        ],
+        "qualifier": "限國內新臺幣交易"
+      },
+      {
+        "merchants": [
+          "UNIQLO",
+          "NET"
+        ],
+        "channels": [
+          "臺灣街邊門市"
+        ],
+        "qualifier": "不含百貨商場內門市"
+      },
+      {
+        "merchants": [
+          "UNIQLO",
+          "NET"
+        ],
+        "channels": [
+          "臺灣官網"
+        ],
+        "qualifier": "限品牌臺灣官網直接付款"
+      },
+      {
+        "merchants": [
+          "漢神百貨"
+        ],
+        "channels": [
+          "physical"
+        ],
+        "qualifier": "不含漢神巨蛋；須百貨本身請款"
+      },
+      {
+        "merchants": [
+          "特斯拉"
+        ],
+        "channels": [
+          "官方充電資費"
+        ],
+        "qualifier": "限官方充電，不代表購車回饋"
+      },
+      {
+        "merchants": [
+          "日本實體一般消費"
+        ],
+        "channels": [
+          "physical"
+        ],
+        "qualifier": "限日本實體一般消費直接刷卡，不含網購、第三方電子錢包及非一般消費；須帳單e化＋玉山臺幣帳戶成功自扣；任意選須選日本，4.5%須訂閱UP選"
+      }
+    ],
+    "gaps": [
+      "行動支付、除日本外17國實體、Wallet公益捐款及台塑石油PAY特殊基本回饋尚未全部建模。"
+    ]
+  },
+  {
+    "cardId": "unicard",
+    "scheme": "UP選 訂閱制 149點/月",
+    "label": "百大通路最高回饋",
+    "status": "verified",
+    "reason": "已核官方百大名單，依訂房付款、國內臺幣與門市條件分組；未確認子範圍保留缺口。",
+    "merchants": [
+      "momo",
+      "蝦皮",
+      "淘寶",
+      "酷澎",
+      "新光三越",
+      "遠東SOGO",
+      "遠東Garden City",
+      "台北101",
+      "華泰名品城",
+      "三井OUTLET",
+      "秀泰生活",
+      "LaLaport",
+      "Big City遠東巨城購物中心",
+      "昇恆昌",
+      "統一時代百貨台北店",
+      "DREAM PLAZA",
+      "遠東百貨",
+      "Global Mall環球購物中心",
+      "台中漢神洲際購物廣場",
+      "微風百貨",
+      "誠品生活",
+      "誠品書店",
+      "誠品線上",
+      "萬家福",
+      "樂家康",
+      "屈臣氏",
+      "康是美",
+      "特力屋",
+      "HOLA",
+      "hoi好好生活",
+      "杏一藥局",
+      "卡多摩",
+      "Uber Eats",
+      "foodpanda",
+      "台灣中油直營站",
+      "台灣大車隊",
+      "台鐵",
+      "台灣高鐵",
+      "中華航空",
+      "長榮航空",
+      "日本航空",
+      "台灣虎航",
+      "樂桃航空",
+      "酷航",
+      "KKday",
+      "雄獅旅遊",
+      "可樂旅遊",
+      "東南旅遊",
+      "五福旅遊",
+      "加利利旅行社",
+      "找到了旅行社",
+      "喜鴻假期",
+      "鳳凰旅遊",
+      "旅天下直營",
+      "Apple直營店",
+      "小米台灣",
+      "全國電子",
+      "燦坤",
+      "拓元售票",
+      "威秀影城",
+      "國賓影城",
+      "新光影城",
+      "錢櫃KTV",
+      "富昇旅行社",
+      "SKM Park Outlets高雄草衙",
+      "skm online",
+      "新光三越台北信義新天地",
+      "DIAMOND TOWERS",
+      "新光三越台北站前店",
+      "新光三越台北南西店",
+      "新光三越台北天母店",
+      "新光三越桃園站前店",
+      "新光三越台中中港店",
+      "新光三越嘉義垂楊店",
+      "新光三越台南中山店",
+      "新光三越台南新天地",
+      "新光三越高雄三多店",
+      "新光三越高雄左營店",
+      "新光三越台南小北門店",
+      "遠百信義A13",
+      "遠百板橋",
+      "Mega City板橋大遠百",
+      "遠百桃園",
+      "遠百竹北",
+      "新竹大遠百",
+      "Top City台中大遠百",
+      "遠百嘉義",
+      "台南大遠百成功店",
+      "台南大遠百公園店",
+      "高雄大遠百",
+      "遠百花蓮",
+      "SOGO台北忠孝館",
+      "SOGO台北復興館",
+      "SOGO天母館",
+      "SOGO中壢館",
+      "SOGO新竹館",
+      "SOGO高雄館",
+      "微風廣場",
+      "微風南京",
+      "微風信義",
+      "微風松高",
+      "微風南山",
+      "微風台北車站",
+      "Apple台北101",
+      "Apple信義A13",
+      "Apple Store在線商城",
+      "Agoda",
+      "Booking.com",
+      "Hotels.com",
+      "Expedia",
+      "Trip.com",
+      "Uber",
+      "Klook",
+      "UNIQLO",
+      "NET",
+      "漢神百貨",
+      "特斯拉",
+      "日本實體一般消費"
+    ],
+    "aliases": {
+      "momo": [
+        "momo購物網",
+        "富邦momo"
+      ],
+      "蝦皮": [
+        "蝦皮購物",
+        "Shopee"
+      ],
+      "淘寶": [
+        "淘宝",
+        "Taobao",
+        "淘寶網",
+        "手機淘寶",
+        "淘寶Lite"
+      ],
+      "酷澎": [
+        "Coupang",
+        "Coupang酷澎"
+      ],
+      "台鐵": [
+        "臺鐵",
+        "台灣鐵路"
+      ],
+      "台灣高鐵": [
+        "高鐵",
+        "臺灣高鐵",
+        "THSR"
+      ],
+      "KKday": [
+        "kkday"
+      ],
+      "Klook": [
+        "客路"
+      ],
+      "雄獅旅遊": [
+        "雄獅旅行社"
+      ],
+      "東南旅遊": [
+        "東南旅行社"
+      ],
+      "Agoda": [
+        "agoda",
+        "安可達"
+      ]
+    },
+    "source": "https://event.esunbank.com.tw/credit/unicard/discount-channel.html",
+    "checkedAt": "2026-10-22",
+    "end": "2026-12-31",
+    "channels": [
+      "direct",
+      "平台線上即時付款",
+      "國內臺幣請款",
+      "臺灣街邊門市",
+      "臺灣官網",
+      "physical",
+      "官方充電資費"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "momo",
+          "蝦皮",
+          "淘寶",
+          "酷澎",
+          "新光三越",
+          "遠東SOGO",
+          "遠東Garden City",
+          "台北101",
+          "華泰名品城",
+          "三井OUTLET",
+          "秀泰生活",
+          "LaLaport",
+          "Big City遠東巨城購物中心",
+          "昇恆昌",
+          "統一時代百貨台北店",
+          "DREAM PLAZA",
+          "遠東百貨",
+          "Global Mall環球購物中心",
+          "台中漢神洲際購物廣場",
+          "微風百貨",
+          "誠品生活",
+          "誠品書店",
+          "誠品線上",
+          "萬家福",
+          "樂家康",
+          "屈臣氏",
+          "康是美",
+          "特力屋",
+          "HOLA",
+          "hoi好好生活",
+          "杏一藥局",
+          "卡多摩",
+          "Uber Eats",
+          "foodpanda",
+          "台灣中油直營站",
+          "台灣大車隊",
+          "台鐵",
+          "台灣高鐵",
+          "中華航空",
+          "長榮航空",
+          "日本航空",
+          "台灣虎航",
+          "樂桃航空",
+          "酷航",
+          "KKday",
+          "雄獅旅遊",
+          "可樂旅遊",
+          "東南旅遊",
+          "五福旅遊",
+          "加利利旅行社",
+          "找到了旅行社",
+          "喜鴻假期",
+          "鳳凰旅遊",
+          "旅天下直營",
+          "Apple直營店",
+          "小米台灣",
+          "全國電子",
+          "燦坤",
+          "拓元售票",
+          "威秀影城",
+          "國賓影城",
+          "新光影城",
+          "錢櫃KTV",
+          "富昇旅行社",
+          "SKM Park Outlets高雄草衙",
+          "skm online",
+          "新光三越台北信義新天地",
+          "DIAMOND TOWERS",
+          "新光三越台北站前店",
+          "新光三越台北南西店",
+          "新光三越台北天母店",
+          "新光三越桃園站前店",
+          "新光三越台中中港店",
+          "新光三越嘉義垂楊店",
+          "新光三越台南中山店",
+          "新光三越台南新天地",
+          "新光三越高雄三多店",
+          "新光三越高雄左營店",
+          "新光三越台南小北門店",
+          "遠百信義A13",
+          "遠百板橋",
+          "Mega City板橋大遠百",
+          "遠百桃園",
+          "遠百竹北",
+          "新竹大遠百",
+          "Top City台中大遠百",
+          "遠百嘉義",
+          "台南大遠百成功店",
+          "台南大遠百公園店",
+          "高雄大遠百",
+          "遠百花蓮",
+          "SOGO台北忠孝館",
+          "SOGO台北復興館",
+          "SOGO天母館",
+          "SOGO中壢館",
+          "SOGO新竹館",
+          "SOGO高雄館",
+          "微風廣場",
+          "微風南京",
+          "微風信義",
+          "微風松高",
+          "微風南山",
+          "微風台北車站",
+          "Apple台北101",
+          "Apple信義A13",
+          "Apple Store在線商城"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "須符合所選方案；以商家直接請款為準，百貨獨立櫃位除外"
+      },
+      {
+        "merchants": [
+          "Agoda",
+          "Booking.com",
+          "Hotels.com",
+          "Expedia",
+          "Trip.com"
+        ],
+        "channels": [
+          "平台線上即時付款"
+        ],
+        "qualifier": "限平台請款，不含飯店現場付款"
+      },
+      {
+        "merchants": [
+          "Uber",
+          "Klook"
+        ],
+        "channels": [
+          "國內臺幣請款"
+        ],
+        "qualifier": "限國內新臺幣交易"
+      },
+      {
+        "merchants": [
+          "UNIQLO",
+          "NET"
+        ],
+        "channels": [
+          "臺灣街邊門市"
+        ],
+        "qualifier": "不含百貨商場內門市"
+      },
+      {
+        "merchants": [
+          "UNIQLO",
+          "NET"
+        ],
+        "channels": [
+          "臺灣官網"
+        ],
+        "qualifier": "限品牌臺灣官網直接付款"
+      },
+      {
+        "merchants": [
+          "漢神百貨"
+        ],
+        "channels": [
+          "physical"
+        ],
+        "qualifier": "不含漢神巨蛋；須百貨本身請款"
+      },
+      {
+        "merchants": [
+          "特斯拉"
+        ],
+        "channels": [
+          "官方充電資費"
+        ],
+        "qualifier": "限官方充電，不代表購車回饋"
+      },
+      {
+        "merchants": [
+          "日本實體一般消費"
+        ],
+        "channels": [
+          "physical"
+        ],
+        "qualifier": "限日本實體一般消費直接刷卡，不含網購、第三方電子錢包及非一般消費；須帳單e化＋玉山臺幣帳戶成功自扣；任意選須選日本，4.5%須訂閱UP選"
+      }
+    ],
+    "gaps": [
+      "行動支付、除日本外17國實體、Wallet公益捐款及台塑石油PAY特殊基本回饋尚未全部建模。"
+    ]
+  },
+  {
+    "cardId": "costco",
+    "scheme": null,
+    "label": "店外一般消費",
+    "status": "verified",
+    "reason": "僅非台灣Costco的一般消費；排除保費、分期、超商、全聯集團、稅費等，不延伸任意商家。",
+    "merchants": [
+      "國內一般消費",
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
+    "checkedAt": "2026-10-21",
+    "end": "2027-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "costco",
+    "scheme": null,
+    "label": "Costco 賣場",
+    "status": "verified",
+    "reason": "限台灣Costco賣場/會員費/MyCharge，線上購物及自助加油另層；不含分期。",
+    "merchants": [
+      "Costco賣場",
+      "Costco會員費",
+      "Costco MyCharge充電"
+    ],
+    "aliases": {},
+    "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
+    "checkedAt": "2026-10-21",
+    "end": "2027-12-31",
+    "channels": [
+      "physical"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "costco",
+    "scheme": null,
+    "label": "Costco 線上購物",
+    "status": "verified",
+    "reason": "限台灣Costco官網直接一次付清，非其他國家官網。",
+    "merchants": [
+      "Costco線上購物"
+    ],
+    "aliases": {},
+    "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
+    "checkedAt": "2026-10-21",
+    "end": "2027-12-31",
+    "channels": [
+      "online"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "costco",
+    "scheme": null,
+    "label": "Costco 自助加油",
+    "status": "verified",
+    "reason": "限台灣Costco自助加油站；上限沿用每期帳單正附共用。",
+    "merchants": [
+      "Costco自助加油"
+    ],
+    "aliases": {},
+    "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
+    "checkedAt": "2026-10-21",
+    "end": "2027-12-31",
+    "channels": [
+      "physical"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "costco",
+    "scheme": null,
+    "label": "精選海外實體商店（需登錄）",
+    "status": "verified",
+    "reason": "需每月登錄；境外實體、非臺幣並有海外手續費；排除第三方支付及分期基本回饋，不映射任意國際品牌。",
+    "merchants": [
+      "國外實體一般消費"
+    ],
+    "aliases": {},
+    "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "physical"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "costco",
+    "scheme": null,
+    "label": "精選航空／旅行社／訂房／免稅店（需登錄）",
+    "status": "verified",
+    "reason": "官方全21家；直接一次付清且帳單顯示指定商家、每月登錄；訂房須平台請款，不含到店付款/第三方支付；與海外實體加碼共用上限。",
+    "merchants": [
+      "中華航空",
+      "長榮航空",
+      "華信航空",
+      "立榮航空",
+      "星宇航空",
+      "國泰航空",
+      "阿聯酋航空",
+      "易遊網",
+      "雄獅旅遊",
+      "可樂旅遊",
+      "東南旅遊",
+      "山富旅遊",
+      "鳳凰旅遊",
+      "加利利旅行社",
+      "Agoda",
+      "Trip.com",
+      "Booking.com",
+      "Hotels.com",
+      "Expedia",
+      "采盟",
+      "昇恆昌"
+    ],
+    "aliases": {
+      "易遊網": [
+        "ezTravel"
+      ],
+      "雄獅旅遊": [
+        "雄獅旅行社"
+      ],
+      "東南旅遊": [
+        "東南旅行社"
+      ],
+      "Agoda": [
+        "agoda",
+        "安可達"
+      ]
+    },
+    "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "costco",
+    "scheme": null,
+    "label": "Uber Eats好市多專區",
+    "status": "verified",
+    "reason": "只限優步－Costco或銀行指定特店代號；不是全Uber Eats，排除第三方支付，依消費月及次月15日前請款。",
+    "merchants": [
+      "Uber Eats好市多專區"
+    ],
+    "aliases": {},
+    "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "online"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "costco",
+    "scheme": null,
+    "label": "保費一次付清",
+    "status": "verified",
+    "reason": "須設定保費回饋，與分期0利率擇一；不以保險品牌推定全商品。",
+    "merchants": [
+      "保費一次付清"
+    ],
+    "aliases": {},
+    "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
+    "checkedAt": "2026-10-21",
+    "end": "2027-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "costco",
+    "scheme": null,
+    "label": "世界卡高鐵／臺鐵最高回饋",
+    "status": "verified",
+    "reason": "限世界卡且前月店外12000、自扣、當月登錄；官網/APP/臨櫃/售票機，排除高鐵回數/定期APP續購、升等、列車補票、悠遊自動加值；僅此最高資格可套原rate。",
+    "merchants": [
+      "台灣高鐵",
+      "台鐵"
+    ],
+    "aliases": {
+      "台灣高鐵": [
+        "高鐵",
+        "臺灣高鐵",
+        "THSR"
+      ],
+      "台鐵": [
+        "臺鐵",
+        "台灣鐵路"
+      ]
+    },
+    "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "costco",
+    "scheme": null,
+    "label": "鈦商／鈦金卡高鐵／臺鐵最高回饋",
+    "status": "verified",
+    "reason": "限鈦商/鈦金且前月店外12000、自扣、當月登錄；官網/APP/臨櫃/售票機，排除高鐵回數/定期APP續購、升等、列車補票、悠遊自動加值；不可與世界卡層混用。",
+    "merchants": [
+      "台灣高鐵",
+      "台鐵"
+    ],
+    "aliases": {
+      "台灣高鐵": [
+        "高鐵",
+        "臺灣高鐵",
+        "THSR"
+      ],
+      "台鐵": [
+        "臺鐵",
+        "台灣鐵路"
+      ]
+    },
+    "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "costco",
+    "scheme": null,
+    "label": "世界／鈦商卡Q4 Mastercard Travel Rewards",
+    "status": "unresolved",
+    "reason": "已開官方Mastercard平台；首頁僅部分商戶，完整列表與條款需登入/啟用，且首頁包含尊御世界卡專屬優惠，不能視為Costco皆適用；未取得完整Q4本卡商戶證據。",
+    "merchants": [],
+    "aliases": {},
+    "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/Costco/costco.htm",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "costco",
+    "scheme": null,
+    "label": "Q4網路投保（需登錄）",
+    "status": "verified",
+    "reason": "限定國內網路保單一次付清、活動登錄，不含行動支付及外國保單；200元作用週期仍未知。",
+    "merchants": [
+      "國內網路投保"
+    ],
+    "aliases": {},
+    "source": "https://www.fubon.com/banking/event/credit_card/costcoweb/travel/evt5-23.html",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "online"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "fubon-j",
+    "scheme": null,
+    "label": "國內一般消費",
+    "status": "verified",
+    "reason": "須自扣或電子帳單取消紙本；J Points另須綁LINE Pay生效，不延伸任意商家。",
+    "merchants": [
+      "國內一般消費"
+    ],
+    "aliases": {},
+    "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/omiyage/omiyage.htm",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "fubon-j",
+    "scheme": null,
+    "label": "日本／韓國／泰國一般消費",
+    "status": "verified",
+    "reason": "國別或幣別需符合官方日韓泰定義；須符合基本任務，不以商家品牌推定國別。",
+    "merchants": [
+      "日本一般消費",
+      "韓國一般消費",
+      "泰國一般消費"
+    ],
+    "aliases": {},
+    "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/omiyage/omiyage.htm",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "fubon-j",
+    "scheme": null,
+    "label": "日韓泰實體 ＋3%（需登錄）",
+    "status": "verified",
+    "reason": "當地實體面對面、國別碼符合、單筆至少1000臺幣且季登錄；儲值排除。",
+    "merchants": [
+      "日本實體一般消費",
+      "韓國實體一般消費",
+      "泰國實體一般消費"
+    ],
+    "aliases": {},
+    "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/omiyage/omiyage.htm",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "physical"
+    ],
+    "searchType": "cash",
+    "qualifier": "限當地實體面對面消費，單筆滿新臺幣1,000元並完成當季登錄；須符合基本3%任務，儲值不適用"
+  },
+  {
+    "cardId": "fubon-j",
+    "scheme": null,
+    "label": "日本三大交通卡 Apple Pay 儲值",
+    "status": "verified",
+    "reason": "僅Apple Pay綁J卡日本交通卡儲值，單筆滿2000臺幣、季登錄；200元加碼上限重置週期未明，沿用未知提示，不視為無上限。",
+    "merchants": [
+      "Suica",
+      "PASMO",
+      "ICOCA"
+    ],
+    "aliases": {
+      "Suica": [
+        "西瓜卡"
+      ],
+      "PASMO": [
+        "Pasmo"
+      ],
+      "ICOCA": [
+        "Icoca"
+      ]
+    },
+    "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/omiyage/omiyage.htm",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "Apple Pay"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "fubon-j",
+    "scheme": null,
+    "label": "悠遊卡自動加值",
+    "status": "verified",
+    "reason": "僅JCB晶緻/極緻悠遊聯名卡；每月登錄、全年最多三次，各次限當月自動加值，非刷卡購物。",
+    "merchants": [
+      "悠遊卡自動加值"
+    ],
+    "aliases": {},
+    "source": "https://www.specialoffers.jcb/zh-tw/services/transport/autoload2026/",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "悠遊卡"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "fubon-j",
+    "scheme": null,
+    "label": "一卡通票證大眾運輸2%",
+    "status": "verified",
+    "reason": "僅實體J卡一卡通票證功能，每卡月累積100元，排除高鐵；不映射直接刷台鐵車票。",
+    "merchants": [
+      "一卡通大眾運輸",
+      "一卡通捷運",
+      "一卡通輕軌",
+      "一卡通台鐵",
+      "一卡通公車客運",
+      "一卡通公共自行車",
+      "一卡通渡輪"
+    ],
+    "aliases": {},
+    "source": "https://cardpromote.taipeifubon.com.tw/promotion/Detail?sn=C000146",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "一卡通"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "fubon-j",
+    "scheme": null,
+    "label": "網路投保",
+    "status": "verified",
+    "reason": "限定國內網路保單一次付清、活動登錄，不含行動支付及外國保單；200元作用週期仍未知。",
+    "merchants": [
+      "國內網路投保"
+    ],
+    "aliases": {},
+    "source": "https://www.fubon.com/banking/event/credit_card/costcoweb/travel/evt5-23.html",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "online"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "fubon-j",
+    "scheme": null,
+    "label": "亞洲精選實體滿6,000元",
+    "status": "nonMerchant",
+    "reason": "六國實體累積滿額贈即享券，並無指定消費商戶；券兌換品牌不可當作賺取回饋商家。",
+    "merchants": [],
+    "aliases": {},
+    "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/omiyage/omiyage.htm",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "fubon-j",
+    "scheme": null,
+    "label": "保費一次付清",
+    "status": "verified",
+    "reason": "限選擇保費回饋而非分期方案；不以保險公司名稱代表全部保單。",
+    "merchants": [
+      "保費一次付清"
+    ],
+    "aliases": {},
+    "source": "https://www.fubon.com/banking/personal/credit_card/all_card/omiyage/omiyage.htm",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "fubon-j",
+    "scheme": null,
+    "label": "Klook 10月指定商品折扣",
+    "status": "unresolved",
+    "reason": "官方折扣碼已核，但限指定韓國鐵路/星野飯店/海外商品且部分品項不適用；尚未逐一核全Klook商品清單，不能當全站折扣。",
+    "merchants": [
+      "Klook"
+    ],
+    "aliases": {
+      "Klook": [
+        "客路"
+      ]
+    },
+    "source": "https://www.fubon.com/banking/personal/credit_card/all_card/omiyage/omiyage.htm",
+    "checkedAt": "2026-10-21",
+    "end": "2026-10-31",
+    "channels": [
+      "online"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "fubon-j",
+    "scheme": null,
+    "label": "Q4新戶首刷禮・25吋行李箱",
+    "status": "nonMerchant",
+    "reason": "新戶完成申辦及筆數門檻贈行李箱，非商家型現金回饋。",
+    "merchants": [],
+    "aliases": {},
+    "source": "https://www.fubon.com/banking/Personal/credit_card/all_card/omiyage/omiyage.htm",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "ubear",
+    "scheme": null,
+    "label": "國內一般消費（基本）",
+    "status": "verified",
+    "reason": "需帳單e化及玉山自扣；分期與指定訂閱不享基本回饋，只建立一般消費查詢。",
+    "merchants": [
+      "國內一般消費"
+    ],
+    "aliases": {},
+    "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/u-bear",
+    "checkedAt": "2026-10-21",
+    "end": "2027-02-28",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "ubear",
+    "scheme": null,
+    "label": "網路消費／行動支付加碼",
+    "status": "verified",
+    "reason": "官方列舉網購通路依請款方式拆分；不以品牌推定實體刷卡適用。",
+    "merchants": [
+      "PChome",
+      "momo",
+      "蝦皮",
+      "酷澎",
+      "Yahoo購物中心",
+      "Yahoo拍賣",
+      "淘寶",
+      "露天",
+      "博客來",
+      "生活市集",
+      "松果購物",
+      "誠品網路書店",
+      "friDay購物",
+      "udn售票網",
+      "GOMAJI",
+      "17Life",
+      "樂天市場",
+      "citiesocial",
+      "91-APP",
+      "媽咪愛",
+      "屈臣氏網路商城",
+      "康是美線上商城",
+      "萬家福線上購物",
+      "神腦商城",
+      "燦坤線上購物",
+      "瘋狂賣客",
+      "myfone購物",
+      "486團購網",
+      "86小舖",
+      "小三美日",
+      "Apple官網",
+      "STUDIO A官網",
+      "Straight A官網",
+      "台灣小米",
+      "台灣索尼股份有限公司",
+      "良興Eclife購物網",
+      "isunfar愛順發3C購物網",
+      "迪卡儂線上購物",
+      "拓元售票",
+      "ZARA",
+      "H&M",
+      "GU網路商店",
+      "UNIQLO網路商店",
+      "OB嚴選",
+      "lativ",
+      "GENQUO",
+      "ZALORA",
+      "MOS線上儲值",
+      "星巴克線上儲值",
+      "ibon售票系統",
+      "ibon mart",
+      "EZTABLE",
+      "Pinkoi",
+      "55688 APP",
+      "Uber",
+      "呼叫小黃",
+      "台灣高鐵T-EX行動購票",
+      "台鐵線上購票",
+      "易遊網",
+      "Hotels.com",
+      "Expedia",
+      "Klook",
+      "KKday",
+      "Airbnb",
+      "中華航空",
+      "長榮航空",
+      "台灣虎航",
+      "Uber Eats",
+      "foodpanda",
+      "foodomo",
+      "lalamove",
+      "你訂",
+      "KKBOX",
+      "iTunes",
+      "FunNow",
+      "Agoda",
+      "Booking.com",
+      "Google Play",
+      "全電商"
+    ],
+    "aliases": {
+      "momo": [
+        "momo購物網",
+        "富邦momo"
+      ],
+      "蝦皮": [
+        "蝦皮購物",
+        "Shopee"
+      ],
+      "酷澎": [
+        "Coupang",
+        "Coupang酷澎"
+      ],
+      "淘寶": [
+        "淘宝",
+        "Taobao",
+        "淘寶網",
+        "手機淘寶",
+        "淘寶Lite"
+      ],
+      "易遊網": [
+        "ezTravel"
+      ],
+      "Agoda": [
+        "agoda",
+        "安可達"
+      ],
+      "Klook": [
+        "客路"
+      ],
+      "KKday": [
+        "kkday"
+      ]
+    },
+    "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/u-bear",
+    "checkedAt": "2026-10-21",
+    "end": "2027-02-28",
+    "channels": [
+      "online",
+      "平台線上即時付款"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "PChome",
+          "momo",
+          "蝦皮",
+          "酷澎",
+          "Yahoo購物中心",
+          "Yahoo拍賣",
+          "淘寶",
+          "露天",
+          "博客來",
+          "生活市集",
+          "松果購物",
+          "誠品網路書店",
+          "friDay購物",
+          "udn售票網",
+          "GOMAJI",
+          "17Life",
+          "樂天市場",
+          "citiesocial",
+          "91-APP",
+          "媽咪愛",
+          "屈臣氏網路商城",
+          "康是美線上商城",
+          "萬家福線上購物",
+          "神腦商城",
+          "燦坤線上購物",
+          "瘋狂賣客",
+          "myfone購物",
+          "486團購網",
+          "86小舖",
+          "小三美日",
+          "Apple官網",
+          "STUDIO A官網",
+          "Straight A官網",
+          "台灣小米",
+          "台灣索尼股份有限公司",
+          "良興Eclife購物網",
+          "isunfar愛順發3C購物網",
+          "迪卡儂線上購物",
+          "拓元售票",
+          "ZARA",
+          "H&M",
+          "GU網路商店",
+          "UNIQLO網路商店",
+          "OB嚴選",
+          "lativ",
+          "GENQUO",
+          "ZALORA",
+          "MOS線上儲值",
+          "星巴克線上儲值",
+          "ibon售票系統",
+          "ibon mart",
+          "EZTABLE",
+          "Pinkoi",
+          "55688 APP",
+          "Uber",
+          "呼叫小黃",
+          "台灣高鐵T-EX行動購票",
+          "台鐵線上購票",
+          "易遊網",
+          "Hotels.com",
+          "Expedia",
+          "Klook",
+          "KKday",
+          "Airbnb",
+          "中華航空",
+          "長榮航空",
+          "台灣虎航",
+          "Uber Eats",
+          "foodpanda",
+          "foodomo",
+          "lalamove",
+          "你訂",
+          "KKBOX",
+          "iTunes",
+          "FunNow"
+        ],
+        "channels": [
+          "online"
+        ],
+        "qualifier": "限線上直接刷卡；需帳單e化與玉山自扣"
+      },
+      {
+        "merchants": [
+          "Agoda",
+          "Booking.com"
+        ],
+        "channels": [
+          "平台線上即時付款"
+        ],
+        "qualifier": "不含延後扣款或到店付款"
+      },
+      {
+        "merchants": [
+          "Google Play"
+        ],
+        "channels": [
+          "online"
+        ],
+        "qualifier": "限Google Play，不含Google One／Services"
+      },
+      {
+        "merchants": [
+          "全電商"
+        ],
+        "channels": [
+          "online"
+        ],
+        "qualifier": "排除全支付及PX Pay"
+      }
+    ],
+    "gaps": [
+      "指定行動支付的逐服務條件尚未全部建模。"
+    ]
+  },
+  {
+    "cardId": "ubear",
+    "scheme": null,
+    "label": "數位訂閱平台",
+    "status": "verified",
+    "reason": "限原平台直接訂閱、帳單能辨識平台；Gemini須Google One或Google Services請款，Google Play購買不適用本層；Google/PayPal代扣其他訂閱排除；達上限不回落基本回饋。",
+    "merchants": [
+      "Netflix",
+      "ChatGPT",
+      "Gemini",
+      "Steam",
+      "Nintendo",
+      "PlayStation"
+    ],
+    "aliases": {
+      "ChatGPT": [
+        "Chat GPT"
+      ],
+      "Nintendo": [
+        "任天堂"
+      ],
+      "PlayStation": [
+        "PSN"
+      ]
+    },
+    "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/u-bear",
+    "checkedAt": "2026-10-21",
+    "end": "2027-02-28",
+    "channels": [
+      "online"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "ubear",
+    "scheme": null,
+    "label": "新卡友指定三大通路加碼",
+    "status": "verified",
+    "reason": "官方完整三類新卡友名單；額外加碼不當總回饋排名。",
+    "merchants": [
+      "Apple媒體服務",
+      "Google媒體服務",
+      "GASH",
+      "MyCard",
+      "拓元售票",
+      "KKTIX",
+      "遠大售票",
+      "兩廳院文化生活",
+      "寬宏售票",
+      "ibon售票系統",
+      "蝦皮",
+      "momo",
+      "PChome",
+      "樂天市場",
+      "Yahoo購物中心"
+    ],
+    "aliases": {
+      "蝦皮": [
+        "蝦皮購物",
+        "Shopee"
+      ],
+      "momo": [
+        "momo購物網",
+        "富邦momo"
+      ]
+    },
+    "source": "https://event.esunbank.com.tw/credit/ubear/index.html",
+    "checkedAt": "2026-10-21",
+    "end": "2026-11-30",
+    "channels": [
+      "online"
+    ],
+    "searchType": "perk",
+    "rules": [
+      {
+        "merchants": [
+          "Apple媒體服務",
+          "Google媒體服務",
+          "GASH",
+          "MyCard",
+          "拓元售票",
+          "KKTIX",
+          "遠大售票",
+          "兩廳院文化生活",
+          "寬宏售票",
+          "ibon售票系統",
+          "蝦皮",
+          "momo",
+          "PChome",
+          "樂天市場",
+          "Yahoo購物中心"
+        ],
+        "channels": [
+          "online"
+        ],
+        "qualifier": "額外加碼非總率；首次申辦且核卡後60天，Apple／Google須符合指定請款名稱"
+      }
+    ]
+  },
+  {
+    "cardId": "ubear",
+    "scheme": null,
+    "label": "玉山新戶一般消費加碼",
+    "status": "verified",
+    "reason": "個人核卡窗口以必要資格顯示，不將全活動期限誤當個人權益期間。",
+    "merchants": [
+      "國內一般消費",
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "source": "https://event.esunbank.com.tw/credit/ubear/index.html",
+    "checkedAt": "2026-10-21",
+    "end": "2027-01-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk",
+    "rules": [
+      {
+        "merchants": [
+          "國內一般消費",
+          "國外一般消費"
+        ],
+        "channels": [
+          "direct"
+        ],
+        "qualifier": "額外加碼非總率；限核卡當月及次月，非所有新戶都適用至活動最晚截止"
+      }
+    ]
+  },
+  {
+    "cardId": "pi",
+    "scheme": null,
+    "label": "一般消費（基本，需帳單e化）",
+    "status": "verified",
+    "reason": "須Pi註冊綁卡與帳單e化；一般消費排除歐盟實體、保費、分期、超商、全聯及公告非一般消費。",
+    "merchants": [
+      "國內一般消費",
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "source": "https://event.esunbank.com.tw/credit/pi-card/index.html",
+    "checkedAt": "2026-10-21",
+    "end": "2027-02-28",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "pi",
+    "scheme": null,
+    "label": "月消費10,000～29,999元，加碼0.8%",
+    "status": "verified",
+    "reason": "需登錄、帳單e化、Pi綁卡及日曆月一般消費10000至29999；不含保費、不併享另一滿額級距；排除基本不回饋交易，不延伸任意商家。",
+    "merchants": [
+      "國內一般消費",
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "source": "https://event.esunbank.com.tw/credit/pi-card/index.html",
+    "checkedAt": "2026-10-21",
+    "end": "2027-02-28",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "pi",
+    "scheme": null,
+    "label": "月消費滿3萬以上 +2%（需登錄）",
+    "status": "verified",
+    "reason": "需登錄、帳單e化、Pi綁卡及日曆月一般消費至少30000；不含保費，擇優一次；不延伸任意商家。",
+    "merchants": [
+      "國內一般消費",
+      "國外一般消費"
+    ],
+    "aliases": {},
+    "source": "https://event.esunbank.com.tw/credit/pi-card/index.html",
+    "checkedAt": "2026-10-21",
+    "end": "2027-02-28",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "pi",
+    "scheme": null,
+    "label": "Pi 拍錢包合作通路一般消費",
+    "status": "verified",
+    "reason": "提供限定付款服務查詢，不將「可折抵」店家當成可賺取回饋。",
+    "merchants": [
+      "Pi拍錢包合作通路"
+    ],
+    "aliases": {},
+    "source": "https://event.esunbank.com.tw/credit/pi-card/index.html",
+    "checkedAt": "2026-10-21",
+    "end": "2027-02-28",
+    "channels": [
+      "Pi拍錢包"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "Pi拍錢包合作通路"
+        ],
+        "channels": [
+          "Pi拍錢包"
+        ],
+        "qualifier": "單筆499元、登錄、e化及自扣；排除商品可能使整筆不回饋"
+      }
+    ],
+    "gaps": [
+      "各合作店及排除商品尚無可保證完整的具名對照，300 P幣含基本與否仍未明。"
+    ]
+  },
+  {
+    "cardId": "pi",
+    "scheme": null,
+    "label": "保費",
+    "status": "verified",
+    "reason": "只限國內臺幣首續期保費一次付清；不含躉繳、分期、第三方支付及超商代收；不是任意保險商全商品。",
+    "merchants": [
+      "國內臺幣首續期保費"
+    ],
+    "aliases": {},
+    "source": "https://event.esunbank.com.tw/credit/pi-card/index.html",
+    "checkedAt": "2026-10-21",
+    "end": "2027-02-28",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "kumamon",
+    "scheme": null,
+    "label": "國內一般消費（基本）",
+    "status": "verified",
+    "reason": "即時官網已確認2026/7/1至12/31；帳單e化及玉山自扣生效，排除分期與非一般消費。",
+    "merchants": [
+      "國內一般消費"
+    ],
+    "aliases": {},
+    "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/kumamon_card",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "kumamon",
+    "scheme": null,
+    "label": "日本一般消費（基本）",
+    "status": "verified",
+    "reason": "僅日本一般消費查詢；須符合日本日幣交易，實體/網路可；不含玉山Wallet日本PayPay，不以品牌推定國別。",
+    "merchants": [
+      "日本一般消費"
+    ],
+    "aliases": {},
+    "source": "https://event.esunbank.com.tw/credit/kumamon-card/japan-discount.html",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "cash"
+  },
+  {
+    "cardId": "kumamon",
+    "scheme": null,
+    "label": "日本指定商店加碼（+6%）",
+    "status": "verified",
+    "reason": "完整五類具名名單，限制日本日圓直接交易及樂天日文版，不泛配全球品牌。",
+    "merchants": [
+      "Suica",
+      "PASMO",
+      "ICOCA",
+      "樂天旅遊",
+      "TOYOTA Rent a Car",
+      "Times Car Rental",
+      "NIPPON RENT-A-CAR",
+      "OTS租車",
+      "ORIX租車",
+      "Budget租車",
+      "JR鐵路公司",
+      "日本航空",
+      "東橫INN",
+      "星野集團",
+      "Prince Hotel",
+      "東京迪士尼樂園",
+      "東京華納兄弟哈利波特影城",
+      "日本環球影城",
+      "豪斯登堡",
+      "九州非洲獅樂園",
+      "名古屋樂高樂園",
+      "吉伊卡哇樂園",
+      "勝烈亭",
+      "敘敘苑",
+      "牛角",
+      "力丸燒肉",
+      "六歌仙燒肉",
+      "Shake Shack",
+      "DOUTOR Coffee",
+      "Fuglen",
+      "鳥貴族",
+      "一蘭拉麵",
+      "松屋",
+      "SUKIYA",
+      "壽司郎",
+      "藏壽司",
+      "人形町今半",
+      "BicCamera",
+      "Yodobashi",
+      "松本清",
+      "唐吉軻德",
+      "大國藥妝",
+      "無印良品",
+      "日本MITSUI",
+      "日本LaLaport",
+      "UNIQLO",
+      "GU",
+      "Montbell",
+      "Alpen"
+    ],
+    "aliases": {
+      "Suica": [
+        "西瓜卡"
+      ],
+      "PASMO": [
+        "Pasmo"
+      ],
+      "ICOCA": [
+        "Icoca"
+      ],
+      "BicCamera": [
+        "Bic Camera",
+        "必客"
+      ],
+      "唐吉軻德": [
+        "唐吉訶德",
+        "Don Quijote"
+      ]
+    },
+    "source": "https://event.esunbank.com.tw/credit/kumamon-card/japan-discount.html",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "日本交通卡日幣儲值",
+      "日本日文官網（日圓）",
+      "日本日圓直接付款"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "Suica",
+          "PASMO",
+          "ICOCA"
+        ],
+        "channels": [
+          "日本交通卡日幣儲值"
+        ],
+        "qualifier": "須符合熊本熊指定通路及日幣認列"
+      },
+      {
+        "merchants": [
+          "樂天旅遊"
+        ],
+        "channels": [
+          "日本日文官網（日圓）"
+        ],
+        "qualifier": "限日文版直接付款，非其他地區網站"
+      },
+      {
+        "merchants": [
+          "TOYOTA Rent a Car",
+          "Times Car Rental",
+          "NIPPON RENT-A-CAR",
+          "OTS租車",
+          "ORIX租車",
+          "Budget租車",
+          "JR鐵路公司",
+          "日本航空",
+          "東橫INN",
+          "星野集團",
+          "Prince Hotel",
+          "東京迪士尼樂園",
+          "東京華納兄弟哈利波特影城",
+          "日本環球影城",
+          "豪斯登堡",
+          "九州非洲獅樂園",
+          "名古屋樂高樂園",
+          "吉伊卡哇樂園",
+          "勝烈亭",
+          "敘敘苑",
+          "牛角",
+          "力丸燒肉",
+          "六歌仙燒肉",
+          "Shake Shack",
+          "DOUTOR Coffee",
+          "Fuglen",
+          "鳥貴族",
+          "一蘭拉麵",
+          "松屋",
+          "SUKIYA",
+          "壽司郎",
+          "藏壽司",
+          "人形町今半",
+          "BicCamera",
+          "Yodobashi",
+          "松本清",
+          "唐吉軻德",
+          "大國藥妝",
+          "無印良品",
+          "日本MITSUI",
+          "日本LaLaport",
+          "UNIQLO",
+          "GU",
+          "Montbell",
+          "Alpen"
+        ],
+        "channels": [
+          "日本日圓直接付款"
+        ],
+        "qualifier": "限日本日圓指定通路請款；不含PayPay或百貨代收"
+      }
+    ]
+  },
+  {
+    "cardId": "kumamon",
+    "scheme": null,
+    "label": "日本 PayPay 現金回饋（另免海外手續費）",
+    "status": "verified",
+    "reason": "以限定付款服務搜尋，不將PayPay合作店名全部當成適用名單。",
+    "merchants": [
+      "玉山Wallet日本PayPay"
+    ],
+    "aliases": {},
+    "source": "https://event.esunbank.com.tw/credit/kumamon-card/japan-discount-paypay.html",
+    "checkedAt": "2026-10-21",
+    "end": "2026-12-31",
+    "channels": [
+      "玉山Wallet日本PayPay"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "玉山Wallet日本PayPay"
+        ],
+        "channels": [
+          "玉山Wallet日本PayPay"
+        ],
+        "qualifier": "限玉山Wallet可受理交易；不含網購及PayPay Money Only"
+      }
+    ]
+  },
+  {
+    "cardId": "kumamon",
+    "scheme": null,
+    "label": "10月國內滿額禮・保暖披肩毯",
+    "status": "nonMerchant",
+    "reason": "國內一般消費達筆數/累積門檻贈披風毯，無指定商家型搜尋回饋，不作現金率。",
+    "merchants": [],
+    "aliases": {},
+    "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/kumamon_card",
+    "checkedAt": "2026-10-21",
+    "end": "2026-10-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "kumamon",
+    "scheme": null,
+    "label": "名古屋指定實體加碼",
+    "status": "verified",
+    "reason": "官方完整具名清單，活動額外回饋獨立列於權益，不混入總率排名。",
+    "merchants": [
+      "BicCamera（名古屋）",
+      "JR名古屋高島屋",
+      "名古屋PARCO",
+      "松坂屋名古屋店",
+      "SUGI藥局（名古屋）",
+      "吉卜力公園"
+    ],
+    "aliases": {},
+    "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/kumamon_card",
+    "checkedAt": "2026-10-21",
+    "end": "2026-10-31",
+    "channels": [
+      "日本實體（日圓）"
+    ],
+    "searchType": "perk",
+    "rules": [
+      {
+        "merchants": [
+          "BicCamera（名古屋）",
+          "JR名古屋高島屋",
+          "名古屋PARCO",
+          "松坂屋名古屋店",
+          "SUGI藥局（名古屋）",
+          "吉卜力公園"
+        ],
+        "channels": [
+          "日本實體（日圓）"
+        ],
+        "qualifier": "額外加碼，非總回饋率；須登錄及達活動門檻"
+      }
+    ]
+  },
+  {
+    "cardId": "kumamon",
+    "scheme": null,
+    "label": "九州JR博多City／AMU PLAZA",
+    "status": "verified",
+    "reason": "官方完整具名清單，活動額外回饋獨立列於權益，不混入總率排名。",
+    "merchants": [
+      "JR博多City",
+      "AMU PLAZA小倉",
+      "AMU PLAZA長崎",
+      "AMU PLAZA大分",
+      "AMU PLAZA熊本",
+      "AMU PLAZA宮崎",
+      "AMU PLAZA鹿兒島",
+      "AMU PLAZA天神"
+    ],
+    "aliases": {},
+    "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/kumamon_card",
+    "checkedAt": "2026-10-21",
+    "end": "2027-08-31",
+    "channels": [
+      "日本實體（日圓）"
+    ],
+    "searchType": "perk",
+    "rules": [
+      {
+        "merchants": [
+          "JR博多City",
+          "AMU PLAZA小倉",
+          "AMU PLAZA長崎",
+          "AMU PLAZA大分",
+          "AMU PLAZA熊本",
+          "AMU PLAZA宮崎",
+          "AMU PLAZA鹿兒島",
+          "AMU PLAZA天神"
+        ],
+        "channels": [
+          "日本實體（日圓）"
+        ],
+        "qualifier": "額外加碼，非總回饋率；須登錄及達活動門檻"
+      }
+    ]
+  },
+  {
+    "cardId": "kumamon",
+    "scheme": null,
+    "label": "JCB日本環球影城10月滿額回饋",
+    "status": "verified",
+    "reason": "限定園內實體日圓、事前登錄與滿額，不含飯店、停車、線上票券/周邊，不換成20%現金排名。",
+    "merchants": [
+      "日本環球影城園內實體消費"
+    ],
+    "aliases": {},
+    "source": "https://www.specialoffers.jcb/zh-tw/campaign/detail/usj/93849/",
+    "checkedAt": "2026-10-21",
+    "end": "2026-10-31",
+    "channels": [
+      "physical"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "cardId": "kumamon",
+    "scheme": null,
+    "label": "JCB三井OUTLET／LaLaport・10月開放登錄",
+    "status": "unresolved",
+    "reason": "官方已公告登錄額滿；消費仍為11/1至11/30，非已過期。已讀四頁適用門市PDF，各館大量排除櫃位；需已登錄資格及逐館排除規則，不能把MITSUI/LaLaport全館列確定適用。",
+    "merchants": [],
+    "aliases": {},
+    "source": "https://www.specialoffers.jcb/zh-tw/campaign/detail/mitsuioutlet/93838/",
+    "checkedAt": "2026-10-21",
+    "end": "2026-11-30",
+    "channels": [
+      "physical"
+    ],
+    "searchType": "perk"
+  }
+]
