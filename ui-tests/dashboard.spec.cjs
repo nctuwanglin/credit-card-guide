@@ -1,4 +1,19 @@
 const {test,expect}=require('@playwright/test');
+test('merchant composing input updates results without relying on compositionend',async({page})=>{
+  await page.goto('/');
+  await page.locator('#merchantQuery').evaluate(el=>{el.value='淘寶';el.dispatchEvent(new InputEvent('input',{bubbles:true,isComposing:true,data:'寶'}));});
+  await expect(page.locator('#merchantStatus')).toContainText('淘寶：');
+});
+test('merchant explicit search and Enter read the current input value',async({page})=>{
+  await page.goto('/');
+  await page.locator('#merchantQuery').evaluate(el=>{el.value='淘寶';});
+  await page.getByRole('button',{name:'搜尋推薦',exact:true}).click();
+  await expect(page.locator('#merchantStatus')).toContainText('淘寶：');
+  await page.getByRole('button',{name:'清除搜尋',exact:true}).click();
+  await page.locator('#merchantQuery').evaluate(el=>{el.value='淘寶';});
+  await page.locator('#merchantQuery').press('Enter');
+  await expect(page.locator('#merchantStatus')).toContainText('淘寶：');
+});
 test('merchant search ranks verified offers, handles currency, clears and fits mobile',async({page})=>{
   await page.clock.setFixedTime(new Date('2026-10-19T12:00:00+08:00'));
   await page.setViewportSize({width:320,height:844});await page.goto('/');

@@ -394,13 +394,14 @@
     <h2 id="merchantHeading">商家搜尋・該刷哪張？</h2>
     <div class="merchant-fields">
       <label for="merchantQuery">商家名稱
-        <input id="merchantQuery" type="search" placeholder="例如：淘寶、蝦皮、Netflix" maxlength="80" aria-describedby="merchantHint" oninput="if(!event.isComposing)setMerchantQuery(this.value)" oncompositionend="setMerchantQuery(this.value)">
+        <input id="merchantQuery" type="search" placeholder="例如：淘寶、蝦皮、Netflix" maxlength="80" aria-describedby="merchantHint" oninput="setMerchantQuery(this.value)" oncompositionend="setMerchantQuery(this.value)" onchange="setMerchantQuery(this.value)" onsearch="setMerchantQuery(this.value)" onkeydown="if(event.key==='Enter'){event.preventDefault();setMerchantQuery(this.value)}">
       </label>
       <label for="merchantCurrency">帳單請款幣別
         <select id="merchantCurrency" onchange="merchantCurrency=this.value;renderMerchantSearch()">
           <option value="unknown">尚不確定</option><option value="twd">新臺幣請款</option><option value="foreign">外幣請款</option>
         </select>
       </label>
+      <button type="button" onclick="setMerchantQuery(document.getElementById('merchantQuery').value)">搜尋推薦</button>
       <button type="button" onclick="clearMerchantSearch()">清除搜尋</button>
     </div>
     <p class="merchant-hint" id="merchantHint">以商家直接刷卡為前提，只比較已勾選的現金回饋卡；沿用上方限時／新戶設定，不受情境選擇限制。百分比未扣海外或平台手續費，也未計算已使用額度；電子錢包、分期與特殊商品須另核對。</p>
