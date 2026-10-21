@@ -37,11 +37,12 @@
     "status": "verified",
     "reason": "指定地區面對面外幣條件已核；不映射任意品牌。",
     "merchants": [
-      "韓國實體一般消費",
       "泰國實體一般消費",
       "新加坡實體一般消費",
-      "美洲實體一般消費",
-      "日本實體一般消費"
+      "日本實體一般消費",
+      "韓國實體一般消費",
+      "美國實體一般消費",
+      "美洲實體一般消費"
     ],
     "aliases": {},
     "source": "https://www.dbs.com.tw/personal-zh/cards/dbs-aov/index.html",
@@ -55,10 +56,8 @@
     "rules": [
       {
         "merchants": [
-          "韓國實體一般消費",
           "泰國實體一般消費",
-          "新加坡實體一般消費",
-          "美洲實體一般消費"
+          "新加坡實體一般消費"
         ],
         "channels": [
           "指定地區實體外幣"
@@ -67,12 +66,15 @@
       },
       {
         "merchants": [
-          "日本實體一般消費"
+          "日本實體一般消費",
+          "韓國實體一般消費",
+          "美國實體一般消費",
+          "美洲實體一般消費"
         ],
         "channels": [
           "physical"
         ],
-        "qualifier": "限日本實體卡／Apple Pay／Samsung Pay外幣面對面消費且收海外手續費；不含網購與儲值"
+        "qualifier": "限指定地區實體卡／Apple Pay／Samsung Pay外幣面對面消費且收海外手續費；不含網購與儲值"
       }
     ],
     "gaps": [
@@ -408,11 +410,12 @@
     "status": "verified",
     "reason": "指定地區面對面外幣條件已核；不映射任意品牌。",
     "merchants": [
-      "韓國實體一般消費",
       "泰國實體一般消費",
       "新加坡實體一般消費",
-      "美洲實體一般消費",
-      "日本實體一般消費"
+      "日本實體一般消費",
+      "韓國實體一般消費",
+      "美國實體一般消費",
+      "美洲實體一般消費"
     ],
     "aliases": {},
     "source": "https://www.dbs.com.tw/personal-zh/cards/dbs_eco/index.html",
@@ -426,10 +429,8 @@
     "rules": [
       {
         "merchants": [
-          "韓國實體一般消費",
           "泰國實體一般消費",
-          "新加坡實體一般消費",
-          "美洲實體一般消費"
+          "新加坡實體一般消費"
         ],
         "channels": [
           "指定地區實體外幣"
@@ -438,12 +439,15 @@
       },
       {
         "merchants": [
-          "日本實體一般消費"
+          "日本實體一般消費",
+          "韓國實體一般消費",
+          "美國實體一般消費",
+          "美洲實體一般消費"
         ],
         "channels": [
           "physical"
         ],
-        "qualifier": "限日本實體卡／Apple Pay／Samsung Pay外幣面對面消費且收海外手續費；不含網購與儲值"
+        "qualifier": "限指定地區實體卡／Apple Pay／Samsung Pay外幣面對面消費且收海外手續費；不含網購與儲值"
       }
     ],
     "gaps": [
@@ -2117,11 +2121,12 @@
   {
     "cardId": "green",
     "scheme": null,
-    "label": "國內一般消費（基本）",
+    "label": "一般消費（國內1%／國外2%）",
     "status": "verified",
-    "reason": "官方一般消費類別；不自動匹配任意商家。",
+    "reason": "2026-10-22官方註1確認國內1%／國外2%無上限；原同層scenarioRates引用，不另存回饋率。",
     "merchants": [
-      "國內一般消費"
+      "國內一般消費",
+      "國外一般消費"
     ],
     "aliases": {},
     "source": "https://activity.ubot.com.tw/2026GreenCard/index.htm",
@@ -2130,21 +2135,22 @@
       "direct"
     ],
     "searchType": "cash",
-    "checkedAt": "2026-10-21",
+    "checkedAt": "2026-10-22",
     "rules": [
       {
         "merchants": [
-          "國內一般消費"
+          "國內一般消費",
+          "國外一般消費"
         ],
         "channels": [
           "direct"
         ],
-        "qualifier": "僅合格一般消費；不含分期及銀行排除項目，仍須達卡片任務"
+        "qualifier": "需成功申辦電子化帳單，非一般消費不適用"
       }
     ],
-    "gaps": [
-      "國外2%未建立獨立tier，未以國內1%代替。"
-    ]
+    "queryScenarios": {
+      "國外一般消費": "旅日"
+    }
   },
   {
     "cardId": "green",

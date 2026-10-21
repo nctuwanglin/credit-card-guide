@@ -4,6 +4,58 @@ const fs=require('node:fs');
 const vm=require('node:vm');
 const html=fs.readFileSync(process.env.DASHBOARD_FILE||__dirname+'/'+(fs.existsSync(__dirname+'/2026信用卡回饋指南.html')?'2026信用卡回饋指南.html':'index.html'),'utf8');
 const script=html.match(/<script>([\s\S]*?)<\/script>/)[1].split('// 瀏覽統計：')[0];
+test('23-card country audit matrix covers Japan Korea US with explicit no-evidence cases',()=>{
+  const b=boot(undefined,'2026-10-22T12:00:00+08:00');
+  const cash={
+    'ctbc-101':[1.2,1.2,1.2],unicard:[4.5,4.5,4.5],dawho:[6,6,6],sport:[2,2,2],richart:[3.3,3.3,3.3],cube:[3.5,3,3],
+    'dbs-aov':[5,5,5],'dbs-eco':[5,5,5],linebank:[2.5,2.5,2.5],breeze:[null,null,null],mcard:[3,3,3],jihe:[2.5,null,null],
+    green:[2,2,2],costco:[5,5,5],'fubon-j':[6,6,null],ubear:[1,1,1],pi:[3,3,3],kumamon:[2.5,null,null],'ctbc-linepay':[5,5,5]
+  };
+  const miles={'hsbc-travel':10,'ctbc-ci':9,'cathay-eva':10,'esun-starlux':10};
+  assert.deepEqual([...b.run('cards.map(c=>c.id)')].sort(),Object.keys({...cash,...miles}).sort());
+  for(const [i,country] of ['日本','韓國','美國'].entries()){
+    b.run("activeTab='cash'");
+    for(const [id,expected] of Object.entries(cash))assert.equal(b.run(`merchantResults('${country}消費').ranked.find(r=>r.c.id==='${id}')?.value??null`),expected[i],id+'/'+country);
+    b.run("activeTab='mile'");
+    for(const [id,expected] of Object.entries(miles))assert.equal(b.run(`merchantResults('${country}消費').ranked.find(r=>r.c.id==='${id}')?.value`),expected,id+'/'+country);
+  }
+  b.run("activeTab='cash';visibleCards=new Set(['kumamon']);showLimited=false");
+  assert.ok(b.run("merchantResults('日本消費').conditional.every(r=>r.c.id==='kumamon')"));
+  assert.ok(b.run("merchantResults('日本消費').conditional.every(r=>r.t.kind!=='limited')"));
+});
+test('conditional country references must resolve and respect expiry and new-card filters',()=>{
+  const b=boot(undefined,'2026-10-22T12:00:00+08:00');
+  assert.equal(b.run("Object.entries(COUNTRY_SPECIALS).every(([id,labels])=>Object.keys(labels).every(label=>cardOffers(cards.find(c=>c.id===id)).some(o=>o.t.label===label)))"),true);
+  assert.equal(b.run("merchantResults('日本消費').conditional.some(r=>r.t.audience==='new')"),false);
+  b.run("cards.find(c=>c.id==='kumamon').tiers.find(t=>t.rate==='8.5').search.end='2026-10-01'");
+  assert.equal(b.run("merchantResults('日本消費').conditional.some(r=>r.c.id==='kumamon'&&r.value===8.5)"),false);
+});
+test('country queries inherit verified overseas offers without inventing a named merchant match',()=>{
+  const b=boot(undefined,'2026-10-22T12:00:00+08:00');
+  for(const country of ['日本','韓國','美國']){
+    for(const [id,rate] of [['unicard',4.5],['dawho',6],['dbs-aov',5],['dbs-eco',5],['mcard',3],['richart',3.3],['costco',5]])
+      assert.equal(b.run(`merchantResults('${country}消費').ranked.find(r=>r.c.id==='${id}')?.value`),rate,country+'/'+id);
+  }
+  assert.equal(b.run("merchantResults('日本消費').ranked.find(r=>r.c.id==='kumamon')?.value"),2.5);
+  assert.equal(b.run("merchantResults('韓國消費').ranked.find(r=>r.c.id==='fubon-j')?.value"),6);
+  assert.notEqual(b.run("merchantResults('美國消費').ranked.find(r=>r.c.id==='fubon-j')?.value"),6);
+  assert.equal(b.run("merchantResults('未知日本商店').ranked.length"),0);
+});
+test('country conditional rewards expose Kumamon and Jihe without calling them general rates',()=>{
+  const b=boot(undefined,'2026-10-22T12:00:00+08:00');
+  assert.equal(b.run("merchantResults('日本消費').conditional.find(r=>r.c.id==='kumamon'&&r.value===8.5)?.value"),8.5);
+  assert.equal(b.run("merchantResults('日本消費').conditional.find(r=>r.c.id==='jihe'&&r.value===8)?.value"),8);
+  assert.equal(b.run("merchantResults('韓國消費').conditional.some(r=>r.c.id==='kumamon')"),false);
+  assert.equal(b.run("merchantResults('日本消費').conditional.some(r=>r.t.rate.startsWith('+'))"),false);
+  b.run("setMerchantQuery('日本消費')");
+  assert.match(b.get('merchantResults').innerHTML,/指定商店／支付方式/);
+  assert.match(b.get('merchantResults').innerHTML,/8\.5%/);
+  assert.match(b.get('merchantResults').innerHTML,/日本Apple／Google Pay感應/);
+  assert.match(b.get('merchantResults').innerHTML,/日本日文官網（日圓）/);
+  assert.match(b.get('merchantResults').innerHTML,/PayPay Money Only/);
+  b.run("visibleCards.delete('kumamon');renderMerchantSearch()");
+  assert.doesNotMatch(b.get('merchantResults').innerHTML,/玉山 熊本熊/);
+});
 test('Japan search compares all four cards in the same physical payment context',()=>{
   const b=boot(undefined,'2026-10-22T12:00:00+08:00');
   for(const q of ['日本消費','日本實體消費','日本實體一般消費']){

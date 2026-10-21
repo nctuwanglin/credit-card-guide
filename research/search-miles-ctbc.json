@@ -292,7 +292,8 @@
       "Expedia",
       "Trip.com",
       "Booking.com",
-      "Airbnb"
+      "Airbnb",
+      "國外實體一般消費"
     ],
     "aliases": {},
     "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/CTBCCI/index.html",
@@ -300,7 +301,8 @@
     "end": "2026-12-31",
     "channels": [
       "direct",
-      "海外住宿（國外請款）"
+      "海外住宿（國外請款）",
+      "physical"
     ],
     "searchType": "mile",
     "rules": [
@@ -330,6 +332,15 @@
           "海外住宿（國外請款）"
         ],
         "qualifier": "限國外住宿，且帳單有國外交易手續費"
+      },
+      {
+        "merchants": [
+          "國外實體一般消費"
+        ],
+        "channels": [
+          "physical"
+        ],
+        "qualifier": "限海外實體面對面一般消費；不含網路、條碼及第三方支付，仍須符合原方案／卡等及上限"
       }
     ],
     "gaps": [
@@ -405,7 +416,8 @@
       "Trip.com",
       "AsiaYo",
       "KKday",
-      "Klook"
+      "Klook",
+      "國外實體一般消費"
     ],
     "aliases": {},
     "source": "https://www.cathaybk.com.tw/cathaybk/personal/credit-card/cards/intro/eva/login/",
@@ -414,7 +426,8 @@
     "channels": [
       "direct",
       "海外住宿（國外請款）",
-      "海外住宿（外幣請款）"
+      "海外住宿（外幣請款）",
+      "physical"
     ],
     "searchType": "mile",
     "rules": [
@@ -452,6 +465,15 @@
           "海外住宿（外幣請款）"
         ],
         "qualifier": "須海外住宿且外幣請款"
+      },
+      {
+        "merchants": [
+          "國外實體一般消費"
+        ],
+        "channels": [
+          "physical"
+        ],
+        "qualifier": "限海外實體面對面一般消費；不含網路、條碼及第三方支付，仍須符合原方案／卡等及上限"
       }
     ],
     "gaps": [
@@ -677,17 +699,37 @@
     "cardId": "ctbc-linepay",
     "scheme": null,
     "label": "國外實體商店消費",
-    "status": "unresolved",
-    "reason": "面對面／國別碼條件已核，但海外不回饋項目含部分歐洲地區，完整排除清單尚未核清；不能以全海外實體概括推薦。",
-    "merchants": [],
+    "status": "verified",
+    "reason": "官方不限國別海外面對面條款；先限定非歐洲的日本、韓國、美國。",
+    "merchants": [
+      "日本實體一般消費",
+      "韓國實體一般消費",
+      "美國實體一般消費"
+    ],
     "aliases": {},
     "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/notice.html",
-    "checkedAt": "2026-10-21",
+    "checkedAt": "2026-10-22",
     "end": "2026-12-31",
     "channels": [
-      "direct"
+      "physical"
     ],
-    "searchType": "cash"
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "日本實體一般消費",
+          "韓國實體一般消費",
+          "美國實體一般消費"
+        ],
+        "channels": [
+          "physical"
+        ],
+        "qualifier": "限國別碼為當地的面對面一般交易；不含網路、條碼、第三方支付及銀行不回饋項目；5%另須當期限量登錄"
+      }
+    ],
+    "gaps": [
+      "其他國家及歐洲排除完整名單仍待確認，不以此擴展全海外。"
+    ]
   },
   {
     "cardId": "ctbc-linepay",
@@ -767,16 +809,36 @@
     "cardId": "ctbc-linepay",
     "scheme": null,
     "label": "國外實體消費登錄加碼（2026Q4）",
-    "status": "unresolved",
-    "reason": "瀏覽器已核對Q4期間、登錄限額、整檔450點與請款期限；但部分歐洲國家不回饋完整名單尚未核清，不能以全海外實體推薦。",
-    "merchants": [],
+    "status": "verified",
+    "reason": "官方不限國別海外面對面條款；先限定非歐洲的日本、韓國、美國。",
+    "merchants": [
+      "日本實體一般消費",
+      "韓國實體一般消費",
+      "美國實體一般消費"
+    ],
     "aliases": {},
     "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/page_travel.html",
-    "checkedAt": "2026-10-21",
+    "checkedAt": "2026-10-22",
     "end": "2026-12-31",
     "channels": [
-      "direct"
+      "physical"
     ],
-    "searchType": "cash"
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "日本實體一般消費",
+          "韓國實體一般消費",
+          "美國實體一般消費"
+        ],
+        "channels": [
+          "physical"
+        ],
+        "qualifier": "限國別碼為當地的面對面一般交易；不含網路、條碼、第三方支付及銀行不回饋項目；5%另須當期限量登錄"
+      }
+    ],
+    "gaps": [
+      "其他國家及歐洲排除完整名單仍待確認，不以此擴展全海外。"
+    ]
   }
 ]

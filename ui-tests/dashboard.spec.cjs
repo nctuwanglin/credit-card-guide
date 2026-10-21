@@ -1,4 +1,20 @@
 const {test,expect}=require('@playwright/test');
+test('country overview separates specified Japan rewards and updates Korea US without leaking countries',async({page})=>{
+  await page.goto('/');
+  await page.locator('#merchantQuery').fill('日本消費');
+  await expect(page.locator('.merchant-conditional').filter({hasText:'熊本熊'})).toContainText('8.5%');
+  await expect(page.locator('#merchantResults ol > li').filter({hasText:'熊本熊'})).toContainText('2.5%');
+  for(const country of ['韓國','美國']){
+    await page.locator('#merchantQuery').fill(country+'消費');
+    await expect(page.locator('#merchantStatus')).toContainText(country+'實體一般消費');
+    await expect(page.locator('#merchantResults ol > li').filter({hasText:'Unicard'})).toContainText('4.5%');
+    await expect(page.locator('#merchantResults ol > li').filter({hasText:'eco'})).toContainText('5%');
+    await expect(page.locator('#merchantResults')).not.toContainText('熊本熊');
+  }
+  await page.locator('#tabMile').click();
+  await expect(page.locator('#merchantResults ol')).toContainText('10元/哩');
+  await expect(page.locator('#merchantResults ol')).not.toContainText('%');
+});
 test('Japan query immediately compares four cards with conditions',async({page})=>{
   await page.goto('/');
   await page.locator('#merchantQuery').fill('日本消費');

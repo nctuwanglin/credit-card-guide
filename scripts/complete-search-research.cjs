@@ -15,6 +15,12 @@ function activate(r,rules,reason,gaps=[]){r.status='verified';r.rules=rules;r.re
 for(const name of ['esun','plans','miles-ctbc']){
   const file=path.join(root,'research','search-'+name+'.json'),rows=JSON.parse(fs.readFileSync(file,'utf8'));
   for(const r of rows){
+    if(r.cardId==='ubear'&&r.label==='國內一般消費（基本）'){
+      activate(r,[group('國內一般消費|國外一般消費','direct','須帳單e化及玉山自扣；排除分期、指定數位訂閱及非一般消費')],'基本一般消費包含海外；2026-10-22重讀官方網頁。');r.checkedAt='2026-10-22';
+    }
+    if(r.cardId==='ctbc-linepay'&&['國外實體商店消費','國外實體消費登錄加碼（2026Q4）'].includes(r.label)){
+      activate(r,[group('日本實體一般消費|韓國實體一般消費|美國實體一般消費','physical','限國別碼為當地的面對面一般交易；不含網路、條碼、第三方支付及銀行不回饋項目；5%另須當期限量登錄')],'官方不限國別海外面對面條款；先限定非歐洲的日本、韓國、美國。',['其他國家及歐洲排除完整名單仍待確認，不以此擴展全海外。']);r.checkedAt='2026-10-22';
+    }
     if(r.cardId==='unicard'&&r.scheme!=='基本回饋'){
       // Separate only groups whose complete specific-merchant restrictions were obtained.
       const special=split('Uber|Klook|Agoda|Booking.com|Hotels.com|Expedia|Trip.com|UNIQLO|NET|漢神百貨|特斯拉|日本實體一般消費');
@@ -114,7 +120,26 @@ for(const name of ['esun','plans','miles-ctbc']){
     }
     if(r.cardId==='cathay-eva'&&r.label==='旅行社長榮機票／國外自由行／團體旅遊（登錄）')activate(r,[group('旅行社長榮機票／旅遊登錄','指定長榮航程','限本人搭乘、單筆指定機票／團費，搭後5–180日成功登錄')],'限定航程登錄服務查詢，不映射任意旅行社所有商品。');
   }
-  for(const r of rows)if(r.cardId==='fubon-j'&&r.label==='日韓泰實體 ＋3%（需登錄）')r.qualifier='限當地實體面對面消費，單筆滿新臺幣1,000元並完成當季登錄；須符合基本3%任務，儲值不適用';
+  for(const r of rows){
+    if(r.cardId==='unicard'&&r.scheme!=='基本回饋'){
+      // Explicit official country list; never treat an overseas brand as proof of location.
+      for(const g of r.rules)g.merchants=g.merchants.filter(n=>!['韓國實體一般消費','美國實體一般消費'].includes(n));
+      r.rules.push(group('韓國實體一般消費|美國實體一般消費','physical','限當地實體一般消費，非網購／第三方電子錢包；須帳單e化及成功自扣，任意選須選該國，4.5%須UP選'));
+      r.gaps=['行動支付、除日韓美外15國實體、Wallet公益捐款及台塑石油PAY尚未全部建模。'];
+    }
+    if(r.cardId==='cube'&&r.label==='秋日遊：日本實體消費／指定交通卡'){
+      for(const g of r.rules)g.merchants=g.merchants.filter(n=>n!=='日本實體一般消費');
+      r.rules.push(group('日本實體一般消費','physical','須切秋日遊；以日本國別與實體交易認定，排除分期及第三方支付'));
+    }
+    const overseas=(r.cardId==='cube'&&r.label==='海外實體／航空／訂房／旅行社')||
+      (r.cardId==='ctbc-ci'&&r.label==='國外實體／華航官網機票／eMall／旅遊訂房（x2）')||
+      (r.cardId==='cathay-eva'&&r.label==='長榮官網/App／機上免稅／海外實體及指定線上住宿');
+    if(overseas){
+      for(const g of r.rules)g.merchants=g.merchants.filter(n=>n!=='國外實體一般消費');
+      r.rules.push(group('國外實體一般消費','physical','限海外實體面對面一般消費；不含網路、條碼及第三方支付，仍須符合原方案／卡等及上限'));
+    }
+    if(r.cardId==='fubon-j'&&r.label==='日韓泰實體 ＋3%（需登錄）')r.qualifier='限當地實體面對面消費，單筆滿新臺幣1,000元並完成當季登錄；須符合基本3%任務，儲值不適用';
+  }
   fs.writeFileSync(file,JSON.stringify(rows.map(normalized),null,2)+'\n');
 }
 
@@ -122,6 +147,8 @@ const ids=['linebank','breeze','mcard','jihe','green','dbs-aov','dbs-eco'];
 const rows=tiers.filter(x=>ids.includes(x.c.id)).map(({c,t,scheme})=>({cardId:c.id,scheme,label:t.label,status:'unresolved',reason:'尚未完成本層官方交易名單與排除條件查證，暫不推薦。',merchants:[],aliases:{},source:t.source,end:t.end,channels:['direct'],searchType:/元\/哩$/.test(t.rate)?'mile':/^\d+(\.\d+)?$/.test(t.rate)?'cash':'perk'}));
 function set(id,label,groups,reason,gaps=[]){const r=rows.find(x=>x.cardId===id&&x.label===label);if(!r)throw Error(id+'/'+label);r.checkedAt='2026-10-21';return activate(r,groups,reason,gaps);}
 const general=['國內一般消費','國外一般消費'];
+const greenBase=set('green','一般消費（國內1%／國外2%）',[group(general,'direct','需成功申辦電子化帳單，非一般消費不適用')],'2026-10-22官方註1確認國內1%／國外2%無上限；原同層scenarioRates引用，不另存回饋率。');
+greenBase.queryScenarios={'國外一般消費':'旅日'};greenBase.checkedAt='2026-10-22';
 for(const id of ids){
   const basics=rows.filter(r=>r.cardId===id&&/^(國內外一般消費（基本）|國內一般消費|國內一般消費（基本）|國外一般消費|海外一般消費（含非實體）)$/.test(r.label));
   for(const r of basics)set(id,r.label,[group(r.label.startsWith('國內外')?general:r.label.startsWith('國內')?general.slice(0,1):general.slice(1),'direct','僅合格一般消費；不含分期及銀行排除項目，仍須達卡片任務')],'官方一般消費類別；不自動匹配任意商家。',r.cardId==='green'?['國外2%未建立獨立tier，未以國內1%代替。']:[]);
@@ -190,7 +217,8 @@ for(const r of rows)if(r.label.includes('Mastercard'))r.reason='Mastercard個別
 for(const r of rows.filter(r=>['dbs-aov','dbs-eco'].includes(r.cardId)))for(const g of [...(r.rules||[])]){
   if(g.merchants.includes('日本實體一般消費')&&g.channels.includes('指定地區實體外幣')){
     g.merchants=g.merchants.filter(n=>n!=='日本實體一般消費');
-    r.rules.push(group('日本實體一般消費','physical','限日本實體卡／Apple Pay／Samsung Pay外幣面對面消費且收海外手續費；不含網購與儲值'));
+    g.merchants=g.merchants.filter(n=>!['韓國實體一般消費','美洲實體一般消費'].includes(n));
+    r.rules.push(group('日本實體一般消費|韓國實體一般消費|美國實體一般消費|美洲實體一般消費','physical','限指定地區實體卡／Apple Pay／Samsung Pay外幣面對面消費且收海外手續費；不含網購與儲值'));
   }
 }
 fs.writeFileSync(path.join(root,'research/search-ubot-dbs.json'),JSON.stringify(rows.map(normalized),null,2)+'\n');
