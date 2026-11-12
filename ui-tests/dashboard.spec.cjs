@@ -218,8 +218,12 @@ test('mobile: every scenario, headings, hidden audit records and filter states',
 });
 test('compact cards: collapsed height stays under two screens and details open by keyboard',async({page})=>{
   await page.setViewportSize({width:1280,height:900});await page.goto('/');
-  const heights=await page.locator('.card').evaluateAll(cs=>cs.map(c=>[c.id,c.getBoundingClientRect().height]));
-  for(const [id,h] of heights)expect(h,id).toBeLessThan(1100);
+  // 結構檢查（不受字型影響）：摘要最多4列、完整優惠層只在收合的 details 內。
+  // 高度門檻用視窗高度的1.5倍：CI 封鎖外部字型、改用 Linux 替代字型，版面比線上 Noto Sans TC 寬，
+  // 固定 px 門檻（原1,100）會因字型差異誤判；1.5倍仍能抓到「全部攤開」的退步（改版前約3,861px）。
+  const shape=await page.locator('.card').evaluateAll(cs=>cs.map(c=>({id:c.id,h:c.getBoundingClientRect().height,rows:c.querySelectorAll(':scope .ctiers > .ctier:not(.stale)').length,
+    openTiers:[...c.querySelectorAll('.tier')].filter(t=>t.checkVisibility()).length})));
+  for(const s of shape){expect(s.rows,s.id).toBeLessThanOrEqual(4);expect(s.openTiers,s.id).toBe(0);expect(s.h,s.id).toBeLessThan(900*1.5);}
   const summary=page.locator('details.more > summary').first();
   await summary.focus();await page.keyboard.press('Enter');
   await expect(page.locator('details.more').first()).toHaveAttribute('open','');
