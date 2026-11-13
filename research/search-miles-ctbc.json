@@ -676,6 +676,127 @@
     ]
   },
   {
+    "scheme": null,
+    "aliases": {},
+    "checkedAt": "2026-11-13",
+    "cardId": "esun-starlux",
+    "label": "秋楓冬雪漫遊趣・Q4旅遊滿額禮",
+    "status": "verified",
+    "reason": "活動注意事項完整列出34家旅行社與13家航空／旅遊平台；屬滿額禮，不換算成百分比排名。",
+    "merchants": [
+      "雄獅旅遊",
+      "旅天下",
+      "易遊網",
+      "可樂旅遊",
+      "東南旅遊",
+      "五福旅遊",
+      "鳳凰旅遊",
+      "ezfly易飛旅遊",
+      "喜鴻假期",
+      "長汎假期",
+      "山富旅遊",
+      "加利利旅行社",
+      "利百加旅遊",
+      "品冠旅遊",
+      "燦星旅遊",
+      "元本旅遊",
+      "百威假期",
+      "華友旅行",
+      "行健旅遊",
+      "大興旅行社",
+      "上順旅遊",
+      "凱旋旅行社",
+      "巨匠旅遊",
+      "巨大旅遊",
+      "世邦旅遊",
+      "太平洋旅行社",
+      "晴天旅行社",
+      "晴日旅行社",
+      "誠翔旅行社",
+      "珂境旅行社（Club Med）",
+      "賓士旅行社",
+      "金龍永盛旅行社",
+      "太一國際旅行社",
+      "找到了旅行社",
+      "星宇航空",
+      "中華航空",
+      "長榮航空",
+      "立榮航空",
+      "華信航空",
+      "台灣虎航",
+      "Klook",
+      "KKday",
+      "AsiaYo",
+      "Trip.com",
+      "Agoda",
+      "Expedia",
+      "Hotels.com"
+    ],
+    "source": "https://event.esunbank.com.tw/credit/travel-campaign/index.html",
+    "end": "2026-12-31",
+    "channels": [
+      "國內臺幣請款"
+    ],
+    "searchType": "perk",
+    "rules": [
+      {
+        "merchants": [
+          "雄獅旅遊",
+          "旅天下",
+          "易遊網",
+          "可樂旅遊",
+          "東南旅遊",
+          "五福旅遊",
+          "鳳凰旅遊",
+          "ezfly易飛旅遊",
+          "喜鴻假期",
+          "長汎假期",
+          "山富旅遊",
+          "加利利旅行社",
+          "利百加旅遊",
+          "品冠旅遊",
+          "燦星旅遊",
+          "元本旅遊",
+          "百威假期",
+          "華友旅行",
+          "行健旅遊",
+          "大興旅行社",
+          "上順旅遊",
+          "凱旋旅行社",
+          "巨匠旅遊",
+          "巨大旅遊",
+          "世邦旅遊",
+          "太平洋旅行社",
+          "晴天旅行社",
+          "晴日旅行社",
+          "誠翔旅行社",
+          "珂境旅行社（Club Med）",
+          "賓士旅行社",
+          "金龍永盛旅行社",
+          "太一國際旅行社",
+          "找到了旅行社",
+          "星宇航空",
+          "中華航空",
+          "長榮航空",
+          "立榮航空",
+          "華信航空",
+          "台灣虎航",
+          "Klook",
+          "KKday",
+          "AsiaYo",
+          "Trip.com",
+          "Agoda",
+          "Expedia",
+          "Hotels.com"
+        ],
+        "channels": [
+          "國內臺幣請款"
+        ],
+        "qualifier": "滿額禮非總回饋率；須登錄、新臺幣結帳，第三方／電子支付不適用（玉山Wallet除外）"
+      }
+    ]
+  },
+  {
     "cardId": "ctbc-linepay",
     "scheme": null,
     "label": "國內外一般消費",
@@ -734,40 +855,6 @@
   {
     "cardId": "ctbc-linepay",
     "scheme": null,
-    "label": "國外實體消費登錄加碼（2026/7/1–9/30）",
-    "status": "expired",
-    "reason": "原tier於2026/9/30到期，不以Q4續行延長舊層；不參與排名。",
-    "merchants": [],
-    "aliases": {},
-    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/page_travel.html",
-    "checkedAt": "2026-10-21",
-    "end": "2026-09-30",
-    "channels": [
-      "direct"
-    ],
-    "searchType": "cash"
-  },
-  {
-    "cardId": "ctbc-linepay",
-    "scheme": null,
-    "label": "Klook指定台港澳商品：最高12%點數",
-    "status": "expired",
-    "reason": "中秋Klook檔於2026/9/30到期，保留原期限；不參與排名。",
-    "merchants": [
-      "Klook"
-    ],
-    "aliases": {},
-    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/page_travel.html",
-    "checkedAt": "2026-10-21",
-    "end": "2026-09-30",
-    "channels": [
-      "direct"
-    ],
-    "searchType": "cash"
-  },
-  {
-    "cardId": "ctbc-linepay",
-    "scheme": null,
     "label": "一卡通大眾運輸（不含高鐵／計程車）",
     "status": "verified",
     "reason": "僅實體卡內一卡通儲值金搭乘指定大眾運輸類別；排除高鐵、計程車及Hami Pay/Fitbit Pay等行動一卡通，並非一卡通自動加值或所有店家。",
@@ -784,24 +871,6 @@
     "end": "2026-12-31",
     "channels": [
       "一卡通"
-    ],
-    "searchType": "cash"
-  },
-  {
-    "cardId": "ctbc-linepay",
-    "scheme": null,
-    "label": "Klook國慶檔台港澳指定商品：最高12%點數",
-    "status": "expired",
-    "reason": "國慶Klook檔於2026/10/11到期，不將另一期活動套用原tier；不參與排名。",
-    "merchants": [
-      "Klook"
-    ],
-    "aliases": {},
-    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/page_travel.html",
-    "checkedAt": "2026-10-21",
-    "end": "2026-10-11",
-    "channels": [
-      "direct"
     ],
     "searchType": "cash"
   },
@@ -839,6 +908,39 @@
     ],
     "gaps": [
       "其他國家及歐洲排除完整名單仍待確認，不以此擴展全海外。"
+    ]
+  },
+  {
+    "scheme": null,
+    "aliases": {
+      "Klook": [
+        "客路"
+      ]
+    },
+    "checkedAt": "2026-11-13",
+    "cardId": "ctbc-linepay",
+    "label": "Klook聖誕檔台港澳指定商品：最高12%點數",
+    "status": "verified",
+    "reason": "限Klook指定連結台港澳商品並輸入檔期代碼；需完成使用後回饋。",
+    "merchants": [
+      "Klook"
+    ],
+    "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/page_travel.html",
+    "end": "2026-12-31",
+    "channels": [
+      "online"
+    ],
+    "searchType": "cash",
+    "rules": [
+      {
+        "merchants": [
+          "Klook"
+        ],
+        "channels": [
+          "online"
+        ],
+        "qualifier": "限台港澳指定商品、指定入口與代碼CTBCLP26CH5；LINE Pay Visa卡；每帳號一次"
+      }
     ]
   }
 ]

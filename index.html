@@ -365,7 +365,7 @@
       <div class="yr">20<span class="dot">2</span>6</div>
       <h1>信用卡回饋指南</h1>
     </div>
-    <div class="asof">10月優惠更新 <b>2026/10/01</b> · 各優惠適用條件與期限不同，待確認項目保留提醒</div>
+    <div class="asof">11月優惠更新 <b>2026/11/13</b> · 各優惠適用條件與期限不同，待確認項目保留提醒</div>
   </div>
 </header>
 
@@ -778,7 +778,8 @@ const cards = [
       "全支付",
       "美食外送",
       "百貨",
-      "旅遊機票"
+      "旅遊機票",
+      "保費"
     ],
     "pts": "e point ＝ 1元 · 效期1年 · 需電子帳單＋自扣",
     "schemes": [
@@ -2737,6 +2738,447 @@ const cards = [
               ],
               "gaps": [
                 "行動支付、除日韓美外15國實體、Wallet公益捐款及台塑石油PAY尚未全部建模。"
+              ]
+            }
+          }
+        ]
+      },
+      {
+        "name": "限時活動（不限方案，需領券／登錄）",
+        "tiers": [
+          {
+            "rate": "1.5",
+            "label": "扣繳三商美邦傳統型保費（領券）",
+            "sub": "帳單e化＋玉山帳戶自扣1%（僅帳單e化為0.3%）＋三商美邦傳統型保費加碼0.2%無上限＋玉山Wallet領券再加碼0.3% e point。",
+            "cap": "領券加碼0.3%每歸戶每月1,000點；1%＋0.2%無上限",
+            "capSpend": 333333,
+            "capPeriod": "month",
+            "scenarios": [
+              "保費"
+            ],
+            "start": "2026-11-01",
+            "end": "2027-12-31",
+            "kind": "limited",
+            "audience": "all",
+            "condition": "須於保費交易結帳前一日完成領券（附卡同享）；投資型保單、躉繳、產險及已參加保費分期0利率者不適用；與「壽險保費最高1.1%」活動擇一",
+            "source": "https://event.esunbank.com.tw/credit/unicard/campaign.html",
+            "checkedAt": "2026-11-13",
+            "verifiedFields": "期間／1%＋0.2%＋0.3%組成／0.3%每月1,000點上限／領券時點／排除項目及與壽險1.1%擇一",
+            "search": {
+              "status": "verified",
+              "reason": "限三商美邦人壽傳統型保單保費扣繳。",
+              "merchants": [
+                "三商美邦人壽"
+              ],
+              "aliases": {
+                "三商美邦人壽": []
+              },
+              "source": "https://event.esunbank.com.tw/credit/unicard/campaign.html",
+              "checkedAt": "2026-11-13",
+              "end": "2027-12-31",
+              "channels": [
+                "direct"
+              ],
+              "searchType": "cash",
+              "rules": [
+                {
+                  "merchants": [
+                    "三商美邦人壽"
+                  ],
+                  "channels": [
+                    "direct"
+                  ],
+                  "qualifier": "限傳統型保單；投資型、躉繳、產險及保費分期0利率不適用；須領券"
+                }
+              ]
+            }
+          },
+          {
+            "rate": "1.1",
+            "label": "扣繳壽險保費（登錄）",
+            "sub": "帳單e化＋玉山帳戶自扣1%＋登錄保費加碼0.1% e point；國內任一壽險公司新臺幣首、續期保費。",
+            "cap": "無上限",
+            "capPeriod": null,
+            "scenarios": [
+              "保費"
+            ],
+            "start": "2026-01-01",
+            "end": "2026-12-31",
+            "kind": "limited",
+            "audience": "all",
+            "condition": "需登錄；躉繳、三商美邦投資型保單及參加保費分期0利率者不適用；已參加三商美邦1.5%活動者不得同時適用",
+            "source": "https://event.esunbank.com.tw/credit/unicard/campaign.html",
+            "checkedAt": "2026-11-13",
+            "verifiedFields": "期間／1%＋0.1%組成／無上限／適用保費範圍與排除",
+            "search": {
+              "status": "nonMerchant",
+              "reason": "適用國內任一壽險公司新臺幣保費，屬保費類別而非指定商家。",
+              "merchants": [],
+              "aliases": {},
+              "source": "https://event.esunbank.com.tw/credit/unicard/campaign.html",
+              "checkedAt": "2026-11-13",
+              "end": "2026-12-31",
+              "channels": [
+                "direct"
+              ],
+              "searchType": "cash"
+            }
+          },
+          {
+            "rate": "+3",
+            "label": "國內餐飲加碼3%（11–12月，領券）",
+            "sub": "當月國內餐飲（MCC 5811–5814）累計滿5,000元，加碼3%玉山e point；附卡同享。",
+            "cap": "每歸戶每月300點",
+            "capSpend": 10000,
+            "capPeriod": "month",
+            "scenarios": [],
+            "start": "2026-11-01",
+            "end": "2026-12-31",
+            "kind": "limited",
+            "audience": "all",
+            "condition": "須於玉山Wallet「我的＞玉山Unicard-我的方案」領取優惠；小額支付速食、菸酒、酒吧、KTV、飯店、百貨、商場、外送平台之餐廳消費不適用",
+            "source": "https://event.esunbank.com.tw/credit/unicard/campaign.html",
+            "checkedAt": "2026-11-13",
+            "verifiedFields": "期間／滿5,000門檻／加碼3%／每月300點上限／MCC範圍與排除／領券",
+            "search": {
+              "status": "nonMerchant",
+              "reason": "以MCC 5811–5814國內餐飲類別認定，無具名商家清單。",
+              "merchants": [],
+              "aliases": {},
+              "source": "https://event.esunbank.com.tw/credit/unicard/campaign.html",
+              "checkedAt": "2026-11-13",
+              "end": "2026-12-31",
+              "channels": [
+                "direct"
+              ],
+              "searchType": "perk"
+            }
+          },
+          {
+            "rate": "+3",
+            "label": "U-POWER充電加碼3%（領券）",
+            "sub": "當月於U-POWER消費滿3筆，加碼3%玉山e point；限實體卡或Apple Pay／Google Pay／Samsung Pay。",
+            "cap": "每歸戶每月300點",
+            "capSpend": 10000,
+            "capPeriod": "month",
+            "scenarios": [],
+            "start": "2026-10-01",
+            "end": "2026-12-31",
+            "kind": "limited",
+            "audience": "all",
+            "condition": "須於玉山Wallet領取優惠；透過LINE Pay、街口、悠遊付、全盈+PAY、全支付等第三方／電子支付不認列",
+            "source": "https://event.esunbank.com.tw/credit/unicard/campaign.html",
+            "checkedAt": "2026-11-13",
+            "verifiedFields": "期間／當月3筆門檻／加碼3%／每月300點上限／支付方式限制／領券",
+            "search": {
+              "status": "verified",
+              "reason": "單一具名充電品牌；加碼獨立列示。",
+              "merchants": [
+                "U-POWER"
+              ],
+              "aliases": {
+                "U-POWER": []
+              },
+              "source": "https://event.esunbank.com.tw/credit/unicard/campaign.html",
+              "checkedAt": "2026-11-13",
+              "end": "2026-12-31",
+              "channels": [
+                "physical",
+                "Apple Pay"
+              ],
+              "searchType": "perk",
+              "rules": [
+                {
+                  "merchants": [
+                    "U-POWER"
+                  ],
+                  "channels": [
+                    "physical",
+                    "Apple Pay"
+                  ],
+                  "qualifier": "加碼3%非總率；當月3筆、須領券；第三方／電子支付不認列"
+                }
+              ]
+            }
+          },
+          {
+            "rate": "100點",
+            "label": "週三全聯／大全聯：全支付或PX Pay單筆滿1,000送100點",
+            "sub": "每週三於全聯福利中心／大全聯實體門市，以綁定Unicard的全支付（PX Pay Plus）或PX Pay單筆滿1,000元，享100點玉山e point。",
+            "cap": "每歸戶每週三100點",
+            "capPeriod": "day",
+            "scenarios": [],
+            "start": "2026-09-01",
+            "end": "2026-12-31",
+            "kind": "limited",
+            "audience": "all",
+            "condition": "須於玉山Wallet領取優惠；限實體門市，PX GO!線上購、箱購、小時達、全電商、分批取、外送平台不適用",
+            "source": "https://event.esunbank.com.tw/credit/unicard/campaign.html",
+            "checkedAt": "2026-11-13",
+            "verifiedFields": "期間（每週三）／單筆1,000門檻／100點／每週三上限／限實體門市與支付方式／領券",
+            "search": {
+              "status": "verified",
+              "reason": "官方具名全聯福利中心／大全聯實體門市，限全支付或PX Pay。",
+              "merchants": [
+                "全聯福利中心",
+                "大全聯"
+              ],
+              "aliases": {
+                "全聯福利中心": [
+                  "全聯",
+                  "PX Mart"
+                ],
+                "大全聯": []
+              },
+              "source": "https://event.esunbank.com.tw/credit/unicard/campaign.html",
+              "checkedAt": "2026-11-13",
+              "end": "2026-12-31",
+              "channels": [
+                "全支付",
+                "PX Pay"
+              ],
+              "searchType": "perk",
+              "rules": [
+                {
+                  "merchants": [
+                    "全聯福利中心",
+                    "大全聯"
+                  ],
+                  "channels": [
+                    "全支付",
+                    "PX Pay"
+                  ],
+                  "qualifier": "每週三單筆滿1,000送100點；限實體門市、須領券"
+                }
+              ]
+            }
+          },
+          {
+            "rate": "權益",
+            "label": "秋楓冬雪漫遊趣・Q4旅遊滿額禮",
+            "sub": "10/1–12/31於指定40家旅行社／航空／旅遊平台以新臺幣刷卡，累積滿3萬／5萬／9萬元享500／1,000／2,000點玉山e point（擇優1份）；累積滿20萬元另享2,000元好禮即享券。外幣結帳及第三方／電子支付不適用（玉山Wallet除外）。刷Unicard另享原卡片回饋。",
+            "cap": "滿額禮最高2,000點＋加碼禮2,000元券，每歸戶各1份",
+            "capPeriod": "campaign",
+            "start": "2026-10-01",
+            "end": "2026-12-31",
+            "kind": "limited",
+            "audience": "all",
+            "scenarios": [],
+            "condition": "滿額禮於10/23、11/23、12/23 17:00起登錄（每月限1,600名、總4,800名，登錄一次即可）；加碼禮12/30 15:00起另行登錄、限660名；找到了旅行社分期交易不適用；回饋2027/2/25起陸續入帳",
+            "source": "https://event.esunbank.com.tw/credit/travel-campaign/index.html",
+            "checkedAt": "2026-11-13",
+            "verifiedFields": "期間／三段滿額與e point數／加碼禮門檻與名額／登錄時間與名額／指定通路完整名單／外幣與第三方支付排除／回饋時間",
+            "search": {
+              "status": "verified",
+              "reason": "活動注意事項完整列出34家旅行社與13家航空／旅遊平台；屬滿額禮，不換算成百分比排名。",
+              "merchants": [
+                "雄獅旅遊",
+                "旅天下",
+                "易遊網",
+                "可樂旅遊",
+                "東南旅遊",
+                "五福旅遊",
+                "鳳凰旅遊",
+                "ezfly易飛旅遊",
+                "喜鴻假期",
+                "長汎假期",
+                "山富旅遊",
+                "加利利旅行社",
+                "利百加旅遊",
+                "品冠旅遊",
+                "燦星旅遊",
+                "元本旅遊",
+                "百威假期",
+                "華友旅行",
+                "行健旅遊",
+                "大興旅行社",
+                "上順旅遊",
+                "凱旋旅行社",
+                "巨匠旅遊",
+                "巨大旅遊",
+                "世邦旅遊",
+                "太平洋旅行社",
+                "晴天旅行社",
+                "晴日旅行社",
+                "誠翔旅行社",
+                "珂境旅行社（Club Med）",
+                "賓士旅行社",
+                "金龍永盛旅行社",
+                "太一國際旅行社",
+                "找到了旅行社",
+                "星宇航空",
+                "中華航空",
+                "長榮航空",
+                "立榮航空",
+                "華信航空",
+                "台灣虎航",
+                "Klook",
+                "KKday",
+                "AsiaYo",
+                "Trip.com",
+                "Agoda",
+                "Expedia",
+                "Hotels.com"
+              ],
+              "aliases": {
+                "雄獅旅遊": [],
+                "旅天下": [],
+                "易遊網": [],
+                "可樂旅遊": [],
+                "東南旅遊": [],
+                "五福旅遊": [],
+                "鳳凰旅遊": [],
+                "ezfly易飛旅遊": [],
+                "喜鴻假期": [],
+                "長汎假期": [],
+                "山富旅遊": [],
+                "加利利旅行社": [],
+                "利百加旅遊": [],
+                "品冠旅遊": [],
+                "燦星旅遊": [],
+                "元本旅遊": [],
+                "百威假期": [],
+                "華友旅行": [],
+                "行健旅遊": [],
+                "大興旅行社": [],
+                "上順旅遊": [],
+                "凱旋旅行社": [],
+                "巨匠旅遊": [],
+                "巨大旅遊": [],
+                "世邦旅遊": [],
+                "太平洋旅行社": [],
+                "晴天旅行社": [],
+                "晴日旅行社": [],
+                "誠翔旅行社": [],
+                "珂境旅行社（Club Med）": [],
+                "賓士旅行社": [],
+                "金龍永盛旅行社": [],
+                "太一國際旅行社": [],
+                "找到了旅行社": [],
+                "星宇航空": [],
+                "中華航空": [],
+                "長榮航空": [],
+                "立榮航空": [],
+                "華信航空": [],
+                "台灣虎航": [],
+                "Klook": [],
+                "KKday": [],
+                "AsiaYo": [],
+                "Trip.com": [],
+                "Agoda": [],
+                "Expedia": [],
+                "Hotels.com": []
+              },
+              "source": "https://event.esunbank.com.tw/credit/travel-campaign/index.html",
+              "checkedAt": "2026-11-13",
+              "end": "2026-12-31",
+              "channels": [
+                "國內臺幣請款"
+              ],
+              "searchType": "perk",
+              "rules": [
+                {
+                  "merchants": [
+                    "雄獅旅遊",
+                    "旅天下",
+                    "易遊網",
+                    "可樂旅遊",
+                    "東南旅遊",
+                    "五福旅遊",
+                    "鳳凰旅遊",
+                    "ezfly易飛旅遊",
+                    "喜鴻假期",
+                    "長汎假期",
+                    "山富旅遊",
+                    "加利利旅行社",
+                    "利百加旅遊",
+                    "品冠旅遊",
+                    "燦星旅遊",
+                    "元本旅遊",
+                    "百威假期",
+                    "華友旅行",
+                    "行健旅遊",
+                    "大興旅行社",
+                    "上順旅遊",
+                    "凱旋旅行社",
+                    "巨匠旅遊",
+                    "巨大旅遊",
+                    "世邦旅遊",
+                    "太平洋旅行社",
+                    "晴天旅行社",
+                    "晴日旅行社",
+                    "誠翔旅行社",
+                    "珂境旅行社（Club Med）",
+                    "賓士旅行社",
+                    "金龍永盛旅行社",
+                    "太一國際旅行社",
+                    "找到了旅行社",
+                    "星宇航空",
+                    "中華航空",
+                    "長榮航空",
+                    "立榮航空",
+                    "華信航空",
+                    "台灣虎航",
+                    "Klook",
+                    "KKday",
+                    "AsiaYo",
+                    "Trip.com",
+                    "Agoda",
+                    "Expedia",
+                    "Hotels.com"
+                  ],
+                  "channels": [
+                    "國內臺幣請款"
+                  ],
+                  "qualifier": "滿額禮非總回饋率；須登錄、新臺幣結帳，第三方／電子支付不適用（玉山Wallet除外）"
+                }
+              ]
+            }
+          },
+          {
+            "rate": "+5",
+            "label": "大丸福岡天神店・每筆5%現金回饋",
+            "sub": "刷玉山信用卡於大丸百貨福岡天神店消費，每筆以日幣未稅金額換新臺幣計5%現金回饋，商店請款後次次月底回饋；手錶／化妝品專櫃現場5%折扣與10%免稅由店家提供，非銀行回饋。此為活動比率，與原卡回饋分開計算。",
+            "cap": "活動頁未載明上限",
+            "capPeriod": null,
+            "start": "2026-07-01",
+            "end": "2026-12-31",
+            "kind": "limited",
+            "audience": "all",
+            "scenarios": [],
+            "condition": "免登錄；排除簽帳金融卡、公司卡、採購卡；回饋時須持有有效玉山信用卡",
+            "source": "https://event.esunbank.com.tw/credit/1120424daimaru/index.html",
+            "checkedAt": "2026-11-13",
+            "verifiedFields": "期間／5%現金回饋計算方式（日幣未稅換新臺幣、逐筆捨去）／回饋時間／排除卡別；活動頁未列回饋上限",
+            "search": {
+              "status": "verified",
+              "reason": "單一具名門市，活動加碼獨立列示，不混入總率排名。",
+              "merchants": [
+                "大丸福岡天神店"
+              ],
+              "aliases": {
+                "大丸福岡天神店": [
+                  "大丸百貨福岡天神店",
+                  "Daimaru Fukuoka Tenjin"
+                ]
+              },
+              "source": "https://event.esunbank.com.tw/credit/1120424daimaru/index.html",
+              "checkedAt": "2026-11-13",
+              "end": "2026-12-31",
+              "channels": [
+                "日本實體（日圓）"
+              ],
+              "searchType": "perk",
+              "rules": [
+                {
+                  "merchants": [
+                    "大丸福岡天神店"
+                  ],
+                  "channels": [
+                    "日本實體（日圓）"
+                  ],
+                  "qualifier": "額外5%現金回饋，非總回饋率"
+                }
               ]
             }
           }
@@ -4971,31 +5413,31 @@ const cards = [
         ]
       },
       {
-        "name": "LINE Pay十月領券加碼（Q4活動）",
+        "name": "LINE Pay 11–12月領券加碼（Q4活動）",
         "hi": true,
         "tiers": [
           {
             "rate": "3.8",
             "hi": true,
-            "label": "LINE Pay：Pay著刷＋十月券",
-            "sub": "2.3%＋領券1.5%；限臺灣、新臺幣交易，2026/11/15前入帳。十月券9/30 10:00起，限25萬張。",
+            "label": "LINE Pay：Pay著刷＋當月券（11–12月）",
+            "sub": "2.3%＋領券1.5%；限臺灣、新臺幣交易。11月券10/30 10:00起領（11/1–11/30交易、12/15前入帳）；12月券11/30 10:00起領（12/1–12/31交易、2027/1/15前入帳）；每月限25萬張。",
             "cap": "加碼1.5%每戶每月500點；另受原權益帳單消費額上限，正附卡合併",
-            "capSpend": null,
+            "capSpend": 33333,
             "capPeriod": "month",
             "scenarios": [
               "LINE Pay"
             ],
-            "start": "2026-10-01",
-            "end": "2026-10-31",
+            "start": "2026-11-01",
+            "end": "2026-12-31",
             "kind": "limited",
             "audience": "all",
-            "condition": "十月領券＋台新帳戶自扣至回饋時有效＋台新官方LINE個人化綁定未取消／封鎖；原2.3%需Pay著刷及LEVEL2",
+            "condition": "當月領券＋台新帳戶自扣至回饋時有效＋台新官方LINE個人化綁定未取消／封鎖；原2.3%需Pay著刷及LEVEL2；11月回饋2027/1/31前、12月2027/2/28前",
             "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/77509a62-84c5-11f0-b432-0050568c09e3",
-            "checkedAt": "2026-10-01",
-            "verifiedFields": "十月交易與入帳日期／2.3%＋1.5%／500點日曆月／正附卡合併／領券、LINE綁定、自扣；其餘月份領券日期及逐月領券文字矛盾，未推定",
+            "checkedAt": "2026-11-13",
+            "verifiedFields": "11–12月交易與入帳日期／逐月領券時間與每月25萬張／2.3%＋1.5%／加碼500點日曆月／正附卡合併／領券、LINE綁定、自扣／回饋期限；頁面「不用重複領券」文字與逐月領券表並存，按每月各自領券保守處理",
             "search": {
               "status": "verified",
-              "reason": "只提供支付服務查詢；期限沿用十月，不因Q4標題延長。",
+              "reason": "只提供支付服務查詢；期限依11–12月逐月領券表。",
               "merchants": [
                 "LINE Pay"
               ],
@@ -5003,8 +5445,8 @@ const cards = [
                 "LINE Pay": []
               },
               "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/77509a62-84c5-11f0-b432-0050568c09e3",
-              "checkedAt": "2026-10-21",
-              "end": "2026-10-31",
+              "checkedAt": "2026-11-13",
+              "end": "2026-12-31",
               "channels": [
                 "LINE Pay"
               ],
@@ -5017,7 +5459,7 @@ const cards = [
                   "channels": [
                     "LINE Pay"
                   ],
-                  "qualifier": "須十月領券、Pay著刷／LEVEL2及臺灣臺幣；排除四大超商／稅費"
+                  "qualifier": "須當月領券、Pay著刷／LEVEL2及臺灣臺幣；排除四大超商／稅費"
                 }
               ]
             }
@@ -5026,7 +5468,7 @@ const cards = [
       }
     ],
     "note": "7大刷至2027/12/31；Chill延至2026/12/31。每日一次，按台灣23:59方案認定，正附卡歸戶。LEVEL2依台新帳戶自扣生效規則；新申辦核卡起60天試用。官網試用範例日期不一致，以60天條文並向銀行確認個人到期日。",
-    "alert": "保費與切換刷合併計算每期消費額上限。Richart Life單筆消費點數折抵：1點1元、每筆最高30%，須結帳前申請（2026/1/6–12/31）；不是整期帳單30%。 Q4 LINE Pay券頁有11/31及星期錯植，且逐月領券表與「不用重複領券」矛盾；本案只列十月券，不推定後兩月自動續領。",
+    "alert": "保費與切換刷合併計算每期消費額上限。Richart Life單筆消費點數折抵：1點1元、每筆最高30%，須結帳前申請（2026/1/6–12/31）；不是整期帳單30%。 Q4 LINE Pay券頁有「不用重複領券」與逐月領券表並存；本表按每月各自領券（11月券10/30、12月券11/30 10:00起）保守處理。",
     "end": "2027-12-31",
     "fee": "依卡等：商務鈦金／商務御璽4,500；御璽／鈦金／晶緻3,000；白金1,500；世界商務6,000元。首年免，次年電子／行動帳單免（公告2026/1/1–2027/12/31）",
     "feeSource": "https://mkp.taishinbank.com.tw/TsCms/marketing/expose/WM_20260708095300794/index.html",
@@ -6969,45 +7411,6 @@ const cards = [
         ]
       },
       {
-        "name": "LINE Pay 領券加碼（2026/5/1–10/31）",
-        "hi": false,
-        "tiers": [
-          {
-            "rate": "2",
-            "label": "LINE Pay 綁定CUBE信用卡消費",
-            "sub": "LINE Pay／LINE Pay Money綁卡；先領券，次月15日前入帳；排除外送、海外門市、繳稅費及部分商場店。",
-            "cap": "領券加碼1.7%上限50點／日曆消費月；理論可刷約2,941（逐筆四捨五入）",
-            "scenarios": [
-              "LINE Pay"
-            ],
-            "end": "2026-10-31",
-            "kind": "limited",
-            "audience": "all",
-            "start": "2026-05-01",
-            "capPeriod": "month",
-            "source": "https://www.cathay-cube.com.tw/cathaybk/personal/event/overview/credit-card/bonus/202604/LINEPay-202604",
-            "checkedAt": "2026-10-01",
-            "verifiedFields": "2026-10-01瀏覽器核實：2026/5/1–10/31／0.3%＋1.7%／正附卡合併每消費月加碼50點／領券日起消費／次月15日前入帳／排除交易",
-            "capSpend": 2941,
-            "condition": "CUBE App事先領券；正附卡合併；分期不適用加碼",
-            "search": {
-              "status": "unresolved",
-              "reason": "瀏覽器已讀即時完整條款；需領券、LINE Pay/LINE Pay Money、帳單指定前綴，排除外送/海外/稅費/部分商場店。完整通路只指向App好康地圖且部分店排除未明列，無法建立安全完整商家表。",
-              "merchants": [],
-              "aliases": {},
-              "source": "https://www.cathay-cube.com.tw/cathaybk/personal/event/overview/credit-card/bonus/202604/LINEPay-202604",
-              "checkedAt": "2026-10-21",
-              "end": "2026-10-31",
-              "channels": [
-                "LINE Pay",
-                "LINE Pay Money"
-              ],
-              "searchType": "cash"
-            }
-          }
-        ]
-      },
-      {
         "name": "固定回饋（切入後有鎖定）",
         "tiers": [
           {
@@ -7206,7 +7609,7 @@ const cards = [
       }
     ],
     "note": "LEVEL2為3%，秋日遊獨立列限時方案，不混入常態。童樂匯需家長為法定代理人／監護人，雙方有效存戶，子女2008/6/1以後出生；每月20日前符合次月生效。固定回饋切入有鎖定，其他方案通常共用每日一次切換。",
-    "alert": "慶生月已確認Q4續行，FunNow為5%、指定百貨／Uber Eats／Klook為3.5%。秋日遊至11/30；LINE Pay領券2%至10/31。不同方案需切換，不能直接疊加。",
+    "alert": "慶生月已確認Q4續行，FunNow為5%、指定百貨／Uber Eats／Klook為3.5%。秋日遊至11/30；LINE Pay領券2%已於10/31結束，11月起官網未見續辦。不同方案需切換，不能直接疊加。",
     "end": "2026-12-31",
     "fee": "正卡1,800元／附卡免；首年免，電子帳單或正卡年12筆或正附年18万元任一免",
     "feeSource": "https://www.cathay-cube.com.tw/cathaybk/personal/product/credit-card/cards/cube",
@@ -7794,6 +8197,84 @@ const cards = [
             }
           ]
         }
+      },
+      {
+        "rate": "+12",
+        "label": "聚餐用星刷：國內餐飲最高12%（排名制）",
+        "sub": "當月登錄且有3筆單筆滿888元國內餐飲（MCC 5811／5812／5814／5462），依當月合格餐飲總額排序前3,600名，以合格餐飲總額×12%回饋刷卡金。此為活動比率，與原卡回饋分開計算；名額依排序，不保證取得。",
+        "cap": "每人每月NT$350；每月限3,600名",
+        "capSpend": 2917,
+        "capPeriod": "month",
+        "start": "2026-09-01",
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "scenarios": [],
+        "condition": "每月須於Card+分別登錄（不追溯）；百貨、商場、美食街、飯店內餐廳、餐券／住宿券、全支付及小額支付速食不列入；正卡登錄、正附合併；11–12月回饋2027/1/31前",
+        "source": "https://www.dbs.com.tw/personal-zh/cards/offers/2026q4dining/index.html",
+        "checkedAt": "2026-11-13",
+        "verifiedFields": "期間／月月登錄／3筆888門檻／排序前3,600名／12%與每月350元上限／MCC與排除／回饋時間",
+        "search": {
+          "status": "nonMerchant",
+          "reason": "以國內餐飲MCC類別認定並依金額排名，無具名商家清單。",
+          "merchants": [],
+          "aliases": {},
+          "source": "https://www.dbs.com.tw/personal-zh/cards/offers/2026q4dining/index.html",
+          "checkedAt": "2026-11-13",
+          "end": "2026-12-31",
+          "channels": [
+            "direct"
+          ],
+          "searchType": "perk"
+        }
+      },
+      {
+        "rate": "權益",
+        "label": "Apple Pay搭北捷：達指定天數次日免費（全卡友）",
+        "sub": "以Apple Pay綁定星展信用卡感應進出台北捷運，當月累積搭乘第5／11／17／23／29天後之次日搭乘免費（以刷卡金回饋實際搭乘金額）。",
+        "cap": "每人每月NT$100；每月前3,000名（依搭乘金額排序）",
+        "capPeriod": "month",
+        "start": "2026-09-01",
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "scenarios": [],
+        "condition": "每月2日14:00起於Card+登錄、每月分別登錄；實體卡及乘車碼不適用；進出站須同一手機與同卡",
+        "source": "https://www.dbs.com.tw/personal-zh/cards/offers/applepaytpmrt/default.html",
+        "checkedAt": "2026-11-13",
+        "verifiedFields": "期間／Apple Pay感應限定／每月登錄時間／每月100元上限與3,000名排序；免費日判定規則依官網範例",
+        "search": {
+          "status": "verified",
+          "reason": "限台北捷運全線且Apple Pay感應。",
+          "merchants": [
+            "台北捷運"
+          ],
+          "aliases": {
+            "台北捷運": [
+              "北捷",
+              "臺北捷運",
+              "Taipei Metro"
+            ]
+          },
+          "source": "https://www.dbs.com.tw/personal-zh/cards/offers/applepaytpmrt/default.html",
+          "checkedAt": "2026-11-13",
+          "end": "2026-12-31",
+          "channels": [
+            "Apple Pay"
+          ],
+          "searchType": "perk",
+          "rules": [
+            {
+              "merchants": [
+                "台北捷運"
+              ],
+              "channels": [
+                "Apple Pay"
+              ],
+              "qualifier": "每月登錄；名額依搭乘金額排序；每月最高100元"
+            }
+          ]
+        }
       }
     ],
     "note": "生活玩家精選通路不含一般LINE Pay，但另有星耀資格活動。小額支付特店僅享9%加碼，不能一律當10%。",
@@ -8034,70 +8515,6 @@ const cards = [
               "qualifier": "限指定商家請款，不含LINE Pay、街口與分期"
             }
           ]
-        }
-      },
-      {
-        "end": "2026-08-31",
-        "rate": "16",
-        "hi": true,
-        "label": "「刷出星級生活」行動支付加碼（需每月登錄）",
-        "sub": "當月一般消費10萬元且登錄前2,000名才有15%加碼；指定支付不含Google Pay。",
-        "cap": "上限1,500元/月 · 活動累計上限6,000元",
-        "scenarios": [
-          "Apple/Google/Samsung Pay",
-          "LINE Pay"
-        ],
-        "kind": "limited",
-        "audience": "all",
-        "capSpend": 10000,
-        "condition": "限時至8/31·需每月登錄",
-        "source": "https://www.dbs.com.tw/personal-zh/cards/offers/2026q2atl/index.html",
-        "checkedAt": "2026-09-08",
-        "verifiedFields": "日期／回饋率／上限週期／條件",
-        "start": "2026-05-01",
-        "capPeriod": "month",
-        "search": {
-          "status": "expired",
-          "reason": "本層已過期，未套用其他活動的續期；不參與搜尋推薦。",
-          "merchants": [],
-          "aliases": {},
-          "source": "https://www.dbs.com.tw/personal-zh/cards/offers/2026q2atl/index.html",
-          "end": "2026-08-31",
-          "channels": [
-            "direct"
-          ],
-          "searchType": "cash"
-        }
-      },
-      {
-        "end": "2026-09-30",
-        "rate": "10",
-        "label": "新戶 LINE Pay 加碼（限新戶）",
-        "sub": "1%現金積點＋9%LINE POINTS；9月底前LINE Pay累積3,000元，10/15前入帳；申辦／核卡期限另見原文。",
-        "cap": "9% LINE POINTS加碼：整段活動共300點／歸戶",
-        "scenarios": [
-          "LINE Pay"
-        ],
-        "kind": "limited",
-        "audience": "new",
-        "source": "https://www.dbs.com.tw/personal-zh/cards/dbs_eco/index.html",
-        "checkedAt": "2026-10-01",
-        "verifiedFields": "僅確認舊7–9月期限／新戶180天定義／9%共300點／3,000元門檻／10/15入帳期限；10月續約未核實",
-        "start": "2026-07-01",
-        "capPeriod": "campaign",
-        "capSpend": 3333,
-        "suspendRanking": true,
-        "search": {
-          "status": "expired",
-          "reason": "本層已過期，未套用其他活動的續期；不參與搜尋推薦。",
-          "merchants": [],
-          "aliases": {},
-          "source": "https://www.dbs.com.tw/personal-zh/cards/dbs_eco/index.html",
-          "end": "2026-09-30",
-          "channels": [
-            "direct"
-          ],
-          "searchType": "cash"
         }
       },
       {
@@ -8361,10 +8778,88 @@ const cards = [
             }
           ]
         }
+      },
+      {
+        "rate": "+12",
+        "label": "聚餐用星刷：國內餐飲最高12%（排名制）",
+        "sub": "當月登錄且有3筆單筆滿888元國內餐飲（MCC 5811／5812／5814／5462），依當月合格餐飲總額排序前3,600名，以合格餐飲總額×12%回饋刷卡金。此為活動比率，與原卡回饋分開計算；名額依排序，不保證取得。",
+        "cap": "每人每月NT$350；每月限3,600名",
+        "capSpend": 2917,
+        "capPeriod": "month",
+        "start": "2026-09-01",
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "scenarios": [],
+        "condition": "每月須於Card+分別登錄（不追溯）；百貨、商場、美食街、飯店內餐廳、餐券／住宿券、全支付及小額支付速食不列入；正卡登錄、正附合併；11–12月回饋2027/1/31前",
+        "source": "https://www.dbs.com.tw/personal-zh/cards/offers/2026q4dining/index.html",
+        "checkedAt": "2026-11-13",
+        "verifiedFields": "期間／月月登錄／3筆888門檻／排序前3,600名／12%與每月350元上限／MCC與排除／回饋時間",
+        "search": {
+          "status": "nonMerchant",
+          "reason": "以國內餐飲MCC類別認定並依金額排名，無具名商家清單。",
+          "merchants": [],
+          "aliases": {},
+          "source": "https://www.dbs.com.tw/personal-zh/cards/offers/2026q4dining/index.html",
+          "checkedAt": "2026-11-13",
+          "end": "2026-12-31",
+          "channels": [
+            "direct"
+          ],
+          "searchType": "perk"
+        }
+      },
+      {
+        "rate": "權益",
+        "label": "Apple Pay搭北捷：達指定天數次日免費（全卡友）",
+        "sub": "以Apple Pay綁定星展信用卡感應進出台北捷運，當月累積搭乘第5／11／17／23／29天後之次日搭乘免費（以刷卡金回饋實際搭乘金額）。",
+        "cap": "每人每月NT$100；每月前3,000名（依搭乘金額排序）",
+        "capPeriod": "month",
+        "start": "2026-09-01",
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "scenarios": [],
+        "condition": "每月2日14:00起於Card+登錄、每月分別登錄；實體卡及乘車碼不適用；進出站須同一手機與同卡",
+        "source": "https://www.dbs.com.tw/personal-zh/cards/offers/applepaytpmrt/default.html",
+        "checkedAt": "2026-11-13",
+        "verifiedFields": "期間／Apple Pay感應限定／每月登錄時間／每月100元上限與3,000名排序；免費日判定規則依官網範例",
+        "search": {
+          "status": "verified",
+          "reason": "限台北捷運全線且Apple Pay感應。",
+          "merchants": [
+            "台北捷運"
+          ],
+          "aliases": {
+            "台北捷運": [
+              "北捷",
+              "臺北捷運",
+              "Taipei Metro"
+            ]
+          },
+          "source": "https://www.dbs.com.tw/personal-zh/cards/offers/applepaytpmrt/default.html",
+          "checkedAt": "2026-11-13",
+          "end": "2026-12-31",
+          "channels": [
+            "Apple Pay"
+          ],
+          "searchType": "perk",
+          "rules": [
+            {
+              "merchants": [
+                "台北捷運"
+              ],
+              "channels": [
+                "Apple Pay"
+              ],
+              "qualifier": "每月登錄；名額依搭乘金額排序；每月最高100元"
+            }
+          ]
+        }
       }
     ],
-    "note": "海外及eco加碼為帳單期；已到期16%不進推薦。新戶LINE Pay的300點是活動總額，不能每期重領。",
-    "alert": "16%舊活動已於2026/08/31截止；未推定延續。星耀理財優惠另有資格，非人人適用。 新戶LINE Pay 9%仍公告至9/30，10/15為入帳及部分核卡期限，不是消費延期；十月續約未核實。",
+    "note": "海外及eco加碼為帳單期。聚餐用星刷與Apple Pay北捷皆需每月登錄、名額依排序，列於限時活動，不進推薦排名。",
+    "alert": "星耀理財優惠另有資格，非人人適用。8/31到期的16%行動支付加碼與9/30到期的新戶LINE Pay加碼已移除，官網未見續辦。",
     "end": "2026-12-31",
     "fee": "正卡3,000元／附卡免；首年免，年度12筆或3萬元或全年電子帳單免次年（年度起算待確認）",
     "feeSource": "https://www.dbs.com.tw/personal-zh/cards/dbs_eco/index.html",
@@ -9673,8 +10168,8 @@ const cards = [
       },
       {
         "rate": "權益",
-        "label": "Mastercard海外指定商戶（十月最高12%，細項待核實）",
-        "sub": "銀行頁明列2026/10/1–12/31，須事先註冊並於消費前啟用優惠。Mastercard入口未能讀出商戶細則，最高12%不代表全部海外消費。",
+        "label": "Mastercard海外指定商戶（最高20%，細項待核實）",
+        "sub": "銀行頁明列2026/10/1–12/31，須先於Mastercard Travel Rewards註冊並於消費前啟用；熱門國家超商、美食、樂園、免稅店等最高15%，指定商戶最高20%。最高比率不代表全部海外消費。",
         "cap": "個別商戶比率／上限在Mastercard登入後頁面，銀行頁未載明",
         "capPeriod": null,
         "start": "2026-10-01",
@@ -9684,8 +10179,8 @@ const cards = [
         "scenarios": [],
         "condition": "M卡／須事前啟用；個別商戶資格待核實",
         "source": "https://activity.ubot.com.tw/2026Mcard/index.htm",
-        "checkedAt": "2026-10-01",
-        "verifiedFields": "2026-10-01原始頁面核對：期間115/10/1–12/31／最高12%（25個旅遊熱點、490+商戶）／須先註冊並於消費前啟用／現金回饋交易後30日內入帳；個別商戶比率與上限銀行頁未載明；2026-10-01再核：Mastercard Travel Rewards入口須登入，公開頁無商戶清單（未註冊帳號）",
+        "checkedAt": "2026-11-13",
+        "verifiedFields": "2026-11-13重讀銀行頁：期間115/10/1–12/31／最高20%（熱門國家最高15%，25個旅遊熱點、490+商戶）／須先註冊並啟用／現金回饋交易後30日內入帳；個別商戶比率與上限銀行頁未載明",
         "suspendRanking": true,
         "search": {
           "status": "unresolved",
@@ -9693,6 +10188,7 @@ const cards = [
           "merchants": [],
           "aliases": {},
           "source": "https://activity.ubot.com.tw/2026Mcard/index.htm",
+          "checkedAt": "2026-11-13",
           "end": "2026-12-31",
           "channels": [
             "direct"
@@ -9882,7 +10378,7 @@ const cards = [
     "fee": "正附各1,000元；首年免，年6萬元或6次免次年，或有效電子帳單免",
     "feeSource": "https://activity.ubot.com.tw/2026Mcard/index.htm",
     "feeCheckedAt": "2026-10-01",
-    "alert": "舊一般消費表仍載海外非實體1.5%，本層採2026/2/1起海外升級條款3%。Mastercard十月最高12%各商戶細項未核實，不列通用推薦。"
+    "alert": "舊一般消費表仍載海外非實體1.5%，本層採2026/2/1起海外升級條款3%。Mastercard最高20%各商戶細項未核實，不列通用推薦。"
   },
   {
     "id": "jihe",
@@ -12119,42 +12615,6 @@ const cards = [
       },
       {
         "rate": "權益",
-        "label": "Klook 10月指定商品折扣",
-        "sub": "指定韓國交通75折碼JCARDKR7510、星野9折JCARDHO0910、海外95折JCARD269510；需J卡全額付款，各碼有指定品項、名額與折抵限制。",
-        "cap": "韓國鐵路每月200組／每戶200元；星野100組／500元；海外95折30組／1,000元",
-        "start": "2026-10-01",
-        "end": "2026-10-31",
-        "source": "https://www.fubon.com/banking/personal/credit_card/all_card/omiyage/omiyage.htm",
-        "kind": "limited",
-        "audience": "all",
-        "scenarios": [
-          "旅日",
-          "旅韓"
-        ],
-        "checkedAt": "2026-10-01",
-        "verifiedFields": "日期／回饋內容／上限／資格及登錄條件",
-        "search": {
-          "status": "unresolved",
-          "reason": "官方折扣碼已核，但限指定韓國鐵路/星野飯店/海外商品且部分品項不適用；尚未逐一核全Klook商品清單，不能當全站折扣。",
-          "merchants": [
-            "Klook"
-          ],
-          "aliases": {
-            "Klook": [
-              "客路"
-            ]
-          },
-          "source": "https://www.fubon.com/banking/personal/credit_card/all_card/omiyage/omiyage.htm",
-          "checkedAt": "2026-10-21",
-          "end": "2026-10-31",
-          "channels": [
-            "online"
-          ],
-          "searchType": "perk"
-        }
-      },
-      {
-        "rate": "權益",
         "label": "Q4新戶首刷禮・25吋行李箱",
         "sub": "申辦期2026/10/1–12/31（申辦J卡正卡、須於2027/1/15前核卡）；新戶為申辦前6個月未持富邦正卡；核卡30天內新增3筆一般消費各滿1,000元、設定本行自扣或申請電子帳單並取消紙本，並於2027/1/31前登錄（名額無上限）。",
         "cap": "符合首刷禮資格贈1個；不可當作現金回饋",
@@ -12776,6 +13236,188 @@ const cards = [
             }
           ]
         }
+      },
+      {
+        "rate": "權益",
+        "label": "秋楓冬雪漫遊趣・Q4旅遊滿額禮",
+        "sub": "10/1–12/31於指定40家旅行社／航空／旅遊平台以新臺幣刷卡，累積滿3萬／5萬／9萬元享500／1,000／2,000點玉山e point（擇優1份）；累積滿20萬元另享2,000元好禮即享券。外幣結帳及第三方／電子支付不適用（玉山Wallet除外）。",
+        "cap": "滿額禮最高2,000點＋加碼禮2,000元券，每歸戶各1份",
+        "capPeriod": "campaign",
+        "start": "2026-10-01",
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "scenarios": [],
+        "condition": "滿額禮於10/23、11/23、12/23 17:00起登錄（每月限1,600名、總4,800名，登錄一次即可）；加碼禮12/30 15:00起另行登錄、限660名；找到了旅行社分期交易不適用；回饋2027/2/25起陸續入帳",
+        "source": "https://event.esunbank.com.tw/credit/travel-campaign/index.html",
+        "checkedAt": "2026-11-13",
+        "verifiedFields": "期間／三段滿額與e point數／加碼禮門檻與名額／登錄時間與名額／指定通路完整名單／外幣與第三方支付排除／回饋時間",
+        "search": {
+          "status": "verified",
+          "reason": "活動注意事項完整列出34家旅行社與13家航空／旅遊平台；屬滿額禮，不換算成百分比排名。",
+          "merchants": [
+            "雄獅旅遊",
+            "旅天下",
+            "易遊網",
+            "可樂旅遊",
+            "東南旅遊",
+            "五福旅遊",
+            "鳳凰旅遊",
+            "ezfly易飛旅遊",
+            "喜鴻假期",
+            "長汎假期",
+            "山富旅遊",
+            "加利利旅行社",
+            "利百加旅遊",
+            "品冠旅遊",
+            "燦星旅遊",
+            "元本旅遊",
+            "百威假期",
+            "華友旅行",
+            "行健旅遊",
+            "大興旅行社",
+            "上順旅遊",
+            "凱旋旅行社",
+            "巨匠旅遊",
+            "巨大旅遊",
+            "世邦旅遊",
+            "太平洋旅行社",
+            "晴天旅行社",
+            "晴日旅行社",
+            "誠翔旅行社",
+            "珂境旅行社（Club Med）",
+            "賓士旅行社",
+            "金龍永盛旅行社",
+            "太一國際旅行社",
+            "找到了旅行社",
+            "星宇航空",
+            "中華航空",
+            "長榮航空",
+            "立榮航空",
+            "華信航空",
+            "台灣虎航",
+            "Klook",
+            "KKday",
+            "AsiaYo",
+            "Trip.com",
+            "Agoda",
+            "Expedia",
+            "Hotels.com"
+          ],
+          "aliases": {
+            "雄獅旅遊": [],
+            "旅天下": [],
+            "易遊網": [],
+            "可樂旅遊": [],
+            "東南旅遊": [],
+            "五福旅遊": [],
+            "鳳凰旅遊": [],
+            "ezfly易飛旅遊": [],
+            "喜鴻假期": [],
+            "長汎假期": [],
+            "山富旅遊": [],
+            "加利利旅行社": [],
+            "利百加旅遊": [],
+            "品冠旅遊": [],
+            "燦星旅遊": [],
+            "元本旅遊": [],
+            "百威假期": [],
+            "華友旅行": [],
+            "行健旅遊": [],
+            "大興旅行社": [],
+            "上順旅遊": [],
+            "凱旋旅行社": [],
+            "巨匠旅遊": [],
+            "巨大旅遊": [],
+            "世邦旅遊": [],
+            "太平洋旅行社": [],
+            "晴天旅行社": [],
+            "晴日旅行社": [],
+            "誠翔旅行社": [],
+            "珂境旅行社（Club Med）": [],
+            "賓士旅行社": [],
+            "金龍永盛旅行社": [],
+            "太一國際旅行社": [],
+            "找到了旅行社": [],
+            "星宇航空": [],
+            "中華航空": [],
+            "長榮航空": [],
+            "立榮航空": [],
+            "華信航空": [],
+            "台灣虎航": [],
+            "Klook": [],
+            "KKday": [],
+            "AsiaYo": [],
+            "Trip.com": [],
+            "Agoda": [],
+            "Expedia": [],
+            "Hotels.com": []
+          },
+          "source": "https://event.esunbank.com.tw/credit/travel-campaign/index.html",
+          "checkedAt": "2026-11-13",
+          "end": "2026-12-31",
+          "channels": [
+            "國內臺幣請款"
+          ],
+          "searchType": "perk",
+          "rules": [
+            {
+              "merchants": [
+                "雄獅旅遊",
+                "旅天下",
+                "易遊網",
+                "可樂旅遊",
+                "東南旅遊",
+                "五福旅遊",
+                "鳳凰旅遊",
+                "ezfly易飛旅遊",
+                "喜鴻假期",
+                "長汎假期",
+                "山富旅遊",
+                "加利利旅行社",
+                "利百加旅遊",
+                "品冠旅遊",
+                "燦星旅遊",
+                "元本旅遊",
+                "百威假期",
+                "華友旅行",
+                "行健旅遊",
+                "大興旅行社",
+                "上順旅遊",
+                "凱旋旅行社",
+                "巨匠旅遊",
+                "巨大旅遊",
+                "世邦旅遊",
+                "太平洋旅行社",
+                "晴天旅行社",
+                "晴日旅行社",
+                "誠翔旅行社",
+                "珂境旅行社（Club Med）",
+                "賓士旅行社",
+                "金龍永盛旅行社",
+                "太一國際旅行社",
+                "找到了旅行社",
+                "星宇航空",
+                "中華航空",
+                "長榮航空",
+                "立榮航空",
+                "華信航空",
+                "台灣虎航",
+                "Klook",
+                "KKday",
+                "AsiaYo",
+                "Trip.com",
+                "Agoda",
+                "Expedia",
+                "Hotels.com"
+              ],
+              "channels": [
+                "國內臺幣請款"
+              ],
+              "qualifier": "滿額禮非總回饋率；須登錄、新臺幣結帳，第三方／電子支付不適用（玉山Wallet除外）"
+            }
+          ]
+        }
       }
     ],
     "note": "網購加碼上限與訂閱總回饋上限分開計算，均為帳單週期。新申辦加碼另有資格與期限，不併入常態推薦。",
@@ -12991,6 +13633,235 @@ const cards = [
             "direct"
           ],
           "searchType": "cash"
+        }
+      },
+      {
+        "rate": "權益",
+        "label": "秋楓冬雪漫遊趣・Q4旅遊滿額禮",
+        "sub": "10/1–12/31於指定40家旅行社／航空／旅遊平台以新臺幣刷卡，累積滿3萬／5萬／9萬元享500／1,000／2,000點玉山e point（擇優1份）；累積滿20萬元另享2,000元好禮即享券。外幣結帳及第三方／電子支付不適用（玉山Wallet除外）。",
+        "cap": "滿額禮最高2,000點＋加碼禮2,000元券，每歸戶各1份",
+        "capPeriod": "campaign",
+        "start": "2026-10-01",
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "scenarios": [],
+        "condition": "滿額禮於10/23、11/23、12/23 17:00起登錄（每月限1,600名、總4,800名，登錄一次即可）；加碼禮12/30 15:00起另行登錄、限660名；找到了旅行社分期交易不適用；回饋2027/2/25起陸續入帳",
+        "source": "https://event.esunbank.com.tw/credit/travel-campaign/index.html",
+        "checkedAt": "2026-11-13",
+        "verifiedFields": "期間／三段滿額與e point數／加碼禮門檻與名額／登錄時間與名額／指定通路完整名單／外幣與第三方支付排除／回饋時間",
+        "search": {
+          "status": "verified",
+          "reason": "活動注意事項完整列出34家旅行社與13家航空／旅遊平台；屬滿額禮，不換算成百分比排名。",
+          "merchants": [
+            "雄獅旅遊",
+            "旅天下",
+            "易遊網",
+            "可樂旅遊",
+            "東南旅遊",
+            "五福旅遊",
+            "鳳凰旅遊",
+            "ezfly易飛旅遊",
+            "喜鴻假期",
+            "長汎假期",
+            "山富旅遊",
+            "加利利旅行社",
+            "利百加旅遊",
+            "品冠旅遊",
+            "燦星旅遊",
+            "元本旅遊",
+            "百威假期",
+            "華友旅行",
+            "行健旅遊",
+            "大興旅行社",
+            "上順旅遊",
+            "凱旋旅行社",
+            "巨匠旅遊",
+            "巨大旅遊",
+            "世邦旅遊",
+            "太平洋旅行社",
+            "晴天旅行社",
+            "晴日旅行社",
+            "誠翔旅行社",
+            "珂境旅行社（Club Med）",
+            "賓士旅行社",
+            "金龍永盛旅行社",
+            "太一國際旅行社",
+            "找到了旅行社",
+            "星宇航空",
+            "中華航空",
+            "長榮航空",
+            "立榮航空",
+            "華信航空",
+            "台灣虎航",
+            "Klook",
+            "KKday",
+            "AsiaYo",
+            "Trip.com",
+            "Agoda",
+            "Expedia",
+            "Hotels.com"
+          ],
+          "aliases": {
+            "雄獅旅遊": [],
+            "旅天下": [],
+            "易遊網": [],
+            "可樂旅遊": [],
+            "東南旅遊": [],
+            "五福旅遊": [],
+            "鳳凰旅遊": [],
+            "ezfly易飛旅遊": [],
+            "喜鴻假期": [],
+            "長汎假期": [],
+            "山富旅遊": [],
+            "加利利旅行社": [],
+            "利百加旅遊": [],
+            "品冠旅遊": [],
+            "燦星旅遊": [],
+            "元本旅遊": [],
+            "百威假期": [],
+            "華友旅行": [],
+            "行健旅遊": [],
+            "大興旅行社": [],
+            "上順旅遊": [],
+            "凱旋旅行社": [],
+            "巨匠旅遊": [],
+            "巨大旅遊": [],
+            "世邦旅遊": [],
+            "太平洋旅行社": [],
+            "晴天旅行社": [],
+            "晴日旅行社": [],
+            "誠翔旅行社": [],
+            "珂境旅行社（Club Med）": [],
+            "賓士旅行社": [],
+            "金龍永盛旅行社": [],
+            "太一國際旅行社": [],
+            "找到了旅行社": [],
+            "星宇航空": [],
+            "中華航空": [],
+            "長榮航空": [],
+            "立榮航空": [],
+            "華信航空": [],
+            "台灣虎航": [],
+            "Klook": [],
+            "KKday": [],
+            "AsiaYo": [],
+            "Trip.com": [],
+            "Agoda": [],
+            "Expedia": [],
+            "Hotels.com": []
+          },
+          "source": "https://event.esunbank.com.tw/credit/travel-campaign/index.html",
+          "checkedAt": "2026-11-13",
+          "end": "2026-12-31",
+          "channels": [
+            "國內臺幣請款"
+          ],
+          "searchType": "perk",
+          "rules": [
+            {
+              "merchants": [
+                "雄獅旅遊",
+                "旅天下",
+                "易遊網",
+                "可樂旅遊",
+                "東南旅遊",
+                "五福旅遊",
+                "鳳凰旅遊",
+                "ezfly易飛旅遊",
+                "喜鴻假期",
+                "長汎假期",
+                "山富旅遊",
+                "加利利旅行社",
+                "利百加旅遊",
+                "品冠旅遊",
+                "燦星旅遊",
+                "元本旅遊",
+                "百威假期",
+                "華友旅行",
+                "行健旅遊",
+                "大興旅行社",
+                "上順旅遊",
+                "凱旋旅行社",
+                "巨匠旅遊",
+                "巨大旅遊",
+                "世邦旅遊",
+                "太平洋旅行社",
+                "晴天旅行社",
+                "晴日旅行社",
+                "誠翔旅行社",
+                "珂境旅行社（Club Med）",
+                "賓士旅行社",
+                "金龍永盛旅行社",
+                "太一國際旅行社",
+                "找到了旅行社",
+                "星宇航空",
+                "中華航空",
+                "長榮航空",
+                "立榮航空",
+                "華信航空",
+                "台灣虎航",
+                "Klook",
+                "KKday",
+                "AsiaYo",
+                "Trip.com",
+                "Agoda",
+                "Expedia",
+                "Hotels.com"
+              ],
+              "channels": [
+                "國內臺幣請款"
+              ],
+              "qualifier": "滿額禮非總回饋率；須登錄、新臺幣結帳，第三方／電子支付不適用（玉山Wallet除外）"
+            }
+          ]
+        }
+      },
+      {
+        "rate": "+5",
+        "label": "大丸福岡天神店・每筆5%現金回饋",
+        "sub": "刷玉山信用卡於大丸百貨福岡天神店消費，每筆以日幣未稅金額換新臺幣計5%現金回饋，商店請款後次次月底回饋；手錶／化妝品專櫃現場5%折扣與10%免稅由店家提供，非銀行回饋。此為活動比率，與原卡回饋分開計算。",
+        "cap": "活動頁未載明上限",
+        "capPeriod": null,
+        "start": "2026-07-01",
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "scenarios": [],
+        "condition": "免登錄；排除簽帳金融卡、公司卡、採購卡；回饋時須持有有效玉山信用卡",
+        "source": "https://event.esunbank.com.tw/credit/1120424daimaru/index.html",
+        "checkedAt": "2026-11-13",
+        "verifiedFields": "期間／5%現金回饋計算方式（日幣未稅換新臺幣、逐筆捨去）／回饋時間／排除卡別；活動頁未列回饋上限",
+        "search": {
+          "status": "verified",
+          "reason": "單一具名門市，活動加碼獨立列示，不混入總率排名。",
+          "merchants": [
+            "大丸福岡天神店"
+          ],
+          "aliases": {
+            "大丸福岡天神店": [
+              "大丸百貨福岡天神店",
+              "Daimaru Fukuoka Tenjin"
+            ]
+          },
+          "source": "https://event.esunbank.com.tw/credit/1120424daimaru/index.html",
+          "checkedAt": "2026-11-13",
+          "end": "2026-12-31",
+          "channels": [
+            "日本實體（日圓）"
+          ],
+          "searchType": "perk",
+          "rules": [
+            {
+              "merchants": [
+                "大丸福岡天神店"
+              ],
+              "channels": [
+                "日本實體（日圓）"
+              ],
+              "qualifier": "額外5%現金回饋，非總回饋率"
+            }
+          ]
         }
       }
     ],
@@ -13398,92 +14269,6 @@ const cards = [
         }
       },
       {
-        "rate": "權益",
-        "label": "10月國內滿額禮・保暖披肩毯",
-        "sub": "10月國內消費3筆各滿999元，或累計滿30,000元；10/31前以正卡資料登錄，正附卡合計，須11/6前入帳。",
-        "cap": "每歸戶1份",
-        "start": "2026-10-01",
-        "end": "2026-10-31",
-        "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/kumamon_card",
-        "kind": "limited",
-        "audience": "all",
-        "scenarios": [],
-        "checkedAt": "2026-10-01",
-        "verifiedFields": "日期／回饋內容／上限／資格及登錄條件",
-        "capPeriod": "campaign",
-        "search": {
-          "status": "nonMerchant",
-          "reason": "國內一般消費達筆數/累積門檻贈披風毯，無指定商家型搜尋回饋，不作現金率。",
-          "merchants": [],
-          "aliases": {},
-          "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/kumamon_card",
-          "checkedAt": "2026-10-21",
-          "end": "2026-10-31",
-          "channels": [
-            "direct"
-          ],
-          "searchType": "perk"
-        }
-      },
-      {
-        "rate": "+1.5",
-        "label": "名古屋指定實體加碼",
-        "sub": "BicCamera、JR名古屋高島屋、名古屋PARCO、松坂屋名古屋、SUGI、吉卜力公園等指定店，累計滿新臺幣10,000元並登錄；僅重疊指定通路才可與其他層合計。",
-        "cap": "每歸戶整段活動500元",
-        "start": "2026-09-01",
-        "end": "2026-10-31",
-        "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/kumamon_card",
-        "kind": "limited",
-        "audience": "all",
-        "scenarios": [],
-        "checkedAt": "2026-10-01",
-        "verifiedFields": "日期／回饋內容／上限／資格及登錄條件",
-        "capPeriod": "campaign",
-        "search": {
-          "status": "verified",
-          "reason": "官方完整具名清單，活動額外回饋獨立列於權益，不混入總率排名。",
-          "merchants": [
-            "BicCamera（名古屋）",
-            "JR名古屋高島屋",
-            "名古屋PARCO",
-            "松坂屋名古屋店",
-            "SUGI藥局（名古屋）",
-            "吉卜力公園"
-          ],
-          "aliases": {
-            "BicCamera（名古屋）": [],
-            "JR名古屋高島屋": [],
-            "名古屋PARCO": [],
-            "松坂屋名古屋店": [],
-            "SUGI藥局（名古屋）": [],
-            "吉卜力公園": []
-          },
-          "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/kumamon_card",
-          "checkedAt": "2026-10-21",
-          "end": "2026-10-31",
-          "channels": [
-            "日本實體（日圓）"
-          ],
-          "searchType": "perk",
-          "rules": [
-            {
-              "merchants": [
-                "BicCamera（名古屋）",
-                "JR名古屋高島屋",
-                "名古屋PARCO",
-                "松坂屋名古屋店",
-                "SUGI藥局（名古屋）",
-                "吉卜力公園"
-              ],
-              "channels": [
-                "日本實體（日圓）"
-              ],
-              "qualifier": "額外加碼，非總回饋率；須登錄及達活動門檻"
-            }
-          ]
-        }
-      },
-      {
         "rate": "+5",
         "label": "九州JR博多City／AMU PLAZA",
         "sub": "指定九州館別各期累計滿2,000日圓；正附卡分算。首期8/20–9/30，其後依日曆月各自計算，10月回饋預計11/25入帳。",
@@ -13549,40 +14334,6 @@ const cards = [
       },
       {
         "rate": "權益",
-        "label": "JCB日本環球影城10月滿額回饋",
-        "sub": "園內實體日圓消費滿10,000日圓回饋2,000日圓。須事前登錄，限12,000卡；不含線上票券、飯店、停車。名額餘額未確認，不保證與其他優惠疊加。",
-        "cap": "每卡整段活動2,000日圓",
-        "start": "2026-10-01",
-        "end": "2026-10-31",
-        "source": "https://www.specialoffers.jcb/zh-tw/campaign/detail/usj/93849/",
-        "kind": "limited",
-        "audience": "all",
-        "scenarios": [
-          "旅日"
-        ],
-        "checkedAt": "2026-10-01",
-        "verifiedFields": "日期／回饋內容／上限／資格及登錄條件",
-        "capPeriod": "campaign",
-        "search": {
-          "status": "verified",
-          "reason": "限定園內實體日圓、事前登錄與滿額，不含飯店、停車、線上票券/周邊，不換成20%現金排名。",
-          "merchants": [
-            "日本環球影城園內實體消費"
-          ],
-          "aliases": {
-            "日本環球影城園內實體消費": []
-          },
-          "source": "https://www.specialoffers.jcb/zh-tw/campaign/detail/usj/93849/",
-          "checkedAt": "2026-10-21",
-          "end": "2026-10-31",
-          "channels": [
-            "physical"
-          ],
-          "searchType": "perk"
-        }
-      },
-      {
-        "rate": "權益",
         "label": "JCB三井OUTLET／LaLaport・10月開放登錄",
         "sub": "10/1日本時間10:00起事前登錄，限4,500卡；消費限11月日本指定實體店，滿80,000日圓回饋16,000日圓。10月消費不適用，名額餘額未確認。",
         "cap": "每卡整段活動16,000日圓",
@@ -13610,10 +14361,409 @@ const cards = [
           ],
           "searchType": "perk"
         }
+      },
+      {
+        "rate": "權益",
+        "label": "11–12月國內滿額禮・熊本熊14吋手提行李箱",
+        "sub": "11/12–12/31累積5筆國內一般消費、每筆滿500元（含特店分期，以總額計1次）；正附卡合併，須2027/1/6前請款入帳。",
+        "cap": "每歸戶1個",
+        "capPeriod": "campaign",
+        "start": "2026-11-12",
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "scenarios": [],
+        "condition": "12/31前以正卡人資料登錄一次",
+        "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/kumamon_card",
+        "checkedAt": "2026-11-13",
+        "verifiedFields": "期間／5筆各500元門檻／請款截止／每歸戶1個／登錄方式",
+        "search": {
+          "status": "nonMerchant",
+          "reason": "國內一般消費筆數門檻贈品，無指定商家。",
+          "merchants": [],
+          "aliases": {},
+          "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/kumamon_card",
+          "checkedAt": "2026-11-13",
+          "end": "2026-12-31",
+          "channels": [
+            "direct"
+          ],
+          "searchType": "perk"
+        }
+      },
+      {
+        "rate": "+3",
+        "label": "台灣中油直營站：當月滿3,000享3%",
+        "sub": "當月於台灣中油直營站累積消費滿3,000元，享3%玉山e point；每月須登錄（11月登錄11/23 12:00起至11/30），每月限量20,000名。此為活動比率，與原卡回饋分開計算。",
+        "cap": "每歸戶每月100點",
+        "capSpend": 3333,
+        "capPeriod": "month",
+        "start": "2026-10-01",
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "scenarios": [],
+        "condition": "每月登錄、每月限量20,000名",
+        "source": "https://event.esunbank.com.tw/credit/kumamon-card/campaign.html",
+        "checkedAt": "2026-11-13",
+        "verifiedFields": "期間／月累積3,000門檻／3%／每月100點上限／每月登錄時間與名額",
+        "search": {
+          "status": "verified",
+          "reason": "官方具名台灣中油直營站；加碼獨立列示，不混入總率排名。",
+          "merchants": [
+            "中油直營"
+          ],
+          "aliases": {
+            "中油直營": [
+              "中油",
+              "CPC",
+              "台灣中油直營站"
+            ]
+          },
+          "source": "https://event.esunbank.com.tw/credit/kumamon-card/campaign.html",
+          "checkedAt": "2026-11-13",
+          "end": "2026-12-31",
+          "channels": [
+            "physical"
+          ],
+          "searchType": "perk",
+          "rules": [
+            {
+              "merchants": [
+                "中油直營"
+              ],
+              "channels": [
+                "physical"
+              ],
+              "qualifier": "加碼3%非總率；當月滿3,000、每月登錄",
+              "aliases": {
+                "中油直營": [
+                  "台灣中油直營站"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "rate": "權益",
+        "label": "日本三越伊勢丹滿額回饋（最高3萬日圓）",
+        "sub": "於伊勢丹新宿店（含本館及男士館）、日本橋三越總店、銀座三越店累積滿20／40／60萬日圓，事後回饋1／2／3萬日圓；免登錄。",
+        "cap": "分兩階段，每階段每卡上限3萬日圓、各1次",
+        "capPeriod": "campaign",
+        "start": "2026-07-01",
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "scenarios": [],
+        "condition": "限指定3家門市以日圓支付；門檻依扣除稅金及其他折抵後之最終金額計算",
+        "source": "https://event.esunbank.com.tw/credit/kumamon-card/campaign.html",
+        "checkedAt": "2026-11-13",
+        "verifiedFields": "期間／三段門檻與回饋額／指定3門市／兩階段各上限3萬日圓／免登錄",
+        "search": {
+          "status": "verified",
+          "reason": "官方具名3家東京門市；滿額回饋不換算百分比。",
+          "merchants": [
+            "伊勢丹新宿店",
+            "日本橋三越總店",
+            "銀座三越店"
+          ],
+          "aliases": {
+            "伊勢丹新宿店": [
+              "Isetan Shinjuku",
+              "伊勢丹"
+            ],
+            "日本橋三越總店": [
+              "Nihombashi Mitsukoshi"
+            ],
+            "銀座三越店": [
+              "Ginza Mitsukoshi"
+            ]
+          },
+          "source": "https://event.esunbank.com.tw/credit/kumamon-card/campaign.html",
+          "checkedAt": "2026-11-13",
+          "end": "2026-12-31",
+          "channels": [
+            "日本實體（日圓）"
+          ],
+          "searchType": "perk",
+          "rules": [
+            {
+              "merchants": [
+                "伊勢丹新宿店",
+                "日本橋三越總店",
+                "銀座三越店"
+              ],
+              "channels": [
+                "日本實體（日圓）"
+              ],
+              "qualifier": "滿20／40／60萬日圓回饋1／2／3萬日圓，非總回饋率"
+            }
+          ]
+        }
+      },
+      {
+        "rate": "+5",
+        "label": "新申辦玉山帳戶自扣卡費：一般消費加碼5%",
+        "sub": "10/1–12/31期間新申辦玉山帳戶自動扣繳玉山卡費並登錄，活動期間新增一般消費加碼5%；2026/9/30已生效之自扣戶不適用。",
+        "cap": "每歸戶活動期間上限250元",
+        "capSpend": 5000,
+        "capPeriod": "campaign",
+        "start": "2026-10-01",
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "scenarios": [],
+        "condition": "限正卡人登錄；回饋前取消自扣即喪失資格；企業卡、採購卡、簽帳金融卡不適用",
+        "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/kumamon_card",
+        "checkedAt": "2026-11-13",
+        "verifiedFields": "期間／新申辦自扣與登錄資格／9/30已生效者排除／加碼5%／每歸戶250元上限",
+        "search": {
+          "status": "nonMerchant",
+          "reason": "一般消費加碼，無指定商家；限新申辦自扣戶。",
+          "merchants": [],
+          "aliases": {},
+          "source": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/kumamon_card",
+          "checkedAt": "2026-11-13",
+          "end": "2026-12-31",
+          "channels": [
+            "direct"
+          ],
+          "searchType": "perk"
+        }
+      },
+      {
+        "rate": "權益",
+        "label": "秋楓冬雪漫遊趣・Q4旅遊滿額禮",
+        "sub": "10/1–12/31於指定40家旅行社／航空／旅遊平台以新臺幣刷卡，累積滿3萬／5萬／9萬元享500／1,000／2,000點玉山e point（擇優1份）；累積滿20萬元另享2,000元好禮即享券。外幣結帳及第三方／電子支付不適用（玉山Wallet除外）。",
+        "cap": "滿額禮最高2,000點＋加碼禮2,000元券，每歸戶各1份",
+        "capPeriod": "campaign",
+        "start": "2026-10-01",
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "scenarios": [],
+        "condition": "滿額禮於10/23、11/23、12/23 17:00起登錄（每月限1,600名、總4,800名，登錄一次即可）；加碼禮12/30 15:00起另行登錄、限660名；找到了旅行社分期交易不適用；回饋2027/2/25起陸續入帳",
+        "source": "https://event.esunbank.com.tw/credit/travel-campaign/index.html",
+        "checkedAt": "2026-11-13",
+        "verifiedFields": "期間／三段滿額與e point數／加碼禮門檻與名額／登錄時間與名額／指定通路完整名單／外幣與第三方支付排除／回饋時間",
+        "search": {
+          "status": "verified",
+          "reason": "活動注意事項完整列出34家旅行社與13家航空／旅遊平台；屬滿額禮，不換算成百分比排名。",
+          "merchants": [
+            "雄獅旅遊",
+            "旅天下",
+            "易遊網",
+            "可樂旅遊",
+            "東南旅遊",
+            "五福旅遊",
+            "鳳凰旅遊",
+            "ezfly易飛旅遊",
+            "喜鴻假期",
+            "長汎假期",
+            "山富旅遊",
+            "加利利旅行社",
+            "利百加旅遊",
+            "品冠旅遊",
+            "燦星旅遊",
+            "元本旅遊",
+            "百威假期",
+            "華友旅行",
+            "行健旅遊",
+            "大興旅行社",
+            "上順旅遊",
+            "凱旋旅行社",
+            "巨匠旅遊",
+            "巨大旅遊",
+            "世邦旅遊",
+            "太平洋旅行社",
+            "晴天旅行社",
+            "晴日旅行社",
+            "誠翔旅行社",
+            "珂境旅行社（Club Med）",
+            "賓士旅行社",
+            "金龍永盛旅行社",
+            "太一國際旅行社",
+            "找到了旅行社",
+            "星宇航空",
+            "中華航空",
+            "長榮航空",
+            "立榮航空",
+            "華信航空",
+            "台灣虎航",
+            "Klook",
+            "KKday",
+            "AsiaYo",
+            "Trip.com",
+            "Agoda",
+            "Expedia",
+            "Hotels.com"
+          ],
+          "aliases": {
+            "雄獅旅遊": [],
+            "旅天下": [],
+            "易遊網": [],
+            "可樂旅遊": [],
+            "東南旅遊": [],
+            "五福旅遊": [],
+            "鳳凰旅遊": [],
+            "ezfly易飛旅遊": [],
+            "喜鴻假期": [],
+            "長汎假期": [],
+            "山富旅遊": [],
+            "加利利旅行社": [],
+            "利百加旅遊": [],
+            "品冠旅遊": [],
+            "燦星旅遊": [],
+            "元本旅遊": [],
+            "百威假期": [],
+            "華友旅行": [],
+            "行健旅遊": [],
+            "大興旅行社": [],
+            "上順旅遊": [],
+            "凱旋旅行社": [],
+            "巨匠旅遊": [],
+            "巨大旅遊": [],
+            "世邦旅遊": [],
+            "太平洋旅行社": [],
+            "晴天旅行社": [],
+            "晴日旅行社": [],
+            "誠翔旅行社": [],
+            "珂境旅行社（Club Med）": [],
+            "賓士旅行社": [],
+            "金龍永盛旅行社": [],
+            "太一國際旅行社": [],
+            "找到了旅行社": [],
+            "星宇航空": [],
+            "中華航空": [],
+            "長榮航空": [],
+            "立榮航空": [],
+            "華信航空": [],
+            "台灣虎航": [],
+            "Klook": [],
+            "KKday": [],
+            "AsiaYo": [],
+            "Trip.com": [],
+            "Agoda": [],
+            "Expedia": [],
+            "Hotels.com": []
+          },
+          "source": "https://event.esunbank.com.tw/credit/travel-campaign/index.html",
+          "checkedAt": "2026-11-13",
+          "end": "2026-12-31",
+          "channels": [
+            "國內臺幣請款"
+          ],
+          "searchType": "perk",
+          "rules": [
+            {
+              "merchants": [
+                "雄獅旅遊",
+                "旅天下",
+                "易遊網",
+                "可樂旅遊",
+                "東南旅遊",
+                "五福旅遊",
+                "鳳凰旅遊",
+                "ezfly易飛旅遊",
+                "喜鴻假期",
+                "長汎假期",
+                "山富旅遊",
+                "加利利旅行社",
+                "利百加旅遊",
+                "品冠旅遊",
+                "燦星旅遊",
+                "元本旅遊",
+                "百威假期",
+                "華友旅行",
+                "行健旅遊",
+                "大興旅行社",
+                "上順旅遊",
+                "凱旋旅行社",
+                "巨匠旅遊",
+                "巨大旅遊",
+                "世邦旅遊",
+                "太平洋旅行社",
+                "晴天旅行社",
+                "晴日旅行社",
+                "誠翔旅行社",
+                "珂境旅行社（Club Med）",
+                "賓士旅行社",
+                "金龍永盛旅行社",
+                "太一國際旅行社",
+                "找到了旅行社",
+                "星宇航空",
+                "中華航空",
+                "長榮航空",
+                "立榮航空",
+                "華信航空",
+                "台灣虎航",
+                "Klook",
+                "KKday",
+                "AsiaYo",
+                "Trip.com",
+                "Agoda",
+                "Expedia",
+                "Hotels.com"
+              ],
+              "channels": [
+                "國內臺幣請款"
+              ],
+              "qualifier": "滿額禮非總回饋率；須登錄、新臺幣結帳，第三方／電子支付不適用（玉山Wallet除外）"
+            }
+          ]
+        }
+      },
+      {
+        "rate": "+5",
+        "label": "大丸福岡天神店・每筆5%現金回饋",
+        "sub": "刷玉山信用卡於大丸百貨福岡天神店消費，每筆以日幣未稅金額換新臺幣計5%現金回饋，商店請款後次次月底回饋；手錶／化妝品專櫃現場5%折扣與10%免稅由店家提供，非銀行回饋。此為活動比率，與原卡回饋分開計算。",
+        "cap": "活動頁未載明上限",
+        "capPeriod": null,
+        "start": "2026-07-01",
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "scenarios": [],
+        "condition": "免登錄；排除簽帳金融卡、公司卡、採購卡；回饋時須持有有效玉山信用卡",
+        "source": "https://event.esunbank.com.tw/credit/1120424daimaru/index.html",
+        "checkedAt": "2026-11-13",
+        "verifiedFields": "期間／5%現金回饋計算方式（日幣未稅換新臺幣、逐筆捨去）／回饋時間／排除卡別；活動頁未列回饋上限",
+        "search": {
+          "status": "verified",
+          "reason": "單一具名門市，活動加碼獨立列示，不混入總率排名。",
+          "merchants": [
+            "大丸福岡天神店"
+          ],
+          "aliases": {
+            "大丸福岡天神店": [
+              "大丸百貨福岡天神店",
+              "Daimaru Fukuoka Tenjin"
+            ]
+          },
+          "source": "https://event.esunbank.com.tw/credit/1120424daimaru/index.html",
+          "checkedAt": "2026-11-13",
+          "end": "2026-12-31",
+          "channels": [
+            "日本實體（日圓）"
+          ],
+          "searchType": "perk",
+          "rules": [
+            {
+              "merchants": [
+                "大丸福岡天神店"
+              ],
+              "channels": [
+                "日本實體（日圓）"
+              ],
+              "qualifier": "額外5%現金回饋，非總回饋率"
+            }
+          ]
+        }
       }
     ],
     "note": "日本指定商店加碼依帳單期，PayPay回饋依日曆季，兩者不共用也不疊加。指定商店須能辨識請款名稱，訂房須由日本商店請款。",
-    "alert": "10月滿額禮與名古屋加碼需登錄；JCB環球影城限園內實體消費。日圓滿額回饋不當作不限額百分比推薦。",
+    "alert": "11–12月滿額禮、中油3%與自扣加碼需登錄；三越伊勢丹免登錄但限指定3家門市日圓交易。日圓滿額回饋不當作不限額百分比推薦。",
     "end": "2026-12-31",
     "fee": "正卡3,000元；首年免，次年帳單e化／玉山自扣／任一消費可免，附卡免",
     "feeSource": "https://www.esunbank.com/zh-tw/personal/credit-card/intro/bank-card/kumamon_card",
@@ -14497,6 +15647,188 @@ const cards = [
             }
           ]
         }
+      },
+      {
+        "rate": "權益",
+        "label": "秋楓冬雪漫遊趣・Q4旅遊滿額禮",
+        "sub": "10/1–12/31於指定40家旅行社／航空／旅遊平台以新臺幣刷卡，累積滿3萬／5萬／9萬元享500／1,000／2,000點玉山e point（擇優1份）；累積滿20萬元另享2,000元好禮即享券。外幣結帳及第三方／電子支付不適用（玉山Wallet除外）。回饋為玉山e point，不是哩程。",
+        "cap": "滿額禮最高2,000點＋加碼禮2,000元券，每歸戶各1份",
+        "capPeriod": "campaign",
+        "start": "2026-10-01",
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "scenarios": [],
+        "condition": "滿額禮於10/23、11/23、12/23 17:00起登錄（每月限1,600名、總4,800名，登錄一次即可）；加碼禮12/30 15:00起另行登錄、限660名；找到了旅行社分期交易不適用；回饋2027/2/25起陸續入帳",
+        "source": "https://event.esunbank.com.tw/credit/travel-campaign/index.html",
+        "checkedAt": "2026-11-13",
+        "verifiedFields": "期間／三段滿額與e point數／加碼禮門檻與名額／登錄時間與名額／指定通路完整名單／外幣與第三方支付排除／回饋時間",
+        "search": {
+          "status": "verified",
+          "reason": "活動注意事項完整列出34家旅行社與13家航空／旅遊平台；屬滿額禮，不換算成百分比排名。",
+          "merchants": [
+            "雄獅旅遊",
+            "旅天下",
+            "易遊網",
+            "可樂旅遊",
+            "東南旅遊",
+            "五福旅遊",
+            "鳳凰旅遊",
+            "ezfly易飛旅遊",
+            "喜鴻假期",
+            "長汎假期",
+            "山富旅遊",
+            "加利利旅行社",
+            "利百加旅遊",
+            "品冠旅遊",
+            "燦星旅遊",
+            "元本旅遊",
+            "百威假期",
+            "華友旅行",
+            "行健旅遊",
+            "大興旅行社",
+            "上順旅遊",
+            "凱旋旅行社",
+            "巨匠旅遊",
+            "巨大旅遊",
+            "世邦旅遊",
+            "太平洋旅行社",
+            "晴天旅行社",
+            "晴日旅行社",
+            "誠翔旅行社",
+            "珂境旅行社（Club Med）",
+            "賓士旅行社",
+            "金龍永盛旅行社",
+            "太一國際旅行社",
+            "找到了旅行社",
+            "星宇航空",
+            "中華航空",
+            "長榮航空",
+            "立榮航空",
+            "華信航空",
+            "台灣虎航",
+            "Klook",
+            "KKday",
+            "AsiaYo",
+            "Trip.com",
+            "Agoda",
+            "Expedia",
+            "Hotels.com"
+          ],
+          "aliases": {
+            "雄獅旅遊": [],
+            "旅天下": [],
+            "易遊網": [],
+            "可樂旅遊": [],
+            "東南旅遊": [],
+            "五福旅遊": [],
+            "鳳凰旅遊": [],
+            "ezfly易飛旅遊": [],
+            "喜鴻假期": [],
+            "長汎假期": [],
+            "山富旅遊": [],
+            "加利利旅行社": [],
+            "利百加旅遊": [],
+            "品冠旅遊": [],
+            "燦星旅遊": [],
+            "元本旅遊": [],
+            "百威假期": [],
+            "華友旅行": [],
+            "行健旅遊": [],
+            "大興旅行社": [],
+            "上順旅遊": [],
+            "凱旋旅行社": [],
+            "巨匠旅遊": [],
+            "巨大旅遊": [],
+            "世邦旅遊": [],
+            "太平洋旅行社": [],
+            "晴天旅行社": [],
+            "晴日旅行社": [],
+            "誠翔旅行社": [],
+            "珂境旅行社（Club Med）": [],
+            "賓士旅行社": [],
+            "金龍永盛旅行社": [],
+            "太一國際旅行社": [],
+            "找到了旅行社": [],
+            "星宇航空": [],
+            "中華航空": [],
+            "長榮航空": [],
+            "立榮航空": [],
+            "華信航空": [],
+            "台灣虎航": [],
+            "Klook": [],
+            "KKday": [],
+            "AsiaYo": [],
+            "Trip.com": [],
+            "Agoda": [],
+            "Expedia": [],
+            "Hotels.com": []
+          },
+          "source": "https://event.esunbank.com.tw/credit/travel-campaign/index.html",
+          "checkedAt": "2026-11-13",
+          "end": "2026-12-31",
+          "channels": [
+            "國內臺幣請款"
+          ],
+          "searchType": "perk",
+          "rules": [
+            {
+              "merchants": [
+                "雄獅旅遊",
+                "旅天下",
+                "易遊網",
+                "可樂旅遊",
+                "東南旅遊",
+                "五福旅遊",
+                "鳳凰旅遊",
+                "ezfly易飛旅遊",
+                "喜鴻假期",
+                "長汎假期",
+                "山富旅遊",
+                "加利利旅行社",
+                "利百加旅遊",
+                "品冠旅遊",
+                "燦星旅遊",
+                "元本旅遊",
+                "百威假期",
+                "華友旅行",
+                "行健旅遊",
+                "大興旅行社",
+                "上順旅遊",
+                "凱旋旅行社",
+                "巨匠旅遊",
+                "巨大旅遊",
+                "世邦旅遊",
+                "太平洋旅行社",
+                "晴天旅行社",
+                "晴日旅行社",
+                "誠翔旅行社",
+                "珂境旅行社（Club Med）",
+                "賓士旅行社",
+                "金龍永盛旅行社",
+                "太一國際旅行社",
+                "找到了旅行社",
+                "星宇航空",
+                "中華航空",
+                "長榮航空",
+                "立榮航空",
+                "華信航空",
+                "台灣虎航",
+                "Klook",
+                "KKday",
+                "AsiaYo",
+                "Trip.com",
+                "Agoda",
+                "Expedia",
+                "Hotels.com"
+              ],
+              "channels": [
+                "國內臺幣請款"
+              ],
+              "qualifier": "滿額禮非總回饋率；須登錄、新臺幣結帳，第三方／電子支付不適用（玉山Wallet除外）"
+            }
+          ]
+        }
       }
     ],
     "note": "本卡為世界卡：貴賓室12次，一般資格接送2趟。私銀／極致會員與登峰／菁英會員條件另列官網。續卡繳全額年費送5,000哩（2026）。 2026/9/1–12/31首次申辦及核卡、符合首刷禮且核卡30天內首次設定玉山帳戶自扣，加贈1,000哩，每正卡一次。前期續卡優惠碼開票及旅遊滿額活動至9/30，十月續行未核實。",
@@ -14615,76 +15947,6 @@ const cards = [
         }
       },
       {
-        "end": "2026-09-30",
-        "rate": "5",
-        "hi": true,
-        "label": "國外實體消費登錄加碼（2026/7/1–9/30）",
-        "sub": "每週二開放3,000名登錄名額，含原2.8%回饋",
-        "cap": "加碼2.2%整段活動共用450點／歸戶 · 可刷約20,454",
-        "scenarios": [
-          "旅日",
-          "旅韓",
-          "旅歐美"
-        ],
-        "kind": "limited",
-        "audience": "all",
-        "start": "2026-07-01",
-        "capPeriod": "campaign",
-        "capSpend": 20454,
-        "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/page_travel.html",
-        "checkedAt": "2026-10-01",
-        "verifiedFields": "舊檔2026/7/1–9/30／5%含2.8%／加碼2.2%每歸戶全檔450點／每週二3000名；Q4已由即時HTTP確認並另建層，舊檔不延長",
-        "suspendRanking": true,
-        "search": {
-          "status": "expired",
-          "reason": "原tier於2026/9/30到期，不以Q4續行延長舊層；不參與排名。",
-          "merchants": [],
-          "aliases": {},
-          "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/page_travel.html",
-          "checkedAt": "2026-10-21",
-          "end": "2026-09-30",
-          "channels": [
-            "direct"
-          ],
-          "searchType": "cash"
-        }
-      },
-      {
-        "rate": "12",
-        "hi": true,
-        "label": "Klook指定台港澳商品：最高12%點數",
-        "sub": "含基本1%；另送8%OFF折扣碼（折抵上限200元），不是同筆20%回饋。Visa、指定入口與代碼，需完成使用。",
-        "cap": "本檔點數上限500；限500組／每帳號一次",
-        "scenarios": [
-          "旅遊機票"
-        ],
-        "end": "2026-09-30",
-        "kind": "limited",
-        "audience": "all",
-        "start": "2026-08-20",
-        "capPeriod": "campaign",
-        "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/page_travel.html",
-        "checkedAt": "2026-10-01",
-        "verifiedFields": "僅確認中秋舊檔2026/8/20–9/30／12%含基本／500點及500組／Visa與代碼；不延長舊檔",
-        "search": {
-          "status": "expired",
-          "reason": "中秋Klook檔於2026/9/30到期，保留原期限；不參與排名。",
-          "merchants": [
-            "Klook"
-          ],
-          "aliases": {
-            "Klook": []
-          },
-          "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/page_travel.html",
-          "checkedAt": "2026-10-21",
-          "end": "2026-09-30",
-          "channels": [
-            "direct"
-          ],
-          "searchType": "cash"
-        }
-      },
-      {
         "rate": "1",
         "label": "一卡通大眾運輸（不含高鐵／計程車）",
         "sub": "綁卡後月累積每100元回饋1點，正附分算；依業者回傳資料月份計算，非所有一卡通消費。",
@@ -14713,42 +15975,6 @@ const cards = [
           "end": "2026-12-31",
           "channels": [
             "一卡通"
-          ],
-          "searchType": "cash"
-        }
-      },
-      {
-        "rate": "12",
-        "hi": true,
-        "label": "Klook國慶檔台港澳指定商品：最高12%點數",
-        "sub": "Visa指定入口與CTBCLP26CH4；活動期內購買並完成使用／出發／入住。12%含基本1%，另給8%OFF券（折抵上限200元），不可相加為同筆20%。",
-        "cap": "本檔點數上限500；限500組／每帳號一次",
-        "scenarios": [
-          "旅遊機票"
-        ],
-        "end": "2026-10-11",
-        "kind": "limited",
-        "audience": "all",
-        "start": "2026-09-10",
-        "capPeriod": "campaign",
-        "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/page_travel.html",
-        "checkedAt": "2026-10-01",
-        "verifiedFields": "國慶檔實際期間／12%含基本／500點與500組／每帳號一次／Visa代碼與完成使用條件",
-        "condition": "須使用LINE Pay Visa卡輸卡號或綁定LINE Pay付款，每帳號本檔一次；不能與Klook最高10%等優惠併用。",
-        "search": {
-          "status": "expired",
-          "reason": "國慶Klook檔於2026/10/11到期，不將另一期活動套用原tier；不參與排名。",
-          "merchants": [
-            "Klook"
-          ],
-          "aliases": {
-            "Klook": []
-          },
-          "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/page_travel.html",
-          "checkedAt": "2026-10-21",
-          "end": "2026-10-11",
-          "channels": [
-            "direct"
           ],
           "searchType": "cash"
         }
@@ -14811,9 +16037,58 @@ const cards = [
             "其他國家及歐洲排除完整名單仍待確認，不以此擴展全海外。"
           ]
         }
+      },
+      {
+        "rate": "12",
+        "hi": true,
+        "label": "Klook聖誕檔台港澳指定商品：最高12%點數",
+        "sub": "Visa指定入口與CTBCLP26CH5；活動期內購買並完成使用／出發／入住。12%含基本1%，另給8%OFF券（折抵上限200元），不可相加為同筆20%。",
+        "cap": "本檔點數上限500；限500組／每帳號一次",
+        "scenarios": [
+          "旅遊機票"
+        ],
+        "start": "2026-11-20",
+        "end": "2026-12-31",
+        "kind": "limited",
+        "audience": "all",
+        "capPeriod": "campaign",
+        "condition": "須以LINE Pay Visa卡線上輸卡號或綁定LINE Pay付款；每帳號本檔限用代碼一次；須實際完成使用／出發／入住才回饋",
+        "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/page_travel.html",
+        "checkedAt": "2026-11-13",
+        "verifiedFields": "聖誕檔期間11/20–12/31／代碼CTBCLP26CH5／12%含基本1%／500點上限與500組／每帳號一次／完成使用條件",
+        "search": {
+          "status": "verified",
+          "reason": "限Klook指定連結台港澳商品並輸入檔期代碼；需完成使用後回饋。",
+          "merchants": [
+            "Klook"
+          ],
+          "aliases": {
+            "Klook": [
+              "客路"
+            ]
+          },
+          "source": "https://www.ctbcbank.com/content/dam/minisite/long/creditcard/LINEPay/page_travel.html",
+          "checkedAt": "2026-11-13",
+          "end": "2026-12-31",
+          "channels": [
+            "online"
+          ],
+          "searchType": "cash",
+          "rules": [
+            {
+              "merchants": [
+                "Klook"
+              ],
+              "channels": [
+                "online"
+              ],
+              "qualifier": "限台港澳指定商品、指定入口與代碼CTBCLP26CH5；LINE Pay Visa卡；每帳號一次"
+            }
+          ]
+        }
       }
     ],
-    "note": "即時HTTP已確認海外5%續行2026/10/1–12/31，另建Q4層；450點是加碼2.2%的整檔歸戶上限，非每週重置。每週登錄3000名不等於保證回饋，另限總20000名。部分歐洲國家排除清單待複核。Q3舊層保留並停用；Klook國慶9/10–10/11另建一層，不覆蓋中秋檔。",
+    "note": "即時HTTP已確認海外5%續行2026/10/1–12/31，另建Q4層；450點是加碼2.2%的整檔歸戶上限，非每週重置。每週登錄3000名不等於保證回饋，另限總20000名。部分歐洲國家排除清單待複核。Q3海外舊層與中秋／國慶Klook檔均已到期移除；Klook聖誕檔11/20–12/31另建一層。",
     "end": "2026-12-31",
     "fee": "一般卡正卡1,800元／附卡900元；電子／行動帳單或LINE Pay綁卡可享免年費資格，依年費產生時公告",
     "feeSource": "https://service.ctbcbank.com/FAQ/Page01?kmid=11631@km",
@@ -15185,8 +16460,10 @@ function searchGroups(t){const r=searchRule(t);return r.rules?r.rules.map(g=>({.
 // Country context is explicit, never inferred from an arbitrary merchant name.
 const COUNTRY_NAMES=['日本','韓國','美國'];
 const COUNTRY_SPECIALS={
-  kumamon:{'日本指定商店加碼（+6%）':['日本'],'日本 PayPay 現金回饋（另免海外手續費）':['日本'],'JCB日本環球影城10月滿額回饋':['日本'],'名古屋指定實體加碼':['日本'],'九州JR博多City／AMU PLAZA':['日本']},
+  kumamon:{'日本指定商店加碼（+6%）':['日本'],'日本 PayPay 現金回饋（另免海外手續費）':['日本'],'日本三越伊勢丹滿額回饋（最高3萬日圓）':['日本'],'大丸福岡天神店・每筆5%現金回饋':['日本'],'九州JR博多City／AMU PLAZA':['日本']},
   jihe:{'日本實體 Apple/Google Pay 感應（需登錄）':['日本'],'前月帳單滿3萬 升級加碼':['日本'],'日本熱門商店（疊加天花板）':['日本'],'日本三大交通卡儲值':['日本'],'新戶日本實體消費加碼':['日本']},
+  unicard:{'大丸福岡天神店・每筆5%現金回饋':['日本']},
+  pi:{'大丸福岡天神店・每筆5%現金回饋':['日本']},
   'fubon-j':{'日本三大交通卡 Apple Pay 儲值':['日本']},
   cube:{'秋日遊：日本四大機場指定免稅店':['日本'],'秋日遊：日本指定品牌／餐廳預約平台':['日本']},
   'dbs-aov':{'星饗世界：海外實體餐飲活動':COUNTRY_NAMES},

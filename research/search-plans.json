@@ -1358,17 +1358,17 @@
   },
   {
     "cardId": "richart",
-    "scheme": "LINE Pay十月領券加碼（Q4活動）",
-    "label": "LINE Pay：Pay著刷＋十月券",
-    "end": "2026-10-31",
+    "scheme": "LINE Pay 11–12月領券加碼（Q4活動）",
+    "label": "LINE Pay：Pay著刷＋當月券（11–12月）",
+    "end": "2026-12-31",
     "source": "https://www.taishinbank.com.tw/TSB/personal/credit/intro/overview/future/77509a62-84c5-11f0-b432-0050568c09e3",
     "status": "verified",
-    "reason": "只提供支付服務查詢；期限沿用十月，不因Q4標題延長。",
+    "reason": "只提供支付服務查詢；期限依11–12月逐月領券表。",
     "merchants": [
       "LINE Pay"
     ],
     "aliases": {},
-    "checkedAt": "2026-10-21",
+    "checkedAt": "2026-11-13",
     "channels": [
       "LINE Pay"
     ],
@@ -1381,7 +1381,7 @@
         "channels": [
           "LINE Pay"
         ],
-        "qualifier": "須十月領券、Pay著刷／LEVEL2及臺灣臺幣；排除四大超商／稅費"
+        "qualifier": "須當月領券、Pay著刷／LEVEL2及臺灣臺幣；排除四大超商／稅費"
       }
     ]
   },
@@ -2566,23 +2566,6 @@
     "checkedAt": "2026-10-21",
     "channels": [
       "online"
-    ],
-    "searchType": "cash"
-  },
-  {
-    "cardId": "cube",
-    "scheme": "LINE Pay 領券加碼（2026/5/1–10/31）",
-    "label": "LINE Pay 綁定CUBE信用卡消費",
-    "end": "2026-10-31",
-    "source": "https://www.cathay-cube.com.tw/cathaybk/personal/event/overview/credit-card/bonus/202604/LINEPay-202604",
-    "status": "unresolved",
-    "reason": "瀏覽器已讀即時完整條款；需領券、LINE Pay/LINE Pay Money、帳單指定前綴，排除外送/海外/稅費/部分商場店。完整通路只指向App好康地圖且部分店排除未明列，無法建立安全完整商家表。",
-    "merchants": [],
-    "aliases": {},
-    "checkedAt": "2026-10-21",
-    "channels": [
-      "LINE Pay",
-      "LINE Pay Money"
     ],
     "searchType": "cash"
   },

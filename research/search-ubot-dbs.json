@@ -373,6 +373,57 @@
     ]
   },
   {
+    "scheme": null,
+    "aliases": {},
+    "checkedAt": "2026-11-13",
+    "cardId": "dbs-aov",
+    "label": "聚餐用星刷：國內餐飲最高12%（排名制）",
+    "status": "nonMerchant",
+    "reason": "以國內餐飲MCC類別認定並依金額排名，無具名商家清單。",
+    "merchants": [],
+    "source": "https://www.dbs.com.tw/personal-zh/cards/offers/2026q4dining/index.html",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "scheme": null,
+    "aliases": {
+      "台北捷運": [
+        "北捷",
+        "臺北捷運",
+        "Taipei Metro"
+      ]
+    },
+    "checkedAt": "2026-11-13",
+    "cardId": "dbs-aov",
+    "label": "Apple Pay搭北捷：達指定天數次日免費（全卡友）",
+    "status": "verified",
+    "reason": "限台北捷運全線且Apple Pay感應。",
+    "merchants": [
+      "台北捷運"
+    ],
+    "source": "https://www.dbs.com.tw/personal-zh/cards/offers/applepaytpmrt/default.html",
+    "end": "2026-12-31",
+    "channels": [
+      "Apple Pay"
+    ],
+    "searchType": "perk",
+    "rules": [
+      {
+        "merchants": [
+          "台北捷運"
+        ],
+        "channels": [
+          "Apple Pay"
+        ],
+        "qualifier": "每月登錄；名額依搭乘金額排序；每月最高100元"
+      }
+    ]
+  },
+  {
     "cardId": "dbs-eco",
     "scheme": null,
     "label": "國內外一般消費（基本）",
@@ -517,36 +568,6 @@
         "qualifier": "限指定商家請款，不含LINE Pay、街口與分期"
       }
     ]
-  },
-  {
-    "cardId": "dbs-eco",
-    "scheme": null,
-    "label": "「刷出星級生活」行動支付加碼（需每月登錄）",
-    "status": "expired",
-    "reason": "本層已過期，未套用其他活動的續期；不參與搜尋推薦。",
-    "merchants": [],
-    "aliases": {},
-    "source": "https://www.dbs.com.tw/personal-zh/cards/offers/2026q2atl/index.html",
-    "end": "2026-08-31",
-    "channels": [
-      "direct"
-    ],
-    "searchType": "cash"
-  },
-  {
-    "cardId": "dbs-eco",
-    "scheme": null,
-    "label": "新戶 LINE Pay 加碼（限新戶）",
-    "status": "expired",
-    "reason": "本層已過期，未套用其他活動的續期；不參與搜尋推薦。",
-    "merchants": [],
-    "aliases": {},
-    "source": "https://www.dbs.com.tw/personal-zh/cards/dbs_eco/index.html",
-    "end": "2026-09-30",
-    "channels": [
-      "direct"
-    ],
-    "searchType": "cash"
   },
   {
     "cardId": "dbs-eco",
@@ -723,6 +744,57 @@
           "國內臺幣請款"
         ],
         "qualifier": "額外活動；月滿2萬、登錄且依金額排名限500名"
+      }
+    ]
+  },
+  {
+    "scheme": null,
+    "aliases": {},
+    "checkedAt": "2026-11-13",
+    "cardId": "dbs-eco",
+    "label": "聚餐用星刷：國內餐飲最高12%（排名制）",
+    "status": "nonMerchant",
+    "reason": "以國內餐飲MCC類別認定並依金額排名，無具名商家清單。",
+    "merchants": [],
+    "source": "https://www.dbs.com.tw/personal-zh/cards/offers/2026q4dining/index.html",
+    "end": "2026-12-31",
+    "channels": [
+      "direct"
+    ],
+    "searchType": "perk"
+  },
+  {
+    "scheme": null,
+    "aliases": {
+      "台北捷運": [
+        "北捷",
+        "臺北捷運",
+        "Taipei Metro"
+      ]
+    },
+    "checkedAt": "2026-11-13",
+    "cardId": "dbs-eco",
+    "label": "Apple Pay搭北捷：達指定天數次日免費（全卡友）",
+    "status": "verified",
+    "reason": "限台北捷運全線且Apple Pay感應。",
+    "merchants": [
+      "台北捷運"
+    ],
+    "source": "https://www.dbs.com.tw/personal-zh/cards/offers/applepaytpmrt/default.html",
+    "end": "2026-12-31",
+    "channels": [
+      "Apple Pay"
+    ],
+    "searchType": "perk",
+    "rules": [
+      {
+        "merchants": [
+          "台北捷運"
+        ],
+        "channels": [
+          "Apple Pay"
+        ],
+        "qualifier": "每月登錄；名額依搭乘金額排序；每月最高100元"
       }
     ]
   },
@@ -1529,7 +1601,7 @@
   {
     "cardId": "mcard",
     "scheme": null,
-    "label": "Mastercard海外指定商戶（十月最高12%，細項待核實）",
+    "label": "Mastercard海外指定商戶（最高20%，細項待核實）",
     "status": "unresolved",
     "reason": "Mastercard個別商戶完整優惠與啟用條件位於登入後頁面；未取得授權資料，不猜測最高率適用所有商家。",
     "merchants": [],
@@ -1539,7 +1611,8 @@
     "channels": [
       "direct"
     ],
-    "searchType": "perk"
+    "searchType": "perk",
+    "checkedAt": "2026-11-13"
   },
   {
     "cardId": "mcard",

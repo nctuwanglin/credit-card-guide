@@ -235,12 +235,13 @@ test('October insurance uses Q4 promotion and falls back to standard when limite
   assert.equal(b.run("bestOffer(cards.find(c=>c.id==='fubon-j'),'保費').rate"),'0.5');
   assert.equal(b.run("bestOffer(cards.find(c=>c.id==='costco'),'保費').rate"),'0.5');
 });
-test('October Kumamon gifts are visible without inflating Japan reward ranking',()=>{
-  const b=boot(undefined,'2026-10-01T12:00:00+08:00');
+test('November Kumamon gifts are visible without inflating Japan reward ranking',()=>{
+  const b=boot(undefined,'2026-11-13T12:00:00+08:00');
   assert.equal(b.run("bestOffer(cards.find(c=>c.id==='kumamon'),'旅日').rate"),'8.5');
   const rendered=b.get('grid').children.map(c=>c.innerHTML).join('');
-  assert.match(rendered,/環球影城/);
-  assert.match(rendered,/披肩毯/);
+  assert.match(rendered,/三越伊勢丹/);
+  assert.match(rendered,/行李箱/);
+  assert.doesNotMatch(rendered,/披肩毯|環球影城10月/);
 });
 test('cards do not display audit records while retaining official links',()=>{const b=boot();const rendered=b.get('grid').children.map(c=>c.innerHTML).join('');assert.doesNotMatch(rendered,/資料來源與查證紀錄|class="audit"/);assert.match(rendered,/信用卡官網/);});
 function boot(saved, now='2026-09-08T12:00:00+08:00'){
@@ -333,9 +334,12 @@ test('DAWHO Plus auto topup participates in conditional maximum',()=>{
   assert.equal(boot().run("bestOffer(cards.find(c=>c.name.includes('DAWHO')),'悠遊卡加值').value"),5);
 });
 test('LINE Pay card overseas and Klook offers appear in their scenarios',()=>{
-  const b=boot(undefined,'2026-10-01T12:00:00+08:00');
+  const b=boot(undefined,'2026-11-25T12:00:00+08:00');
   assert.equal(b.run("bestOffer(cards.find(c=>c.id==='ctbc-linepay'),'旅日').value"),5);
   assert.equal(b.run("bestOffer(cards.find(c=>c.id==='ctbc-linepay'),'旅遊機票').value"),12);
+  // 聖誕檔11/20才開始：開始前不得提前推薦12%
+  const early=boot(undefined,'2026-11-13T12:00:00+08:00');
+  assert.notEqual(early.run("bestOffer(cards.find(c=>c.id==='ctbc-linepay'),'旅遊機票')?.value??0"),12);
 });
 test('known formula cap remains visible without numeric spending capacity',()=>{
   const b=boot();b.run("cards.push({id:'formula-cap',name:'公式上限',tags:['網購'],tiers:[{rate:'99',scenarios:['網購'],cap:'信用額度加50萬元'}]});visibleCards.add('formula-cap');activeScenario='網購';renderReco()");
